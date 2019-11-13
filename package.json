@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/MLSandoval/ul-backpacks-store#readme",
   "dependencies": {
+    "bootstrap": "^4.3.1",
     "react": "^16.11.0",
     "react-dom": "^16.11.0"
   },
