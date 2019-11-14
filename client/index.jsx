@@ -6,3 +6,7 @@ ReactDOM.render(
     <App />, 
     document.querySelector("#root")
 );
+// ReactDOM.render(
+//     <div>Helllo world!</div>, 
+//     document.querySelector("#root")
+// );

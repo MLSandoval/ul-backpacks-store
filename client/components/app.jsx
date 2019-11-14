@@ -1,19 +1,26 @@
-import react from 'react';
-//import all other components used in the app parent component
+import React from 'react';
+import Header from './header.jsx';
+import 'bootstrap/dist/css/bootstrap.min.css';
+// import ProductDetails from './productDetails.jsx';
+// import ProductList from './productList.jsx';
+// import CartSummary from './cartSummary.jsx';
+// import CheckoutForm from './checkoutForm.jsx';
 
 export default class App extends React.Component {
-    constructor(props){
-        super(props);
+  constructor(props) {
+    super(props);
 
-        this.state = {
+    this.state = {};
 
-        },
-    }
-}
+  }
 
-render(){
-
-    return(
-        
+  render() {
+    return (
+      <div className="container">
+        <div className="row">
+          <Header />
+        </div>
+      </div>
     );
+  }
 }
