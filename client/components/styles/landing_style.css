@@ -1,5 +1,7 @@
 .landing-container{
-    background: url('../../../images/backgrounds/BP_landscape_4.jpeg') no-repeat contain center center;
-    
-
+    background: url('../images/backgrounds/BP_landscape_4.jpeg') no-repeat top center;
+    background-size: contain;
+    color: blue;
+    height: 100vh;
+    width: 100vw;
 }
