@@ -1,0 +1,38 @@
+.landing-header{
+    z-index: 1;
+    background-color: rgba(116, 112, 112, 0.95);
+    width: 100vw;
+}
+.text{
+    color:red;
+    /* height: calc(.33*100vh); */
+    position: absolute;
+    left: 0;
+    top: 50%;
+    width: 100%;
+    text-align: center;
+}
+.bg{
+    height: calc(.55*100vh);
+    width: 100vw;
+    /* position: relative; */
+    opacity: 0.9;
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+
+}
+.bg-1{
+    height: 85vh;
+    background-image: url('../images/backgrounds/BP_landscape_3.jpg');
+}
+.text-1{
+    height: 15vh;
+}
+.bg-2{
+    background-image: url('../images/backgrounds/BP_landscape_4.jpeg');
+}
+.bg-3{
+    background-image: url('../images/backgrounds/BP_landscape_1.jpg');
+}
