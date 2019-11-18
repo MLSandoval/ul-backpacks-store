@@ -7,17 +7,9 @@ export default function Landing (props){
         <div className="position-fixed landing-header navbar">
           <div className="container-fluid">
             <div className="row">
-              <div className="col-12 row">UltraLite
-                <div className="products col-4 dropdown">
-                    <button className="dropdown-toggle" 
-                    type="button"
-                    data-toggle="dropdown">
-                        Products
-                    </button>
-                    <div className="dropdown-menu">
-                        <a href="www.google.com" className="dropdown-item">Backpacking Bags</a>
-                    </div>
-                </div>
+              <div className="col-12 row">
+                UltraLite
+                <div className="align-self-end products col-4 dropdown"></div>
               </div>
             </div>
           </div>
@@ -37,7 +29,7 @@ export default function Landing (props){
               Est sit amet facilisis magna etiam tempor orci eu. Lacus sed
               viverra tellus in hac habitasse platea dictumst vestibulum. Rutrum
               tellus pellentesque eu tincidunt tortor aliquam. Porta nibh
-              venenatis cras sed felis eget velit. 
+              venenatis cras sed felis eget velit.
             </div>
             <div className="bg bg-2 col-12">BG-2</div>
             <div className="text text-2 col-12">
@@ -69,7 +61,7 @@ export default function Landing (props){
     );
 }
 
-<div class="dropdown">
+{/* <div class="dropdown">
   <button
     class="btn btn-secondary dropdown-toggle"
     type="button"
@@ -91,4 +83,4 @@ export default function Landing (props){
       Something else here
     </a>
   </div>
-</div>;
+</div>; */}
