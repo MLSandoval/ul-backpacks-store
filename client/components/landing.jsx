@@ -1,12 +1,16 @@
 import React from 'react';
+
+
+
+
 import './styles/landing_style.css';
-import Header from './header';
-import Footer from './footer'
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import Header from './header.jsx';
+import Footer from './footer.jsx';
+
 
 export default function Landing (props){
   return (
-    <Router>
+    <React.Fragment>
       <Header viewProducts={props.viewProducts} />
       <div className="container-fluid">
         <div className="row">
@@ -51,74 +55,6 @@ export default function Landing (props){
         </div>
       </div>
       <Footer />
-    </Router>
+    </React.Fragment>
   );
 }
-
-
-// export default function App() {
-//   return (
-//     <Router>
-//       <div>
-//         <nav>
-//           <ul>
-//             <li>
-//               <Link to="/">Home</Link>
-//             </li>
-//             <li>
-//               <Link to="/about">About</Link>
-//             </li>
-//             <li>
-//               <Link to="/users">Users</Link>
-//             </li>
-//           </ul>
-//         </nav>
-
-//         {/* A <Switch> looks through its children <Route>s and
-//             renders the first one that matches the current URL. */}
-//         <Switch>
-//           <Route path="/about">
-//             <About />
-//           </Route>
-//           <Route path="/users">
-//             <Users />
-//           </Route>
-//           <Route path="/">
-//             <Home />
-//           </Route>
-//         </Switch>
-//       </div>
-//     </Router>
-//   );
-// }
-
-
-
-
-
-
-
-
-{/* <div class="dropdown">
-  <button
-    class="btn btn-secondary dropdown-toggle"
-    type="button"
-    id="dropdownMenuButton"
-    data-toggle="dropdown"
-    aria-haspopup="true"
-    aria-expanded="false"
-  >
-    Dropdown button
-  </button>0
-  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-    <a class="dropdown-item" href="#">
-      Action
-    </a>
-    <a class="dropdown-item" href="#">
-      Another action
-    </a>
-    <a class="dropdown-item" href="#">
-      Something else here
-    </a>
-  </div>
-</div>; */}

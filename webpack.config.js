@@ -44,6 +44,7 @@ module.exports = {
     stats: "minimal",
     proxy: {
       "/api": "http://localhost:3000"
-    }
+    },
+    historyApiFallback: true
   }
 };

@@ -1,8 +1,11 @@
 import React from 'react';
-import Landing from './landing.jsx';
-import Header from './header.jsx';
+import {connect} from 'react-redux';
+import {push} from 'react-router-redux';
+
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import Landing from './landing.jsx';
+import ProductsList from './productsList.jsx';
+import Header from './header.jsx';
 
 export default class App extends React.Component {
   constructor(props) {
@@ -16,11 +19,18 @@ export default class App extends React.Component {
     this.setView = this.setView.bind(this);
   }
 
-  landing(){
-    return(
-      <Landing/>
-    );
+  landingComponent(){
+    return <Landing viewProducts={this.setView} />;
   }
+
+  productsListComponent(){
+    return <ProductsList/>;
+  }
+
+  headerComponent(){
+    return <Header/>;
+  }
+
   setView(view, params = {}){
     console.log('setview in app called, view/ params: ', view, params);
     this.setState({view, params});
@@ -28,9 +38,18 @@ export default class App extends React.Component {
 
   render() {
     return(
+     
       <Router>
-        <Landing viewProducts={this.setView}/>
+        <Route path={"/" || "/welcome"} component={this.landingComponent}/>
+        <Route path="/products-list" component={this.productsListComponent}/>
+        <Route path="/test" component={this.headerComponent}/>
       </Router>
+
+      
+
+
+      // landingComponent()
+     
     );
   }
 
