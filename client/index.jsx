@@ -24,12 +24,12 @@ const reducers = combineReducers({register: rootReducer, router: routerReducer})
 const store = createStore(reducers, composeWithDevTools(applyMiddleware(thunk)));
 
 ReactDOM.render(
-  <Provider store={store}>
-    <Router history={history}>
+  // <Provider store={store}>
+    // <Router history={history}>
       <div>
         <App />
-      </div>
-    </Router>
-  </Provider>,
+      </div>,
+    // </Router>
+  // </Provider>,
   document.getElementById("root")
 );

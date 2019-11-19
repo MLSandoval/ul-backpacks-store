@@ -1,11 +1,9 @@
 .text{
     color:red;
     /* height: calc(.33*100vh); */
-    position: absolute;
-    left: 0;
-    top: 50%;
-    width: 100%;
+    
     text-align: center;
+    background-color: white;
 }
 .bg{
     height: calc(.65*100vh);

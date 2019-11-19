@@ -15,6 +15,7 @@ const mysql = require("mysql2");
 const creds = require("./sql_creds");
 const db = mysql.createPool(creds);
 
+//json server stuff
 const jsonServer = require("json-server");
 const server = jsonServer.create();
 const router = jsonServer.router("../../db.json");

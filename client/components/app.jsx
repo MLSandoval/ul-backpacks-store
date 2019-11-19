@@ -17,6 +17,9 @@ export default class App extends React.Component {
     };
 
     this.setView = this.setView.bind(this);
+    this.landingComponent = this.landingComponent.bind(this);
+    this.productsListComponent = this.productsListComponent.bind(this);
+    this.headerComponent = this.headerComponent.bind(this);
   }
 
   landingComponent(){
@@ -27,6 +30,7 @@ export default class App extends React.Component {
     return <ProductsList/>;
   }
 
+  //will remove header after routing is figured out, have as ex for now
   headerComponent(){
     return <Header/>;
   }
@@ -39,16 +43,16 @@ export default class App extends React.Component {
   render() {
     return(
      
-      <Router>
-        <Route path={"/" || "/welcome"} component={this.landingComponent}/>
-        <Route path="/products-list" component={this.productsListComponent}/>
-        <Route path="/test" component={this.headerComponent}/>
-      </Router>
+      // <Router>
+      //   <Route path={"/" || "/welcome"} component={this.landingComponent}/>
+      //   <Route path="/products-list" component={this.productsListComponent}/>
+      //   <Route path="/test" component={this.headerComponent}/>
+      // </Router>
 
       
 
 
-      // landingComponent()
+      this.landingComponent()
      
     );
   }
