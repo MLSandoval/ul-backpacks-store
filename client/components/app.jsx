@@ -49,11 +49,7 @@ export default class App extends React.Component {
       //   <Route path="/test" component={this.headerComponent}/>
       // </Router>
 
-      
-
-
       this.landingComponent()
-     
     );
   }
 
