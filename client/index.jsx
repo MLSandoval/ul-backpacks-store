@@ -4,7 +4,7 @@ import ReactDOM from "react-dom";
 import { Provider } from "react-redux"; //provides the app state information from redux to the application
 import {ConnectedRouter as Router, routerReducer, routerMiddleware} from 'react-router-redux';
 
-import { Switch, Route, Link } from "react-router-dom";
+
 import { createStore, applyMiddleware, combineReducers } from "redux";
 
 import thunk from 'redux-thunk';

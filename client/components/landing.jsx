@@ -8,6 +8,8 @@ import './styles/landing_style.css';
 import Header from './header.jsx';
 import Footer from './footer.jsx';
 
+import { Switch, Route, Link } from "react-router-dom";
+
 class Landing extends React.Component {
   constructor(props){
     super(props);

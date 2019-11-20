@@ -7,6 +7,8 @@ import PropTypes from 'prop-types';
 
 import "./styles/header_style.css";
 
+import { Switch, Route, Link } from "react-router-dom";
+
 class Header extends React.Component {
   constructor(props){
     super(props);

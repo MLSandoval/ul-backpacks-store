@@ -8,6 +8,8 @@ import Landing from './landing.jsx';
 // import ProductsList from './productsList.jsx';
 // import Header from './header.jsx';
 
+import { Switch, Route, Link } from "react-router-dom";
+
 export default class App extends React.Component {
 
   render() {
@@ -16,18 +18,18 @@ export default class App extends React.Component {
     console.log('this.props: ', this.props)
     if (this.props.state.view === 'landingView'){
       return (
-        // <Router>
+        // 
         //   <Route path={"/" || "/welcome"} component={Landing}/>
         //   <Route path="/products-list" component={ProductList}/>
-        // </Router>
+        // 
         <Landing/>
       );
     } else if (this.props.state.view === 'productListView'){
       return (
-         // <Router>
+         
         //   <Route path={"/" || "/welcome"} component={Landing}/>
         //   <Route path="/products-list" component={ProductList}/>
-        // </Router>
+        
         <ProductList />
       );
     }else{
