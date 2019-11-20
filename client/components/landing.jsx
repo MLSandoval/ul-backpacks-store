@@ -2,6 +2,8 @@ import React from 'react';
 
 import { connect } from 'react-redux';
 
+import { setView } from '../actions';
+
 import './styles/landing_style.css';
 import Header from './header.jsx';
 import Footer from './footer.jsx';
@@ -13,7 +15,7 @@ class Landing extends React.Component {
   render(){
     return (
       <React.Fragment>
-        <Header viewProducts={props.viewProducts} />
+        <Header/>
         <div className="container-fluid">
           <div className="row">
             <div className="bg bg-1 col-12">BG-1</div>
@@ -62,23 +64,22 @@ class Landing extends React.Component {
   }
 }
 
-mapStateToProps(state){
-  console.log('state in landing.jsx component: ', state);
+//takes a single parameter, the entirety of the redux state, whatever this function returns will be added to the components props
+function mapStateToProps(state) {
+  console.log('state in header.jsx component: ', state);
   // console.log('Redux state in Clock Component: ', state);
   return {
-    viewProductsList: state.
+    //this becomes a property inside of the props of this component
+    view: state.app.view,
 
-    //this time becomes a property inside of the props of this component
-    time: state.clock.time,
 
-    //this clock property imports the date property from the clock reducer
-    date: state.clock.date,
-
-    //adds another property to this components props, textColor
-    textColor: state.theme.textColor
   };
 }
 
-export default connect(mapStatetoProps){
-
-}
+//connect takes 2 arguments, the mapStateToProps function, and another
+//the connect function returns a function that we curry to the component we are working on, ie we call connect with its parameter, 
+//return a function, and then call that function with the curried parameter that follows
+//connect takes the second paramter, and object with methods, and then connects them to our components props
+export default connect(mapStateToProps, {
+  setView: setView
+})(Landing);

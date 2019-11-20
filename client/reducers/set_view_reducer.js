@@ -8,7 +8,7 @@ const DEFAULT_STATE = {
 
 //takes 2 parameters, current state this reducer is responsible for, and the action
 //when app starts, current state coming in will be undfined, need default value to cover it
-function viewProductsListReducer(state = DEFAULT_STATE, action) { //action = {type: 'SET_VIEW'}
+function setViewReducer(state = DEFAULT_STATE, action) { //action = {type: 'SET_VIEW'}
     // console.log('Clock reducer action: ', action);
     switch (action.type) {
         case types.SET_VIEW:
@@ -20,4 +20,4 @@ function viewProductsListReducer(state = DEFAULT_STATE, action) { //action = {ty
     };
 }
 
-export default viewProductsListReducer;
+export default setViewReducer;

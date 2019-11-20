@@ -3,55 +3,38 @@ import {connect} from 'react-redux';
 import {push} from 'react-router-redux';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
-// import Landing from './landing.jsx';
+import ProductList from './productsList';
+import Landing from './landing.jsx';
 // import ProductsList from './productsList.jsx';
 // import Header from './header.jsx';
 
 export default class App extends React.Component {
-  constructor(props) {
-    super(props);
-
-    // this.state = {
-    //   view: 'landing',
-    //   params: {}
-    // };
-
-    // this.setView = this.setView.bind(this);
-    // this.landingComponent = this.landingComponent.bind(this);
-    // this.productsListComponent = this.productsListComponent.bind(this);
-    // this.headerComponent = this.headerComponent.bind(this);
-  }
-
-  // landingComponent(){
-  //   return <Landing 
-  //   // viewProducts={this.setView} 
-  //   />;
-  // }
-
-  // productsListComponent(){
-  //   return <ProductsList/>;
-  // }
-
-  // //will remove header after routing is figured out, have as ex for now
-  // headerComponent(){
-  //   return <Header/>;
-  // }
-
-  // setView(view, params = {}){
-  //   console.log('setview in app called, view/ params: ', view, params);
-  //   this.setState({view, params});
-  // }
 
   render() {
-    if (this.state.view === 'landingView'){
+    console.log("this: ");
+    console.table(this);
+    console.log('this.props: ', this.props)
+    if (this.props.state.view === 'landingView'){
       return (
         // <Router>
-        //   <Route path={"/" || "/welcome"} component={this.landingComponent}/>
-        //   <Route path="/products-list" component={this.productsListComponent}/>
-        //   <Route path="/test" component={this.headerComponent}/>
+        //   <Route path={"/" || "/welcome"} component={Landing}/>
+        //   <Route path="/products-list" component={ProductList}/>
         // </Router>
-        this.landingComponent()
+        <Landing/>
       );
+    } else if (this.props.state.view === 'productListView'){
+      return (
+         // <Router>
+        //   <Route path={"/" || "/welcome"} component={Landing}/>
+        //   <Route path="/products-list" component={ProductList}/>
+        // </Router>
+        <ProductList />
+      );
+    }else{
+      return(
+        <div>Uhohhhhh</div>
+      );
+      
     }
     
   }

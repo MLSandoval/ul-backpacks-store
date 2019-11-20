@@ -1,4 +1,4 @@
 //exporting the 'types' object, with corresponding property
 export default {
-    SET_VIEW: 'set_view',
+    SET_VIEW: 'SET_VIEW',
 }

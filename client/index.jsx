@@ -20,16 +20,18 @@ import rootReducer from "./reducers";
 import App from "./components/app.jsx";
 
 
-const reducers = combineReducers({register: rootReducer, router: routerReducer});
-const store = createStore(reducers, composeWithDevTools(applyMiddleware(thunk)));
+// const reducers = combineReducers({register: rootReducer, router: routerReducer});
+// const store = createStore(reducers, composeWithDevTools(applyMiddleware(thunk)));
+const store = createStore(rootReducer);
+console.log('store: ', store);
 
 ReactDOM.render(
-  // <Provider store={store}>
-    // <Router history={history}>
-      <div>
-        <App />
-      </div>,
-    // </Router>
-  // </Provider>,
+  <Provider store={store}>
+    {/* <Router> */}
+      <App />
+    {/* </Router> */}
+    
+  </Provider>,
   document.getElementById("root")
 );
+console.log('store: ', store);
