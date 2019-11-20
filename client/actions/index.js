@@ -1,9 +1,9 @@
 import types from './types.js'
 
-export function viewProductList() {
+export function setView(view) {
     return {
-        type: type.VIEW_PRODUCT_LIST,
-        payload: 'productListView'
+        type: type.SET_VIEW,
+        payload: view
     }
 }
 

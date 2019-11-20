@@ -1,12 +1,12 @@
 import React from 'react';
-import {connect} from 'react-redux';
-import { viewProductList } from '../actions';
+
+import { connect } from 'react-redux';
 
 import './styles/landing_style.css';
 import Header from './header.jsx';
 import Footer from './footer.jsx';
 
-export default class Landing {
+class Landing extends React.Component {
   constructor(props){
     super(props);
   }
@@ -60,4 +60,25 @@ export default class Landing {
       </React.Fragment>
     );
   }
+}
+
+mapStateToProps(state){
+  console.log('state in landing.jsx component: ', state);
+  // console.log('Redux state in Clock Component: ', state);
+  return {
+    viewProductsList: state.
+
+    //this time becomes a property inside of the props of this component
+    time: state.clock.time,
+
+    //this clock property imports the date property from the clock reducer
+    date: state.clock.date,
+
+    //adds another property to this components props, textColor
+    textColor: state.theme.textColor
+  };
+}
+
+export default connect(mapStatetoProps){
+
 }

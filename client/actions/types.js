@@ -1,3 +1,4 @@
+//exporting the 'types' object, with corresponding property
 export default {
-    VIEW_PRODUCT_LIST: 'viewProductList',
+    SET_VIEW: 'set_view',
 }

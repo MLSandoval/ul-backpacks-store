@@ -9,12 +9,16 @@ import Footer from './footer';
 
 export default class ProductList extends React.Component{
     constructor(props){
-        super(props);
-
-
+      super(props);
     }
 
     render(){
-      <div>Products list</div>
+      return(
+        <div>
+          <Header/>
+          <div>Products list</div>
+          <Footer/>
+        </div>
+      );
     }
 }

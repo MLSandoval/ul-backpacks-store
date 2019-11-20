@@ -1,9 +1,9 @@
 import { combineReducers } from "redux";
-// import clockReducer from "./clock_reducer.js";
-// import theme_reducer from "./theme_reducer.js";
+import set_view_reducer from "./set_view_reducer.js/index.js";
+
 
 const rootReducer = combineReducers({
-  
+  setView: set_view_reducer
 });
 
 export default rootReducer;

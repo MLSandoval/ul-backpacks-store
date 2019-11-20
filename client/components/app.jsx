@@ -3,54 +3,57 @@ import {connect} from 'react-redux';
 import {push} from 'react-router-redux';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
-import Landing from './landing.jsx';
-import ProductsList from './productsList.jsx';
-import Header from './header.jsx';
+// import Landing from './landing.jsx';
+// import ProductsList from './productsList.jsx';
+// import Header from './header.jsx';
 
 export default class App extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-      view: 'landing',
-      params: {}
-    };
+    // this.state = {
+    //   view: 'landing',
+    //   params: {}
+    // };
 
-    this.setView = this.setView.bind(this);
-    this.landingComponent = this.landingComponent.bind(this);
-    this.productsListComponent = this.productsListComponent.bind(this);
-    this.headerComponent = this.headerComponent.bind(this);
+    // this.setView = this.setView.bind(this);
+    // this.landingComponent = this.landingComponent.bind(this);
+    // this.productsListComponent = this.productsListComponent.bind(this);
+    // this.headerComponent = this.headerComponent.bind(this);
   }
 
-  landingComponent(){
-    return <Landing viewProducts={this.setView} />;
-  }
+  // landingComponent(){
+  //   return <Landing 
+  //   // viewProducts={this.setView} 
+  //   />;
+  // }
 
-  productsListComponent(){
-    return <ProductsList/>;
-  }
+  // productsListComponent(){
+  //   return <ProductsList/>;
+  // }
 
-  //will remove header after routing is figured out, have as ex for now
-  headerComponent(){
-    return <Header/>;
-  }
+  // //will remove header after routing is figured out, have as ex for now
+  // headerComponent(){
+  //   return <Header/>;
+  // }
 
-  setView(view, params = {}){
-    console.log('setview in app called, view/ params: ', view, params);
-    this.setState({view, params});
-  }
+  // setView(view, params = {}){
+  //   console.log('setview in app called, view/ params: ', view, params);
+  //   this.setState({view, params});
+  // }
 
   render() {
-    return(
-     
-      // <Router>
-      //   <Route path={"/" || "/welcome"} component={this.landingComponent}/>
-      //   <Route path="/products-list" component={this.productsListComponent}/>
-      //   <Route path="/test" component={this.headerComponent}/>
-      // </Router>
-
-      this.landingComponent()
-    );
+    if (this.state.view === 'landingView'){
+      return (
+        // <Router>
+        //   <Route path={"/" || "/welcome"} component={this.landingComponent}/>
+        //   <Route path="/products-list" component={this.productsListComponent}/>
+        //   <Route path="/test" component={this.headerComponent}/>
+        // </Router>
+        this.landingComponent()
+      );
+    }
+    
   }
 
 }
