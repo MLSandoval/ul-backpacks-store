@@ -1,27 +1,20 @@
 import React from 'react';
-import './styles/landing_style.css';
 
-export default function Landing (props){
+import { connect } from 'react-redux';
+
+// import { setView } from '../actions';
+
+import './styles/landing_style.css';
+import Header from './header.jsx';
+import Footer from './footer.jsx';
+
+import { Switch, Route, Link } from "react-router-dom";
+
+class Landing extends React.Component {
+  
+  render(){
     return (
       <React.Fragment>
-        <div className="position-fixed landing-header navbar">
-          <div className="container-fluid">
-            <div className="row">
-              <div className="col-12 row">UltraLite
-                <div className="products col-4 dropdown">
-                    <button className="dropdown-toggle" 
-                    type="button"
-                    data-toggle="dropdown">
-                        Products
-                    </button>
-                    <div className="dropdown-menu">
-                        <a href="www.google.com" className="dropdown-item">Backpacking Bags</a>
-                    </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
         <div className="container-fluid">
           <div className="row">
             <div className="bg bg-1 col-12">BG-1</div>
@@ -37,8 +30,8 @@ export default function Landing (props){
               Est sit amet facilisis magna etiam tempor orci eu. Lacus sed
               viverra tellus in hac habitasse platea dictumst vestibulum. Rutrum
               tellus pellentesque eu tincidunt tortor aliquam. Porta nibh
-              venenatis cras sed felis eget velit. 
-            </div>
+              venenatis cras sed felis eget velit.
+          </div>
             <div className="bg bg-2 col-12">BG-2</div>
             <div className="text text-2 col-12">
               Text-2 Lorem ipsum dolor sit amet, consectetur adipiscing elit,
@@ -60,35 +53,35 @@ export default function Landing (props){
               eleifend quam adipiscing vitae proin sagittis nisl. Habitasse
               platea dictumst vestibulum rhoncus est pellentesque elit
               ullamcorper. Ultrices neque ornare aenean euismod elementum nisi.
-            </div>
+          </div>
             <div className="bg bg-3 col-12">BG-3</div>
-            <div className=" landing-footer col-12">Footer</div>
           </div>
         </div>
+        <Footer />
       </React.Fragment>
     );
+  }
 }
 
-<div class="dropdown">
-  <button
-    class="btn btn-secondary dropdown-toggle"
-    type="button"
-    id="dropdownMenuButton"
-    data-toggle="dropdown"
-    aria-haspopup="true"
-    aria-expanded="false"
-  >
-    Dropdown button
-  </button>
-  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-    <a class="dropdown-item" href="#">
-      Action
-    </a>
-    <a class="dropdown-item" href="#">
-      Another action
-    </a>
-    <a class="dropdown-item" href="#">
-      Something else here
-    </a>
-  </div>
-</div>;
+
+
+function mapStateToProps(state) {
+  console.log('state in landing.jsx component: ', state);
+  // console.log('Redux state in Clock Component: ', state);
+  return {
+    //this becomes a property inside of the props of this component
+    view: state.view,
+  };
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    // onViewChangeClick: view => {
+    //   // dispatch(SET_VIEW(view));
+    // }
+  };
+}
+
+const landing = connect(mapStateToProps, mapDispatchToProps)(Landing);
+
+export default landing;

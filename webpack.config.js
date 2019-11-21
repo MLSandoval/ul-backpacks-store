@@ -3,7 +3,7 @@ console.log('path: ',path);
 
 const srcPath = path.resolve(__dirname, 'client');
 console.log("srcPath: ", srcPath);
-const publicPath = path.resolve(__dirname, 'server/public');
+const publicPath = path.resolve(__dirname, 'server/public/');
 console.log("publicPath: ", publicPath);
 module.exports = {
   resolve: {
@@ -43,7 +43,8 @@ module.exports = {
     watchContentBase: true,
     stats: "minimal",
     proxy: {
-      "/api": "http://localhost:3000"
-    }
+      "/api": "http://localhost:3001"
+    },
+    historyApiFallback: true
   }
 };
