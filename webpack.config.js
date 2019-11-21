@@ -43,7 +43,7 @@ module.exports = {
     watchContentBase: true,
     stats: "minimal",
     proxy: {
-      "/api": "http://localhost:3000"
+      "/api": "http://localhost:3001"
     },
     historyApiFallback: true
   }

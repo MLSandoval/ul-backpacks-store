@@ -7,3 +7,16 @@ export function setView(view) {
     }
 }
 
+export function getTestList() {
+    // console.log('Get Test List Called')
+    return function(dispatch){
+        fetch('/api/test').then((resp) => resp.json()).then(data => {
+            // console.log('Server:', data);
+            dispatch({
+                type: types.GET_TEST_LIST,
+                payload: data
+            });
+        });
+    }
+}
+

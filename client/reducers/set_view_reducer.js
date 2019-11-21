@@ -1,5 +1,4 @@
-import types from '../actions/types.js'
-
+import types from '../actions/types.js';
 
 //usually object, can be array, string...any structure to store data
 const DEFAULT_STATE = {
@@ -9,7 +8,7 @@ const DEFAULT_STATE = {
 //takes 2 parameters, current state this reducer is responsible for, and the action
 //when app starts, current state coming in will be undfined, need default value to cover it
 function setViewReducer(state = DEFAULT_STATE, action) { //action = {type: 'SET_VIEW'}
-    // console.log('Clock reducer action: ', action);
+    
     switch (action.type) {
         case types.SET_VIEW:
             //use the spread operator and state variable because this switch in the reducer will completely

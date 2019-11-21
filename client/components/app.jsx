@@ -5,43 +5,61 @@ import {push} from 'react-router-redux';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import ProductList from './productsList';
 import Landing from './landing.jsx';
-// import ProductsList from './productsList.jsx';
-// import Header from './header.jsx';
+import ProductsList from './productsList.jsx';
+import Header from './header.jsx';
+import Test from './test';
+
 
 import { Switch, Route, Link } from "react-router-dom";
 
-export default class App extends React.Component {
+class App extends React.Component {
 
   render() {
-    console.log("this: ");
-    console.table(this);
-    console.log('this.props: ', this.props)
-    if (this.props.state.view === 'landingView'){
+    
+    // if (this.props.state.view === 'landingView'){
       return (
-        // 
-        //   <Route path={"/" || "/welcome"} component={Landing}/>
-        //   <Route path="/products-list" component={ProductList}/>
-        // 
-        <Landing/>
+          <div>
+            <Header></Header>
+            <Route exact path={"/" || "/welcome"} component={Landing} />
+            <Route path="/products-list" component={ProductList} />
+            <Route path="/test" component={Test} />
+          </div>
+          
+          
+        
+        // <Landing/>
       );
-    } else if (this.props.state.view === 'productListView'){
-      return (
+    // } else if (this.props.state.view === 'productListView'){
+      // return (
          
         //   <Route path={"/" || "/welcome"} component={Landing}/>
         //   <Route path="/products-list" component={ProductList}/>
         
-        <ProductList />
-      );
-    }else{
-      return(
-        <div>Uhohhhhh</div>
-      );
+        // <ProductList />
+      // );
+    // }else{
+    //   return(
+    //     <div>Uhohhhhh</div>
+    //   );
       
-    }
-    
+    // }
   }
-
 }
+
+// function mapStateToProps(state) {
+//   console.log('state in header.jsx component: ', state);
+//   return {
+//     view: state.app.view,
+// }
+
+// export default connect(mapStateToProps, {
+//   setView: setView
+// })(App);
+
+
+
+
+export default App;
 
 // export default function App() {
 //   return (
@@ -78,4 +96,3 @@ export default class App extends React.Component {
 //     </Router>
 //   );
 // }
-

@@ -15,8 +15,8 @@ export default class ProductList extends React.Component{
     render(){
       return(
         <div>
-          <Header/>
-          <div>Products list</div>
+         
+          <h1>Products list</h1>
           <Footer/>
         </div>
       );

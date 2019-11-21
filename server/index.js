@@ -30,6 +30,13 @@ app.get('/', (req, res, next)=>{
     res.sendFile(pubDirectory);
 })
 
+app.get('/api/test', (req,res,next)=>{
+    res.send({
+        list: ['One', 'Two', 'Three', 'Four', 'Five'],
+        message: 'this is a test endpoint'
+    });
+});
+
 app.listen(3001, ()=>{
     console.log('Node server listening on port 3001.');
 })
