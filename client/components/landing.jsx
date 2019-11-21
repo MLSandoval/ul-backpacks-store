@@ -2,11 +2,7 @@ import React from 'react';
 
 import { connect } from 'react-redux';
 
-// import { setView } from '../actions';
-
 import './styles/landing_style.css';
-import Header from './header.jsx';
-import Footer from './footer.jsx';
 
 import { Switch, Route, Link } from "react-router-dom";
 
@@ -57,7 +53,6 @@ class Landing extends React.Component {
             <div className="bg bg-3 col-12">BG-3</div>
           </div>
         </div>
-        <Footer />
       </React.Fragment>
     );
   }
@@ -66,7 +61,6 @@ class Landing extends React.Component {
 
 
 function mapStateToProps(state) {
-  console.log('state in landing.jsx component: ', state);
   // console.log('Redux state in Clock Component: ', state);
   return {
     //this becomes a property inside of the props of this component
@@ -82,6 +76,4 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-const landing = connect(mapStateToProps, mapDispatchToProps)(Landing);
-
-export default landing;
+export default connect(mapStateToProps, mapDispatchToProps)(Landing);

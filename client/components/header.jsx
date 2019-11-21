@@ -20,12 +20,10 @@ class Header extends React.Component {
     return (
       <div className="position-fixed landing-header container-fluid">
         <div className="row">
-          <div className="col-9">UltraLite</div>
-          <Link className="btn btn-primary" to="/products-list">Products</Link>
-          {/* <Link className="col-3 products-button"
-            text="Products"
-            onClick={() => { this.props.onViewChangeClick('productListView')}}/> */}
-        {/* </Link> */}
+          <div className="col-9">
+            <Link className="btn" to="/">UltraLite</Link>
+          </div>
+          <Link className="btn" to="/products-list">Products</Link>
         </div>
       </div>
     );
@@ -33,7 +31,7 @@ class Header extends React.Component {
 }
 
 ////???
-Header.PropTypes = {
+Header.propTypes = {
   onViewChangeClick: PropTypes.func.isRequired
 };
 

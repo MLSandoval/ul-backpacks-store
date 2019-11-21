@@ -1,10 +1,8 @@
 import React from 'react';
 
 import { connect } from "react-redux";
-import { push } from "react-router-redux";
 
-import Header from './header';
-import Footer from './footer';
+import {Route, Link} from 'react-router-dom';
 
 
 export default class ProductList extends React.Component{
@@ -15,10 +13,19 @@ export default class ProductList extends React.Component{
     render(){
       return(
         <div>
-         
-          <h1>Products list</h1>
-          <Footer/>
+          <h1 className="mt-8">Products list</h1>
+          {this.state.products.map(element =>{
+            return (
+            <h1>{element.name}</h1>
+            )
+          })}
         </div>
       );
     }
 }
+
+function mapStateToProps(state){
+  return{
+    products: state.products
+  };
+};
