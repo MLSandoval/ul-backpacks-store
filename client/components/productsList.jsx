@@ -5,40 +5,48 @@ import { connect } from "react-redux";
 import {Route, Link} from 'react-router-dom';
 
 // import {getProductsList} from '../actions';
+// import {types} from '../actions/types.js';
 
 
 class ProductList extends React.Component{
-    componentDidMount(){
-      this.props.getProductsList();
-    }
+  componentDidMount(){
+    this.props.getProductsList();
+  }
 
-    generateProductsList(){
-      {if(this.props.products){
-        this.props.products.map(element =>{
-          return (
-          <h1>{element.name}</h1> 
-          )
-        })
-      }else{
-        return(
-          <h1>uhoh</h1>
-        );
-      };
-    }
+  componentDidUpdate(){
+    console.log('component did update, props: ', this.props)
+    this.props.getProductsList();
+  }
 
-    render(){
-      console.log('products list props: ', this.props)
+  generateProductsList(){
+    console.log('this.props.products: ', this.props.products);
+    if(!typeof this.props.products === 'string'){
+      this.props.products.map(element =>{
+        return (
+        <h1>{element.name}</h1> 
+        )
+      })
+    }else{
       return(
-        <div>
-          <h1 className="mt-8">Products list</h1>
-          {this.generateProductsList()}
-    
-        </div>
+        <h1>uhoh</h1>
       );
-      
-      
-    }
+    };
+  }
+
+  render(){
+    console.log('types: ', types);
+    // console.log('productList state: ', state);
+    console.log('products list props: ', this.props)
+    return(
+      <div>
+        <h1 className="mt-8">Products list</h1>
+        {this.generateProductsList()}
+  
+      </div>
+    );
+  }
 }
+
 
 // function mapDispatchToProps(dispatch) {
 //   return {
@@ -50,9 +58,10 @@ class ProductList extends React.Component{
 
 
 function mapDispatchToProps(dispatch) {
+  console.log('types: ', types);
   return {
     getProductsList: () => {
-      dispatch(GET_PRODUCTS_LIST);
+      dispatch({type: 'GET_PRODUCT_LIST'});
     }
   };
 }
