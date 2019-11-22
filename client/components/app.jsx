@@ -5,6 +5,7 @@ import {connect} from 'react-redux';
 import { Switch, Route, Link } from "react-router-dom";
 
 import 'bootstrap/dist/css/bootstrap.min.css';
+import './styles/global_style.css';
 import Landing from './landing.jsx';
 import ProductList from './productList.jsx';
 import Cart from './cart.jsx';
@@ -13,7 +14,6 @@ import Footer from './footer.jsx';
 import Test from './test';
 
 class App extends React.Component {
-
   render() {
     return (
         <div>

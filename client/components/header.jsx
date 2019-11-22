@@ -23,7 +23,13 @@ class Header extends React.Component {
           <div className="col-9">
             <Link className="btn" to="/">UltraLite</Link>
           </div>
-          <Link className="btn" to="/products-list">Products</Link>
+          <div className="col-3">
+            <Link className="btn" to="/products-list">Products</Link>
+            <Link className="btn" to="/test">Test</Link>
+            <Link className="btn" to="/cart">
+              <div className="cart-button"></div>
+            </Link>
+          </div>
         </div>
       </div>
     );

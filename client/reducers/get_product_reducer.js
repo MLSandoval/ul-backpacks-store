@@ -1,14 +1,14 @@
 import types from "../actions/types";
 
 const DEFAULT_STATE = {
-  products: 'No products to display.'
+  products: 'Products Loading...'
 };
 
 export default (state = DEFAULT_STATE, action) => {
   switch (action.type) {
-    case types.GET_PRODUCT_LIST:
-      console.log('Action:', action);
-      console.log('get product reducer action.payload: ', action);
+    case types.PRODUCT_LIST_REQUESTED:
+      console.log('get product reducer action:', action);
+      console.log('get product reducer action.payload: ', action.payload);
       return { ...state, products: action.payload.products };
     default:
       return state;

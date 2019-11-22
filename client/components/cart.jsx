@@ -9,8 +9,8 @@ class Cart extends React.Component{
     render(){
 
         return(
-            <div>
-                <h1>THIS IS THE CART VIEW</h1>
+            <div className="pt-4">
+                <h1 className="pt-4">THIS IS THE CART VIEW</h1>
             </div>
         );
     }

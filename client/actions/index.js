@@ -2,7 +2,7 @@ import types from './types.js'
 
 export function setView(view) {
     return {
-        type: type.SET_VIEW,
+        type: type.VIEW_CHANGED,
         payload: view
     }
 }
@@ -14,7 +14,7 @@ export function getTestList() {
         .then((res) => res.json())
         .then(data => {
             dispatch({
-                type: types.GET_TEST_LIST,
+                type: types.TEST_LIST_REQUESTED,
                 payload: data
             });
         })
@@ -24,7 +24,6 @@ export function getTestList() {
     }
 }
 
-
 export function getProductList(){
     return function(dispatch){
         fetch('/api/get-products')
@@ -32,7 +31,8 @@ export function getProductList(){
         .then(data => {
             console.log('server response on products list call: ', data);
             dispatch({
-                type: types.GET_PRODUCT_LIST,
+                type: types.PRODUCT_LIST_REQUESTED,
+                isFetching: true,
                 payload: data
             })
         })
