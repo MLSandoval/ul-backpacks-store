@@ -6,7 +6,7 @@ import { Switch, Route, Link } from "react-router-dom";
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Landing from './landing.jsx';
-import ProductsList from './productsList.jsx';
+import ProductList from './productList.jsx';
 import Cart from './cart.jsx';
 import Header from './header.jsx';
 import Footer from './footer.jsx';
@@ -19,7 +19,7 @@ class App extends React.Component {
         <div>
           <Header/>
           <Route exact path="/" component={Landing} />
-          <Route path="/products-list" component={ProductsList} />
+          <Route path="/products-list" component={ProductList} />
           <Route path="/products"/>
           <Route path="/test" component={Test} />
           <Route path="/cart" component={Cart}/>

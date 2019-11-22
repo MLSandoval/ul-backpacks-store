@@ -44,7 +44,6 @@ function mapDispatchToProps (dispatch) {
 }
 
 function mapStateToProps(state) {
-  console.log('state in header.jsx component: ', state);
   return {
     //this becomes a property inside of the props of this component
     view: state.view,

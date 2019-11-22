@@ -13,34 +13,31 @@ export function getTestList() {
         fetch('/api/test')
         .then((res) => res.json())
         .then(data => {
-            // console.log('Server:', data);
             dispatch({
                 type: types.GET_TEST_LIST,
                 payload: data
             });
         })
         .catch(err =>{
-            console.error('Product list fetch error: ', err);
+            console.error('Test list fetch error: ', err);
         });
     }
 }
 
 
-export function getProductsList(){
+export function getProductList(){
     return function(dispatch){
-        fetch('/api/get-products',{
-            method: 'GET',
-        })
+        fetch('/api/get-products')
         .then(res => res.json())
         .then(data => {
             console.log('server response on products list call: ', data);
             dispatch({
-                type: types.GET_PRODUCTS_LIST,
+                type: types.GET_PRODUCT_LIST,
                 payload: data
             })
         })
         .catch(err=>{
-            console.log('get products list action error: ', err);
+            console.log('Product list fetch error: ', err);
         });
     }
 }

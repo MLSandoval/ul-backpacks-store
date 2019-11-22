@@ -6,8 +6,9 @@ const DEFAULT_STATE = {
 
 export default (state = DEFAULT_STATE, action) => {
   switch (action.type) {
-    case types.GET_PRODUCTS_LIST:
-      // console.log('Action:', action);
+    case types.GET_PRODUCT_LIST:
+      console.log('Action:', action);
+      console.log('get product reducer action.payload: ', action);
       return { ...state, products: action.payload.products };
     default:
       return state;

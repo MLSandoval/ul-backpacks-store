@@ -1,10 +1,6 @@
 const path = require('path');
-console.log('path: ',path);
-
 const srcPath = path.resolve(__dirname, 'client');
-console.log("srcPath: ", srcPath);
 const publicPath = path.resolve(__dirname, 'server/public/');
-console.log("publicPath: ", publicPath);
 module.exports = {
   resolve: {
     extensions: [".js", ".jsx"]

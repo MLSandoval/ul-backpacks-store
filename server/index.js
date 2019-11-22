@@ -37,8 +37,6 @@ app.get('/api/test', (req,res,next)=>{
 });
 
 app.get('/api/get-products', (req, res, next)=>{
-  console.log('req: ', req);
-
   res.send({
     products: [
     {
@@ -182,8 +180,18 @@ app.get('/api/get-products', (req, res, next)=>{
         "Sternum strap with integrated safety whistle"
       ]
     }
-    ]
+    ],
+    message: 'Successful product fetch'
   });
+})
+
+//gets client side routing "cannot get xxxxxxx" on refresh issue
+app.get('/*',  (req, res, next) => {
+  res.sendFile(path.join(__dirname, pubDirectory), (err) => {
+    if (err) {
+      res.status(500).send(err)
+    }
+  })
 })
 
 app.listen(3001, ()=>{
