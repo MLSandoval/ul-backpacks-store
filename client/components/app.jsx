@@ -1,60 +1,33 @@
 import React from 'react';
+
 import {connect} from 'react-redux';
-import {push} from 'react-router-redux';
-
-import 'bootstrap/dist/css/bootstrap.min.css';
-import ProductList from './productsList';
-import Landing from './landing.jsx';
-import ProductsList from './productsList.jsx';
-import Header from './header.jsx';
-import Test from './test';
-
 
 import { Switch, Route, Link } from "react-router-dom";
 
-class App extends React.Component {
+import 'bootstrap/dist/css/bootstrap.min.css';
+import './styles/global_style.css';
+import Landing from './landing.jsx';
+import ProductList from './productList.jsx';
+import Cart from './cart.jsx';
+import Header from './header.jsx';
+import Footer from './footer.jsx';
+import Test from './test';
 
+class App extends React.Component {
   render() {
-    
-    // if (this.props.state.view === 'landingView'){
-      return (
-          <div>
-            <Header></Header>
-            <Route exact path={"/" || "/welcome"} component={Landing} />
-            <Route path="/products-list" component={ProductList} />
-            <Route path="/test" component={Test} />
-          </div>
-          
-          
-        
-        // <Landing/>
-      );
-    // } else if (this.props.state.view === 'productListView'){
-      // return (
-         
-        //   <Route path={"/" || "/welcome"} component={Landing}/>
-        //   <Route path="/products-list" component={ProductList}/>
-        
-        // <ProductList />
-      // );
-    // }else{
-    //   return(
-    //     <div>Uhohhhhh</div>
-    //   );
-      
-    // }
+    return (
+        <div>
+          <Header/>
+          <Route exact path="/" component={Landing} />
+          <Route path="/products-list" component={ProductList} />
+          <Route path="/products"/>
+          <Route path="/test" component={Test} />
+          <Route path="/cart" component={Cart}/>
+          <Footer/>
+        </div>
+    );
   }
 }
-
-// function mapStateToProps(state) {
-//   console.log('state in header.jsx component: ', state);
-//   return {
-//     view: state.app.view,
-// }
-
-// export default connect(mapStateToProps, {
-//   setView: setView
-// })(App);
 
 
 

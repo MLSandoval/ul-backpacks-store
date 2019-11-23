@@ -1,9 +1,8 @@
 import React from 'react';
 
 import { connect } from 'react-redux';
-import { setView } from '../actions';
-// import { push } from "react-router-redux";
-import PropTypes from 'prop-types';
+// import { setView } from '../actions';
+// import PropTypes from 'prop-types';
 import {Link} from 'react-router-dom';
 import "./styles/header_style.css";
 
@@ -19,13 +18,21 @@ class Header extends React.Component {
   render(){
     return (
       <div className="position-fixed landing-header container-fluid">
-        <div className="row">
-          <div className="col-9">UltraLite</div>
-          <Link className="btn btn-primary" to="/products-list">Products</Link>
-          {/* <Link className="col-3 products-button"
-            text="Products"
-            onClick={() => { this.props.onViewChangeClick('productListView')}}/> */}
-        {/* </Link> */}
+        <div className="row ">
+          <div className="col-9 row">
+            <Link className="btn" to="/">
+              <div className="h4">UltraLite</div>
+              <div className="logo pr-3 pl-3"></div>
+              </Link>
+          </div>
+          <div className="col-3 row justify-content-end">
+            <Link className="btn font-weight-bold" to="/products-list">Products</Link>
+            <Link className="btn font-weight-bold" to="/test">Test</Link>
+            <Link className="btn font-weight-bold" to="/cart">
+              <div className="cart-button"></div>
+              <div className="cart-count"></div>
+            </Link>
+          </div>
         </div>
       </div>
     );
@@ -33,9 +40,9 @@ class Header extends React.Component {
 }
 
 ////???
-Header.PropTypes = {
-  onViewChangeClick: PropTypes.func.isRequired
-};
+// Header.propTypes = {
+//   onViewChangeClick: PropTypes.func.isRequired
+// };
 
 function mapDispatchToProps (dispatch) {
   return {
@@ -46,7 +53,6 @@ function mapDispatchToProps (dispatch) {
 }
 
 function mapStateToProps(state) {
-  console.log('state in header.jsx component: ', state);
   return {
     //this becomes a property inside of the props of this component
     view: state.view,

@@ -2,11 +2,7 @@ import React from 'react';
 
 import { connect } from 'react-redux';
 
-// import { setView } from '../actions';
-
 import './styles/landing_style.css';
-import Header from './header.jsx';
-import Footer from './footer.jsx';
 
 import { Switch, Route, Link } from "react-router-dom";
 
@@ -18,7 +14,7 @@ class Landing extends React.Component {
         <div className="container-fluid">
           <div className="row">
             <div className="bg bg-1 col-12">BG-1</div>
-            <div className=" text text-1 col-12">
+            <div className="lead text text-1 col-12 radius push-over">
               Text-1 Lorem ipsum dolor sit amet, consectetur adipiscing elit,
               sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
               Morbi quis commodo odio aenean sed adipiscing. Arcu dui vivamus
@@ -32,8 +28,8 @@ class Landing extends React.Component {
               tellus pellentesque eu tincidunt tortor aliquam. Porta nibh
               venenatis cras sed felis eget velit.
           </div>
-            <div className="bg bg-2 col-12">BG-2</div>
-            <div className="text text-2 col-12">
+            <div className="bg bg-2 col-12 push-over">BG-2</div>
+            <div className="lead text text-2 col-12 radius push-over">
               Text-2 Lorem ipsum dolor sit amet, consectetur adipiscing elit,
               sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
               Morbi quis commodo odio aenean sed adipiscing. Arcu dui vivamus
@@ -54,10 +50,9 @@ class Landing extends React.Component {
               platea dictumst vestibulum rhoncus est pellentesque elit
               ullamcorper. Ultrices neque ornare aenean euismod elementum nisi.
           </div>
-            <div className="bg bg-3 col-12">BG-3</div>
+            <div className="bg bg-3 col-12 push-over">BG-3</div>
           </div>
         </div>
-        <Footer />
       </React.Fragment>
     );
   }
@@ -66,7 +61,6 @@ class Landing extends React.Component {
 
 
 function mapStateToProps(state) {
-  console.log('state in landing.jsx component: ', state);
   // console.log('Redux state in Clock Component: ', state);
   return {
     //this becomes a property inside of the props of this component
@@ -82,6 +76,4 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-const landing = connect(mapStateToProps, mapDispatchToProps)(Landing);
-
-export default landing;
+export default connect(mapStateToProps, mapDispatchToProps)(Landing);
