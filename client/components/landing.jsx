@@ -14,7 +14,7 @@ class Landing extends React.Component {
         <div className="container-fluid">
           <div className="row">
             <div className="bg bg-1 col-12">BG-1</div>
-            <div className=" text text-1 col-12">
+            <div className="lead text text-1 col-12 radius push-over">
               Text-1 Lorem ipsum dolor sit amet, consectetur adipiscing elit,
               sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
               Morbi quis commodo odio aenean sed adipiscing. Arcu dui vivamus
@@ -28,8 +28,8 @@ class Landing extends React.Component {
               tellus pellentesque eu tincidunt tortor aliquam. Porta nibh
               venenatis cras sed felis eget velit.
           </div>
-            <div className="bg bg-2 col-12">BG-2</div>
-            <div className="text text-2 col-12">
+            <div className="bg bg-2 col-12 push-over">BG-2</div>
+            <div className="lead text text-2 col-12 radius push-over">
               Text-2 Lorem ipsum dolor sit amet, consectetur adipiscing elit,
               sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
               Morbi quis commodo odio aenean sed adipiscing. Arcu dui vivamus
@@ -50,7 +50,7 @@ class Landing extends React.Component {
               platea dictumst vestibulum rhoncus est pellentesque elit
               ullamcorper. Ultrices neque ornare aenean euismod elementum nisi.
           </div>
-            <div className="bg bg-3 col-12">BG-3</div>
+            <div className="bg bg-3 col-12 push-over">BG-3</div>
           </div>
         </div>
       </React.Fragment>

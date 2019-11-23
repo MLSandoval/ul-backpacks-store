@@ -2,10 +2,22 @@
     z-index: 1;
     background-color: rgba(116, 112, 112, 0.95);
 }
+a{
+    display: flex !important
+}
+.logo{
+    height: 32px;
+    width: 32px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-image: url("../images/logos_icons/grey_backpacker_logo.png");
+    background-position: center;
+}
 .cart-button{
-    height: 20px;
-    width: 20px;
+    height: 27px;
+    width: 28px;
     background-image: url("../images/logos_icons/cart_icon.jpg");
     background-size: contain;
     background-repeat: no-repeat;
+    background-position: center;
 }
