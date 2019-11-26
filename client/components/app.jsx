@@ -9,6 +9,7 @@ import './styles/global_style.css';
 import Landing from './landing.jsx';
 import ProductList from './productList.jsx';
 import Cart from './cart.jsx';
+import Checkout from './checkout.jsx'
 import Header from './header.jsx';
 import Footer from './footer.jsx';
 import Test from './test';
@@ -24,6 +25,7 @@ class App extends React.Component {
           <Route path="/products"/>
           <Route path="/test" component={Test} />
           <Route path="/cart" component={Cart}/>
+          <Route path="/checkout" component={Checkout}
           <Footer/>
         </div>
     );

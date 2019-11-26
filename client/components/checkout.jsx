@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'tls';
 
 class Checkout extends React.Component{
     constructor(props){
@@ -11,3 +12,8 @@ class Checkout extends React.Component{
         );
     }
 }
+
+mapDispatchToProps(){};
+mapStateToProps(){};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Checkout);
