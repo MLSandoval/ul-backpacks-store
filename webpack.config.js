@@ -28,7 +28,28 @@ module.exports = {
       {
         test: /\.(png|svg|jpg|gif|webp|jpeg)$/,
         use: ["url-loader"]
+      },
+      {
+        test: /\.(png|svg|jpg|gif|webp|jpeg)$/,
+        use: ["file-loader"]
       }
+    ],
+
+    // new CopyPlugin([
+    //   'relative/path/to/file.ext',
+    //   '/absolute/path/to/file.ext',
+    //   'relative/path/to/dir',
+    //   '/absolute/path/to/dir',
+    //   '**/*',
+    //   { glob: '**/*', dot: false },
+
+    plugins: [
+      new CopyPlugin([
+        { from: "./server/images", to: "./client/components/productList.jsx" },
+        { from: "./server/images", to: "./client/components/productDetails.jsx" },
+        { from: "./server/images", to: "./client/components/cart.jsx" },
+        { from: "./server/images", to: "./client/components/checkout.jsx" },
+      ])
     ]
   },
   devtool: "source-map",

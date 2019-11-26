@@ -22,6 +22,7 @@
   "homepage": "https://github.com/MLSandoval/ul-backpacks-store#readme",
   "dependencies": {
     "bootstrap": "^4.3.1",
+    "cors": "^2.8.5",
     "express": "^4.17.1",
     "mysql2": "^2.0.0",
     "react": "^16.11.0",
@@ -37,8 +38,9 @@
     "@babel/core": "^7.7.2",
     "@babel/plugin-transform-react-jsx": "^7.7.0",
     "babel-loader": "^8.0.6",
+    "copy-webpack-plugin": "^5.0.5",
     "css-loader": "^3.2.0",
-    "json-server": "^0.15.1",
+    "file-loader": "^4.3.0",
     "nodemon": "^1.19.4",
     "style-loader": "^1.0.0",
     "url-loader": "^2.2.0",
