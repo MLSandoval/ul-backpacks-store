@@ -7,6 +7,8 @@ import {Route, Link, withRouter} from 'react-router-dom';
 import {getProductList} from '../actions';
 import types from '../actions/types';
 
+// import mariposaImg from './images/product_images/Mariposa/mariposa_1.webp';
+
 class ProductList extends React.Component{
   constructor(props){
     super(props);
@@ -44,9 +46,11 @@ class ProductList extends React.Component{
         this.props.products.map(element => {
           console.log('products map iteration: ', i++);
           console.log('Element id within map function', element.id)
+          console.log('iteration images: ', element.images);
           let imgURL = element.images[0];
+          // let imgURL = mariposaImg;
           return (
-            <div key={element.id} className="card">
+            <div key={element.id} className="card col-6">
               <img src={`${imgURL}`} alt="" className="card-img-top"/>
               <div className="card-body">
                 <h5 className="card-title">{element.name}</h5>
@@ -67,7 +71,7 @@ class ProductList extends React.Component{
     return(
       <div className="pt-4">
         <h1 className="pt-4">Products list</h1>
-        <div className="card-deck">
+        <div className="card-deck row">
           {this.generateProductList()}
         </div>
       </div>
