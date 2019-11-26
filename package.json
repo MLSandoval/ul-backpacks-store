@@ -22,6 +22,7 @@
   "homepage": "https://github.com/MLSandoval/ul-backpacks-store#readme",
   "dependencies": {
     "bootstrap": "^4.3.1",
+    "cors": "^2.8.5",
     "express": "^4.17.1",
     "mysql2": "^2.0.0",
     "react": "^16.11.0",

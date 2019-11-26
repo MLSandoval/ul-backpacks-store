@@ -28,6 +28,10 @@ module.exports = {
       {
         test: /\.(png|svg|jpg|gif|webp|jpeg)$/,
         use: ["url-loader"]
+      },
+      {
+        test: /\.(png|svg|jpg|gif|webp|jpeg)$/,
+        use: ["file-loader"]
       }
     ]
   },

@@ -14,17 +14,6 @@ const mysql = require("mysql2");
 const creds = require("./sql_creds");
 const db = mysql.createPool(creds);
 
-//json server stuff
-const jsonServer = require("json-server");
-const server = jsonServer.create();
-const router = jsonServer.router("../../db.json");
-const jsonMiddleware = jsonServer.defaults();
-// const port = process.env.PORT || 3001;
-
-server.use(jsonMiddleware);
-server.use(router);
-// server.listen(port);
-
 app.get('/', (req, res, next)=>{
     res.sendFile(pubDirectory);
 })
