@@ -45,7 +45,10 @@ module.exports = {
 
     plugins: [
       new CopyPlugin([
-        { from: "./server/images", to: "./client/components" }
+        { from: "./server/images", to: "./client/components/productList.jsx" },
+        { from: "./server/images", to: "./client/components/productDetails.jsx" },
+        { from: "./server/images", to: "./client/components/cart.jsx" },
+        { from: "./server/images", to: "./client/components/checkout.jsx" },
       ])
     ]
   },
