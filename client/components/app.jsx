@@ -25,7 +25,7 @@ class App extends React.Component {
           <Route path="/products"/>
           <Route path="/test" component={Test} />
           <Route path="/cart" component={Cart}/>
-          <Route path="/checkout" component={Checkout}
+          <Route path="/checkout" component={Checkout}/>
           <Footer/>
         </div>
     );
