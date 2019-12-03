@@ -1,6 +1,9 @@
 const path = require('path');
 const srcPath = path.resolve(__dirname, 'client');
 const publicPath = path.resolve(__dirname, 'server/public/');
+
+const CopyPlugin = require('copy-webpack-plugin');
+
 module.exports = {
   resolve: {
     extensions: [".js", ".jsx"]

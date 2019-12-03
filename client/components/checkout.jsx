@@ -1,5 +1,5 @@
 import React from 'react';
-import { connect } from 'tls';
+import { connect } from 'react-redux';
 
 class Checkout extends React.Component{
     constructor(props){
@@ -13,7 +13,20 @@ class Checkout extends React.Component{
     }
 }
 
-mapDispatchToProps(){};
-mapStateToProps(){};
+function mapStateToProps(state) {
+    // console.log('Redux state in Clock Component: ', state);
+    return {
+        //this becomes a property inside of the props of this component
+        view: state.view,
+    };
+}
+
+function mapDispatchToProps(dispatch) {
+    return {
+        // onViewChangeClick: view => {
+        //   // dispatch(SET_VIEW(view));
+        // }
+    };
+}
 
 export default connect(mapStateToProps, mapDispatchToProps)(Checkout);
