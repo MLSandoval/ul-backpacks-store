@@ -7,6 +7,8 @@ import {Route, Link, withRouter} from 'react-router-dom';
 import {getProductList} from '../actions';
 import types from '../actions/types';
 
+import "./styles/products_list_style.css";
+
 // import mariposaImg from '../images/product_images/Mariposa/mariposa_1.webp';
 
 class ProductList extends React.Component{
@@ -51,7 +53,8 @@ class ProductList extends React.Component{
           // let imgURL = mariposaImg;
           return (
             <div key={element.id} className="card col-6">
-              <img src={`${imgURL}`} alt="url('./client/images/product_images/Mariposa/mariposa_1.webp')" className="card-img-top"/>
+              {/* <div style={{'background-image': `url(${imgURL})`}} className="card-img-top img-fluid px-0 preview-image pt-1 align-self-center"/> */}
+              <img src={imgURL} alt="" className="card-img-top img-fluid preview-image align-self-center pt-1"/>
               <div className="card-body">
                 <h5 className="card-title">{element.name}</h5>
                 <h6 className="card-subtitle">{element.brand}</h6>
@@ -63,6 +66,18 @@ class ProductList extends React.Component{
       )
     };
   }
+
+  // const pStyle = {
+  //   fontSize: '15px',
+  //   textAlign: 'center'
+  // };
+
+  // const Box = () => (
+  //   <div style={divStyle}>
+  //     <p style={pStyle}>Get started with inline style</p>
+  //   </div>
+
+
 
   render(){
     

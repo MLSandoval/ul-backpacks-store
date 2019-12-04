@@ -41,11 +41,11 @@ app.get('/api/get-products', (req, res, next)=>{
       long_description:
         "This award-winning pack’s roomy main pocket holds your shelter, clothing, sleeping pad and food. There are seven extra pockets - one mesh for wet stuff, two easy-to-reach for water and high-energy snacks, and the rest for whatever else. Made of custom 100 and 200 denier Robic nylon fabric, this tough, light pack delivers a very comfortable carry even with overloaded with 35 pounds of gear.",
       images: [
-        // "./client/images/product_images/Mariposa/Mariposa_1.webp",
-        "url('product_images/Mariposa/Mariposa_1.webp')",
-        "client/images/product_images/Mariposa/Mariposa_2.webp",
-        "./client/images/product_images/Mariposa/Mariposa_3.jpg",
-        "./client/images/product_images/Mariposa/Mariposa_4.jpg"
+        "./images/product_images/Mariposa/Mariposa_1.webp",
+        "./images/product_images/Mariposa/Mariposa_2.webp",
+        "./images/product_images/Mariposa/Mariposa_3.jpeg",
+        "./images/product_images/Mariposa/Mariposa_4.jpeg",
+    
       ],
       features: [
         "New belt with added stiffener and stay integration for superior load transfer and comfort",
@@ -81,10 +81,10 @@ app.get('/api/get-products', (req, res, next)=>{
       long_description:
         "The CDT is our lightest, most basic backpack. With just over 50 liters of available space, the CDT is the largest of three frameless packs we make and is suitable for thru-hikes, day hikes, travel, and any distance back-country forays. The CDT pack continues the tradition of being a reliable, lightweight, and durable backcountry companion. The maximum comfortable load in this pack is approximately 18 pounds or less. No matter what anyone claims, no frameless pack is comfortable over this load and the CDT is no exception. At these loads, the contoured shoulder straps and redesigned hip-belt result in a comfortable carry.",
       images: [
-        "./client/images/product_images/CDT/cdt_1.jpg",
-        "./client/images/product_images/CDT/cdt_2.jpg",
-        "./client/images/product_images/CDT/cdt_3.jpg",
-        "./client/images/product_images/CDT/cdt_4.jpg"
+        "./images/product_images/CDT/cdt_1.jpg",
+        "./images/product_images/CDT/cdt_2.jpg",
+        "./images/product_images/CDT/cdt_3.jpg",
+        "./images/product_images/CDT/cdt_4.jpg"
       ],
       features: [
         "Internal Pad Holster",
@@ -119,10 +119,10 @@ app.get('/api/get-products', (req, res, next)=>{
       long_description:
         "When the extra volume is not in use, the 3400’s top can roll down enough to make the overall size of the pack similar to the 2400, but that additional space can come in pretty handy when you need it. The ultralight central vessel of the Windrider is constructed with 100% waterproof Dyneema® Composite Fabrics. The external mesh pockets provide ample room for the equipment you’ll want access to without having to open your pack and dig, and they’re great for drying out wet clothing as you go.",
       images: [
-        "./client/images/product_images/Windrider/HMG_Windrider_1.jpg",
-        "./client/images/product_images/Windrider/HMG_Windrider_2.jpg",
-        "./client/images/product_images/Windrider/HMG_Windrider_3.jpg",
-        "./client/images/product_images/Windrider/HMG_Windrider_4.jpg"
+        "./images/product_images/Windrider/HMG_Windrider_1.jpg",
+        "./images/product_images/Windrider/HMG_Windrider_2.jpg",
+        "./images/product_images/Windrider/HMG_Windrider_3.jpg",
+        "./images/product_images/Windrider/HMG_Windrider_4.jpg"
       ],
       features: [
         "Made in Maine",
@@ -156,10 +156,10 @@ app.get('/api/get-products', (req, res, next)=>{
       long_description:
         "The Osprey Levity 60 is the most comfortable and ventilated pack ever made for the lightest loads imaginable. It's perfect for weeklong, or even month long trips. In fact, it's probably not the right pack for you. It's for people who pack lighter, go further, and think smarter. This pack isn't on Instagram, because phones are too heavy, and views look better in your mind anyway. But if you are one of those maniacal gram-counters, look no further. Backed by our All Mighty Guarantee, forever.",
       images: [
-        "./client/images/product_images/Levity/levity_1.jpg",
-        "./client/images/product_images/Levity/levity_2.jpg",
-        "./client/images/product_images/Levity/levity_3.jpg",
-        "./client/images/product_images/Levity/levity_4.jpg"
+        "./images/product_images/Levity/levity_1.jpg",
+        "./images/product_images/Levity/levity_2.jpg",
+        "./images/product_images/Levity/levity_3.jpg",
+        "./images/product_images/Levity/levity_4.jpg"
       ],
       features: [
         "Fixed top lid with zippered pocket for organizing smaller items",
@@ -175,7 +175,7 @@ app.get('/api/get-products', (req, res, next)=>{
   });
 })
 
-//gets client side routing "cannot get xxxxxxx" on refresh issue
+//fixes client side routing "cannot get xxxxxxx" on refresh issue
 app.get('/*',  (req, res, next) => {
   res.sendFile(path.join(__dirname, pubDirectory), (err) => {
     if (err) {
