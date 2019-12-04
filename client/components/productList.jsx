@@ -7,7 +7,7 @@ import {Route, Link, withRouter} from 'react-router-dom';
 import {getProductList} from '../actions';
 import types from '../actions/types';
 
-// import mariposaImg from './images/product_images/Mariposa/mariposa_1.webp';
+// import mariposaImg from '../images/product_images/Mariposa/mariposa_1.webp';
 
 class ProductList extends React.Component{
   constructor(props){
@@ -51,7 +51,7 @@ class ProductList extends React.Component{
           // let imgURL = mariposaImg;
           return (
             <div key={element.id} className="card col-6">
-              <img src={`${imgURL}`} alt="" className="card-img-top"/>
+              <img src={`${imgURL}`} alt="url('./client/images/product_images/Mariposa/mariposa_1.webp')" className="card-img-top"/>
               <div className="card-body">
                 <h5 className="card-title">{element.name}</h5>
                 <h6 className="card-subtitle">{element.brand}</h6>
