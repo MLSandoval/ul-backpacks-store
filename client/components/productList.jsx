@@ -67,15 +67,22 @@ class ProductList extends React.Component{
     };
   }
 
-  // const pStyle = {
-  //   fontSize: '15px',
-  //   textAlign: 'center'
-  // };
-
-  // const Box = () => (
-  //   <div style={divStyle}>
-  //     <p style={pStyle}>Get started with inline style</p>
-  //   </div>
+  // how the cards were made in wicked sales, looks better than what i have now
+//  export default function ProductListItem(props) {
+//   return (
+//     <div onClick={() => props.clickCallback('details', props.id)} className="col-md-4 align-items-stretch">
+//       <div className="mt-2 mb-3">
+//         <div className="card ">
+//           <h5 className="card-header card-title">{props.productName}</h5>
+//           <img src={props.img} alt="" className="card-img-top product-image" />
+//           <div className="card-body card-text-section">
+//             <p className="card-text description-text">{props.description}</p>
+//           </div>
+//         </div>
+//       </div>
+//     </div>
+//   );
+// }
 
 
 
@@ -84,10 +91,12 @@ class ProductList extends React.Component{
     // console.log('productList state: ', state);
     console.log('products list props: ', this.props)
     return(
-      <div className=" container pt-4">
+      <div className="pt-4">
         <h1 className="pt-4">Products list</h1>
-        <div className="card-deck row">
-          {this.generateProductList()}
+        <div className=" container">
+          <div className="card-deck row">
+            {this.generateProductList()}
+          </div>
         </div>
       </div>
     );
