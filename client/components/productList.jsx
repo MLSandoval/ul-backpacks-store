@@ -52,7 +52,7 @@ class ProductList extends React.Component{
           let imgURL = element.images[0];
           // let imgURL = mariposaImg;
           return (
-            <div key={element.id} className="card col-6">
+            <div key={element.id} className="card bg-primary col-6">
               {/* <div style={{'background-image': `url(${imgURL})`}} className="card-img-top img-fluid px-0 preview-image pt-1 align-self-center"/> */}
               <img src={imgURL} alt="" className="card-img-top img-fluid preview-image align-self-center pt-1"/>
               <div className="card-body">
@@ -84,7 +84,7 @@ class ProductList extends React.Component{
     // console.log('productList state: ', state);
     console.log('products list props: ', this.props)
     return(
-      <div className="pt-4">
+      <div className=" container pt-4">
         <h1 className="pt-4">Products list</h1>
         <div className="card-deck row">
           {this.generateProductList()}
