@@ -29,4 +29,8 @@ function mapDispatchToProps(dispatch) {
     };
 }
 
+const test = () => {
+
+}
+
 export default connect(mapStateToProps, mapDispatchToProps)(Checkout);
