@@ -1,5 +1,5 @@
 import React from 'react'
-import {connect} from 'react-redux'
+import { connect } from 'react-redux'
 
 class ProductDetails extends React.Component {
   render () {
@@ -12,3 +12,20 @@ class ProductDetails extends React.Component {
     )
   }
 }
+
+function mapDispatchToProps(dispatch) {
+  return {
+    getProductList: () => {
+      dispatch();
+    }
+  }
+}
+
+function mapStateToProps(state) {
+  console.log('state in productsList component: ', state);
+  return {
+    products: state.products.products
+  }
+}
+
+export default connect(mapStateToProps, null)(ProductDetails)

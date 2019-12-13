@@ -42,3 +42,9 @@ export function getProductList () {
       })
   }
 }
+
+export function viewProductDetails () {
+  return function (dispatch) {
+    
+  }
+}

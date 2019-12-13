@@ -8,6 +8,7 @@ import {getProductList} from '../actions'
 import types from '../actions/types'
 
 import "./styles/products_list_style.css"
+import ProductDetails from './productDetails.jsx'
 
 // import mariposaImg from '../images/product_images/Mariposa/mariposa_1.webp';
 
@@ -49,14 +50,16 @@ class ProductList extends React.Component {
           let imgURL = element.images[0]
           // let imgURL = mariposaImg;
           return (
-            <div key={ element.id } className="card bg-primary col-6">
-              {/* <div style={{'background-image': `url(${imgURL})`}} className="card-img-top img-fluid px-0 preview-image pt-1 align-self-center"/> */}
-              <img src={ imgURL } alt="" className="card-img-top img-fluid preview-image align-self-center pt-1"/>
-              <div className="card-body">
-                <h5 className="card-title">{ element.name }</h5>
-                <h6 className="card-subtitle">{ element.brand }</h6>
+            <Route key={ element.id } path={ `/product-details?id=${element.id}` } component={ ProductDetails }>
+              <div className="card bg-primary col-6">
+                {/* <div style={{'background-image': `url(${imgURL})`}} className="card-img-top img-fluid px-0 preview-image pt-1 align-self-center"/> */}
+                <img src={ imgURL } alt="" className="card-img-top img-fluid preview-image align-self-center pt-1" />
+                <div className="card-body">
+                  <h5 className="card-title">{ element.name }</h5>
+                  <h6 className="card-subtitle">{ element.brand }</h6>
+                </div>
               </div>
-            </div>
+            </Route>
           )
         })
       )
