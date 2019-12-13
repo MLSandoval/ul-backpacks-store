@@ -1,10 +1,10 @@
-import React from 'react';
+import React from 'react'
 
-import { connect } from 'react-redux';
+import { connect } from 'react-redux'
 
-import './styles/landing_style.css';
+import './styles/landing_style.css'
 
-import { Switch, Route, Link } from "react-router-dom";
+import { Switch, Route, Link } from "react-router-dom"
 
 class Landing extends React.Component {
   

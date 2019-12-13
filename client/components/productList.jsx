@@ -1,25 +1,23 @@
-import React from 'react';
+import React from 'react'
 
-import { connect } from "react-redux";
+import { connect } from "react-redux"
 
-import {Route, Link, withRouter} from 'react-router-dom';
+import {Route, Link, withRouter} from 'react-router-dom'
 
-import {getProductList} from '../actions';
-import types from '../actions/types';
+import {getProductList} from '../actions'
+import types from '../actions/types'
 
-import "./styles/products_list_style.css";
+import "./styles/products_list_style.css"
 
 // import mariposaImg from '../images/product_images/Mariposa/mariposa_1.webp';
 
-class ProductList extends React.Component{
-  constructor(props){
-    super(props);
-    this.props.getProductList();
+class ProductList extends React.Component {
+  constructor (props) {
+    super (props)
   }
-  componentDidMount(){
-    console.log('component did mount product list, props: ', this.props);
-    this.props.getProductList();
-    
+  componentDidMount () {
+    console.log('component did mount product list, props: ', this.props)
+    this.props.getProductList()
   }
 
   // componentDidUpdate(prevProps, prevState){
@@ -35,36 +33,34 @@ class ProductList extends React.Component{
   //   return false;
   // }
 
-  generateProductList(){
-    console.log('generateProductList CALLED');
-    let i = 1;
-    if(typeof this.props.products === 'string'){
+  generateProductList () {
+    console.log('generateProductList CALLED')
+    let i = 1
+    if (typeof this.props.products === 'string') {
       return (
         <h1>Loading...</h1>
-      );
-
+      )
     }else if(typeof this.props.products === 'object'){
-      return(
+      return (
         this.props.products.map(element => {
-          console.log('products map iteration: ', i++);
+          console.log('products map iteration: ', i++)
           console.log('Element id within map function', element.id)
-          console.log('iteration images: ', element.images);
-          let imgURL = element.images[0];
+          console.log('iteration images: ', element.images)
+          let imgURL = element.images[0]
           // let imgURL = mariposaImg;
           return (
-            <div key={element.id} className="card bg-primary col-6">
+            <div key={ element.id } className="card bg-primary col-6">
               {/* <div style={{'background-image': `url(${imgURL})`}} className="card-img-top img-fluid px-0 preview-image pt-1 align-self-center"/> */}
-              <img src={imgURL} alt="" className="card-img-top img-fluid preview-image align-self-center pt-1"/>
+              <img src={ imgURL } alt="" className="card-img-top img-fluid preview-image align-self-center pt-1"/>
               <div className="card-body">
-                <h5 className="card-title">{element.name}</h5>
-                <h6 className="card-subtitle">{element.brand}</h6>
+                <h5 className="card-title">{ element.name }</h5>
+                <h6 className="card-subtitle">{ element.brand }</h6>
               </div>
             </div>
           )
         })
-        
       )
-    };
+    }
   }
 
   // how the cards were made in wicked sales, looks better than what i have now
@@ -87,19 +83,18 @@ class ProductList extends React.Component{
 
 
   render(){
-    
     // console.log('productList state: ', state);
     console.log('products list props: ', this.props)
-    return(
+    return (
       <div className="pt-4">
         <h1 className="pt-4">Products list</h1>
         <div className=" container">
           <div className="card-deck row">
-            {this.generateProductList()}
+            { this.generateProductList() }
           </div>
         </div>
       </div>
-    );
+    )
   }
 }
 
@@ -126,20 +121,20 @@ class ProductList extends React.Component{
 //
 //must dispatch type.CORRESPONDING_TYPE when returning a synchronous action, because this will return
 //an object to the reducers, which is what they need to run
-function mapDispatchToProps(dispatch) {
+function mapDispatchToProps (dispatch) {
   return {
     getProductList: () => {
       dispatch(getProductList);
     }
-  };
+  }
 }
 
 function mapStateToProps(state){
   console.log('state in productsList component: ', state);
-  return{
+  return {
     products: state.products.products
-  };
-};
+  }
+}
 
 // export default connect(mapStateToProps, mapDispatchToProps)(ProductList);
-export default withRouter(connect(mapStateToProps, {getProductList})(ProductList));
+export default withRouter(connect(mapStateToProps, {getProductList})(ProductList))

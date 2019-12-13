@@ -1,18 +1,22 @@
-import React from 'react';
+/* eslint-disable */
+// some code to ignore the rules
+/* eslint-enable */
 
-import {connect} from 'react-redux';
+import React from 'react'
 
-import { Switch, Route, Link } from "react-router-dom";
+import {connect} from 'react-redux'
 
-import 'bootstrap/dist/css/bootstrap.min.css';
-import './styles/global_style.css';
-import Landing from './landing.jsx';
-import ProductList from './productList.jsx';
-import Cart from './cart.jsx';
+import { Switch, Route, Link } from "react-router-dom"
+
+import 'bootstrap/dist/css/bootstrap.min.css'
+import './styles/global_style.css'
+import Landing from './landing.jsx'
+import ProductList from './productList.jsx'
+import Cart from './cart.jsx'
 import Checkout from './checkout.jsx'
-import Header from './header.jsx';
-import Footer from './footer.jsx';
-import Test from './test';
+import Header from './header.jsx'
+import Footer from './footer.jsx'
+import Test from './test'
 
 
 class App extends React.Component {

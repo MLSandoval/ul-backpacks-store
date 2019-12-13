@@ -1,30 +1,30 @@
-const express = require('express');
-const app = express();
+const express = require('express')
+const app = express()
 
-const path = require('path');
-const pubDirectory = path.join(__dirname, '/public');
-app.use(express.static(pubDirectory));
-app.use(express.json());
+const path = require('path')
+const pubDirectory = path.join(__dirname, '/public')
+app.use(express.static(pubDirectory))
+app.use(express.json())
 
-const cors = require('cors');
-app.use(cors());
+const cors = require('cors')
+app.use(cors())
 
-const mysql = require('mysql2');
-const creds = require('./sql_creds');
-const db = mysql.createPool(creds);
+const mysql = require('mysql2')
+const creds = require('./sql_creds')
+const db = mysql.createPool(creds)
 
-app.get('/', (req, res, next)=>{
-  res.sendFile(pubDirectory);
+app.get('/', (req, res, next) => {
+  res.sendFile(pubDirectory)
 })
 
-app.get('/api/test', (req,res,next)=>{
-    res.send({
-        list: ['One', 'Two', 'Three', 'Four', 'Five'],
-        message: 'this is a test endpoint'
-    });
-});
+app.get('/api/test', (req, res, next) => {
+  res.send({
+    list: ['One', 'Two', 'Three', 'Four', 'Five'],
+    message: 'this is a test endpoint'
+  })
+})
 
-app.get('/api/get-products', (req, res, next)=>{
+app.get('/api/get-products', (req, res, next) => {
   res.send({
     products: [
       {
@@ -182,6 +182,6 @@ app.get('/*', (req, res, next) => {
   })
 })
 
-app.listen(3001, ()=>{
+app.listen(3001, () => {
   console.log('Node server listening on port 3001.')
 })

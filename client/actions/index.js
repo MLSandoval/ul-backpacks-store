@@ -1,3 +1,4 @@
+/* global fetch */
 import types from './types.js'
 
 export function setView (view) {
@@ -18,7 +19,7 @@ export function getTestList () {
           payload: data
         })
       })
-      .catch(err =>{
+      .catch(err => {
         console.error('Test list fetch error: ', err)
       })
   }
@@ -36,7 +37,7 @@ export function getProductList () {
           payload: data
         })
       })
-      .catch( err => {
+      .catch(err => {
         console.log('Product list fetch error: ', err)
       })
   }
