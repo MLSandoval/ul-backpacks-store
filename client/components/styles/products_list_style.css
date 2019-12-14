@@ -5,3 +5,9 @@
     /* background-size: contain;
     background-repeat: no-repeat; */
 }
+.remove-a-tag-style{
+    color:black;
+}
+.remove-a-tag-style:hover{
+    text-decoration: none;
+}

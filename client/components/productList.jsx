@@ -50,15 +50,19 @@ class ProductList extends React.Component {
           console.log('iteration images: ', element.images)
           let imgURL = element.images[0]
           return (
-            <Link key={ element.id } to={ `/products/details/${element.id}` } render=''
+            <Link className="col-4 p-1 remove-a-tag-style" key={ element.id } to={ `/products/details/${element.id}` } render=''
             // component={ ProductDetails }
             >
-              <div className="card col-6">
+              <div className="card">
+                <div class="card-header bg-transparent border-success">{element.name}</div>
                 {/* <div style={{'background-image': `url(${imgURL})`}} className="card-img-top img-fluid px-0 preview-image pt-1 align-self-center"/> */}
                 <img src={ imgURL } alt="" className="card-img-top img-fluid preview-image align-self-center pt-1" />
                 <div className="card-body">
-                  <h5 className="card-title">{ element.name }</h5>
-                  <h6 className="card-subtitle">{ element.brand }</h6>
+                  <div className="card-text">{ element.short_description }</div>
+                  {/* <h6 className="card-subtitle">{ element.brand }</h6> */}
+                </div>
+                <div class="card-footer">
+                  <small class="text-muted">{ element.brand }</small>
                 </div>
               </div>
             </Link>
@@ -91,16 +95,15 @@ class ProductList extends React.Component {
     // console.log('productList state: ', state);
     console.log('products list props: ', this.props)
     return (
-      // <div className="pt-4">
-      //   <h1 className="pt-4">Products list</h1>
-        <div className=" container">Products list
-          <div className="card-deck row">
+      <div className="pt-4">
+        <h1 className="pt-4">Products list</h1>
+        <div className=" container">
+          <div className="card-deck">
             { this.generateProductList() }
           </div>
-        <Route path={`/products/details/:productId`} component={ProductDetails} />
         </div>
-        
-      // </div>
+        <Route path={`/products/details/:productId`} component={ ProductDetails } />
+      </div>
     )
   }
 }
