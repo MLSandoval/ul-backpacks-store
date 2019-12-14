@@ -42,16 +42,18 @@ class ProductList extends React.Component {
         <h1>Loading...</h1>
       )
     }else if(typeof this.props.products === 'object'){
+      console.log('this.props.location: ', this.props.location)
       return (
         this.props.products.map(element => {
           console.log('products map iteration: ', i++)
           console.log('Element id within map function', element.id)
           console.log('iteration images: ', element.images)
           let imgURL = element.images[0]
-          // let imgURL = mariposaImg;
           return (
-            <Route key={ element.id } path={ `/product-details?id=${element.id}` } component={ ProductDetails }>
-              <div className="card bg-primary col-6">
+            <Link key={ element.id } to={ `/products/details/${element.id}` } render=''
+            // component={ ProductDetails }
+            >
+              <div className="card col-6">
                 {/* <div style={{'background-image': `url(${imgURL})`}} className="card-img-top img-fluid px-0 preview-image pt-1 align-self-center"/> */}
                 <img src={ imgURL } alt="" className="card-img-top img-fluid preview-image align-self-center pt-1" />
                 <div className="card-body">
@@ -59,7 +61,7 @@ class ProductList extends React.Component {
                   <h6 className="card-subtitle">{ element.brand }</h6>
                 </div>
               </div>
-            </Route>
+            </Link>
           )
         })
       )
@@ -89,14 +91,16 @@ class ProductList extends React.Component {
     // console.log('productList state: ', state);
     console.log('products list props: ', this.props)
     return (
-      <div className="pt-4">
-        <h1 className="pt-4">Products list</h1>
-        <div className=" container">
+      // <div className="pt-4">
+      //   <h1 className="pt-4">Products list</h1>
+        <div className=" container">Products list
           <div className="card-deck row">
             { this.generateProductList() }
           </div>
+        <Route path={`/products/details/:productId`} component={ProductDetails} />
         </div>
-      </div>
+        
+      // </div>
     )
   }
 }
