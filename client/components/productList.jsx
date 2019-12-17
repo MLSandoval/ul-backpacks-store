@@ -109,7 +109,6 @@ class ProductList extends React.Component {
   }
 }
 
-
 // function mapDispatchToProps(dispatch) {
 //   return {
 //     onViewChangeClick: view => {
