@@ -7,6 +7,8 @@ class ProductDetails extends React.Component {
       <div>
         <div>
           <h1>THIS IS THE PRODUCT DETAILS VIEW</h1>
+          <h1>THIS IS THE PRODUCT DETAILS VIEW</h1>
+          <h1>THIS IS THE PRODUCT DETAILS VIEW</h1>
         </div>
       </div>
     )

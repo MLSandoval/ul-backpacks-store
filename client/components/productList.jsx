@@ -35,6 +35,7 @@ class ProductList extends React.Component {
   // }
 
   generateProductList () {
+    const { match } = this.props
     console.log('generateProductList CALLED')
     let i = 1
     if (typeof this.props.products === 'string') {
@@ -50,7 +51,7 @@ class ProductList extends React.Component {
           console.log('iteration images: ', element.images)
           let imgURL = element.images[0]
           return (
-            <Link className="col-4 p-1 remove-a-tag-style" key={ element.id } to={ `/products/details/${element.id}` } render=''
+            <Link className="col-4 p-1 remove-a-tag-style" key={ element.id } to={ `${ match.path }/details/${element.id}` } render=''
             // component={ ProductDetails }
             >
               <div className="card">
@@ -73,7 +74,7 @@ class ProductList extends React.Component {
   }
   
 
-  // how the cards were made in wicked sales, looks better than what i have now
+// how the cards were made in wicked sales, looks better than what i have now
 //  export default function ProductListItem(props) {
 //   return (
 //     <div onClick={() => props.clickCallback('details', props.id)} className="col-md-4 align-items-stretch">
@@ -95,6 +96,7 @@ class ProductList extends React.Component {
   render(){
     // console.log('productList state: ', state);
     console.log('products list props: ', this.props)
+    const { match } = this.props
     return (
       <div className="pt-4">
         <h1 className="pt-4">Products list</h1>
@@ -103,7 +105,7 @@ class ProductList extends React.Component {
             { this.generateProductList() }
           </div>
         </div>
-        <Route path={`/products/details/:productId`} component={ ProductDetails } />
+        {/* <Route path={`${ match.path }/details/:productId`} component={ ProductDetails } /> */}
       </div>
     )
   }
