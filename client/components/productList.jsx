@@ -51,22 +51,26 @@ class ProductList extends React.Component {
           console.log('iteration images: ', element.images)
           let imgURL = element.images[0]
           return (
-            <Link className="col-4 p-1 remove-a-tag-style" key={ element.id } to={ `${ match.path }/details/${element.id}` } render=''
-            // component={ ProductDetails }
-            >
-              <div className="card">
-                <div class="card-header bg-transparent border-success">{element.name}</div>
-                {/* <div style={{'background-image': `url(${imgURL})`}} className="card-img-top img-fluid px-0 preview-image pt-1 align-self-center"/> */}
-                <img src={ imgURL } alt="" className="card-img-top img-fluid preview-image align-self-center pt-1" />
-                <div className="card-body">
-                  <div className="card-text">{ element.short_description }</div>
-                  {/* <h6 className="card-subtitle">{ element.brand }</h6> */}
+            <React.Fragment>
+              <Link className="col-4 p-1 remove-a-tag-style" key={element.id} to={`${match.path}/details/${element.id}`} render=''
+              // component={ ProductDetails }
+              >
+                <div className="card">
+                  <div class="card-header bg-transparent border-success">{element.name}</div>
+                  {/* <div style={{'background-image': `url(${imgURL})`}} className="card-img-top img-fluid px-0 preview-image pt-1 align-self-center"/> */}
+                  <img src={imgURL} alt="" className="card-img-top img-fluid preview-image align-self-center pt-1" />
+                  <div className="card-body">
+                    <div className="card-text">{element.short_description}</div>
+                    {/* <h6 className="card-subtitle">{ element.brand }</h6> */}
+                  </div>
+                  <div class="card-footer">
+                    <small class="text-muted">{element.brand}</small>
+                  </div>
                 </div>
-                <div class="card-footer">
-                  <small class="text-muted">{ element.brand }</small>
-                </div>
-              </div>
-            </Link>
+              </Link>
+              <Route path={`${match.path}/details/:productId`} component={ProductDetails} />
+            </React.Fragment>
+            
           )
         })
       )
