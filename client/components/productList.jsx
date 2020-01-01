@@ -8,7 +8,6 @@ import {getProductList} from '../actions'
 import types from '../actions/types'
 
 import "./styles/products_list_style.css"
-import ProductDetails from './productDetails.jsx'
 
 // import mariposaImg from '../images/product_images/Mariposa/mariposa_1.webp';
 
@@ -37,6 +36,7 @@ class ProductList extends React.Component {
   generateProductList () {
     const { match } = this.props
     console.log('generateProductList CALLED')
+   
     let i = 1
     if (typeof this.props.products === 'string') {
       return (
@@ -50,6 +50,7 @@ class ProductList extends React.Component {
           console.log('Element id within map function', element.id)
           console.log('iteration images: ', element.images)
           let imgURL = element.images[0]
+          console.log('imgURL: ', imgURL)
           return (
             // <React.Fragment>
               <Link className="col-4 p-1 remove-a-tag-style" key={element.id} to={`/details/${element.id}`} render=''
