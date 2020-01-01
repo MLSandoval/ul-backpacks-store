@@ -104,7 +104,7 @@ class ProductList extends React.Component {
     console.log('products list props: ', this.props)
     const { match } = this.props
     return (
-      <div className="pt-4">
+      <div className="pt-4 product-list-main">
         <h1 className="pt-4">Products list</h1>
         <div className=" container">
           <div className="card-deck">
