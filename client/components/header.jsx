@@ -24,10 +24,10 @@ class Header extends React.Component {
             <Link className="btn" to="/">
               <div className="h4">UltraLite</div>
               <div className="logo pr-3 pl-3"></div>
-              </Link>
+            </Link>
           </div>
           <div className="col-4 row justify-content-end">
-            <Link className="btn font-weight-bold" to="/products-list">Products</Link>
+            <Link className="btn font-weight-bold" to="/products">Products</Link>
             <Link className="btn font-weight-bold" to="/test">Test</Link>
             <Link className="btn font-weight-bold" to="/cart">
               <div className="cart-button"></div>

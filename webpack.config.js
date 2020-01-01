@@ -1,7 +1,18 @@
 const path = require('path');
 const srcPath = path.resolve(__dirname, 'client');
 const publicPath = path.resolve(__dirname, 'server/public/');
+
+const CopyPlugin = require('copy-webpack-plugin');
+
 module.exports = {
+  plugins: [
+    new CopyPlugin([
+      { from: "./client/images", to: "./client/components/" },
+      // { from: "./client/images", to: "./client/components/productDetails.jsx" },
+      // { from: "./client/images", to: "./client/components/cart.jsx" },
+      // { from: "./client/images", to: "./client/components/checkout.jsx" },
+    ])
+  ],
   resolve: {
     extensions: [".js", ".jsx"]
   },
@@ -26,31 +37,14 @@ module.exports = {
         use: ["style-loader", "css-loader"]
       },
       {
-        test: /\.(png|svg|jpg|gif|webp|jpeg)$/,
+        test: /\.(png|svg|jpg|gif|webp|jpeg|ico)$/,
         use: ["url-loader"]
       },
-      {
-        test: /\.(png|svg|jpg|gif|webp|jpeg)$/,
-        use: ["file-loader"]
-      }
+      // {
+      //   test: /\.(png|svg|jpg|gif|webp|jpeg)$/,
+      //   use: ["file-loader"]
+      // }
     ],
-
-    // new CopyPlugin([
-    //   'relative/path/to/file.ext',
-    //   '/absolute/path/to/file.ext',
-    //   'relative/path/to/dir',
-    //   '/absolute/path/to/dir',
-    //   '**/*',
-    //   { glob: '**/*', dot: false },
-
-    plugins: [
-      new CopyPlugin([
-        { from: "./server/images", to: "./client/components/productList.jsx" },
-        { from: "./server/images", to: "./client/components/productDetails.jsx" },
-        { from: "./server/images", to: "./client/components/cart.jsx" },
-        { from: "./server/images", to: "./client/components/checkout.jsx" },
-      ])
-    ]
   },
   devtool: "source-map",
   devServer: {

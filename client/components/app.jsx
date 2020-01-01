@@ -1,18 +1,23 @@
-import React from 'react';
+/* eslint-disable */
+// some code to ignore the rules
+/* eslint-enable */
 
-import {connect} from 'react-redux';
+import React from 'react'
 
-import { Switch, Route, Link } from "react-router-dom";
+import {connect} from 'react-redux'
 
-import 'bootstrap/dist/css/bootstrap.min.css';
-import './styles/global_style.css';
-import Landing from './landing.jsx';
-import ProductList from './productList.jsx';
-import Cart from './cart.jsx';
+import { Switch, Route, Link } from "react-router-dom"
+
+import 'bootstrap/dist/css/bootstrap.min.css'
+import './styles/global_style.css'
+import Landing from './landing.jsx'
+import ProductList from './productList.jsx'
+import Cart from './cart.jsx'
 import Checkout from './checkout.jsx'
-import Header from './header.jsx';
-import Footer from './footer.jsx';
-import Test from './test';
+import Header from './header.jsx'
+import Footer from './footer.jsx'
+import Test from './test'
+import ProductDetails from './productDetails'
 
 
 class App extends React.Component {
@@ -21,14 +26,15 @@ class App extends React.Component {
         <div>
           <Header/>
           <Route exact path="/" component={Landing} />
-          <Route path="/products-list" component={ProductList} />
-          <Route path="/products"/>
+          {/* <Route path="/products-list" component={ProductList} /> */}
+          <Route path="/products" component={ProductList}/>
           <Route path="/test" component={Test} />
           <Route path="/cart" component={Cart}/>
-          <Route path="/checkout" component={Checkout}
+          <Route path="/details/:productId" component={ProductDetails}/>
+          {/* <Route path="/checkout" component={Checkout}/> */}
           <Footer/>
         </div>
-    );
+    )
   }
 }
 
