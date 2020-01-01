@@ -5,6 +5,10 @@ class ProductDetails extends React.Component {
   render () {
     console.log('this.props in product details: ', this.props);
     let id = this.props.match.params.productId;
+    console.log(
+      "this.props.products[id].images[0]:",
+      this.props.products[id].images[0]
+    );
 
     return (
       <div className="product-details container pt-4">
