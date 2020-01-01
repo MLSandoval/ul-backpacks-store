@@ -16,7 +16,7 @@ class Header extends React.Component {
   }
   
   render(){
-    let itemCount = 0;
+    let itemCount;
     return (
       <div className="position-fixed landing-header container-fluid">
         <div className="row ">
@@ -26,12 +26,14 @@ class Header extends React.Component {
               <div className="logo pr-3 pl-3"></div>
             </Link>
           </div>
-          <div className="col-4 row justify-content-end">
+          <div className="col-4 row justify-content-end text-nowrap">
             <Link className="btn font-weight-bold" to="/products">Products</Link>
-            <Link className="btn font-weight-bold" to="/test">Test</Link>
+            {/* <Link className="btn font-weight-bold" to="/test">Test</Link> */}
             <Link className="btn font-weight-bold" to="/cart">
-              <div className="cart-button"></div>
-              <div className="cart-count">: {itemCount}</div>
+              <div className="cart-logo-count-bg row">
+                <div className="cart-button"></div>
+                <div className="cart-count">:{itemCount || 0}</div>
+              </div>
             </Link>
           </div>
         </div>

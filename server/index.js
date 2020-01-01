@@ -28,7 +28,7 @@ app.get('/api/get-products', (req, res, next) => {
   res.send({
     products: [
       {
-        id: 1,
+        id: 0,
         brand: 'Gossamer Gear',
         name: 'Mariposa',
         price: 26000,
@@ -67,7 +67,7 @@ app.get('/api/get-products', (req, res, next) => {
         ]
       },
       {
-        id: 2,
+        id: 1,
         brand: 'ULA Equipment',
         name: 'CDT',
         price: 14500,
@@ -105,7 +105,7 @@ app.get('/api/get-products', (req, res, next) => {
         ]
       },
       {
-        id: 3,
+        id: 2,
         brand: 'HMG',
         name: 'Windrider 3400',
         price: 34000,
@@ -142,7 +142,7 @@ app.get('/api/get-products', (req, res, next) => {
         ]
       },
       {
-        id: 4,
+        id: 3,
         brand: 'Osprey',
         name: 'Levity',
         price: 27000,
