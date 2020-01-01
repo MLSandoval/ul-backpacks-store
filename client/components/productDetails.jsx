@@ -9,7 +9,7 @@ class ProductDetails extends React.Component {
       "this.props.products[id].images[0]:",
       this.props.products[id].images[0]
     );
-
+      
     return (
       <div className="product-details container pt-4">
         <div className="pt-4 row h-100">
@@ -18,8 +18,7 @@ class ProductDetails extends React.Component {
               <i className=""></i> Back to Catalog
             </a>
           </div>
-
-          <img className="col-8 " src={this.props.products[id].images[0]} alt="" />
+          <img className="col-8 " src={'../' + this.props.products[id].images[0]} alt="" />
           <div className=" col-4 mb-3">
             <h2>{this.props.products[id].name}</h2>
             <h4>${(this.props.products[id].price / 100).toFixed(2)}</h4>

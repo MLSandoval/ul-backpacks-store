@@ -23,7 +23,7 @@ import ProductDetails from './productDetails'
 class App extends React.Component {
   render() {
     return (
-        <div>
+        <div className="app-main">
           <Header/>
           <Route exact path="/" component={Landing} />
           {/* <Route path="/products-list" component={ProductList} /> */}
