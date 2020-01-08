@@ -1,4 +1,6 @@
-
+.app-main{
+  background-color: lightslategray;
+}
 .btn:focus, .btn:active {
   outline: none !important;
   box-shadow: none !important;
