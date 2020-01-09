@@ -1,5 +1,5 @@
 .app-main{
-  background-color: lightslategray;
+  /* background-color: lightslategray; */
 }
 .btn:focus, .btn:active {
   outline: none !important;
