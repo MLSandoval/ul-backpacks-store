@@ -1,6 +1,10 @@
 import React from 'react'
 import { connect } from 'react-redux'
 
+import Carousel from 'react-bootstrap/Carousel'
+
+import "./styles/product_details_style.css"
+
 class ProductDetails extends React.Component {
   render () {
     console.log('this.props in product details: ', this.props);
@@ -18,7 +22,65 @@ class ProductDetails extends React.Component {
               <i className=""></i> Back to Catalog
             </a>
           </div>
-          <img className="col-8 " src={'../' + this.props.products[id].images[0]} alt="" />
+
+          {/* <img className="col-8 " src={'../' + this.props.products[id].images[0]} alt="" /> */}
+          <div className="col-8 carousel-container">
+            <Carousel interval={false}>
+              <Carousel.Item>
+                <img
+                  className="d-block w-100"
+                  src={'../' + this.props.products[id].images[0]}
+                  alt="First slide"
+                />
+                <Carousel.Caption>
+                  <h3>First slide label</h3>
+                  <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
+                </Carousel.Caption>
+              </Carousel.Item>
+              <Carousel.Item>
+                <img
+                  className="d-block w-100"
+                  src={'../' + this.props.products[id].images[1]}
+                  alt="Third slide"
+                />
+
+                <Carousel.Caption>
+                  <h3>Second slide label</h3>
+                  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                </Carousel.Caption>
+              </Carousel.Item>
+              <Carousel.Item>
+                <img
+                  className="d-block w-100"
+                  src={'../' + this.props.products[id].images[2]}
+                  alt="Third slide"
+                />
+
+                <Carousel.Caption>
+                  <h3>Third slide label</h3>
+                  <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>
+                </Carousel.Caption>
+              </Carousel.Item>
+              <Carousel.Item>
+                <img
+                  className="d-block w-100"
+                  src={'../' + this.props.products[id].images[3]}
+                  alt="Third slide"
+                />
+
+                <Carousel.Caption>
+                  <h3>Third slide label</h3>
+                  <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>
+                </Carousel.Caption>
+              </Carousel.Item>
+            </Carousel>
+          </div>
+          
+
+
+
+
+
           <div className=" col-4 mb-3">
             <h2>{this.props.products[id].name}</h2>
             <h4>${(this.props.products[id].price / 100).toFixed(2)}</h4>

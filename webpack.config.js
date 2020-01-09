@@ -2,17 +2,17 @@ const path = require('path');
 const srcPath = path.resolve(__dirname, 'client');
 const publicPath = path.resolve(__dirname, 'server/public/');
 
-const CopyPlugin = require('copy-webpack-plugin');
+// const CopyPlugin = require('copy-webpack-plugin');
 
 module.exports = {
-  plugins: [
-    new CopyPlugin([
-      { from: "./client/images", to: "./client/components/" },
-      // { from: "./client/images", to: "./client/components/productDetails.jsx" },
-      // { from: "./client/images", to: "./client/components/cart.jsx" },
-      // { from: "./client/images", to: "./client/components/checkout.jsx" },
-    ])
-  ],
+  // plugins: [
+  //   new CopyPlugin([
+  //     { from: "./client/images", to: "./client/components/" },
+  //     // { from: "./client/images", to: "./client/components/productDetails.jsx" },
+  //     // { from: "./client/images", to: "./client/components/cart.jsx" },
+  //     // { from: "./client/images", to: "./client/components/checkout.jsx" },
+  //   ])
+  // ],
   resolve: {
     extensions: [".js", ".jsx"]
   },

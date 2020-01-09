@@ -13,7 +13,9 @@ const mysql = require('mysql2')
 const creds = require('./sql_creds')
 const db = mysql.createPool(creds)
 
-app.get('/', (req, res, next) => {
+// * to allow refresh of page on child path, works with webpack dev running, not when served from the actual node server
+app.get('/*', (req, res, next) => {
+  console.log('pubDirectory: ', pubDirectory)
   res.sendFile(pubDirectory)
 })
 
