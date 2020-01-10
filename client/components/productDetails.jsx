@@ -23,21 +23,28 @@ class ProductDetails extends React.Component {
             </a>
           </div>
 
-          {/* <img className="col-8 " src={'../' + this.props.products[id].images[0]} alt="" /> */}
           <div className="col-8 carousel-container">
             <Carousel interval={false}>
-              <Carousel.Item>
-                <img
-                  className="d-block w-100"
-                  src={'../' + this.props.products[id].images[0]}
-                  alt="First slide"
-                />
-                <Carousel.Caption>
-                  <h3>First slide label</h3>
-                  <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
-                </Carousel.Caption>
-              </Carousel.Item>
-              <Carousel.Item>
+              {
+                this.props.products[id].images.map(element => {
+                  return(
+                    <Carousel.Item>
+                    <img
+                      className="d-block w-100"
+                      src={'../' + element}
+                      alt="First slide"
+                    />
+                    <Carousel.Caption>
+                      <h3>First slide label</h3>
+                      <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
+                    </Carousel.Caption>
+                  </Carousel.Item>
+                  )
+                })
+              }
+          
+              
+              {/* <Carousel.Item>
                 <img
                   className="d-block w-100"
                   src={'../' + this.props.products[id].images[1]}
@@ -72,7 +79,7 @@ class ProductDetails extends React.Component {
                   <h3>Third slide label</h3>
                   <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>
                 </Carousel.Caption>
-              </Carousel.Item>
+              </Carousel.Item> */}
             </Carousel>
           </div>
           
