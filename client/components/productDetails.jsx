@@ -7,12 +7,13 @@ import "./styles/product_details_style.css"
 
 class ProductDetails extends React.Component {
   render () {
-    console.log('this.props in product details: ', this.props);
-    let id = this.props.match.params.productId;
-    console.log(
-      "this.props.products[id].images[0]:",
-      this.props.products[id].images[0]
-    );
+    // console.log('this.props in product details: ', this.props);
+    let id = this.props.match.params.productId
+    let product = this.props.products[id]
+    // console.log(
+    //   "this.props.products[id].images[0]:",
+    //   this.props.products[id].images[0]
+    // );
       
     return (
       <div className="product-details container pt-4">
@@ -26,9 +27,9 @@ class ProductDetails extends React.Component {
           <div className="col-8 carousel-container">
             <Carousel interval={false}>
               {
-                this.props.products[id].images.map( (element, index) => {
+                product.images.map( (element, index) => {
                   return(
-                    <Carousel.Item>
+                    <Carousel.Item key={index}>
                     <img
                       className="d-block w-100"
                       src={'../' + element}
@@ -44,11 +45,6 @@ class ProductDetails extends React.Component {
               }
             </Carousel>
           </div>
-          
-
-
-
-
 
           <div className=" col-4 mb-3">
             <h2>{this.props.products[id].name}</h2>
