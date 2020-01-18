@@ -7,6 +7,12 @@ import "./styles/product_details_style.css"
 
 class ProductDetails extends React.Component {
 
+  componentDidMount(){
+    let id = this.props.match.params.productId
+    let product = this.props.products[id]
+
+  }
+
   renderProductFeatures () {
     let id = this.props.match.params.productId
     let product = this.props.products[id]
@@ -36,12 +42,19 @@ class ProductDetails extends React.Component {
     return (
       <div className="product-details container pt-4">
         <div className="pt-4 row h-100 overflow-auto">
-          <div className="container">
-            <a className="col-2 btn btn-outline-light back-button">
+          
+            {/* <a className="col-2 btn btn-outline-light back-button">
               <i className=""></i> Back to Catalog
-            </a>
+            </a> */}
+          
+          <div className="col-8">
+            <h2 className="">{this.props.products[id].name}</h2>
+            <h6>by {this.props.products[id].brand}</h6>
           </div>
-
+          <div className="col-4 row flex-column justify-content-end">
+            <h4 className="align-self-center">${(this.props.products[id].price / 100).toFixed(2)}</h4>
+            <button className="btn btn-secondary">Add To Cart</button>
+          </div>
           <div className="col-8 carousel-container">
             <Carousel interval={false}>
               {
@@ -54,8 +67,8 @@ class ProductDetails extends React.Component {
                       alt="First slide"
                     />
                     <Carousel.Caption>
-                      <h3>Slide {index + 1}</h3>
-                      <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
+                      <h3>{index + 1}</h3>
+                      <p></p>
                     </Carousel.Caption>
                   </Carousel.Item>
                   )
@@ -65,20 +78,20 @@ class ProductDetails extends React.Component {
           </div>
 
           <div className=" col-4 mb-3">
-            <h2>{this.props.products[id].name}</h2>
-            <h4>${(this.props.products[id].price / 100).toFixed(2)}</h4>
-            <div className="align-self-center">{this.props.products.short_description}</div>
-            <button className="btn btn-secondary">Add To Cart</button>
-            <ul>
-              { 
-                this.renderProductFeatures()
-              }
-            </ul>
+            {/* <h2 className="align-self-right">{this.props.products[id].name}</h2> */}
+            {/* <h4 className="align-self-right">${(this.props.products[id].price / 100).toFixed(2)}</h4> */}
+            <div className="align-self-center">{product.short_description}</div>
+            
+            <div>
+              {this.props.products[id].long_description}
+            </div>
           </div>
         </div>
-        <h5 className="display-5 mt-3">Learn Yourself Here</h5>
-        <div>{this.props.products[id].long_description}</div>
-        <div>{this.props.products[id].brand}</div>
+        <h5 className="display-5 mt-3">Features</h5>
+        <div>
+          <ul>{ this.renderProductFeatures() }</ul>
+        </div>
+        
       </div>
     )
   }
