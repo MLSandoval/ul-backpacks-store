@@ -78,8 +78,6 @@ class ProductList extends React.Component {
     }
   }
 
-  
-  
 
 // how the cards were made in wicked sales, looks better than what i have now
 //  export default function ProductListItem(props) {

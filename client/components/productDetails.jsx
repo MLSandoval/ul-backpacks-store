@@ -6,6 +6,24 @@ import Carousel from 'react-bootstrap/Carousel'
 import "./styles/product_details_style.css"
 
 class ProductDetails extends React.Component {
+
+  renderProductFeatures () {
+    let id = this.props.match.params.productId
+    let product = this.props.products[id]
+    console.log('features id: ', this.props.match.params.productId)
+    console.log('features product: ', this.props.products[id])
+
+    return (
+      product.features.map( (element, index) => {
+        return (
+        <li key={ index }>
+          {element}
+        </li>
+        )
+      })
+    )
+  }
+
   render () {
     // console.log('this.props in product details: ', this.props);
     let id = this.props.match.params.productId
@@ -17,7 +35,7 @@ class ProductDetails extends React.Component {
       
     return (
       <div className="product-details container pt-4">
-        <div className="pt-4 row h-100">
+        <div className="pt-4 row h-100 overflow-auto">
           <div className="container">
             <a className="col-2 btn btn-outline-light back-button">
               <i className=""></i> Back to Catalog
@@ -51,6 +69,11 @@ class ProductDetails extends React.Component {
             <h4>${(this.props.products[id].price / 100).toFixed(2)}</h4>
             <div className="align-self-center">{this.props.products.short_description}</div>
             <button className="btn btn-secondary">Add To Cart</button>
+            <ul>
+              { 
+                this.renderProductFeatures()
+              }
+            </ul>
           </div>
         </div>
         <h5 className="display-5 mt-3">Learn Yourself Here</h5>
