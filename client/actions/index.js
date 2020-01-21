@@ -43,9 +43,12 @@ export function getProductList () {
   }
 }
 
-export function viewProductDetails () {
+export function addToCart (product) {
   return function (dispatch) {
-    
+    dispatch({
+      type: types.PRODUCT_ADDED_TO_CART,
+      product
+    })
   }
 }
 

@@ -10,10 +10,10 @@ const DEFAULT_STATE = {
 function addToCartReducer(state = DEFAULT_STATE, action) { //action = {type: 'SET_VIEW'}
     
     switch (action.type) {
-        case types.SET_VIEW:
+        case types.PRODUCT_ADDED_TO_CART:
             //use the spread operator and state variable because this switch in the reducer will completely
             //replace the object dictating state, and we need to keep all state every time there is a re-render
-            return { ...state, view: action.payload };
+            return { ...state, cart: action.product };
         default:
             return state;
     };
