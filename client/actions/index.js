@@ -45,9 +45,10 @@ export function getProductList () {
 
 export function addToCart (product) {
   return function (dispatch) {
+    console.log('addToCart action called, product: ', product)
     dispatch({
       type: types.PRODUCT_ADDED_TO_CART,
-      product
+      cart: cart.concat(product)
     })
   }
 }

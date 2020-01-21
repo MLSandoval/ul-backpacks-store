@@ -2,8 +2,8 @@ import React from 'react'
 import { connect } from 'react-redux'
 
 import Carousel from 'react-bootstrap/Carousel'
-
-import "./styles/product_details_style.css"
+import './styles/product_details_style.css'
+import {addToCart} from '../actions'
 
 class ProductDetails extends React.Component {
 
@@ -31,7 +31,7 @@ class ProductDetails extends React.Component {
   }
 
   render () {
-    // console.log('this.props in product details: ', this.props);
+    console.log('this.props in product details: ', this.props);
     let id = this.props.match.params.productId
     let product = this.props.products[id]
     // console.log(
@@ -53,7 +53,7 @@ class ProductDetails extends React.Component {
           </div>
           <div className="col-4 row flex-column justify-content-end">
             <h4 className="align-self-center">${(this.props.products[id].price / 100).toFixed(2)}</h4>
-            <button className="btn btn-secondary">Add To Cart</button>
+            <button className="btn btn-secondary" onClick={ ()=>{ console.log('button clicked'); addToCart([id]) } }>Add To Cart</button>
           </div>
           <div className="col-8 carousel-container">
             <Carousel interval={false}>
@@ -108,7 +108,8 @@ function mapDispatchToProps(dispatch) {
 function mapStateToProps(state) {
   console.log('state in productsList component: ', state);
   return {
-    products: state.products.products
+    products: state.products.products,
+    cart: state.cart
   }
 }
 
