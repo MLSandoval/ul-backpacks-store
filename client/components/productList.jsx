@@ -16,7 +16,7 @@ class ProductList extends React.Component {
     super (props)
   }
   componentDidMount () {
-    console.log('component did mount product list, props: ', this.props)
+    // console.log('component did mount product list, props: ', this.props)
     this.props.getProductList()
   }
 
@@ -35,7 +35,7 @@ class ProductList extends React.Component {
 
   generateProductList () {
     const { match } = this.props
-    console.log('generateProductList CALLED')
+    // console.log('generateProductList CALLED')
    
     let i = 1
     if (typeof this.props.products === 'string') {
@@ -43,14 +43,14 @@ class ProductList extends React.Component {
         <h1>Loading...</h1>
       )
     }else if(typeof this.props.products === 'object'){
-      console.log('this.props.location: ', this.props.location)
+      // console.log('this.props.location: ', this.props.location)
       return (
         this.props.products.map(element => {
-          console.log('products map iteration: ', i++)
-          console.log('Element id within map function', element.id)
-          console.log('iteration images: ', element.images)
+          // console.log('products map iteration: ', i++)
+          // console.log('Element id within map function', element.id)
+          // console.log('iteration images: ', element.images)
           let imgURL = element.images[0]
-          console.log('imgURL: ', imgURL)
+          // console.log('imgURL: ', imgURL)
           return (
             // <React.Fragment>
               <Link className="col-4 p-1 remove-a-tag-style" key={element.id} to={`/details/${element.id}`} render=''
@@ -78,8 +78,6 @@ class ProductList extends React.Component {
     }
   }
 
-  
-  
 
 // how the cards were made in wicked sales, looks better than what i have now
 //  export default function ProductListItem(props) {
@@ -102,7 +100,7 @@ class ProductList extends React.Component {
 
   render(){
     // console.log('productList state: ', state);
-    console.log('products list props: ', this.props)
+    // console.log('products list props: ', this.props)
     const { match } = this.props
     return (
       <div className="pt-4 product-list-main">
@@ -143,13 +141,13 @@ class ProductList extends React.Component {
 function mapDispatchToProps (dispatch) {
   return {
     getProductList: () => {
-      dispatch(getProductList);
+      dispatch(getProductList)
     }
   }
 }
 
 function mapStateToProps(state){
-  console.log('state in productsList component: ', state);
+  // console.log('state in productsList component: ', state);
   return {
     products: state.products.products
   }

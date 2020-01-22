@@ -1,8 +1,14 @@
 .app-main{
   /* background-color: lightslategray; */
+  overflow-y: scroll;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none;  /* Internet Explorer 10+ */
+}
+.app-main::-webkit-scrollbar{
+  width: 0;
+  height: 0;
 }
 .btn:focus, .btn:active {
   outline: none !important;
   box-shadow: none !important;
 }
-

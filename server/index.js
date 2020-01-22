@@ -16,6 +16,7 @@ const db = mysql.createPool(creds)
 // * to allow refresh of page on child path, works with webpack dev running, not when served from the actual node server
 app.get('/*', (req, res, next) => {
   console.log('pubDirectory: ', pubDirectory)
+  console.log('req.url: ', req.url)
   res.sendFile(pubDirectory)
 })
 
@@ -157,9 +158,7 @@ app.get('/api/get-products', (req, res, next) => {
           'The Osprey Levity 60 is the most comfortable and ventilated pack ever made for the lightest loads imaginable. It\'s perfect for weeklong, or even month long trips. In fact, it\'s probably not the right pack for you. It\'s for people who pack lighter, go further, and think smarter. This pack isn\'t on Instagram, because phones are too heavy, and views look better in your mind anyway. But if you are one of those maniacal gram-counters, look no further. Backed by our All Mighty Guarantee, forever.',
         images: [
           './images/product_images/Levity/levity_1.png',
-          './images/product_images/Levity/levity_2.png',
-          './images/product_images/Levity/levity_3.png',
-          './images/product_images/Levity/levity_4.png'
+          './images/product_images/Levity/levity_2.png'
         ],
         features: [
           'Fixed top lid with zippered pocket for organizing smaller items',
@@ -175,7 +174,7 @@ app.get('/api/get-products', (req, res, next) => {
   })
 })
 
-// fixes client side routing 'cannot get xxxxxxx' on refresh issue
+// fixes client side routing 'cannot get xxxxxxx' on refresh issue except when there is a 
 app.get('/*', (req, res, next) => {
   res.sendFile(path.join(__dirname, pubDirectory), (err) => {
     if (err) {
