@@ -43,12 +43,22 @@ export function getProductList () {
   }
 }
 
+export function setCurrentProduct (productId) {
+  return function (dispatch) {
+    console.log()
+    dispatch({
+      type: type.SET_CURRENT_PRODUCT,
+      payload: productId
+    })
+  }
+}
+
 export function addToCart (cart, product) {
   return function (dispatch) {
     console.log('addToCart action called, product: ', product)
     dispatch({
       type: types.PRODUCT_ADDED_TO_CART,
-      cart: cart.push(product)
+      payload: product
     })
   }
 }
