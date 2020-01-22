@@ -141,7 +141,7 @@ class ProductList extends React.Component {
 function mapDispatchToProps (dispatch) {
   return {
     getProductList: () => {
-      dispatch(getProductList);
+      dispatch(getProductList)
     }
   }
 }
