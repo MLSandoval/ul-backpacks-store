@@ -17,7 +17,7 @@ class ProductList extends React.Component {
   }
   componentDidMount () {
     // console.log('component did mount product list, props: ', this.props)
-    this.props.getProductList()
+    // this.props.getProductList()
   }
 
   // componentDidUpdate(prevProps, prevState){
@@ -56,6 +56,7 @@ class ProductList extends React.Component {
               <Link className="col-4 p-1 remove-a-tag-style" 
                 key={element.id} 
                 to={`/details/${element.id}`} 
+                // to={'/details'} 
                 data-id={element.id}
                 onClick={ e =>{ this.props.setCurrentProduct(e.currentTarget.dataset.id) }}
               >
@@ -158,4 +159,4 @@ function mapStateToProps(state){
 }
 
 // export default connect(mapStateToProps, mapDispatchToProps)(ProductList);
-export default withRouter(connect(mapStateToProps, {getProductList, setCurrentProduct})(ProductList))
+export default withRouter(connect(mapStateToProps, {setCurrentProduct})(ProductList))

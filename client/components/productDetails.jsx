@@ -1,21 +1,33 @@
 import React from 'react'
 import { connect } from 'react-redux'
 
+import {withRouter} from 'react-router-dom'
+
 import Carousel from 'react-bootstrap/Carousel'
 import './styles/product_details_style.css'
 import { addToCart } from '../actions'
 
 class ProductDetails extends React.Component {
 
+  // UNSAFE_componentWillMount () {
+  //   console.log('componentwillmount current product: ', this.props.match.params.productId)
+  //   this.props.currentProduct.currentProduct = this.props.match.params.productId
+  // }
+
   componentDidMount(){
-    let id = this.props.match.params.productId
-    let product = this.props.products[id]
+    // let id = this.props.match.params.productId
+    // let product = this.props.products[id]
+    console.log(this.props.currentProduct)
 
   }
 
   renderProductFeatures () {
-    let id = this.props.match.params.productId
+    // let id = this.props.match.params.productId
+    // let product = this.props.products[id]
+    let id = this.props.currentProduct.currentProduct
     let product = this.props.products[id]
+
+
     console.log('features id: ', this.props.match.params.productId)
     console.log('features product: ', this.props.products[id])
 
@@ -33,8 +45,12 @@ class ProductDetails extends React.Component {
   render () {
     console.log('addToCart function: ', addToCart(1))
     console.log('this.props in product details: ', this.props);
-    let id = this.props.match.params.productId
+    // let id = this.props.match.params.productId
+    // let product = this.props.products[id]
+    let id = this.props.currentProduct.currentProduct
     let product = this.props.products[id]
+
+
     let prevCart =  this.props.cart
     console.log('prevCart: ', prevCart)
     // console.log(
@@ -117,4 +133,4 @@ function mapStateToProps(state) {
   }
 }
 
-export default connect(mapStateToProps, {addToCart})(ProductDetails)
+export default withRouter(connect(mapStateToProps, {addToCart})(ProductDetails))
