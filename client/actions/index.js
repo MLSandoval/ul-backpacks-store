@@ -45,9 +45,9 @@ export function getProductList () {
 
 export function setCurrentProduct (productId) {
   return function (dispatch) {
-    console.log()
+    console.log('setCurrentProduct action, productId: ', productId)
     dispatch({
-      type: type.SET_CURRENT_PRODUCT,
+      type: types.SET_CURRENT_PRODUCT,
       payload: productId
     })
   }

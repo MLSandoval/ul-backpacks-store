@@ -112,9 +112,9 @@ function mapStateToProps(state) {
   console.log('state in productsDetails component: ', state);
   return {
     products: state.products.products,
+    currentProduct: state.currentProduct,
     cart: state.cart
   }
 }
 
 export default connect(mapStateToProps, {addToCart})(ProductDetails)
-

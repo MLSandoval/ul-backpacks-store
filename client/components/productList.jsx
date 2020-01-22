@@ -4,7 +4,7 @@ import { connect } from "react-redux"
 
 import {Route, Link, withRouter} from 'react-router-dom'
 
-import {getProductList} from '../actions'
+import {getProductList, setCurrentProduct} from '../actions'
 import types from '../actions/types'
 
 import "./styles/products_list_style.css"
@@ -53,8 +53,11 @@ class ProductList extends React.Component {
           // console.log('imgURL: ', imgURL)
           return (
             // <React.Fragment>
-              <Link className="col-4 p-1 remove-a-tag-style" key={element.id} to={`/details/${element.id}`} render=''
-              // component={ ProductDetails }
+              <Link className="col-4 p-1 remove-a-tag-style" 
+                key={element.id} 
+                to={`/details/${element.id}`} 
+                data-id={element.id}
+                onClick={ e =>{ this.props.setCurrentProduct(e.currentTarget.dataset.id) }}
               >
                 <div className="card">
                   <div className="card-header bg-transparent border-success">{element.name}</div>
@@ -147,11 +150,12 @@ function mapDispatchToProps (dispatch) {
 }
 
 function mapStateToProps(state){
-  // console.log('state in productsList component: ', state);
+  console.log('state in productsList component: ', state);
   return {
-    products: state.products.products
+    products: state.products.products,
+    currentProduct: state.currentProduct
   }
 }
 
 // export default connect(mapStateToProps, mapDispatchToProps)(ProductList);
-export default withRouter(connect(mapStateToProps, {getProductList})(ProductList))
+export default withRouter(connect(mapStateToProps, {getProductList, setCurrentProduct})(ProductList))
