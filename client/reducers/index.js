@@ -12,6 +12,6 @@ const rootReducer = combineReducers({
   products: get_products_reducer,
   currentProduct: set_current_product_reducer,
   cart: add_to_cart_reducer
-});
+})
 
 export default rootReducer
