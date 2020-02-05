@@ -91,4 +91,3 @@ export default connect(mapStateToProps, {getProductList, setCurrentProduct})(App
 //     </Router>
 //   );
 // }
-
