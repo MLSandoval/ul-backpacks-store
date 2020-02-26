@@ -12,9 +12,18 @@ import App from "./components/app.jsx";
 
 const store = createStore(rootReducer, applyMiddleware(thunk));
 
+//trying to fix scroll not reseting when re-rendering
+import createHistory from "history/createBrowserHistory"
+
+export const history = createHistory()
+
+history.listen((location, action) => {
+    window.scrollTo(0, 0)
+})
+
 ReactDOM.render(
   <Provider store={store}>
-    <Router>
+    <Router history={history}>
       <App />
     </Router>
   </Provider>,
