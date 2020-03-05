@@ -18,7 +18,12 @@
 {
   content: ' > ';
   font-size: 55px;
-  color: rgb(54, 56, 58);
+  color: rgb(255, 255, 255);
+  text-shadow:
+   -1px -1px 0 #000,  
+    1px -1px 0 #000,
+    -1px 1px 0 #000,
+     1px 1px 0 #000;
   /* border: 1px solid rgba(255, 255, 255, 0.705); */
   /* border-radius: 50%;
   transform: translate(-50%, -50%); */
@@ -27,5 +32,10 @@
 .carousel-control-prev-icon:after {
   content: '<';
   font-size: 55px;
-  color: rgb(54, 56, 58);
+  color: rgb(255, 255, 255);
+  text-shadow:
+   -1px -1px 0 #000,  
+    1px -1px 0 #000,
+    -1px 1px 0 #000,
+     1px 1px 0 #000;
 }

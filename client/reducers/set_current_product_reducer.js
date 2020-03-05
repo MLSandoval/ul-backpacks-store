@@ -1,15 +1,15 @@
 import types from "../actions/types";
 
 const DEFAULT_STATE = {
-  products: 'Products Loading...'
+  currentProduct: 'No product selected.'
 };
 
 export default (state = DEFAULT_STATE, action) => {
   switch (action.type) {
-    case types.PRODUCT_LIST_REQUESTED:
+    case types.SET_CURRENT_PRODUCT:
       // console.log('get product reducer action:', action);
-      console.log('get product reducer action.payload.products: ', action.payload.products);
-      return { ...state, products: action.payload.products };
+      console.log('setCurrentProduct reducer action.payload: ', action.payload);
+      return { ...state, currentProduct: action.payload };
     default:
       return state;
   }

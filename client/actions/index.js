@@ -30,7 +30,7 @@ export function getProductList () {
     fetch('/api/get-products')
       .then(res => res.json())
       .then(data => {
-        // console.log('server response on products list call: ', data)
+        console.log('server response on products list call: ', data)
         dispatch({
           type: types.PRODUCT_LIST_REQUESTED,
           isFetching: true,
@@ -45,15 +45,15 @@ export function getProductList () {
 
 export function setCurrentProduct (productId) {
   return function (dispatch) {
-    console.log()
+    console.log('setCurrentProduct action, productId: ', productId)
     dispatch({
-      type: type.SET_CURRENT_PRODUCT,
+      type: types.SET_CURRENT_PRODUCT,
       payload: productId
     })
   }
 }
 
-export function addToCart (cart, product) {
+export function addToCart (product) {
   return function (dispatch) {
     console.log('addToCart action called, product: ', product)
     dispatch({

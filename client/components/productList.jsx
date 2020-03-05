@@ -4,7 +4,7 @@ import { connect } from "react-redux"
 
 import {Route, Link, withRouter} from 'react-router-dom'
 
-import {getProductList} from '../actions'
+import {getProductList, setCurrentProduct} from '../actions'
 import types from '../actions/types'
 
 import "./styles/products_list_style.css"
@@ -17,7 +17,7 @@ class ProductList extends React.Component {
   }
   componentDidMount () {
     // console.log('component did mount product list, props: ', this.props)
-    this.props.getProductList()
+    // this.props.getProductList()
   }
 
   // componentDidUpdate(prevProps, prevState){
@@ -40,21 +40,27 @@ class ProductList extends React.Component {
     let i = 1
     if (typeof this.props.products === 'string') {
       return (
-        <h1>Loading...</h1>
+      <h1>{this.props.products}</h1>
       )
     }else if(typeof this.props.products === 'object'){
       // console.log('this.props.location: ', this.props.location)
+      // console.log('this.props.products: ', this.props.products)
       return (
         this.props.products.map(element => {
           // console.log('products map iteration: ', i++)
           // console.log('Element id within map function', element.id)
+          // console.log(`element iteration ${i} `, element)
           // console.log('iteration images: ', element.images)
           let imgURL = element.images[0]
           // console.log('imgURL: ', imgURL)
           return (
             // <React.Fragment>
-              <Link className="col-4 p-1 remove-a-tag-style" key={element.id} to={`/details/${element.id}`} render=''
-              // component={ ProductDetails }
+              <Link className="col-4 p-1 remove-a-tag-style" 
+                key={element.id} 
+                to={`/details/${element.id}`} 
+                // to={'/details'} 
+                data-id={element.id}
+                onClick={ e =>{ this.props.setCurrentProduct(e.currentTarget.dataset.id) }}
               >
                 <div className="card">
                   <div className="card-header bg-transparent border-success">{element.name}</div>
@@ -147,11 +153,12 @@ function mapDispatchToProps (dispatch) {
 }
 
 function mapStateToProps(state){
-  // console.log('state in productsList component: ', state);
+  console.log('State in productsList Component: ', state);
   return {
-    products: state.products.products
+    products: state.products,
+    currentProduct: state.currentProduct
   }
 }
 
 // export default connect(mapStateToProps, mapDispatchToProps)(ProductList);
-export default withRouter(connect(mapStateToProps, {getProductList})(ProductList))
+export default connect(mapStateToProps, {setCurrentProduct})(ProductList)
