@@ -43,16 +43,17 @@ class ProductDetails extends React.Component {
   }
 
   render () {
-    console.log('addToCart function: ', addToCart(1))
+    // console.log('addToCart function: ', addToCart(1))
     console.log('this.props in product details: ', this.props);
     // let id = this.props.match.params.productId
     // let product = this.props.products[id]
     let id = this.props.currentProduct.currentProduct
+    console.log(typeof id)
     let product = this.props.products[id]
 
 
-    let prevCart =  this.props.cart
-    console.log('prevCart: ', prevCart)
+    // let prevCart =  this.props.cart
+    // console.log('prevCart: ', prevCart)
     // console.log(
     //   "this.props.products[id].images[0]:",
     //   this.props.products[id].images[0]
@@ -72,7 +73,7 @@ class ProductDetails extends React.Component {
           </div>
           <div className="col-4 row flex-column justify-content-end">
             <h4 className="align-self-center">${(this.props.products[id].price / 100).toFixed(2)}</h4>
-            <button className="btn btn-secondary" onClick={ ()=>{ this.props.addToCart(prevCart, id) } }>Add To Cart</button>
+            <button className="btn btn-secondary" onClick={ ()=>{ this.props.addToCart(id) } }>Add To Cart</button>
           </div>
           <div className="col-8 carousel-container">
             <Carousel interval={false}>
@@ -127,7 +128,7 @@ function mapDispatchToProps(dispatch) {
 function mapStateToProps(state) {
   console.log('state in productsDetails component: ', state);
   return {
-    products: state.products.products,
+    products: state.products,
     currentProduct: state.currentProduct,
     cart: state.cart
   }

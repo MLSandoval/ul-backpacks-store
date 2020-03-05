@@ -40,14 +40,16 @@ class ProductList extends React.Component {
     let i = 1
     if (typeof this.props.products === 'string') {
       return (
-        <h1>Loading...</h1>
+      <h1>{this.props.products}</h1>
       )
     }else if(typeof this.props.products === 'object'){
       // console.log('this.props.location: ', this.props.location)
+      // console.log('this.props.products: ', this.props.products)
       return (
         this.props.products.map(element => {
           // console.log('products map iteration: ', i++)
           // console.log('Element id within map function', element.id)
+          // console.log(`element iteration ${i} `, element)
           // console.log('iteration images: ', element.images)
           let imgURL = element.images[0]
           // console.log('imgURL: ', imgURL)
@@ -151,12 +153,12 @@ function mapDispatchToProps (dispatch) {
 }
 
 function mapStateToProps(state){
-  console.log('state in productsList component: ', state);
+  console.log('State in productsList Component: ', state);
   return {
-    products: state.products.products,
+    products: state.products,
     currentProduct: state.currentProduct
   }
 }
 
 // export default connect(mapStateToProps, mapDispatchToProps)(ProductList);
-export default withRouter(connect(mapStateToProps, {setCurrentProduct})(ProductList))
+export default connect(mapStateToProps, {setCurrentProduct})(ProductList)
