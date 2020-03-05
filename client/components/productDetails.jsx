@@ -24,7 +24,7 @@ class ProductDetails extends React.Component {
   renderProductFeatures () {
     // let id = this.props.match.params.productId
     // let product = this.props.products[id]
-    let id = this.props.currentProduct.currentProduct
+    let id = this.props.currentProduct
     let product = this.props.products[id]
 
 
@@ -47,7 +47,7 @@ class ProductDetails extends React.Component {
     console.log('this.props in product details: ', this.props);
     // let id = this.props.match.params.productId
     // let product = this.props.products[id]
-    let id = this.props.currentProduct.currentProduct
+    let id = this.props.currentProduct
     console.log(typeof id)
     let product = this.props.products[id]
 
