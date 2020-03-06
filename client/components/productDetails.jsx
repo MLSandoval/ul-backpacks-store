@@ -134,4 +134,4 @@ function mapStateToProps(state) {
   }
 }
 
-export default withRouter(connect(mapStateToProps, {addToCart})(ProductDetails))
+export default connect(mapStateToProps, {addToCart})(ProductDetails)
