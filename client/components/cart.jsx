@@ -24,23 +24,22 @@ class Cart extends React.Component {
   // }
 
   generateCartList(){
-    
+    const products = this.props.products
+    const sortedCart = this.props.sortedCart
+
     return (
-      this.props.products.map((product)=>{
-        if(this.props.sortedCart[product.id]){
+      products.map((product)=>{
+        if(sortedCart[product.id]){
           return(
             <tr key={product.id}>
               <th scope="row">1</th>
-              <td>Mark</td>
-              <td>Otto</td>
-              <td>@mdo</td>
+              <td>{product.name}</td>
+              <td>{(product.price / 100).toFixed(2)}</td>
+              <td>quantity: { sortedCart[product.id] }</td>
             </tr>
           )
         }
-        
       })
-          
-        
     )
   }
 
