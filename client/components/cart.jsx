@@ -3,9 +3,11 @@ import {connect} from 'react-redux'
 
 import './styles/cart_style.css'
 
+import sortCartTotals from '../actions.js'
+
 class Cart extends React.Component {
 
-  generateCartList(cart){
+  sortCartTotals(cart){
     const sortedCart = cart.reduce((accumulator, currentValue)=>{
       if(!!accumulator[currentValue] === false){
         accumulator[currentValue]=1
@@ -20,9 +22,37 @@ class Cart extends React.Component {
     //   ...map,
     //   [product]: (map[product] || 0) + 1,
     // }), {})
+  }
 
+  generateCartList(){
     return (
-      <table class="table">
+      this.props.products.map((product)=>{
+        if(this.props.sortedCart[product.id]){
+          return(
+            <tr>
+              <th scope="row">1</th>
+              <td>Mark</td>
+              <td>Otto</td>
+              <td>@mdo</td>
+            </tr>
+          )
+        }
+        
+      })
+          
+        
+    )
+  }
+
+  componentDidMount(){
+
+  }
+
+  render () {
+    return (
+      <div className="pt-4">
+        <h1 className="pt-4">THIS IS THE CART VIEW</h1>
+        <table class="table">
         <thead>
           <tr>
             <th scope="col">#</th>
@@ -32,36 +62,19 @@ class Cart extends React.Component {
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <th scope="row">1</th>
-            <td>Mark</td>
-            <td>Otto</td>
-            <td>@mdo</td>
-          </tr>
-          <tr>
-            <th scope="row">2</th>
-            <td>Jacob</td>
-            <td>Thornton</td>
-            <td>@fat</td>
-          </tr>
-          <tr>
-            <th scope="row">3</th>
-            <td>Larry</td>
-            <td>the Bird</td>
-            <td>@twitter</td>
-          </tr>
+          {this.generateCartList()} 
         </tbody>
       </table>
-    )
-  }
-
-  render () {
-    return (
-      <div className="pt-4">
-        <h1 className="pt-4">THIS IS THE CART VIEW</h1>
-        {this.generateCartList()}
       </div>
     )
+  }
+}
+
+mapDispatchToProps(dispatch){
+  return {
+    addToCart: () => {
+      dispatch(addToCart)
+    }
   }
 }
 

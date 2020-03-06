@@ -63,3 +63,22 @@ export function addToCart (product) {
   }
 }
 
+export function sortCartTotals(cart){
+  const sortedCart = cart.reduce((accumulator, currentValue)=>{
+    if(!!accumulator[currentValue] === false){
+      accumulator[currentValue]=1
+    }else{
+      accumulator[currentValue]+=1
+    }
+    return accumulator
+  }, {})
+  dispatch({
+    type: types.CART_SORTED,
+    payload: sortedCart
+  })
+  //or more elegant way to count elements in the array
+  // const sortedCart = cart.reduce((map, product) => ({
+  //   ...map,
+  //   [product]: (map[product] || 0) + 1,
+  // }), {})
+}
