@@ -32,7 +32,10 @@ class Cart extends React.Component {
         if(sortedCart[product.id]){
           return(
             <tr key={product.id}>
-              <th scope="row">1</th>
+              <th scope="row">
+                <img className="row-image" src={product.images[0]}></img>
+                
+                </th>
               <td>{product.name}</td>
               <td>{(product.price / 100).toFixed(2)}</td>
               <td>quantity: { sortedCart[product.id] }</td>
@@ -56,9 +59,9 @@ class Cart extends React.Component {
         <table className="table">
         <thead>
           <tr>
-            <th scope="col">#</th>
-            <th scope="col">First</th>
-            <th scope="col">Last</th>
+            <th scope="col">Image</th>
+            <th scope="col">Product</th>
+            <th scope="col">Quantity</th>
             <th scope="col">Handle</th>
           </tr>
         </thead>
