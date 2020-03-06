@@ -1,4 +1,4 @@
-import types from '../actions/types.js';
+import types from '../actions/types.js'
 
 //usually object, can be array, string...any structure to store data
 const DEFAULT_STATE = {
@@ -13,10 +13,10 @@ function setViewReducer(state = DEFAULT_STATE, action) { //action = {type: 'SET_
         case types.SET_VIEW:
             //use the spread operator and state variable because this switch in the reducer will completely
             //replace the object dictating state, and we need to keep all state every time there is a re-render
-            return { ...state, view: action.payload };
+            return { ...state, view: action.payload }
         default:
-            return state;
+            return state
     };
 }
 
-export default setViewReducer;
+export default setViewReducer

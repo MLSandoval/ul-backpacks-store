@@ -30,7 +30,7 @@ export function getProductList () {
     fetch('/api/get-products')
       .then(res => res.json())
       .then(data => {
-        console.log('server response on products list call: ', data)
+        // console.log('server response on products list call: ', data)
         dispatch({
           type: types.PRODUCT_LIST_REQUESTED,
           isFetching: true,
@@ -45,7 +45,7 @@ export function getProductList () {
 
 export function setCurrentProduct (productId) {
   return function (dispatch) {
-    console.log('setCurrentProduct action, productId: ', productId)
+    // console.log('setCurrentProduct action, productId: ', productId)
     dispatch({
       type: types.SET_CURRENT_PRODUCT,
       payload: productId
@@ -55,7 +55,7 @@ export function setCurrentProduct (productId) {
 
 export function addToCart (product) {
   return function (dispatch) {
-    console.log('addToCart action called, product: ', product)
+    // console.log('addToCart action called, product: ', product)
     dispatch({
       type: types.PRODUCT_ADDED_TO_CART,
       payload: product
@@ -64,6 +64,7 @@ export function addToCart (product) {
 }
 
 export function sortCartTotals(cart){
+  console.log('sortCartTotals action called')
   const sortedCart = cart.reduce((accumulator, currentValue)=>{
     if(!!accumulator[currentValue] === false){
       accumulator[currentValue]=1
@@ -72,10 +73,14 @@ export function sortCartTotals(cart){
     }
     return accumulator
   }, {})
-  dispatch({
-    type: types.CART_SORTED,
-    payload: sortedCart
-  })
+
+  return function(dispatch){
+    dispatch({
+      type: types.CART_SORTED,
+      payload: sortedCart
+    })
+  }
+  
   //or more elegant way to count elements in the array
   // const sortedCart = cart.reduce((map, product) => ({
   //   ...map,

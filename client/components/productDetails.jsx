@@ -126,7 +126,7 @@ function mapDispatchToProps(dispatch) {
 }
 
 function mapStateToProps(state) {
-  console.log('state in productsDetails component: ', state);
+  console.log('State in ProductDetails component: ', state);
   return {
     products: state.products,
     currentProduct: state.currentProduct,
