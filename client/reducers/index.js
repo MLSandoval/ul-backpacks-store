@@ -6,6 +6,7 @@ import test_reducer from './test_reducer'
 import add_to_cart_reducer from './add_to_cart_reducer.js'
 import set_current_product_reducer from './set_current_product_reducer.js'
 import sort_cart_reducer from './sort_cart_reducer.js'
+import computeCartTotal from './compute_total_reducer.js'
 
 const rootReducer = combineReducers({
   setView: set_view_reducer,
@@ -13,7 +14,8 @@ const rootReducer = combineReducers({
   products: get_products_reducer,
   currentProduct: set_current_product_reducer,
   cart: add_to_cart_reducer,
-  sortedCart: sort_cart_reducer
+  sortedCart: sort_cart_reducer,
+  totalOrderCost: computeCartTotal
 })
 
 export default rootReducer

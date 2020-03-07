@@ -87,3 +87,18 @@ export function sortCartTotals(cart){
   //   [product]: (map[product] || 0) + 1,
   // }), {})
 }
+
+
+export function computeCartTotal(totaledProductValues){
+  total = totaledProductValues.reduce((accumulator, currentValue)=>{
+    accumulator+=currentValue
+  },0)
+
+  return function (dispatch) {
+    // console.log('addToCart action called, product: ', product)
+    dispatch({
+      type: types.PRODUCT_ADDED_TO_CART,
+      payload: total
+    })
+  }
+}
