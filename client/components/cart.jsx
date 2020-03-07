@@ -34,11 +34,12 @@ class Cart extends React.Component {
             <tr key={product.id}>
               <th scope="row">
                 <img className="row-image" src={product.images[0]}></img>
-                
-                </th>
+              </th>
               <td>{product.name}</td>
-              <td>{(product.price / 100).toFixed(2)}</td>
               <td>quantity: { sortedCart[product.id] }</td>
+              <td>{(product.price / 100).toFixed(2)}</td>
+              <td>{(product.price*sortedCart[product.id] / 100).toFixed(2)}</td>
+              
             </tr>
           )
         }
@@ -62,11 +63,12 @@ class Cart extends React.Component {
             <th scope="col">Image</th>
             <th scope="col">Product</th>
             <th scope="col">Quantity</th>
-            <th scope="col">Handle</th>
+            <th scope="col">Price</th>
+            <th scope="col">Total</th>
           </tr>
         </thead>
         <tbody>
-          {this.generateCartList()} 
+          {this.generateCartList()}
         </tbody>
       </table>
       </div>
@@ -92,4 +94,3 @@ function mapStateToProps(state){
 }
 
 export default connect(mapStateToProps, {sortCartTotals})(Cart)
-
