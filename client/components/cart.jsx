@@ -27,6 +27,8 @@ class Cart extends React.Component {
   generateCartList(){
     const products = this.props.products
     const sortedCart = this.props.sortedCart
+    // this.props.sortCartTotals(this.props.cart)
+    this.props.computeCartTotal(sortedCart)
 
     return (
       products.map((product)=>{
@@ -40,6 +42,7 @@ class Cart extends React.Component {
               <td>quantity: { sortedCart[product.id] }</td>
               <td>{(product.price / 100).toFixed(2)}</td>
               <td>{(product.price*sortedCart[product.id] / 100).toFixed(2)}</td>
+              {/* {this.props.computeCartTotal((product.price*sortedCart[product.id] / 100).toFixed(2))} */}
             </tr>
           )
         }
@@ -53,7 +56,7 @@ class Cart extends React.Component {
     this.props.sortCartTotals(this.props.cart)
     //need to get quantity * individual cost pushed up to store before calling total order cost, may require
     //another action/reducer set
-    this.props.totalOrderCost()
+    // this.props.totalOrderCost()
   }
 
   render () {
@@ -105,4 +108,4 @@ function mapStateToProps(state){
   }
 }
 
-export default connect(mapStateToProps, {sortCartTotals})(Cart)
+export default connect(mapStateToProps, {sortCartTotals, computeCartTotal})(Cart)

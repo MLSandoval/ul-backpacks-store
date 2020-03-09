@@ -88,16 +88,17 @@ export function sortCartTotals(cart){
   // }), {})
 }
 
-
-export function computeCartTotal(totaledProductValues){
-  total = totaledProductValues.reduce((accumulator, currentValue)=>{
-    accumulator+=currentValue
-  },0)
+export function computeCartTotal(sortedCart){
+  // total = totaledProductValues.reduce((accumulator, currentValue)=>{
+  //   accumulator+=currentValue
+  // },0)
+  console.log('computeCartTotal action called, sortedCart: ', sortedCart)
+  const total = 42069
 
   return function (dispatch) {
     // console.log('addToCart action called, product: ', product)
     dispatch({
-      type: types.PRODUCT_ADDED_TO_CART,
+      type: types.CART_TOTAL_COMPUTED,
       payload: total
     })
   }
