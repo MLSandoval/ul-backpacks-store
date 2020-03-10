@@ -17,7 +17,7 @@ class ProductDetails extends React.Component {
   componentDidMount(){
     // let id = this.props.match.params.productId
     // let product = this.props.products[id]
-    console.log(this.props.currentProduct)
+    // console.log(this.props.currentProduct)
 
   }
 
@@ -28,8 +28,8 @@ class ProductDetails extends React.Component {
     let product = this.props.products[id]
 
 
-    console.log('features id: ', this.props.match.params.productId)
-    console.log('features product: ', this.props.products[id])
+    // console.log('features id: ', this.props.match.params.productId)
+    // console.log('features product: ', this.props.products[id])
 
     return (
       product.features.map( (element, index) => {
@@ -44,11 +44,11 @@ class ProductDetails extends React.Component {
 
   render () {
     // console.log('addToCart function: ', addToCart(1))
-    console.log('this.props in product details: ', this.props);
+    // console.log('this.props in product details: ', this.props);
     // let id = this.props.match.params.productId
     // let product = this.props.products[id]
     let id = this.props.currentProduct
-    console.log(typeof id)
+    // console.log(typeof id)
     let product = this.props.products[id]
 
 

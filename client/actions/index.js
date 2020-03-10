@@ -63,7 +63,8 @@ export function addToCart (product) {
       payload: {
         id: product.id,
         price: product.price,
-        name: product.name
+        name: product.name,
+        images:product.images,
       }
     })
   }
@@ -78,6 +79,8 @@ export function sortCartQuantities(cart){
       accumulator[currentValue.id].name = currentValue.name
       accumulator[currentValue.id].price = currentValue.price
       accumulator[currentValue.id].quantity = 1
+      accumulator[currentValue.id].images = currentValue.images,
+      accumulator[currentValue.id].id = currentValue.id
       console.log('accumulator first property: ', accumulator)
     }else{
       accumulator[currentValue.id].quantity += 1
@@ -86,10 +89,24 @@ export function sortCartQuantities(cart){
     return accumulator
   }, {})
 
+  let i = 0
+  let quantitiesArr = []
+  // console.log('pre for...in sortedCartQuantities: ', sortedCartQuantities)
+  // for(let product in sortedCartQuantities){
+  //   console.log('for...in product: ', product)
+  //   quantitiesArr.push(Object.values(sortedCartQuantities[product]))
+  //   // console.table(JSON.parse(JSON.stringify(sortedCartQuantities.product)))
+  //   // quantitiesArr[i] = JSON.parse(JSON.stringify(sortedCartQuantities.product))
+  //   i++
+  // }
+  quantitiesArr = Object.values(sortedCartQuantities)
+  
+  console.log('QUANTITIES ARR: ', quantitiesArr)
+
   return function(dispatch){
     dispatch({
       type: types.CART_SORTED,
-      payload: sortedCartQuantities
+      payload: quantitiesArr
     })
   }
   

@@ -26,27 +26,46 @@ class Cart extends React.Component {
 
   generateCartList(){
     const products = this.props.products
-    console.log('generateCartList products: ', products)
+    // console.log('generateCartList products: ', products)
     const sortedCart = this.props.sortedCart
     // this.props.sortCartTotals(this.props.cart)
     this.props.computeCartTotal(sortedCart)
 
+    console.log('GENERATEcartList sorted cart: ', sortedCart)
+    console.log('GENERATEcartList products: ', products)
+
     return (
-      products.map((product)=>{
-        if(sortedCart[product.id]){
-          return(
-            <tr key={product.id}>
-              <th scope="row">
-                <img className="row-image" src={product.images[0]}></img>
-              </th>
-              <td>{product.name}</td>
-              <td>quantity: { sortedCart[product.id] }</td>
-              <td>{(product.price / 100).toFixed(2)}</td>
-              <td>{(product.price*sortedCart[product.id] / 100).toFixed(2)}</td>
-              {/* {this.props.computeCartTotal((product.price*sortedCart[product.id] / 100).toFixed(2))} */}
-            </tr>
-          )
-        }
+      // products.map((product)=>{
+      //   if(sortedCart[product.id]){
+      //     return(
+      //       <tr key={product.id}>
+      //         <th scope="row">
+      //           <img className="row-image" src={product.images[0]}></img>
+      //         </th>
+      //         <td>{product.name}</td>
+      //         <td>Quantity: { sortedCart[product.id].quantity }</td>
+      //         <td>{(product.id.price / 100).toFixed(2)}</td>
+      //         <td>{(product.id.price*sortedCart[product.id] / 100).toFixed(2)}</td>
+      //         {/* {this.props.computeCartTotal((product.price*sortedCart[product.id] / 100).toFixed(2))} */}
+      //       </tr>
+      //     )
+      //   }
+      // })
+      sortedCart.map((product)=>{
+        console.log('sortedCart map, iteration product: ', product)
+        return(
+          <tr key={product.id}>
+            <th scope="row">
+              <img className="row-image" src={product.images[0]}></img>
+            </th>
+            <td>{product.name}</td>
+            <td>Quantity: { product.quantity }</td>
+            <td>{(product.price / 100).toFixed(2)}</td>
+            <td>{(product.price*product.quantity / 100).toFixed(2)}</td>
+            {/* {this.props.computeCartTotal((product.price*sortedCart[product.id] / 100).toFixed(2))} */}
+          </tr>
+        )
+        
       })
     )
   }
