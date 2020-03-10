@@ -1,4 +1,4 @@
-import types from '../actions/types';
+import types from '../actions/types'
 
 const DEFAULT_STATE = {
   view: null
@@ -7,8 +7,8 @@ const DEFAULT_STATE = {
 export default (state = DEFAULT_STATE, action) => {
   switch (action.type) {
     case types.PRODUCT_DETAILS_REQUESTED:
-      return { ...state, list: action.payload.list };
+      return { ...state, list: action.payload.list }
     default:
-      return state;
+      return state
   }
 }

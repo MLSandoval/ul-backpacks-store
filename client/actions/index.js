@@ -30,7 +30,7 @@ export function getProductList () {
     fetch('/api/get-products')
       .then(res => res.json())
       .then(data => {
-        console.log('server response on products list call: ', data)
+        // console.log('server response on products list call: ', data)
         dispatch({
           type: types.PRODUCT_LIST_REQUESTED,
           isFetching: true,
@@ -45,7 +45,7 @@ export function getProductList () {
 
 export function setCurrentProduct (productId) {
   return function (dispatch) {
-    console.log('setCurrentProduct action, productId: ', productId)
+    // console.log('setCurrentProduct action, productId: ', productId)
     dispatch({
       type: types.SET_CURRENT_PRODUCT,
       payload: productId
@@ -53,13 +53,88 @@ export function setCurrentProduct (productId) {
   }
 }
 
+
+//pass product id, name, and cost into the cart before sorting, sort cart based on id inside product object
 export function addToCart (product) {
   return function (dispatch) {
     console.log('addToCart action called, product: ', product)
     dispatch({
       type: types.PRODUCT_ADDED_TO_CART,
-      payload: product
+      payload: {
+        id: product.id,
+        price: product.price,
+        name: product.name,
+        images:product.images,
+      }
     })
   }
 }
 
+export function sortCartQuantities(cart){
+  console.log('sortCartTotals action called cart: ', cart)
+  const sortedCartQuantities = cart.reduce((accumulator, currentValue)=>{
+    console.log('sortCartTotals reduce iteration, currentValue: ', currentValue)
+    if(!!accumulator[currentValue.id] === false){
+      accumulator[currentValue.id] = {}
+      accumulator[currentValue.id].name = currentValue.name
+      accumulator[currentValue.id].price = currentValue.price
+      accumulator[currentValue.id].quantity = 1
+      accumulator[currentValue.id].images = currentValue.images,
+      accumulator[currentValue.id].id = currentValue.id
+      console.log('accumulator first property: ', accumulator)
+    }else{
+      accumulator[currentValue.id].quantity += 1
+      console.log('accumulator incremented property: ', accumulator)
+    }
+    return accumulator
+  }, {})
+
+  let i = 0
+  let quantitiesArr = []
+  // console.log('pre for...in sortedCartQuantities: ', sortedCartQuantities)
+  // for(let product in sortedCartQuantities){
+  //   console.log('for...in product: ', product)
+  //   quantitiesArr.push(Object.values(sortedCartQuantities[product]))
+  //   // console.table(JSON.parse(JSON.stringify(sortedCartQuantities.product)))
+  //   // quantitiesArr[i] = JSON.parse(JSON.stringify(sortedCartQuantities.product))
+  //   i++
+  // }
+  quantitiesArr = Object.values(sortedCartQuantities)
+  
+  console.log('QUANTITIES ARR: ', quantitiesArr)
+
+  return function(dispatch){
+    dispatch({
+      type: types.CART_SORTED,
+      payload: quantitiesArr
+    })
+  }
+  
+  //or more elegant way to count elements in the array
+  // const sortedCart = cart.reduce((map, product) => ({
+  //   ...map,
+  //   [product]: (map[product] || 0) + 1,
+  // }), {})
+}
+
+export function computeCartTotal(sortedCart){
+  // total = totaledProductValues.reduce((accumulator, currentValue)=>{
+  //   accumulator+=currentValue
+  // },0)
+  let total = 0
+  console.log('computeCartTotal action called, sortedCart: ', sortedCart)
+  for (let product in sortedCart){
+    console.log('product iteration in computeCartTotal for sortedCart action: ', product)
+    total += sortedCart[product].quantity * sortedCart[product].price
+    console.log('COMPUTECARTTOTAL ITERATION total: ', total)
+  }
+
+  total = (total/100).toFixed(2)
+  return function (dispatch) {
+    // console.log('addToCart action called, product: ', product)
+    dispatch({
+      type: types.CART_TOTAL_COMPUTED,
+      payload: total
+    })
+  }
+}
