@@ -12,7 +12,7 @@ export default function computeTotalReducer(state = DEFAULT_STATE, action) { //a
         case types.CART_TOTAL_COMPUTED:
             //use the spread operator and state variable because this switch in the reducer will completely
             //replace the object dictating state, and we need to keep all state every time there is a re-render
-            return state += action.payload
+            return action.payload
         default:
             return state
     };

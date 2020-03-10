@@ -77,9 +77,12 @@ class Cart extends React.Component {
     //need to get quantity * individual cost pushed up to store before calling total order cost, may require
     //another action/reducer set
     // this.props.totalOrderCost()
+    this.props.computeCartTotal(this.props.sortedCart)
   }
 
   render () {
+    console.log('cart state: ', this.state)
+    
     return (
       <div className="pt-4">
         <h1 className="pt-4">THIS IS THE CART VIEW</h1>
@@ -101,7 +104,7 @@ class Cart extends React.Component {
             <td></td>
             <td></td>
             <td>Order Total: </td>
-            <td>{this.props.totalOrderCost}</td> 
+            <td>{this.props.totalOrderCost || 0}</td> 
           </tr>
         </tbody>
       </table>

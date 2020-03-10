@@ -121,12 +121,15 @@ export function computeCartTotal(sortedCart){
   // total = totaledProductValues.reduce((accumulator, currentValue)=>{
   //   accumulator+=currentValue
   // },0)
-  let total = []
+  let total = 0
   console.log('computeCartTotal action called, sortedCart: ', sortedCart)
   for (let product in sortedCart){
-    console.log('product iteration in sortedCart in computeCartTotal action: ', product)
+    console.log('product iteration in computeCartTotal for sortedCart action: ', product)
+    total += sortedCart[product].quantity * sortedCart[product].price
+    console.log('COMPUTECARTTOTAL ITERATION total: ', total)
   }
 
+  total = (total/100).toFixed(2)
   return function (dispatch) {
     // console.log('addToCart action called, product: ', product)
     dispatch({
