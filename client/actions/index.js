@@ -69,13 +69,19 @@ export function addToCart (product) {
   }
 }
 
-export function sortCartTotals(cart){
-  console.log('sortCartTotals action called')
-  const sortedCart = cart.reduce((accumulator, currentValue)=>{
-    if(!!accumulator[currentValue] === false){
-      accumulator[currentValue]=1
+export function sortCartQuantities(cart){
+  console.log('sortCartTotals action called cart: ', cart)
+  const sortedCartQuantities = cart.reduce((accumulator, currentValue)=>{
+    console.log('sortCartTotals reduce iteration, currentValue: ', currentValue)
+    if(!!accumulator[currentValue.id] === false){
+      accumulator[currentValue.id] = {}
+      accumulator[currentValue.id].name = currentValue.name
+      accumulator[currentValue.id].price = currentValue.price
+      accumulator[currentValue.id].quantity = 1
+      console.log('accumulator first property: ', accumulator)
     }else{
-      accumulator[currentValue]+=1
+      accumulator[currentValue.id].quantity += 1
+      console.log('accumulator incremented property: ', accumulator)
     }
     return accumulator
   }, {})
@@ -83,7 +89,7 @@ export function sortCartTotals(cart){
   return function(dispatch){
     dispatch({
       type: types.CART_SORTED,
-      payload: sortedCart
+      payload: sortedCartQuantities
     })
   }
   
@@ -98,9 +104,10 @@ export function computeCartTotal(sortedCart){
   // total = totaledProductValues.reduce((accumulator, currentValue)=>{
   //   accumulator+=currentValue
   // },0)
+  let total = []
   console.log('computeCartTotal action called, sortedCart: ', sortedCart)
-  for (product in sortedCart){
-    
+  for (let product in sortedCart){
+    console.log('product iteration in sortedCart in computeCartTotal action: ', product)
   }
 
   return function (dispatch) {

@@ -2,7 +2,7 @@ import React from 'react'
 import {connect} from 'react-redux'
 
 import './styles/cart_style.css'
-import {sortCartTotals} from '../actions'
+import {sortCartQuantities} from '../actions'
 import {computeCartTotal} from '../actions'
 
 class Cart extends React.Component {
@@ -26,6 +26,7 @@ class Cart extends React.Component {
 
   generateCartList(){
     const products = this.props.products
+    console.log('generateCartList products: ', products)
     const sortedCart = this.props.sortedCart
     // this.props.sortCartTotals(this.props.cart)
     this.props.computeCartTotal(sortedCart)
@@ -53,7 +54,7 @@ class Cart extends React.Component {
   componentDidMount(){
     console.log('cart Component mounted, this.props: ', this.props)
     // console.log('cart Component mounted,')
-    this.props.sortCartTotals(this.props.cart)
+    this.props.sortCartQuantities(this.props.cart)
     //need to get quantity * individual cost pushed up to store before calling total order cost, may require
     //another action/reducer set
     // this.props.totalOrderCost()
@@ -108,4 +109,4 @@ function mapStateToProps(state){
   }
 }
 
-export default connect(mapStateToProps, {sortCartTotals, computeCartTotal})(Cart)
+export default connect(mapStateToProps, {sortCartQuantities, computeCartTotal})(Cart)

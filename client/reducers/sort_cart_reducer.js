@@ -3,7 +3,7 @@ import types from '../actions/types.js';
 //usually object, can be array, string...any structure to store data
 const DEFAULT_STATE = {}
 
-export default function sortCartTotals(state = DEFAULT_STATE, action) { //action = {type: 'SET_VIEW'}
+export default function sortCartQuantities(state = DEFAULT_STATE, action) { //action = {type: 'SET_VIEW'}
     console.log('sort_cart_reducer called, action:', action)
     switch (action.type) {
         case types.CART_SORTED:
