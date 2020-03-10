@@ -53,12 +53,18 @@ export function setCurrentProduct (productId) {
   }
 }
 
+
+//pass product id, name, and cost into the cart before sorting, sort cart based on id inside product object
 export function addToCart (product) {
   return function (dispatch) {
-    // console.log('addToCart action called, product: ', product)
+    console.log('addToCart action called, product: ', product)
     dispatch({
       type: types.PRODUCT_ADDED_TO_CART,
-      payload: product
+      payload: {
+        id: product.id,
+        price: product.price,
+        name: product.name
+      }
     })
   }
 }
@@ -93,7 +99,9 @@ export function computeCartTotal(sortedCart){
   //   accumulator+=currentValue
   // },0)
   console.log('computeCartTotal action called, sortedCart: ', sortedCart)
-  const total = 42069
+  for (product in sortedCart){
+    
+  }
 
   return function (dispatch) {
     // console.log('addToCart action called, product: ', product)

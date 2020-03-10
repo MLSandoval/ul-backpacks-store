@@ -73,7 +73,7 @@ class ProductDetails extends React.Component {
           </div>
           <div className="col-4 row flex-column justify-content-end">
             <h4 className="align-self-center">${(this.props.products[id].price / 100).toFixed(2)}</h4>
-            <button className="btn btn-secondary" onClick={ ()=>{ this.props.addToCart(id) } }>Add To Cart</button>
+            <button className="btn btn-secondary" onClick={ ()=>{ this.props.addToCart(this.props.products[id]) } }>Add To Cart</button>
           </div>
           <div className="col-8 carousel-container">
             <Carousel interval={false}>
