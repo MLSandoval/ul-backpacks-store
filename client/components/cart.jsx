@@ -4,6 +4,7 @@ import {connect} from 'react-redux'
 import './styles/cart_style.css'
 import {sortCartQuantities} from '../actions'
 import {computeCartTotal} from '../actions'
+import {removeItemFromCart} from '../actions'
 
 class Cart extends React.Component {
 
@@ -39,7 +40,7 @@ class Cart extends React.Component {
                 <td>
                   <button 
                     type="button" 
-                    class="btn btn-danger"
+                    className="btn btn-danger"
                     data-id={product.id}
                     onClick={ e => {this.props.removeItemFromCart(e.currentTarget.dataset.id)}}
                     >X
@@ -67,6 +68,7 @@ class Cart extends React.Component {
   }
 
   render () {
+    console.log()
     return (
       <div className="pt-4 container">
         <div className="row">
@@ -110,4 +112,4 @@ function mapStateToProps(state){
   }
 }
 
-export default connect(mapStateToProps, {sortCartQuantities, computeCartTotal})(Cart)
+export default connect(mapStateToProps, {sortCartQuantities, computeCartTotal, removeItemFromCart})(Cart)

@@ -5,7 +5,7 @@ import {withRouter} from 'react-router-dom'
 
 import Carousel from 'react-bootstrap/Carousel'
 import './styles/product_details_style.css'
-import { addToCart } from '../actions'
+import { addItemToCart } from '../actions'
 
 class ProductDetails extends React.Component {
   renderProductFeatures () {
@@ -40,7 +40,7 @@ class ProductDetails extends React.Component {
           </div>
           <div className="col-4 row flex-column justify-content-end">
             <h4 className="align-self-center">${(this.props.products[id].price / 100).toFixed(2)}</h4>
-            <button className="btn btn-secondary" onClick={ ()=>{ this.props.addToCart(this.props.products[id]) } }>Add To Cart</button>
+            <button className="btn btn-secondary" onClick={ ()=>{ this.props.addItemToCart(this.props.products[id]) } }>Add To Cart</button>
           </div>
           <div className="col-8 carousel-container">
             <Carousel interval={false}>
@@ -82,8 +82,8 @@ class ProductDetails extends React.Component {
 
 function mapDispatchToProps(dispatch) {
   return {
-    addToCart: () => {
-      dispatch(addToCart)
+    addItemToCart: () => {
+      dispatch(addItemToCart)
     }
   }
 }
@@ -97,4 +97,4 @@ function mapStateToProps(state) {
   }
 }
 
-export default connect(mapStateToProps, {addToCart})(ProductDetails)
+export default connect(mapStateToProps, {addItemToCart})(ProductDetails)
