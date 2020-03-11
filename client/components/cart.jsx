@@ -34,41 +34,87 @@ class Cart extends React.Component {
     console.log('GENERATEcartList sorted cart: ', sortedCart)
     console.log('GENERATEcartList products: ', products)
 
-    return (
-      // products.map((product)=>{
-      //   if(sortedCart[product.id]){
-      //     return(
-      //       <tr key={product.id}>
-      //         <th scope="row">
-      //           <img className="row-image" src={product.images[0]}></img>
-      //         </th>
-      //         <td>{product.name}</td>
-      //         <td>Quantity: { sortedCart[product.id].quantity }</td>
-      //         <td>{(product.id.price / 100).toFixed(2)}</td>
-      //         <td>{(product.id.price*sortedCart[product.id] / 100).toFixed(2)}</td>
-      //         {/* {this.props.computeCartTotal((product.price*sortedCart[product.id] / 100).toFixed(2))} */}
-      //       </tr>
-      //     )
-      //   }
-      // })
-      sortedCart.map((product)=>{
-        console.log('sortedCart map, iteration product: ', product)
-        return(
-          <tr key={product.id}>
+    let cartCheck;
+    [cartCheck] = this.props.cart
+    console.log('cart view cartCheck: ', cartCheck)
+
+    if(cartCheck === undefined){
+      return(
+        <React.Fragment>
+          <div>
+            Cart is empty :&#40;
+          </div>
+        </React.Fragment>
+        // <tr>
+        //   <th scope="row">
+        //   </th>
+        //   <td></td>
+        //   <td></td>
+        //   <td>Order Total: </td>
+        //   <td>Cart is empty :&#40;</td> 
+        // </tr>
+      )
+    }else{
+      return (
+        // products.map((product)=>{
+        //   if(sortedCart[product.id]){
+        //     return(
+        //       <tr key={product.id}>
+        //         <th scope="row">
+        //           <img className="row-image" src={product.images[0]}></img>
+        //         </th>
+        //         <td>{product.name}</td>
+        //         <td>Quantity: { sortedCart[product.id].quantity }</td>
+        //         <td>{(product.id.price / 100).toFixed(2)}</td>
+        //         <td>{(product.id.price*sortedCart[product.id] / 100).toFixed(2)}</td>
+        //         {/* {this.props.computeCartTotal((product.price*sortedCart[product.id] / 100).toFixed(2))} */}
+        //       </tr>
+        //     )
+        //   }
+        // })
+        <React.Fragment>
+          {sortedCart.map((product)=>{
+            console.log('sortedCart map, iteration product: ', product)
+            return(
+              <tr key={product.id}>
+                <th scope="row">
+                  <img className="row-image" src={product.images[0]}></img>
+                </th>
+                <td>{product.name}</td>
+                <td>Quantity: { product.quantity }</td>
+                <td>{(product.price / 100).toFixed(2)}</td>
+                <td>{(product.price*product.quantity / 100).toFixed(2)}</td>
+                {/* {this.props.computeCartTotal((product.price*sortedCart[product.id] / 100).toFixed(2))} */}
+              </tr>
+            )
+          })}
+          <tr>
             <th scope="row">
-              <img className="row-image" src={product.images[0]}></img>
             </th>
-            <td>{product.name}</td>
-            <td>Quantity: { product.quantity }</td>
-            <td>{(product.price / 100).toFixed(2)}</td>
-            <td>{(product.price*product.quantity / 100).toFixed(2)}</td>
-            {/* {this.props.computeCartTotal((product.price*sortedCart[product.id] / 100).toFixed(2))} */}
+            <td></td>
+            <td></td>
+            <td>Order Total: </td>
+            <td>{this.props.totalOrderCost || 0}</td> 
           </tr>
-        )
-        
-      })
-    )
+        </React.Fragment>
+      )
+    }
   }
+
+  // renderCartItems(){
+    // let cartCheck;
+    // [cartCheck] = this.props.cart
+  //   console.log('cart view cartCheck: ', cartCheck)
+
+  //   if(cartCheck === 'undefined'){
+
+  //   }else{
+  //     return(
+  //       {this.generateCartList()}
+          
+  //     )
+  //   }
+  // }
 
   componentDidMount(){
     console.log('cart Component mounted, this.props: ', this.props)
@@ -83,31 +129,36 @@ class Cart extends React.Component {
   render () {
     console.log('cart state: ', this.state)
     
+    
     return (
-      <div className="pt-4">
-        <h1 className="pt-4">THIS IS THE CART VIEW</h1>
-        <table className="table">
-        <thead>
-          <tr>
-            <th scope="col">Image</th>
-            <th scope="col">Product</th>
-            <th scope="col">Quantity</th>
-            <th scope="col">Price</th>
-            <th scope="col">Total</th>
-          </tr>
-        </thead>
-        <tbody>
-          {this.generateCartList()}
-          <tr>
-            <th scope="row">
-            </th>
-            <td></td>
-            <td></td>
-            <td>Order Total: </td>
-            <td>{this.props.totalOrderCost || 0}</td> 
-          </tr>
-        </tbody>
-      </table>
+      <div className="pt-4 container">
+        <div className="row">
+          <h1 className="pt-4">THIS IS THE CART VIEW</h1>
+          <table className="table  table-hover">
+            <thead>
+              <tr>
+                <th scope="col">Image</th>
+                <th scope="col">Product</th>
+                <th scope="col">Quantity</th>
+                <th scope="col">Price</th>
+                <th scope="col">Total</th>
+              </tr>
+            </thead>
+            
+            <tbody>
+              {/* {this.renderCartItems()}   */}
+              {this.generateCartList()}
+              {/* <tr>
+                <th scope="row">
+                </th>
+                <td></td>
+                <td></td>
+                <td>Order Total: </td>
+                <td>{this.props.totalOrderCost || 0}</td> 
+              </tr> */}
+            </tbody>
+          </table>
+        </div>
       </div>
     )
   }

@@ -13,21 +13,20 @@ import App from "./components/app.jsx";
 const store = createStore(rootReducer, applyMiddleware(thunk));
 
 //trying to fix scroll not reseting when re-rendering
-import createHistory from "history/createBrowserHistory"
+// import createHistory from "history/createBrowserHistory"
 
-export const history = createHistory()
+// export const history = createHistory()
 
-history.listen((location, action) => {
-    window.scrollTo(0, 0)
-})
+// history.listen((location, action) => {
+//     window.scrollTo(0, 0)
+// })
 //end section to fix scroll position reset on
 
 ReactDOM.render(
   <Provider store={store}>
-    <Router history={history}>
+    <Router>
       <App />
     </Router>
   </Provider>,
   document.getElementById("root")
 );
-
