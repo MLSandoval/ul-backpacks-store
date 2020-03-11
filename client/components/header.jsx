@@ -11,12 +11,9 @@ import Landing from './landing.jsx';
 // import { Switch, Route, Link } from "react-router-dom";
 
 class Header extends React.Component {
-  constructor(props, {dispatch}){
-    super(props);
-  }
   
   render(){
-    let itemCount;
+    let itemCount = this.props.cart.length;
     return (
       <div className="position-fixed landing-header container-fluid">
         <div className="row ">
@@ -59,6 +56,7 @@ function mapStateToProps(state) {
   return {
     //this becomes a property inside of the props of this component
     view: state.view,
+    cart: state.cart
   };
 }
 

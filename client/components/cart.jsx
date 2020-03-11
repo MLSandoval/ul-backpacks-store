@@ -2,9 +2,8 @@ import React from 'react'
 import {connect} from 'react-redux'
 
 import './styles/cart_style.css'
-import {sortCartQuantities} from '../actions'
-import {computeCartTotal} from '../actions'
-import {removeItemFromCart} from '../actions'
+import {sortCartQuantities, computeCartTotal, removeItemFromCart, reduceItemQuantity, increaseItemQuantity} from '../actions'
+
 
 class Cart extends React.Component {
 
@@ -27,14 +26,35 @@ class Cart extends React.Component {
       return (
         <React.Fragment>
           {sortedCart.map((product)=>{
-            console.log('sortedCart map, iteration product: ', product)
             return(
               <tr key={product.id}>
                 <th scope="row">
                   <img className="row-image" src={product.images[0]}></img>
                 </th>
                 <td>{product.name}</td>
-                <td>Quantity: { product.quantity }</td>
+                <td>
+                <button 
+                    type="button" 
+                    className="btn"
+                    data-id={product.id}
+                    data-quantity={product.quantity}
+                    onClick={ e => {
+                      console.log('reduce quanity clicked, e.currentTarget.dataset.quantity:', e.currentTarget.dataset.quantity)
+                      console.log('reduce quanity clicked, parseInt(e.currentTarget.dataset.quantity):', parseInt(e.currentTarget.dataset.quantity))
+                      if(parseInt(e.currentTarget.dataset.quantity) > 1)
+                        this.props.reduceItemQuantity(e.currentTarget.dataset.id)
+                    }}
+                    >-
+                  </button>
+                  { product.quantity }
+                  <button 
+                    type="button" 
+                    className="btn"
+                    data-id={product.id}
+                    onClick={ e => {this.props.increaseItemQuantity(e.currentTarget.dataset.id)}}
+                    >+
+                  </button>
+                </td>
                 <td>{(product.price / 100).toFixed(2)}</td>
                 <td>{(product.price*product.quantity / 100).toFixed(2)}</td>
                 <td>
@@ -112,4 +132,4 @@ function mapStateToProps(state){
   }
 }
 
-export default connect(mapStateToProps, {sortCartQuantities, computeCartTotal, removeItemFromCart})(Cart)
+export default connect(mapStateToProps, {sortCartQuantities, computeCartTotal, removeItemFromCart, reduceItemQuantity, increaseItemQuantity})(Cart)

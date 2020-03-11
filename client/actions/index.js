@@ -53,7 +53,6 @@ export function setCurrentProduct (productId) {
 
 export function addItemToCart (product) {
   return function (dispatch) {
-    console.log('addToCart action called, product: ', product)
     dispatch({
       type: types.PRODUCT_ADDED_TO_CART,
       payload: {
@@ -68,10 +67,27 @@ export function addItemToCart (product) {
 
 export function removeItemFromCart(productId){
   return function (dispatch) {
-    console.log('removeFromCart action called, product: ', productId)
     dispatch({
       type: types.PRODUCT_REMOVED_FROM_CART,
       payload: productId
+    })
+  }
+}
+
+export function increaseItemQuantity(productId){
+  return function (dispatch) {
+    dispatch({
+      type: types.INCREASED_PRODUCT_QUANTITY,
+      payload: parseInt(productId)
+    })
+  }
+}
+
+export function reduceItemQuantity(productId){
+  return function (dispatch) {
+    dispatch({
+      type: types.REDUCED_PRODUCT_QUANTITY,
+      payload: parseInt(productId)
     })
   }
 }
@@ -110,7 +126,6 @@ export function sortCartQuantities(cart){
 
 export function computeCartTotal(sortedCart){
   let total = 0
-  console.log('computeCartTotal action called, sortedCart: ', sortedCart)
   for (let product in sortedCart){
     total += sortedCart[product].quantity * sortedCart[product].price
   }
