@@ -5,7 +5,7 @@ import {withRouter} from 'react-router-dom'
 
 import Carousel from 'react-bootstrap/Carousel'
 import './styles/product_details_style.css'
-import { addItemToCart } from '../actions'
+import { addItemToCart, sortCartQuantities, computeCartTotal } from '../actions'
 
 class ProductDetails extends React.Component {
   renderProductFeatures () {
@@ -23,9 +23,13 @@ class ProductDetails extends React.Component {
     )
   }
 
-  componentDidMount(){
-
+  
+  componentDidUpdate(prevProps){
+    // console.log('header componentDidUpdate, prevProps: ', prevProps)
+    // console.log('this.props.value: ', this.props.value)
+    // if(prevProps.value !== this.props.value){ alert(prevProps.value) }
   }
+  
 
   render () {
     let id = this.props.currentProduct
@@ -40,7 +44,7 @@ class ProductDetails extends React.Component {
           </div>
           <div className="col-4 row flex-column justify-content-end">
             <h4 className="align-self-center">${(this.props.products[id].price / 100).toFixed(2)}</h4>
-            <button className="btn btn-secondary" onClick={ ()=>{ this.props.addItemToCart(this.props.products[id]) } }>Add To Cart</button>
+            <button className="btn btn-secondary" onClick={ ()=>{ this.props.addItemToCart(this.props.products[id])} }>Add To Cart</button>
           </div>
           <div className="col-8 carousel-container">
             <Carousel interval={false}>
@@ -97,4 +101,4 @@ function mapStateToProps(state) {
   }
 }
 
-export default connect(mapStateToProps, {addItemToCart})(ProductDetails)
+export default connect(mapStateToProps, {addItemToCart, sortCartQuantities})(ProductDetails)

@@ -11,9 +11,30 @@ import Landing from './landing.jsx';
 // import { Switch, Route, Link } from "react-router-dom";
 
 class Header extends React.Component {
-  
+  constructor(props){
+    super(props)
+    this.cartCount = null
+  }
+  getCartItemCount(){
+    let total
+    if(this.props.sortedCart[0])
+      this.sortedCart.forEach(element=>{total += element.quantity})
+    return total || 0
+  }
+
+  componentDidUpdate(prevProps){
+    console.log('header componentDidUpdate, prevProps: ', prevProps)
+    console.log('this.props.value: ', this.props.value)
+    if(prevProps.value !== this.props.value){ alert(prevProps.value) }
+    console.log(this.getCartItemCount())
+  }
+
+  componentDidMount(){
+
+  }
+
   render(){
-    let itemCount = this.props.cart.length;
+    let itemCount = this.getCartItemCount()
     return (
       <div className="position-fixed landing-header container-fluid">
         <div className="row ">
@@ -29,7 +50,7 @@ class Header extends React.Component {
             <Link className="btn font-weight-bold" to="/cart">
               <div className="cart-logo-count-bg row">
                 <div className="cart-button"></div>
-                <div className="cart-count">:{itemCount || 0}</div>
+                <div className="cart-count">:{ itemCount }</div>
               </div>
             </Link>
           </div>
@@ -56,7 +77,8 @@ function mapStateToProps(state) {
   return {
     //this becomes a property inside of the props of this component
     view: state.view,
-    cart: state.cart
+    cart: state.cart,
+    sortedCart: state.sortedCart
   };
 }
 

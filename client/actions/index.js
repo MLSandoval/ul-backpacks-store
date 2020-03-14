@@ -52,6 +52,7 @@ export function setCurrentProduct (productId) {
 
 
 export function addItemToCart (product) {
+  console.log('addItemToCart action called, product: ', product)
   return function (dispatch) {
     dispatch({
       type: types.PRODUCT_ADDED_TO_CART,
@@ -93,6 +94,7 @@ export function reduceItemQuantity(productId){
 }
 
 export function sortCartQuantities(cart){
+  console.log('sortCartQuantities action called, cart: ', cart)
   const sortedCartQuantities = cart.reduce((accumulator, currentValue)=>{
     if(!!accumulator[currentValue.id] === false){
       accumulator[currentValue.id] = {}
