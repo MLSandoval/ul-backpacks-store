@@ -83,7 +83,8 @@ class Cart extends React.Component {
   }
 
   componentDidMount(){
-    this.props.sortCartQuantities(this.props.cart)
+    if(!this.props.sortedCart[0])
+      this.props.sortCartQuantities(this.props.cart)
     this.props.computeCartTotal(this.props.sortedCart)
   }
 

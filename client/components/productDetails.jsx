@@ -67,7 +67,6 @@ class ProductDetails extends React.Component {
               }
             </Carousel>
           </div>
-
           <div className=" col-4 mb-3">
             <div className="align-self-center">{product.short_description}</div>
             <div>

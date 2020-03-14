@@ -16,17 +16,17 @@ class Header extends React.Component {
     this.cartCount = null
   }
   getCartItemCount(){
-    let total
+    let total = 0
     if(this.props.sortedCart[0])
-      this.sortedCart.forEach(element=>{total += element.quantity})
+      this.props.sortedCart.forEach(element=>{total += element.quantity})
     return total || 0
   }
 
   componentDidUpdate(prevProps){
     console.log('header componentDidUpdate, prevProps: ', prevProps)
     console.log('this.props.value: ', this.props.value)
-    if(prevProps.value !== this.props.value){ alert(prevProps.value) }
-    console.log(this.getCartItemCount())
+    if(prevProps.sortedCart !== this.props.sortedCart){ console.log('header prev props sorted cart diff from curent sorted cart: ', this.props.sortedCart) }
+    
   }
 
   componentDidMount(){
@@ -34,7 +34,9 @@ class Header extends React.Component {
   }
 
   render(){
-    let itemCount = this.getCartItemCount()
+    //problem code for getting header cart count correct
+    // let itemCount = this.getCartItemCount()
+    let itemCount = 0
     return (
       <div className="position-fixed landing-header container-fluid">
         <div className="row ">
