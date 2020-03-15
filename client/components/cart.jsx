@@ -2,7 +2,7 @@ import React from 'react'
 import {connect} from 'react-redux'
 
 import './styles/cart_style.css'
-import {sortCartQuantities, computeCartTotal, removeItemFromCart, reduceItemQuantity, increaseItemQuantity} from '../actions'
+import {sortCartQuantities, computeCartTotal, addItemToCart, removeItemFromCart, reduceItemQuantity, increaseItemQuantity} from '../actions'
 
 
 class Cart extends React.Component {
@@ -10,21 +10,33 @@ class Cart extends React.Component {
 
   generateCartList(){
     const sortedCart = this.props.sortedCart
-    this.props.computeCartTotal(sortedCart)
+    // this.props.computeCartTotal(sortedCart)
     let cartCheck;
     [cartCheck] = this.props.cart
+    console.log('generateCartList cartCheck: ', cartCheck)
 
     if(cartCheck === undefined){
       return(
         <React.Fragment>
-          <div>
+          <div className="empty-cart">
             Cart is empty :&#40;
           </div>
         </React.Fragment>
       )
     }else{
       return (
-        <React.Fragment>
+        <table className="table  table-hover">
+          <thead>
+            <tr>
+              <th scope="col-2">Image</th>
+              <th scope="col-2">Product</th>
+              <th scope="col-2">Quantity</th>
+              <th scope="col-2">Price</th>
+              <th scope="col-2">Total</th>
+              <th scope="col-1"></th>
+            </tr>
+          </thead>
+          <tbody>
           {sortedCart.map((product)=>{
             return(
               <tr key={product.id}>
@@ -41,8 +53,10 @@ class Cart extends React.Component {
                     onClick={ e => {
                       console.log('reduce quanity clicked, e.currentTarget.dataset.quantity:', e.currentTarget.dataset.quantity)
                       console.log('reduce quanity clicked, parseInt(e.currentTarget.dataset.quantity):', parseInt(e.currentTarget.dataset.quantity))
-                      if(parseInt(e.currentTarget.dataset.quantity) > 1)
+                      if(parseInt(e.currentTarget.dataset.quantity) > 1){
                         this.props.reduceItemQuantity(e.currentTarget.dataset.id)
+                        this.props.removeItemFromCart(e.currentTarget.dataset.id)
+                      }
                     }}
                     >-
                   </button>
@@ -77,14 +91,15 @@ class Cart extends React.Component {
             <td>Order Total: </td>
             <td>{this.props.totalOrderCost || 0}</td> 
           </tr>
-        </React.Fragment>
+          </tbody>
+        </table>
       )
     }
   }
 
   componentDidMount(){
-    if(!this.props.sortedCart[0])
-      this.props.sortCartQuantities(this.props.cart)
+    
+    this.props.sortCartQuantities(this.props.cart)
     this.props.computeCartTotal(this.props.sortedCart)
   }
 
@@ -92,9 +107,9 @@ class Cart extends React.Component {
     console.log()
     return (
       <div className="pt-4 container">
-        <div className="row">
+        <div className="row rel">
           <h1 className="pt-4">THIS IS THE CART VIEW</h1>
-          <table className="table  table-hover">
+          {/* <table className="table  table-hover">
             <thead>
               <tr>
                 <th scope="col-2">Image</th>
@@ -108,7 +123,8 @@ class Cart extends React.Component {
             <tbody>
               {this.generateCartList()}
             </tbody>
-          </table>
+          </table> */}
+          {this.generateCartList()}
         </div>
       </div>
     )
@@ -124,7 +140,7 @@ function mapDispatchToProps(dispatch){
 }
 
 function mapStateToProps(state){
-  console.log('State in Cart component: ', state)
+  console.log('CART state: ', state)
   return {
     products: state.products,
     cart: state.cart,
@@ -133,4 +149,4 @@ function mapStateToProps(state){
   }
 }
 
-export default connect(mapStateToProps, {sortCartQuantities, computeCartTotal, removeItemFromCart, reduceItemQuantity, increaseItemQuantity})(Cart)
+export default connect(mapStateToProps, {sortCartQuantities, computeCartTotal, addItemToCart, removeItemFromCart, reduceItemQuantity, increaseItemQuantity})(Cart)

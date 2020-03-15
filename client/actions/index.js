@@ -109,9 +109,10 @@ export function sortCartQuantities(cart){
     return accumulator
   }, {})
 
-  let i = 0
+  
   let quantitiesArr = []
   quantitiesArr = Object.values(sortedCartQuantities)
+  console.log('sortCartQuantities action, quantitiesArr: ', quantitiesArr)
 
   return function(dispatch){
     dispatch({
