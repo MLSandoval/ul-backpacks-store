@@ -9,105 +9,47 @@ import types from '../actions/types'
 
 import "./styles/products_list_style.css"
 
-// import mariposaImg from '../images/product_images/Mariposa/mariposa_1.webp';
-
 class ProductList extends React.Component {
-  constructor (props) {
-    super (props)
-  }
+
   componentDidMount () {
-    // console.log('component did mount product list, props: ', this.props)
-    // this.props.getProductList()
+
   }
-
-  // componentDidUpdate(prevProps, prevState){
-  //   console.log('product list component did update, props: ', this.props);
-  //   // if(prevProps.bucketListState.currentPage !== this.props.bucketListState.currentPage){
-  //     this.props.getProductList();
-  //   // }
-  // }
-  // shouldComponentUpdate(){
-  //   console.log('product list should component update, props: ', this.props);
-  //   if (typeof this.props.products !== 'string') return true;
-
-  //   return false;
-  // }
 
   generateProductList () {
-    const { match } = this.props
-    // console.log('generateProductList CALLED')
    
-    let i = 1
     if (typeof this.props.products === 'string') {
       return (
       <h1>{this.props.products}</h1>
       )
     }else if(typeof this.props.products === 'object'){
-      // console.log('this.props.location: ', this.props.location)
-      // console.log('this.props.products: ', this.props.products)
       return (
         this.props.products.map(element => {
-          // console.log('products map iteration: ', i++)
-          // console.log('Element id within map function', element.id)
-          // console.log(`element iteration ${i} `, element)
-          // console.log('iteration images: ', element.images)
           let imgURL = element.images[0]
-          // console.log('imgURL: ', imgURL)
           return (
-            // <React.Fragment>
-              <Link className="col-4 p-1 remove-a-tag-style" 
-                key={element.id} 
-                to={`/details/${element.id}`} 
-                // to={'/details'} 
-                data-id={element.id}
-                onClick={ e =>{ this.props.setCurrentProduct(e.currentTarget.dataset.id) }}
-              >
-                <div className="card">
-                  <div className="card-header bg-transparent border-success">{element.name}</div>
-                  {/* <div style={{'background-image': `url(${imgURL})`}} className="card-img-top img-fluid px-0 preview-image pt-1 align-self-center"/> */}
-                  <img src={imgURL} alt="" className="card-img-top img-fluid preview-image align-self-center pt-1" />
-                  <div className="card-body">
-                    <div className="card-text">{element.short_description}</div>
-                    {/* <h6 className="card-subtitle">{ element.brand }</h6> */}
-                  </div>
-                  <div className="card-footer">
-                    <small className="text-muted">by {element.brand}</small>
-                  </div>
+            <Link className="col-4 p-1 remove-a-tag-style" 
+              key={element.id} 
+              to={`/details/${element.id}`}
+              data-id={element.id}
+              onClick={ e =>{ this.props.setCurrentProduct(e.currentTarget.dataset.id) }}
+            >
+              <div className="card">
+                <div className="card-header bg-transparent border-success">{element.name}</div>
+                <img src={imgURL} alt="" className="card-img-top img-fluid preview-image align-self-center pt-1" />
+                <div className="card-body">
+                  <div className="card-text">{element.short_description}</div>
                 </div>
-              </Link>
-            //   <Route path={`${match.path}/details/:productId`} component={ProductDetails} />
-            // </React.Fragment>
-            
+                <div className="card-footer">
+                  <small className="text-muted">by {element.brand}</small>
+                </div>
+              </div>
+            </Link>
           )
         })
       )
     }
   }
 
-
-// how the cards were made in wicked sales, looks better than what i have now
-//  export default function ProductListItem(props) {
-//   return (
-//     <div onClick={() => props.clickCallback('details', props.id)} className="col-md-4 align-items-stretch">
-//       <div className="mt-2 mb-3">
-//         <div className="card ">
-//           <h5 className="card-header card-title">{props.productName}</h5>
-//           <img src={props.img} alt="" className="card-img-top product-image" />
-//           <div className="card-body card-text-section">
-//             <p className="card-text description-text">{props.description}</p>
-//           </div>
-//         </div>
-//       </div>
-//     </div>
-//   );
-// }
-
-
-
   render(){
-    // console.log('productList state: ', state);
-    // console.log('products list props: ', this.props)
-    const { match } = this.props
     return (
       <div className="pt-4 product-list-main">
         <h1 className="pt-4">Products list</h1>
@@ -116,7 +58,6 @@ class ProductList extends React.Component {
             { this.generateProductList() }
           </div>
         </div>
-        {/* <Route path={`${ match.path }/details/:productId`} component={ ProductDetails } /> */}
       </div>
     )
   }
@@ -153,7 +94,7 @@ function mapDispatchToProps (dispatch) {
 }
 
 function mapStateToProps(state){
-  console.log('State in productsList Component: ', state);
+  console.log('PRODUCTLIST state: ', state);
   return {
     products: state.products,
     currentProduct: state.currentProduct

@@ -11,12 +11,32 @@ import Landing from './landing.jsx';
 // import { Switch, Route, Link } from "react-router-dom";
 
 class Header extends React.Component {
-  constructor(props, {dispatch}){
-    super(props);
+  constructor(props){
+    super(props)
+    this.cartCount = null
   }
-  
+  getCartItemCount(){
+    let total = 0
+    if(this.props.sortedCart[0])
+      this.props.sortedCart.forEach(element=>{total += element.quantity})
+    return total || 0
+  }
+
+  componentDidUpdate(prevProps){
+    // console.log('header componentDidUpdate, prevProps: ', prevProps)
+    // console.log('this.props.value: ', this.props.value)
+    // if(prevProps.sortedCart !== this.props.sortedCart){ console.log('header prev props sorted cart diff from curent sorted cart: ', this.props.sortedCart) }
+    
+  }
+
+  componentDidMount(){
+
+  }
+
   render(){
-    let itemCount;
+    //problem code for getting header cart count correct
+    // let itemCount = this.getCartItemCount()
+    let itemCount = 0
     return (
       <div className="position-fixed landing-header container-fluid">
         <div className="row ">
@@ -32,7 +52,7 @@ class Header extends React.Component {
             <Link className="btn font-weight-bold" to="/cart">
               <div className="cart-logo-count-bg row">
                 <div className="cart-button"></div>
-                <div className="cart-count">:{itemCount || 0}</div>
+                <div className="cart-count">:{ itemCount }</div>
               </div>
             </Link>
           </div>
@@ -56,9 +76,12 @@ function mapDispatchToProps (dispatch) {
 }
 
 function mapStateToProps(state) {
+  console.log('HEADER state: ', state)
   return {
     //this becomes a property inside of the props of this component
     view: state.view,
+    cart: state.cart,
+    sortedCart: state.sortedCart
   };
 }
 

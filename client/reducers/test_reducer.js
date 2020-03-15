@@ -7,7 +7,6 @@ const DEFAULT_STATE = {
 export default (state = DEFAULT_STATE, action) => {
     switch(action.type){
         case types.TEST_LIST_REQUESTED:
-            // console.log('Action:', action);
             return {...state, list: action.payload.list}
         default:
             return state
