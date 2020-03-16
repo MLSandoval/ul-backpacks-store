@@ -56,12 +56,19 @@ export function addItemToCart (product) {
   return function (dispatch) {
     dispatch({
       type: types.PRODUCT_ADDED_TO_CART,
-      payload: {
-        id: product.id,
-        price: product.price,
-        name: product.name,
-        images:product.images,
+      payload: {...product,
+        quantity: product.quantity || 1
       }
+      // {
+      //   id: product.id,
+      //   brand: product.brand,
+      //   price: product.price,
+      //   name: product.name,
+      //   weight: product.weight,
+      //   material: product.material,
+      //   images:product.images,
+      //   quantity: 0
+      // }
     })
   }
 }

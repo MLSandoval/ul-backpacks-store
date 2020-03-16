@@ -65,7 +65,17 @@ class Cart extends React.Component {
                     type="button" 
                     className="btn"
                     data-id={product.id}
-                    onClick={ e => {this.props.increaseItemQuantity(e.currentTarget.dataset.id)}}
+                    onClick={ e => {
+                      // let x = e.currentTarget.dataset.id
+                      // this.props.increaseItemQuantity(e.currentTarget.dataset.id)
+                      console.log('on cart + click, e.currentTarget.dataset.id: ', e.currentTarget.dataset.id)
+                      console.log('this.props.products: ', this.props.products )
+                      console.log(parseInt(e.currentTarget.dataset.id))
+                      console.log('ON CART + CLICK: ', this.props.products.find(element => element.id === parseInt(e.currentTarget.dataset.id)))
+                      
+                      // this.props.addItemToCart(e.currentTarget.dataset.id)
+                      this.props.addItemToCart(this.props.products.find(element => element.id === parseInt(e.currentTarget.dataset.id)))                     
+                    }}
                     >+
                   </button>
                 </td>
