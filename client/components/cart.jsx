@@ -51,12 +51,13 @@ class Cart extends React.Component {
                     data-id={product.id}
                     data-quantity={product.quantity}
                     onClick={ e => {
-                      console.log('reduce quanity clicked, e.currentTarget.dataset.quantity:', e.currentTarget.dataset.quantity)
-                      console.log('reduce quanity clicked, parseInt(e.currentTarget.dataset.quantity):', parseInt(e.currentTarget.dataset.quantity))
-                      if(parseInt(e.currentTarget.dataset.quantity) > 1){
-                        this.props.reduceItemQuantity(e.currentTarget.dataset.id)
-                        this.props.removeItemFromCart(e.currentTarget.dataset.id)
-                      }
+                      this.props.removeItemFromCart(e.currentTarget.dataset.id)
+                      // console.log('reduce quanity clicked, e.currentTarget.dataset.quantity:', e.currentTarget.dataset.quantity)
+                      // console.log('reduce quanity clicked, parseInt(e.currentTarget.dataset.quantity):', parseInt(e.currentTarget.dataset.quantity))
+                      // if(parseInt(e.currentTarget.dataset.quantity) > 1){
+                      //   // this.props.reduceItemQuantity(e.currentTarget.dataset.id)
+                      //   this.props.removeItemFromCart(e.currentTarget.dataset.id)
+                      // }
                     }}
                     >-
                   </button>
@@ -68,10 +69,10 @@ class Cart extends React.Component {
                     onClick={ e => {
                       // let x = e.currentTarget.dataset.id
                       // this.props.increaseItemQuantity(e.currentTarget.dataset.id)
-                      console.log('on cart + click, e.currentTarget.dataset.id: ', e.currentTarget.dataset.id)
-                      console.log('this.props.products: ', this.props.products )
-                      console.log(parseInt(e.currentTarget.dataset.id))
-                      console.log('ON CART + CLICK: ', this.props.products.find(element => element.id === parseInt(e.currentTarget.dataset.id)))
+                      // console.log('on cart + click, e.currentTarget.dataset.id: ', e.currentTarget.dataset.id)
+                      // console.log('this.props.products: ', this.props.products )
+                      // console.log(parseInt(e.currentTarget.dataset.id))
+                      // console.log('ON CART + CLICK: ', this.props.products.find(element => element.id === parseInt(e.currentTarget.dataset.id)))
                       
                       // this.props.addItemToCart(e.currentTarget.dataset.id)
                       this.props.addItemToCart(this.props.products.find(element => element.id === parseInt(e.currentTarget.dataset.id)))                     

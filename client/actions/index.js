@@ -77,7 +77,7 @@ export function removeItemFromCart(productId){
   return function (dispatch) {
     dispatch({
       type: types.PRODUCT_REMOVED_FROM_CART,
-      payload: productId
+      payload: parseInt(productId)
     })
   }
 }
@@ -101,7 +101,7 @@ export function reduceItemQuantity(productId){
 }
 
 export function sortCartQuantities(cart){
-  console.log('sortCartQuantities action called, cart: ', cart)
+  // console.log('sortCartQuantities action called, cart: ', cart)
   const sortedCartQuantities = cart.reduce((accumulator, currentValue)=>{
     if(!!accumulator[currentValue.id] === false){
       accumulator[currentValue.id] = {}
@@ -119,7 +119,7 @@ export function sortCartQuantities(cart){
   
   let quantitiesArr = []
   quantitiesArr = Object.values(sortedCartQuantities)
-  console.log('sortCartQuantities action, quantitiesArr: ', quantitiesArr)
+  // console.log('sortCartQuantities action, quantitiesArr: ', quantitiesArr)
 
   return function(dispatch){
     dispatch({
