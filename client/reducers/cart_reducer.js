@@ -5,7 +5,8 @@ const DEFAULT_STATE = []
 export default function cartReducer(state = DEFAULT_STATE, action) {
   console.log('CARTREDUCER action.payload: ', action.payload)
 
-  //need to devise test to check if the item objects nested in the cart array exist based on an id comparison, then create new item in cart if it doenst exist yet
+  //need to devise test to check if the item objects nested in the cart array exist based on an id comparison, 
+  //then create new item in cart if it doenst exist yet
   const getNested = (obj, ...args)=>{
     console.log('getNested FUNCTION obj: ', obj)
     console.log('getNested FUNCTION args: ', args)
@@ -27,43 +28,50 @@ export default function cartReducer(state = DEFAULT_STATE, action) {
         newState.push(action.payload)
         return newState
       }
-      
-      
+
       newState = [...state]
       
-      // if(){}
-
-      newState.filter(element =>{
+      let pushCheck = true
+      console.log('pushCheck')
+      //quanitity incrementor, works
+      newState.forEach(element =>{
         console.log('inside newState filter, element: ', element)
         if(element.id === action.payload.id){
           console.log('PRODUCT ADDED REDUCER Increment condition, action.payload: ', action.payload)
           element.quantity++
-          action.payload.quantity = element.quantity
+          pushCheck = false
         }
       })
 
-      let newObj = Object.assign({}, newState)
-      console.log('newObj: ', newObj)
-      console.log('CARTREDUCER action.payload.id: ', action.payload.id)
-      // console.log(!action.payload in newState)
-      console.log(getNested(newState, `${action.payload.id}`))
-      console.log('cartReducser newState: ', newState)
-
-
-      // if(!action.payload in newState){
-      //   console.log('payload is not in newState')
-      //   onsole.log('PRODUCT ADDED REDUCER else condition, action.payload: ', action.payload)
-      //   newState.push(action.payload)
-      // }
-      
-      if(getNested(newObj, action.payload.id) === undefined){
+      if(!pushCheck){
+        return newState
+      }else{
         newState.push(action.payload)
+        return newState
       }
 
-      // console.log('PRODUCT ADDED REDUCER else condition, action.payload: ', action.payload)
-      // newState.push(action.payload)
-      console.log('cartReducser newState: ', newState)
-      return newState
+      // let newObj = Object.assign({}, newState)
+      // console.log('newObj: ', newObj)
+      // console.log('CARTREDUCER action.payload.id: ', action.payload.id)
+      // // console.log(!action.payload in newState)
+      // console.log(getNested(newState, 'id', action.payload.id))
+      // console.log('cartReducser newState: ', newState)
+
+
+      // // if(!action.payload in newState){
+      // //   console.log('payload is not in newState')
+      // //   onsole.log('PRODUCT ADDED REDUCER else condition, action.payload: ', action.payload)
+      // //   newState.push(action.payload)
+      // // }
+      
+      // if(getNested(newObj, 'id', action.payload.id) === undefined){
+      //   newState.push(action.payload)
+      // }
+
+      // // console.log('PRODUCT ADDED REDUCER else condition, action.payload: ', action.payload)
+      // // newState.push(action.payload)
+      // console.log('cartReducser newState: ', newState)
+      // return newState
 
       
       
