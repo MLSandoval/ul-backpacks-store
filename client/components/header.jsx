@@ -23,9 +23,7 @@ class Header extends React.Component {
   }
 
   componentDidUpdate(prevProps){
-    // console.log('header componentDidUpdate, prevProps: ', prevProps)
-    // console.log('this.props.value: ', this.props.value)
-    // if(prevProps.sortedCart !== this.props.sortedCart){ console.log('header prev props sorted cart diff from curent sorted cart: ', this.props.sortedCart) }
+    
     
   }
 
@@ -80,9 +78,8 @@ function mapStateToProps(state) {
   return {
     //this becomes a property inside of the props of this component
     view: state.view,
-    cart: state.cart,
-    sortedCart: state.sortedCart
-  };
+    cart: state.cart, 
+  }
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Header);

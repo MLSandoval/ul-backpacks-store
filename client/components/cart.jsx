@@ -9,7 +9,10 @@ class Cart extends React.Component {
 
 
   generateCartList(){
-    const sortedCart = this.props.sortedCart
+      // this.props.computeCartTotal(this.props.cart)
+
+    // const sortedCart = this.props.sortedCart
+    const cart = this.props.cart
     // this.props.computeCartTotal(sortedCart)
     let cartCheck;
     [cartCheck] = this.props.cart
@@ -25,7 +28,7 @@ class Cart extends React.Component {
       )
     }else{
       return (
-        <table className="table  table-hover">
+        <table className="table table-hover">
           <thead>
             <tr>
               <th scope="col-2">Image</th>
@@ -37,7 +40,7 @@ class Cart extends React.Component {
             </tr>
           </thead>
           <tbody>
-          {sortedCart.map((product)=>{
+          {cart.map((product)=>{
             return(
               <tr key={product.id}>
                 <th scope="row">
@@ -109,9 +112,10 @@ class Cart extends React.Component {
   }
 
   componentDidMount(){
-    
-    this.props.sortCartQuantities(this.props.cart)
-    this.props.computeCartTotal(this.props.sortedCart)
+    this.props.computeCartTotal(this.props.cart)
+  }
+  componentDidUpdate(){
+    this.props.computeCartTotal(this.props.cart)
   }
 
   render () {
@@ -135,7 +139,8 @@ class Cart extends React.Component {
               {this.generateCartList()}
             </tbody>
           </table> */}
-          {this.generateCartList()}
+          {this.generateCartList()} 
+          {/* {this.props.computeCartTotal(this.props.cart)} */}
         </div>
       </div>
     )
