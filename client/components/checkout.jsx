@@ -7,6 +7,10 @@ class Checkout extends React.Component {
   //     super(props);
   // }
 
+  componentDidMount(){
+    console.log('Checkout component props: ', this.props)
+  }
+
   render () {
     return (
       <div className="">

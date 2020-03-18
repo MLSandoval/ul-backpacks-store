@@ -1,6 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {Link} from 'react-router-dom';
+import {Link, useRouteMatch} from 'react-router-dom';
 
 import './styles/cart_style.css'
 import {sortCartQuantities, computeCartTotal, addItemToCart, removeItemFromCart, reduceItemQuantity, increaseItemQuantity} from '../actions'
@@ -10,6 +10,7 @@ class Cart extends React.Component {
 
 
   generateCartList(){
+    // let {url} = useRouteMatch() 
       // this.props.computeCartTotal(this.props.cart)
 
     // const sortedCart = this.props.sortedCart
@@ -56,12 +57,6 @@ class Cart extends React.Component {
                     data-quantity={product.quantity}
                     onClick={ e => {
                       this.props.removeItemFromCart(e.currentTarget.dataset.id)
-                      // console.log('reduce quanity clicked, e.currentTarget.dataset.quantity:', e.currentTarget.dataset.quantity)
-                      // console.log('reduce quanity clicked, parseInt(e.currentTarget.dataset.quantity):', parseInt(e.currentTarget.dataset.quantity))
-                      // if(parseInt(e.currentTarget.dataset.quantity) > 1){
-                      //   // this.props.reduceItemQuantity(e.currentTarget.dataset.id)
-                      //   this.props.removeItemFromCart(e.currentTarget.dataset.id)
-                      // }
                     }}
                     >-
                   </button>
@@ -71,14 +66,6 @@ class Cart extends React.Component {
                     className="btn"
                     data-id={product.id}
                     onClick={ e => {
-                      // let x = e.currentTarget.dataset.id
-                      // this.props.increaseItemQuantity(e.currentTarget.dataset.id)
-                      // console.log('on cart + click, e.currentTarget.dataset.id: ', e.currentTarget.dataset.id)
-                      // console.log('this.props.products: ', this.props.products )
-                      // console.log(parseInt(e.currentTarget.dataset.id))
-                      // console.log('ON CART + CLICK: ', this.props.products.find(element => element.id === parseInt(e.currentTarget.dataset.id)))
-                      
-                      // this.props.addItemToCart(e.currentTarget.dataset.id)
                       this.props.addItemToCart(this.props.products.find(element => element.id === parseInt(e.currentTarget.dataset.id)))                     
                     }}
                     >+
@@ -113,14 +100,14 @@ class Cart extends React.Component {
             <td></td>
             <td></td>
             <td>
-              <Link to="cart/checkout" >
+              {/* <Link to={`${url}/checkout`}> */}
                 <button 
                   type="button" 
                   className="btn btn-dark"
                   onClick={()=>{let x = 'someCallBack'}}
                   >Checkout
                 </button>  
-              </Link>
+              {/* </Link> */}
               
             </td> 
           </tr>
@@ -133,36 +120,28 @@ class Cart extends React.Component {
 
   componentDidMount(){
     this.props.computeCartTotal(this.props.cart)
+    console.log('Cart component props: ', this.props)
   }
   componentDidUpdate(){
     this.props.computeCartTotal(this.props.cart)
   }
 
   render () {
-    console.log()
+    // let {path} = useRouteMatch() 
+    
     return (
       <div className="pt-4 container">
         <div className="row rel">
           <h1 className="pt-4">THIS IS THE CART VIEW</h1>
-          {/* <table className="table  table-hover">
-            <thead>
-              <tr>
-                <th scope="col-2">Image</th>
-                <th scope="col-2">Product</th>
-                <th scope="col-2">Quantity</th>
-                <th scope="col-2">Price</th>
-                <th scope="col-2">Total</th>
-                <th scope="col-1"></th>
-              </tr>
-            </thead>
-            <tbody>
-              {this.generateCartList()}
-            </tbody>
-          </table> */}
           {this.generateCartList()} 
-          {/* {this.props.computeCartTotal(this.props.cart)} */}
         </div>
+
+        {/* <Route exact path={`${path}/checkout`} component={Checkout}/> */}
+
       </div>
+      
+
+      
     )
   }
 }
@@ -185,4 +164,13 @@ function mapStateToProps(state){
   }
 }
 
-export default connect(mapStateToProps, {sortCartQuantities, computeCartTotal, addItemToCart, removeItemFromCart, reduceItemQuantity, increaseItemQuantity})(Cart)
+export default connect(
+  mapStateToProps, 
+  {
+    sortCartQuantities, 
+    computeCartTotal, 
+    addItemToCart, 
+    removeItemFromCart, 
+    reduceItemQuantity, 
+    increaseItemQuantity
+  })(Cart)

@@ -24,10 +24,8 @@ class ProductDetails extends React.Component {
   }
 
   
-  componentDidUpdate(prevProps){
-    // console.log('header componentDidUpdate, prevProps: ', prevProps)
-    // console.log('this.props.value: ', this.props.value)
-    // if(prevProps.value !== this.props.value){ alert(prevProps.value) }
+  componentDidMount(){
+    console.log('Product Details Comp this.props: ', this.props)
   }
   
 
