@@ -1,9 +1,10 @@
 import React from 'react'
 import {connect} from 'react-redux'
+import {Link} from 'react-router-dom';
 
 import './styles/cart_style.css'
 import {sortCartQuantities, computeCartTotal, addItemToCart, removeItemFromCart, reduceItemQuantity, increaseItemQuantity} from '../actions'
-
+import Checkout from './checkout'
 
 class Cart extends React.Component {
 
@@ -105,8 +106,27 @@ class Cart extends React.Component {
             <td>Order Total: </td>
             <td>{this.props.totalOrderCost || 0}</td> 
           </tr>
+          <tr>
+            <th scope="row">
+            </th>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>
+              <Link to="cart/checkout" >
+                <button 
+                  type="button" 
+                  className="btn btn-dark"
+                  onClick={()=>{let x = 'someCallBack'}}
+                  >Checkout
+                </button>  
+              </Link>
+              
+            </td> 
+          </tr>
           </tbody>
         </table>
+
       )
     }
   }

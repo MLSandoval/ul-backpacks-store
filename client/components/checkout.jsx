@@ -1,5 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import {Link} from 'react-router-dom';
 
 class Checkout extends React.Component {
   // constructor (props) {
@@ -8,7 +9,20 @@ class Checkout extends React.Component {
 
   render () {
     return (
-      <h1>THIS IS THE CHECKOUT VIEWWWW</h1>
+      <div className="">
+        <h1>THIS IS THE CHECKOUT VIEWWWW</h1>
+        <h1>THIS IS THE CHECKOUT VIEWWWW</h1>
+        <h1>THIS IS THE CHECKOUT VIEWWWW</h1>
+        <h1>THIS IS THE CHECKOUT VIEWWWW</h1>
+        <h1>THIS IS THE CHECKOUT VIEWWWW</h1>
+        <h1>THIS IS THE CHECKOUT VIEWWWW</h1>
+        <h1>THIS IS THE CHECKOUT VIEWWWW</h1>
+        <h1>THIS IS THE CHECKOUT VIEWWWW</h1>
+        <h1>THIS IS THE CHECKOUT VIEWWWW</h1>
+        <h1>THIS IS THE CHECKOUT VIEWWWW</h1>
+        <h1>THIS IS THE CHECKOUT VIEWWWW</h1>
+      </div>
+      
     )
   }
 }

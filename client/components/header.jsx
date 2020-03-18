@@ -17,8 +17,8 @@ class Header extends React.Component {
   }
   getCartItemCount(){
     let total = 0
-    if(this.props.sortedCart[0])
-      this.props.sortedCart.forEach(element=>{total += element.quantity})
+    if(this.props.cart[0])
+      this.props.cart.forEach(element=>{total += element.quantity})
     return total || 0
   }
 
@@ -34,7 +34,7 @@ class Header extends React.Component {
   render(){
     //problem code for getting header cart count correct
     // let itemCount = this.getCartItemCount()
-    let itemCount = 0
+    // let itemCount = 0
     return (
       <div className="position-fixed landing-header container-fluid">
         <div className="row ">
@@ -50,13 +50,13 @@ class Header extends React.Component {
             <Link className="btn font-weight-bold" to="/cart">
               <div className="cart-logo-count-bg row">
                 <div className="cart-button"></div>
-                <div className="cart-count">:{ itemCount }</div>
+                <div className="cart-count">:{ this.getCartItemCount() }</div>
               </div>
             </Link>
           </div>
         </div>
       </div>
-    );
+    )
   }
 }
 
@@ -70,7 +70,7 @@ function mapDispatchToProps (dispatch) {
     onViewChangeClick: view => {
       dispatch(SET_VIEW(view));
     }
-  };
+  }
 }
 
 function mapStateToProps(state) {

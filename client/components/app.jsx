@@ -23,6 +23,7 @@ import Test from './test'
 import ProductDetails from './productDetails'
 
 
+
 class App extends React.Component {
   componentDidMount () {
     this.props.getProductList()
@@ -36,6 +37,7 @@ class App extends React.Component {
           <Route path="/products" component={ProductList}/>
           <Route path="/test" component={Test} />
           <Route path="/cart" component={Cart}/>
+          <Route path="cart/checkout" component={Checkout}/>
           <Route path="/details/:productId" component={ProductDetails}/>
           {/* <Route path="/details" component={ProductDetails}/> */}
           {/* <Route path="/checkout" component={Checkout}/> */}
