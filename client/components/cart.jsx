@@ -1,6 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {Link, useRouteMatch} from 'react-router-dom';
+import {Link, useRouteMatch, Route} from 'react-router-dom';
 
 import './styles/cart_style.css'
 import {sortCartQuantities, computeCartTotal, addItemToCart, removeItemFromCart, reduceItemQuantity, increaseItemQuantity} from '../actions'
@@ -100,20 +100,39 @@ class Cart extends React.Component {
             <td></td>
             <td></td>
             <td>
-              {/* <Link to={`${url}/checkout`}> */}
+              {/* <Link to={`${url}/checkout`}>
                 <button 
                   type="button" 
                   className="btn btn-dark"
                   onClick={()=>{let x = 'someCallBack'}}
                   >Checkout
                 </button>  
-              {/* </Link> */}
+              </Link> */}
+              <Link to={`${this.props.match.url}/checkout`}>
+                <button 
+                  type="button" 
+                  className="btn btn-dark"
+                  onClick={()=>{let x = 'someCallBack'}}
+                  >Checkout
+                </button>  
+              </Link>
               
             </td> 
           </tr>
           </tbody>
+          <Route path={`${this.props.match.url}/checkout`} 
+            component={Checkout}
+            // render={()=>{
+            //   return(
+            //     <Checkout
+            //       onClick={this.props.history.push(this.props.match.url)}  
+            //     >
+            //     </Checkout>
+            //   )
+            // }}
+          >
+          </Route>
         </table>
-
       )
     }
   }
@@ -145,6 +164,9 @@ class Cart extends React.Component {
     )
   }
 }
+
+
+
 
 function mapDispatchToProps(dispatch){
   return {

@@ -34,13 +34,11 @@ class App extends React.Component {
         <div className="app-main">
           <Header/>
           <Route exact path="/" component={Landing} />
-          <Route path="/products" component={ProductList}/>
-          <Route path="/test" component={Test} />
+          <Route exact path="/products" component={ProductList}/>
+          <Route exact path="/test" component={Test} />
           <Route path="/cart" component={Cart}/>
-          <Route path="cart/checkout" component={Checkout}/>
-          <Route path="/details/:productId" component={ProductDetails}/>
-          {/* <Route path="/details" component={ProductDetails}/> */}
-          {/* <Route path="/checkout" component={Checkout}/> */}
+          <Route exact path="/details/:productId" component={ProductDetails}/> 
+          {/* <Route path={`${this.props.match.url}/checkout`} component={Checkout}/> */}
           <Footer/>
         </div>
     )
