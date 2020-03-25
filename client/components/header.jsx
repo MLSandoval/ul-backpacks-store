@@ -1,12 +1,10 @@
-import React from 'react';
+import React from 'react'
 
-import { connect } from 'react-redux';
-// import { setView } from '../actions';
-// import PropTypes from 'prop-types';
-import {Link} from 'react-router-dom';
-import "./styles/header_style.css";
+import { connect } from 'react-redux'
+import {Link} from 'react-router-dom'
+import "./styles/header_style.css"
 
-import Landing from './landing.jsx';
+import Landing from './landing.jsx'
 
 // import { Switch, Route, Link } from "react-router-dom";
 

@@ -45,7 +45,7 @@ class ProductDetails extends React.Component {
             <button className="btn btn-secondary" onClick={ ()=>{ this.props.addItemToCart(this.props.products[id])} }>Add To Cart</button>
           </div>
           <div className="col-8 carousel-container">
-            <Carousel interval={false}>
+            <Carousel interval={5000}>
               {
                 product.images.map( (element, index) => {
                   return(
@@ -67,6 +67,7 @@ class ProductDetails extends React.Component {
           </div>
           <div className=" col-4 mb-3">
             <div className="align-self-center">{product.short_description}</div>
+            <br></br>
             <div>
               {this.props.products[id].long_description}
             </div>

@@ -1,6 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {Link, useRouteMatch, Route} from 'react-router-dom';
+import {Link, useRouteMatch, Route} from 'react-router-dom'
+import Modal from 'react-bootstrap/Modal'
 
 import './styles/cart_style.css'
 import {sortCartQuantities, computeCartTotal, addItemToCart, removeItemFromCart, reduceItemQuantity, increaseItemQuantity} from '../actions'
@@ -10,15 +11,9 @@ class Cart extends React.Component {
 
 
   generateCartList(){
-    // let {url} = useRouteMatch() 
-      // this.props.computeCartTotal(this.props.cart)
-
-    // const sortedCart = this.props.sortedCart
     const cart = this.props.cart
-    // this.props.computeCartTotal(sortedCart)
     let cartCheck;
     [cartCheck] = this.props.cart
-    console.log('generateCartList cartCheck: ', cartCheck)
 
     if(cartCheck === undefined){
       return(
@@ -30,109 +25,94 @@ class Cart extends React.Component {
       )
     }else{
       return (
-        <table className="table table-hover">
-          <thead>
-            <tr>
-              <th scope="col-2">Image</th>
-              <th scope="col-2">Product</th>
-              <th scope="col-2">Quantity</th>
-              <th scope="col-2">Price</th>
-              <th scope="col-2">Total</th>
-              <th scope="col-1"></th>
-            </tr>
-          </thead>
-          <tbody>
-          {cart.map((product)=>{
-            return(
-              <tr key={product.id}>
-                <th scope="row">
-                  <img className="row-image" src={product.images[0]}></img>
-                </th>
-                <td>{product.name}</td>
-                <td>
-                <button 
-                    type="button" 
-                    className="btn"
-                    data-id={product.id}
-                    data-quantity={product.quantity}
-                    onClick={ e => {
-                      this.props.removeItemFromCart(e.currentTarget.dataset.id)
-                    }}
-                    >-
-                  </button>
-                  { product.quantity }
-                  <button 
-                    type="button" 
-                    className="btn"
-                    data-id={product.id}
-                    onClick={ e => {
-                      this.props.addItemToCart(this.props.products.find(element => element.id === parseInt(e.currentTarget.dataset.id)))                     
-                    }}
-                    >+
-                  </button>
-                </td>
-                <td>{(product.price / 100).toFixed(2)}</td>
-                <td>{(product.price*product.quantity / 100).toFixed(2)}</td>
-                <td>
-                  <button 
-                    type="button" 
-                    className="btn btn-danger"
-                    data-id={product.id}
-                    onClick={ e => {this.props.removeItemFromCart(e.currentTarget.dataset.id)}}
-                    >X
-                  </button>
-                </td>
+        <React.Fragment>
+          <table className="table table-hover">
+            <thead>
+              <tr>
+                <th scope="col-2">Image</th>
+                <th scope="col-2">Product</th>
+                <th scope="col-2">Quantity</th>
+                <th scope="col-2">Price</th>
+                <th scope="col-2">Total</th>
+                <th scope="col-1"></th>
               </tr>
-            )
-          })}
-          <tr>
-            <th scope="row">
-            </th>
-            <td></td>
-            <td></td>
-            <td>Order Total: </td>
-            <td>{this.props.totalOrderCost || 0}</td> 
-          </tr>
-          <tr>
-            <th scope="row">
-            </th>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td>
-              {/* <Link to={`${url}/checkout`}>
-                <button 
-                  type="button" 
-                  className="btn btn-dark"
-                  onClick={()=>{let x = 'someCallBack'}}
-                  >Checkout
-                </button>  
-              </Link> */}
-              <Link to={`${this.props.match.url}/checkout`}>
-                <button 
-                  type="button" 
-                  className="btn btn-dark"
-                  onClick={()=>{let x = 'someCallBack'}}
-                  >Checkout
-                </button>  
-              </Link>
-              
-            </td> 
-          </tr>
-          </tbody>
-          <Route path={`${this.props.match.url}/checkout`} 
-            component={Checkout}
-            // render={()=>{
-            //   return(
-            //     <Checkout
-            //       onClick={this.props.history.push(this.props.match.url)}  
-            //     >
-            //     </Checkout>
-            //   )
-            // }}
-          >
-          </Route>
-        </table>
+            </thead>
+            <tbody>
+            {cart.map((product)=>{
+              return(
+                <tr key={product.id}>
+                  <th scope="row">
+                    <img className="row-image" src={product.images[0]}></img>
+                  </th>
+                  <td>{product.name}</td>
+                  <td>
+                  <button 
+                      type="button" 
+                      className="btn"
+                      data-id={product.id}
+                      data-quantity={product.quantity}
+                      onClick={ e => {
+                        this.props.removeItemFromCart(e.currentTarget.dataset.id)
+                      }}
+                      >-
+                    </button>
+                    { product.quantity }
+                    <button 
+                      type="button" 
+                      className="btn"
+                      data-id={product.id}
+                      onClick={ e => {
+                        this.props.addItemToCart(this.props.products.find(element => element.id === parseInt(e.currentTarget.dataset.id)))                     
+                      }}
+                      >+
+                    </button>
+                  </td>
+                  <td>{(product.price / 100).toFixed(2)}</td>
+                  <td>{(product.price*product.quantity / 100).toFixed(2)}</td>
+                  <td>
+                    <button 
+                      type="button" 
+                      className="btn btn-danger"
+                      data-id={product.id}
+                      onClick={ e => {this.props.removeItemFromCart(e.currentTarget.dataset.id)}}
+                      >X
+                    </button>
+                  </td>
+                </tr>
+              )
+            })}
+            <tr>
+              <th scope="row">
+              </th>
+              <td></td>
+              <td></td>
+              <td>Order Total: </td>
+              <td>{this.props.totalOrderCost || 0}</td> 
+            </tr>
+            <tr>
+              <th scope="row">
+              </th>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td>
+                <Link to={`${this.props.match.url}/checkout`}>
+                  {/* <button 
+                    type="button" 
+                    className="btn btn-dark"
+                    // onClick={()=>{let x = 'someCallBack'}}
+                    >Checkout
+                  </button>   */}
+                  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
+                    Launch demo modal
+                  </button>
+                </Link>
+              </td> 
+            </tr>
+            </tbody>
+          </table>
+          <Route path={`${this.props.match.url}/checkout`} component={Checkout}/>
+        </React.Fragment>
       )
     }
   }
@@ -150,7 +130,7 @@ class Cart extends React.Component {
     
     return (
       <div className="pt-4 container">
-        <div className="row rel">
+        <div className="row">
           <h1 className="pt-4">THIS IS THE CART VIEW</h1>
           {this.generateCartList()} 
         </div>
