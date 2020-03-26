@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {createRef} from 'react'
 import {connect} from 'react-redux'
 import {Link, useRouteMatch, Route} from 'react-router-dom'
 import Modal from 'react-bootstrap/Modal'
@@ -8,7 +8,10 @@ import {sortCartQuantities, computeCartTotal, addItemToCart, removeItemFromCart,
 import Checkout from './checkout'
 
 class Cart extends React.Component {
-
+  constructor(props){
+    super(props)
+    this.CartRef = createRef()
+  }
 
   generateCartList(){
     const cart = this.props.cart
@@ -96,14 +99,15 @@ class Cart extends React.Component {
               <td></td>
               <td></td>
               <td>
-                <Link to={`${this.props.match.url}/checkout`}>
+                <Link to={`${this.props.match.url}/checkout`}
+                  data-toggle="modal" data-target="#exampleModalCenter">
                   {/* <button 
                     type="button" 
                     className="btn btn-dark"
                     // onClick={()=>{let x = 'someCallBack'}}
                     >Checkout
                   </button>   */}
-                  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
+                  <button type="button" className="btn btn-primary" >
                     Launch demo modal
                   </button>
                 </Link>
@@ -115,6 +119,18 @@ class Cart extends React.Component {
         </React.Fragment>
       )
     }
+  }
+
+  BGScrollModalShown(){
+    this.CartRef.current.style.position = 'fixed'
+    this.CartRef.current.style.top = `-${window.scrollY}px`
+  }
+
+  BGScrollModalhidden(){
+    const scrollY = this.CartRef.current.style.top
+    this.CartRef.current.style.position = ''
+    this.CartRef.current.style.top = ''
+    window.scrollTo(0, parseInt(scrollY || '0') * -1)
   }
 
   componentDidMount(){
@@ -129,7 +145,7 @@ class Cart extends React.Component {
     // let {path} = useRouteMatch() 
     
     return (
-      <div className="pt-4 container">
+      <div className="pt-4 container" ref={this.CartRef}>
         <div className="row">
           <h1 className="pt-4">THIS IS THE CART VIEW</h1>
           {this.generateCartList()} 
