@@ -16,7 +16,7 @@ class Checkout extends React.Component{
   }
 
   componentDidMount(){
-
+    console.log('Checkout component mounted this.props: ', this.props)
   }
 
   componentWillUnmount(){
@@ -36,30 +36,87 @@ class Checkout extends React.Component{
 
   render(){
     return(
-      <div className="modal-c">
-        <Modal.Header closeButton>
-          <Modal.Title>Checkout</Modal.Title>
-        </Modal.Header>
+      // <div className="modal-c">
+      //   <Modal.Header closeButton>
+      //     <Modal.Title>Checkout</Modal.Title>
+      //   </Modal.Header>
         
-        <Modal.Body >
-          <div className="">
-            <div className="">
-              <h1>First Name</h1>
-              <form type="input" action="URL_on_server_to_send_data_to" onSubmit={this.onSubmit}>
-                <input
-                  ref={this.inputRef}
-                  type="text"
-                  onChange={this.onChange}
-                  value={this.props.inputValue}
-                />
-                <button>Save new value</button>
-              </form>
-            </div>
-          </div> 
+      //   <Modal.Body >
+      //     <div className="">
+      //       <div className="">
+      //         <h1>First Name</h1>
+      //         <form type="input" action="URL_on_server_to_send_data_to" onSubmit={this.onSubmit}>
+      //           <input
+      //             ref={this.inputRef}
+      //             type="text"
+      //             onChange={this.onChange}
+      //             value={this.props.inputValue}
+      //           />
+      //           <button>Save new value</button>
+      //         </form>
+      //       </div>
+      //     </div> 
+      //   </Modal.Body>
+      // </div>
+      
+        <Modal.Body>
+          <h5>Enter Payment and Shipping Information</h5>
+          <Form>
+            <h2>Login</h2>
+            <hr />
+            <Form.Group controlId="formBasicEmail">
+              <Form.Label>Email address</Form.Label>
+              <Form.Control
+                type="email"
+                placeholder="Enter email"
+                // isInvalid={props.loginForm.errors.email.length > 0}
+                // isValid={
+                //   props.loginForm.values.email &&
+                //   props.loginForm.errors.email.length === 0
+                // }
+                // onChange={e => setEmail(e.target.value)}
+              />
+              <Form.Control.Feedback type="invalid">
+                {/* {props.loginForm.errors.email} */}
+              </Form.Control.Feedback>
+              <Form.Text className="text-muted">
+                We'll never share your email with anyone else.
+              </Form.Text>
+            </Form.Group>
+
+            <Form.Group controlId="formBasicPassword">
+              <Form.Label>Password</Form.Label>
+              <Form.Control
+                type="password"
+                placeholder="Password"
+                // isInvalid={props.loginForm.errors.password.length > 0}
+                // isValid={
+                //   props.loginForm.values.password &&
+                //   props.loginForm.errors.password.length === 0
+                // }
+                // onChange={e => setPassword(e.target.value)}
+              />
+              <Form.Control.Feedback type="invalid">
+                {/* {props.loginForm.errors.password} */}
+              </Form.Control.Feedback>
+            </Form.Group>
+            <Form.Group controlId="formBasicCheckbox">
+              <Form.Check type="checkbox" label="Check me out" />
+            </Form.Group>
+            <Button
+              variant="primary"
+              type="button"
+              // onClick={() =>
+              //   props.dispatch({ type: "FORM_SUBMIT", payload: { email, password } })
+              // }
+            >
+              Submit
+            </Button>
+          </Form>
+          <p>
+            Form will go in here?
+          </p>
         </Modal.Body>
-      </div>
-      
-      
     )
   }
 }
@@ -71,7 +128,7 @@ function mapDispatchToProps (dispatch) {
 }
 
 function mapStateToProps(state){
-  console.log('state in checkout component: ', state)
+  console.log('state in Checkout component: ', state)
   return {
     cart: state.cart,
     totalOrderCost: state.totalOrderCost,
