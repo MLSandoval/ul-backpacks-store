@@ -60,7 +60,7 @@ class ModalShell extends React.Component {
             {this.modalHeader}
           </Modal.Title>
         </Modal.Header>
-        {/* <Modal.Body>
+        <Modal.Body>
           <Modal.Title id="contained-modal-title-vcenter">
             Modal heading
           </Modal.Title>
@@ -70,7 +70,7 @@ class ModalShell extends React.Component {
             dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac
             consectetur ac, vestibulum at eros.
           </p>
-        </Modal.Body> */}
+        </Modal.Body>
         {this.populateModal()}
         <Modal.Footer>
           <Button 
@@ -78,26 +78,8 @@ class ModalShell extends React.Component {
           >Close</Button>
         </Modal.Footer>
       </Modal>
-        {/* <Modal className="modal-overlay">
-          {
-            console.log('ModalSehll this.props.children: ', this.props.children)
-          }
-          {
-            this.props.children
-          }
-          {
-            this.populateModal()
-          }
-          <Modal.Footer>
-            <div className="test">THIS IS THE DIV INSIDE MODAL TAG IN MODALSHELL BEFORE CHECKOUT</div>
-          <Button variant="secondary">Close</Button>
-          <Button variant="primary">Save changes</Button>
-        </Modal.Footer>
-      </Modal> */}
-      {/* <Route path={`${this.props.match.url}/checkout`} component={Checkout}/> */}
       </div>
     )
-    // document.getElementById('modal-root')
   }
 }
 

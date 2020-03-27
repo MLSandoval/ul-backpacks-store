@@ -36,29 +36,6 @@ class Checkout extends React.Component{
 
   render(){
     return(
-      // <div className="modal-c">
-      //   <Modal.Header closeButton>
-      //     <Modal.Title>Checkout</Modal.Title>
-      //   </Modal.Header>
-        
-      //   <Modal.Body >
-      //     <div className="">
-      //       <div className="">
-      //         <h1>First Name</h1>
-      //         <form type="input" action="URL_on_server_to_send_data_to" onSubmit={this.onSubmit}>
-      //           <input
-      //             ref={this.inputRef}
-      //             type="text"
-      //             onChange={this.onChange}
-      //             value={this.props.inputValue}
-      //           />
-      //           <button>Save new value</button>
-      //         </form>
-      //       </div>
-      //     </div> 
-      //   </Modal.Body>
-      // </div>
-      
         <Modal.Body>
           <h5>Enter Payment and Shipping Information</h5>
           <Form>
