@@ -115,7 +115,6 @@ class Cart extends React.Component {
             </tr>
             </tbody>
           </table>
-          <Route path={`${this.props.match.url}/modal`} component={ModalShell}/>
         </React.Fragment>
       )
     }
@@ -142,21 +141,14 @@ class Cart extends React.Component {
   }
 
   render () {
-    // let {path} = useRouteMatch() 
-    
     return (
       <div className="pt-4 container" ref={this.CartRef}>
         <div className="row">
           <h1 className="pt-4">THIS IS THE CART VIEW</h1>
           {this.generateCartList()} 
         </div>
-
-        {/* <Route exact path={`${path}/checkout`} component={Checkout}/> */}
-
+        <Route path={`${this.props.match.url}/modal`} component={ModalShell}/>
       </div>
-      
-
-      
     )
   }
 }

@@ -18,19 +18,10 @@ class ModalShell extends React.Component {
   constructor (props) {
       super(props)
 
-      this.modalStyle = {
-        position: "fixed",
-        left: 0,
-        top: 0,
-        bottom: 0,
-        right: 0,
-        backgroundColor: "rgba(0,0,0,.2)",
-        color: "##FFF",
-        fontSize: "40px",
-      }
-
       this.inputRef = createRef()
+
       this.modalContent = null
+      this.modalHeader = null
   }
 
   generateModalContent(){
@@ -38,6 +29,7 @@ class ModalShell extends React.Component {
     switch(true){
       case this.props.location.pathname.includes('modal/checkout'):
         this.modalContent = <Checkout/>
+        this.modalHeader = 'Checkout'
         break
       default: console.log('Modal Content Error.')
     }
@@ -48,26 +40,44 @@ class ModalShell extends React.Component {
   }
 
   componentDidMount(){
-    console.log('Checkout component props: ', this.props)
+    console.log('ModalShell component mounted, props: ', this.props)
     this.generateModalContent()
   }
   
   render () {
     // let [show] = useState(false)
-    return(
+    return (
       <div>
-        {MyVerticallyCenteredModal(this.props)}
-        <Modal className="modal-overlay">
-          {
-            this.populateModal()
-          }
-          <Modal.Footer>
-            <div className="test">THIS IS THE DIV INSIDE MODAL TAG IN MODALSHELL BEFORE CHECKOUT</div>
-          <Button variant="secondary">Close</Button>
-          <Button variant="primary">Save changes</Button>
+        <Modal
+        {...this.props}
+        size="lg"
+        aria-labelledby="contained-modal-title-vcenter"
+        centered
+        show={true}
+      >
+        <Modal.Header closeButton>
+          <Modal.Title id="contained-modal-title-vcenter">
+            {this.modalHeader}
+          </Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <Modal.Title id="contained-modal-title-vcenter">
+            Modal heading
+          </Modal.Title>
+          <h4>Centered Modal</h4>
+          <p>
+            Cras mattis consectetur purus sit amet fermentum. Cras justo odio,
+            dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac
+            consectetur ac, vestibulum at eros.
+          </p>
+        </Modal.Body>
+        {this.populateModal()}
+        <Modal.Footer>
+          <Button 
+          // onClick={props.onHide}
+          >Close</Button>
         </Modal.Footer>
       </Modal>
-      <Route path={`${this.props.match.url}/checkout`} component={Checkout}/>
       </div>
     )
   }
@@ -80,29 +90,36 @@ function MyVerticallyCenteredModal(props) {
       size="lg"
       aria-labelledby="contained-modal-title-vcenter"
       centered
+      show={true}
     >
       <Modal.Header closeButton>
         <Modal.Title id="contained-modal-title-vcenter">
           Modal heading
         </Modal.Title>
       </Modal.Header>
-      <Modal.Body>
+      {/* <Modal.Body>
+        <Modal.Title id="contained-modal-title-vcenter">
+          Modal heading
+        </Modal.Title>
         <h4>Centered Modal</h4>
         <p>
           Cras mattis consectetur purus sit amet fermentum. Cras justo odio,
           dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac
           consectetur ac, vestibulum at eros.
         </p>
-      </Modal.Body>
+      </Modal.Body> */}
+      {ModalShell.populateModal()}
       <Modal.Footer>
-        <Button onClick={props.onHide}>Close</Button>
+        <Button 
+        // onClick={props.onHide}
+        >Close</Button>
       </Modal.Footer>
     </Modal>
   )
 }
 
 function mapStateToProps (state) {
-  // console.log('Redux state in Clock Component: ', state);
+  console.log('state in ModalShell component: ', state);
   return {
     // this becomes a property inside of the props of this component
     view: state.view,
@@ -119,4 +136,4 @@ function mapDispatchToProps (dispatch) {
 }
 
 
-export default connect(mapStateToProps, mapDispatchToProps)(Checkout)
+export default connect(mapStateToProps, mapDispatchToProps)(ModalShell)
