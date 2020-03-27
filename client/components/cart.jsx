@@ -1,19 +1,22 @@
-import React from 'react'
+import React, {createRef} from 'react'
 import {connect} from 'react-redux'
+import {Link, useRouteMatch, Route} from 'react-router-dom'
+
 
 import './styles/cart_style.css'
 import {sortCartQuantities, computeCartTotal, addItemToCart, removeItemFromCart, reduceItemQuantity, increaseItemQuantity} from '../actions'
-
+import ModalShell from './modalShell.jsx'
 
 class Cart extends React.Component {
-
+  constructor(props){
+    super(props)
+    this.CartRef = createRef()
+  }
 
   generateCartList(){
-    const sortedCart = this.props.sortedCart
-    // this.props.computeCartTotal(sortedCart)
+    const cart = this.props.cart
     let cartCheck;
     [cartCheck] = this.props.cart
-    console.log('generateCartList cartCheck: ', cartCheck)
 
     if(cartCheck === undefined){
       return(
@@ -25,91 +28,8 @@ class Cart extends React.Component {
       )
     }else{
       return (
-        <table className="table  table-hover">
-          <thead>
-            <tr>
-              <th scope="col-2">Image</th>
-              <th scope="col-2">Product</th>
-              <th scope="col-2">Quantity</th>
-              <th scope="col-2">Price</th>
-              <th scope="col-2">Total</th>
-              <th scope="col-1"></th>
-            </tr>
-          </thead>
-          <tbody>
-          {sortedCart.map((product)=>{
-            return(
-              <tr key={product.id}>
-                <th scope="row">
-                  <img className="row-image" src={product.images[0]}></img>
-                </th>
-                <td>{product.name}</td>
-                <td>
-                <button 
-                    type="button" 
-                    className="btn"
-                    data-id={product.id}
-                    data-quantity={product.quantity}
-                    onClick={ e => {
-                      console.log('reduce quanity clicked, e.currentTarget.dataset.quantity:', e.currentTarget.dataset.quantity)
-                      console.log('reduce quanity clicked, parseInt(e.currentTarget.dataset.quantity):', parseInt(e.currentTarget.dataset.quantity))
-                      if(parseInt(e.currentTarget.dataset.quantity) > 1){
-                        this.props.reduceItemQuantity(e.currentTarget.dataset.id)
-                        this.props.removeItemFromCart(e.currentTarget.dataset.id)
-                      }
-                    }}
-                    >-
-                  </button>
-                  { product.quantity }
-                  <button 
-                    type="button" 
-                    className="btn"
-                    data-id={product.id}
-                    onClick={ e => {this.props.increaseItemQuantity(e.currentTarget.dataset.id)}}
-                    >+
-                  </button>
-                </td>
-                <td>{(product.price / 100).toFixed(2)}</td>
-                <td>{(product.price*product.quantity / 100).toFixed(2)}</td>
-                <td>
-                  <button 
-                    type="button" 
-                    className="btn btn-danger"
-                    data-id={product.id}
-                    onClick={ e => {this.props.removeItemFromCart(e.currentTarget.dataset.id)}}
-                    >X
-                  </button>
-                </td>
-              </tr>
-            )
-          })}
-          <tr>
-            <th scope="row">
-            </th>
-            <td></td>
-            <td></td>
-            <td>Order Total: </td>
-            <td>{this.props.totalOrderCost || 0}</td> 
-          </tr>
-          </tbody>
-        </table>
-      )
-    }
-  }
-
-  componentDidMount(){
-    
-    this.props.sortCartQuantities(this.props.cart)
-    this.props.computeCartTotal(this.props.sortedCart)
-  }
-
-  render () {
-    console.log()
-    return (
-      <div className="pt-4 container">
-        <div className="row rel">
-          <h1 className="pt-4">THIS IS THE CART VIEW</h1>
-          {/* <table className="table  table-hover">
+        <React.Fragment>
+          <table className="table table-hover">
             <thead>
               <tr>
                 <th scope="col-2">Image</th>
@@ -121,15 +41,128 @@ class Cart extends React.Component {
               </tr>
             </thead>
             <tbody>
-              {this.generateCartList()}
+            {cart.map((product)=>{
+              return(
+                <tr key={product.id}>
+                  <th scope="row">
+                    <img className="row-image" src={product.images[0]}></img>
+                  </th>
+                  <td>{product.name}</td>
+                  <td>
+                  <button 
+                      type="button" 
+                      className="btn"
+                      data-id={product.id}
+                      data-quantity={product.quantity}
+                      onClick={ e => {
+                        this.props.removeItemFromCart(e.currentTarget.dataset.id)
+                      }}
+                      >-
+                    </button>
+                    { product.quantity }
+                    <button 
+                      type="button" 
+                      className="btn"
+                      data-id={product.id}
+                      onClick={ e => {
+                        this.props.addItemToCart(this.props.products.find(element => element.id === parseInt(e.currentTarget.dataset.id)))                     
+                      }}
+                      >+
+                    </button>
+                  </td>
+                  <td>{(product.price / 100).toFixed(2)}</td>
+                  <td>{(product.price*product.quantity / 100).toFixed(2)}</td>
+                  <td>
+                    <button 
+                      type="button" 
+                      className="btn btn-danger"
+                      data-id={product.id}
+                      onClick={ e => {this.props.removeItemFromCart(e.currentTarget.dataset.id)}}
+                      >X
+                    </button>
+                  </td>
+                </tr>
+              )
+            })}
+            <tr>
+              <th scope="row">
+              </th>
+              <td></td>
+              <td></td>
+              <td>Order Total: </td>
+              <td>{this.props.totalOrderCost || 0}</td> 
+            </tr>
+            <tr>
+              <th scope="row">
+              </th>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td>
+                <Link to={`${this.props.match.url}/modal/checkout`}
+                  data-toggle="modal" data-target="#exampleModalCenter">
+                  {/* <button 
+                    type="button" 
+                    className="btn btn-dark"
+                    // onClick={()=>{let x = 'someCallBack'}}
+                    >Checkout
+                  </button>   */}
+                  <button type="button" className="btn btn-primary" >
+                    Checkout
+                  </button>
+                </Link>
+              </td> 
+            </tr>
             </tbody>
-          </table> */}
-          {this.generateCartList()}
+          </table>
+          <Route path={`${this.props.match.url}/modal`} component={ModalShell}/>
+        </React.Fragment>
+      )
+    }
+  }
+
+  BGScrollModalShown(){
+    this.CartRef.current.style.position = 'fixed'
+    this.CartRef.current.style.top = `-${window.scrollY}px`
+  }
+
+  BGScrollModalhidden(){
+    const scrollY = this.CartRef.current.style.top
+    this.CartRef.current.style.position = ''
+    this.CartRef.current.style.top = ''
+    window.scrollTo(0, parseInt(scrollY || '0') * -1)
+  }
+
+  componentDidMount(){
+    this.props.computeCartTotal(this.props.cart)
+    console.log('Cart component props: ', this.props)
+  }
+  componentDidUpdate(){
+    this.props.computeCartTotal(this.props.cart)
+  }
+
+  render () {
+    // let {path} = useRouteMatch() 
+    
+    return (
+      <div className="pt-4 container" ref={this.CartRef}>
+        <div className="row">
+          <h1 className="pt-4">THIS IS THE CART VIEW</h1>
+          {this.generateCartList()} 
         </div>
+
+        {/* <Route exact path={`${path}/checkout`} component={Checkout}/> */}
+
       </div>
+      
+
+      
     )
   }
 }
+
+
+
 
 function mapDispatchToProps(dispatch){
   return {
@@ -149,4 +182,13 @@ function mapStateToProps(state){
   }
 }
 
-export default connect(mapStateToProps, {sortCartQuantities, computeCartTotal, addItemToCart, removeItemFromCart, reduceItemQuantity, increaseItemQuantity})(Cart)
+export default connect(
+  mapStateToProps, 
+  {
+    sortCartQuantities, 
+    computeCartTotal, 
+    addItemToCart, 
+    removeItemFromCart, 
+    reduceItemQuantity, 
+    increaseItemQuantity
+  })(Cart)

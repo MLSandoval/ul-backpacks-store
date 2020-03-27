@@ -24,10 +24,8 @@ class ProductDetails extends React.Component {
   }
 
   
-  componentDidUpdate(prevProps){
-    // console.log('header componentDidUpdate, prevProps: ', prevProps)
-    // console.log('this.props.value: ', this.props.value)
-    // if(prevProps.value !== this.props.value){ alert(prevProps.value) }
+  componentDidMount(){
+    console.log('Product Details Comp this.props: ', this.props)
   }
   
 
@@ -47,7 +45,7 @@ class ProductDetails extends React.Component {
             <button className="btn btn-secondary" onClick={ ()=>{ this.props.addItemToCart(this.props.products[id])} }>Add To Cart</button>
           </div>
           <div className="col-8 carousel-container">
-            <Carousel interval={false}>
+            <Carousel interval={5000}>
               {
                 product.images.map( (element, index) => {
                   return(
@@ -69,6 +67,7 @@ class ProductDetails extends React.Component {
           </div>
           <div className=" col-4 mb-3">
             <div className="align-self-center">{product.short_description}</div>
+            <br></br>
             <div>
               {this.props.products[id].long_description}
             </div>

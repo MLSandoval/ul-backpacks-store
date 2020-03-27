@@ -52,16 +52,23 @@ export function setCurrentProduct (productId) {
 
 
 export function addItemToCart (product) {
-  console.log('addItemToCart action called, product: ', product)
+  // console.log('addItemToCart action called, product: ', product)
   return function (dispatch) {
     dispatch({
       type: types.PRODUCT_ADDED_TO_CART,
-      payload: {
-        id: product.id,
-        price: product.price,
-        name: product.name,
-        images:product.images,
+      payload: {...product,
+        quantity: product.quantity || 1
       }
+      // {
+      //   id: product.id,
+      //   brand: product.brand,
+      //   price: product.price,
+      //   name: product.name,
+      //   weight: product.weight,
+      //   material: product.material,
+      //   images:product.images,
+      //   quantity: 0
+      // }
     })
   }
 }
@@ -70,7 +77,7 @@ export function removeItemFromCart(productId){
   return function (dispatch) {
     dispatch({
       type: types.PRODUCT_REMOVED_FROM_CART,
-      payload: productId
+      payload: parseInt(productId)
     })
   }
 }
@@ -94,7 +101,7 @@ export function reduceItemQuantity(productId){
 }
 
 export function sortCartQuantities(cart){
-  console.log('sortCartQuantities action called, cart: ', cart)
+  // console.log('sortCartQuantities action called, cart: ', cart)
   const sortedCartQuantities = cart.reduce((accumulator, currentValue)=>{
     if(!!accumulator[currentValue.id] === false){
       accumulator[currentValue.id] = {}
@@ -112,7 +119,7 @@ export function sortCartQuantities(cart){
   
   let quantitiesArr = []
   quantitiesArr = Object.values(sortedCartQuantities)
-  console.log('sortCartQuantities action, quantitiesArr: ', quantitiesArr)
+  // console.log('sortCartQuantities action, quantitiesArr: ', quantitiesArr)
 
   return function(dispatch){
     dispatch({
@@ -127,10 +134,10 @@ export function sortCartQuantities(cart){
   // }), {})
 }
 
-export function computeCartTotal(sortedCart){
+export function computeCartTotal(cart){
   let total = 0
-  for (let product in sortedCart){
-    total += sortedCart[product].quantity * sortedCart[product].price
+  for (let product in cart){
+    total += cart[product].quantity * cart[product].price
   }
 
   total = (total/100).toFixed(2)

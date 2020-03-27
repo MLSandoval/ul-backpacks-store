@@ -8,5 +8,5 @@ export default function computeTotalReducer(state = DEFAULT_STATE, action) {
             return action.payload
         default:
             return state
-    };
+    }
 }
