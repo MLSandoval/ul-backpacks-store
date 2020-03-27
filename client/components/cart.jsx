@@ -1,11 +1,11 @@
 import React, {createRef} from 'react'
 import {connect} from 'react-redux'
 import {Link, useRouteMatch, Route} from 'react-router-dom'
-import Modal from 'react-bootstrap/Modal'
+
 
 import './styles/cart_style.css'
 import {sortCartQuantities, computeCartTotal, addItemToCart, removeItemFromCart, reduceItemQuantity, increaseItemQuantity} from '../actions'
-import Checkout from './checkout'
+import ModalShell from './modalShell.jsx'
 
 class Cart extends React.Component {
   constructor(props){
@@ -99,7 +99,7 @@ class Cart extends React.Component {
               <td></td>
               <td></td>
               <td>
-                <Link to={`${this.props.match.url}/checkout`}
+                <Link to={`${this.props.match.url}/modal/checkout`}
                   data-toggle="modal" data-target="#exampleModalCenter">
                   {/* <button 
                     type="button" 
@@ -108,14 +108,14 @@ class Cart extends React.Component {
                     >Checkout
                   </button>   */}
                   <button type="button" className="btn btn-primary" >
-                    Launch demo modal
+                    Checkout
                   </button>
                 </Link>
               </td> 
             </tr>
             </tbody>
           </table>
-          <Route path={`${this.props.match.url}/checkout`} component={Checkout}/>
+          <Route path={`${this.props.match.url}/modal`} component={ModalShell}/>
         </React.Fragment>
       )
     }
