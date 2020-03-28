@@ -8,7 +8,6 @@ import {connect} from 'react-redux'
 
 import { Switch, Route, Link } from "react-router-dom"
 
-
 import {getProductList, setCurrentProduct} from '../actions'
 
 import 'bootstrap/dist/css/bootstrap.min.css'
