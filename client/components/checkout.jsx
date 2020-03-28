@@ -35,11 +35,12 @@ class Checkout extends React.Component{
   }
 
   render(){
+    const {to, staticContext, ...rest} = this.props
     return(
         <Modal.Body>
-          <h5>Enter Payment and Shipping Information</h5>
+          
           <Form>
-            <h2>Login</h2>
+            <h5>Payment and Shipping</h5>
             <hr />
             <Form.Group controlId="formBasicEmail">
               <Form.Label>Email address</Form.Label>
@@ -61,7 +62,29 @@ class Checkout extends React.Component{
               </Form.Text>
             </Form.Group>
 
+            <Form.Group controlId="formBasicEmail">
+            <h5>Payment and Shipping</h5>
+              <Form.Label>Email address</Form.Label>
+              <Form.Control
+                type="email"
+                placeholder="Enter email"
+                // isInvalid={props.loginForm.errors.email.length > 0}
+                // isValid={
+                //   props.loginForm.values.email &&
+                //   props.loginForm.errors.email.length === 0
+                // }
+                // onChange={e => setEmail(e.target.value)}
+              />
+              <Form.Control.Feedback type="invalid">
+                {/* {props.loginForm.errors.email} */}
+              </Form.Control.Feedback>
+              <Form.Text className="text-muted">
+                We'll never share your email with anyone else.
+              </Form.Text>
+            </Form.Group>
+
             <Form.Group controlId="formBasicPassword">
+            <h5>Payment and Shipping</h5>
               <Form.Label>Password</Form.Label>
               <Form.Control
                 type="password"
@@ -78,7 +101,7 @@ class Checkout extends React.Component{
               </Form.Control.Feedback>
             </Form.Group>
             <Form.Group controlId="formBasicCheckbox">
-              <Form.Check type="checkbox" label="Check me out" />
+              <Form.Check type="checkbox" label="Shipping address same as billing address." />
             </Form.Group>
             <Button
               variant="primary"

@@ -26,6 +26,7 @@ class ModalShell extends React.Component {
 
   generateModalContent(){
     console.log('generateModalContent called, path.includes: ', this.props.location.pathname.includes('modal/checkout'))
+
     switch(true){
       case this.props.location.pathname.includes('modal/checkout'):
         this.modalContent = <Checkout/>
@@ -46,10 +47,11 @@ class ModalShell extends React.Component {
   
   render () {
     // let [show] = useState(false)
+    const {to, staticContext, ...rest} = this.props
     return (
       <div>
         <Modal
-        {...this.props}
+        {...rest}
         size="lg"
         aria-labelledby="contained-modal-title-vcenter"
         centered
@@ -60,7 +62,7 @@ class ModalShell extends React.Component {
             {this.modalHeader}
           </Modal.Title>
         </Modal.Header>
-        <Modal.Body>
+        {/* <Modal.Body>
           <Modal.Title id="contained-modal-title-vcenter">
             Modal heading
           </Modal.Title>
@@ -70,8 +72,9 @@ class ModalShell extends React.Component {
             dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac
             consectetur ac, vestibulum at eros.
           </p>
-        </Modal.Body>
-        {this.populateModal()}
+        </Modal.Body> */}
+        {/* {this.populateModal()} */}
+        <Checkout/>
         <Modal.Footer>
           <Button 
           // onClick={props.onHide}
