@@ -76,9 +76,9 @@ class ModalShell extends React.Component {
         {/* {this.populateModal()} */}
         <Checkout/>
         <Modal.Footer>
-          <Button 
+          {/* <Button 
           // onClick={props.onHide}
-          >Close</Button>
+          >Close</Button> */}
         </Modal.Footer>
       </Modal>
       </div>

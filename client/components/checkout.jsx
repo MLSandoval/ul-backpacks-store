@@ -39,14 +39,14 @@ class Checkout extends React.Component{
     return(
         <Modal.Body>
           
-          <Form>
-            <h5>Payment and Shipping</h5>
+          <Form className="row">
+            <h5 className='col-12'>Payment and Shipping</h5>
             <hr />
-            <Form.Group controlId="formBasicEmail">
-              <Form.Label>Email address</Form.Label>
+            <Form.Group className="col-6" controlId="formBasicEmail">
+              <Form.Label>Card Number</Form.Label>
               <Form.Control
                 type="email"
-                placeholder="Enter email"
+                placeholder="Enter Card Number"
                 // isInvalid={props.loginForm.errors.email.length > 0}
                 // isValid={
                 //   props.loginForm.values.email &&
@@ -58,16 +58,15 @@ class Checkout extends React.Component{
                 {/* {props.loginForm.errors.email} */}
               </Form.Control.Feedback>
               <Form.Text className="text-muted">
-                We'll never share your email with anyone else.
+                
               </Form.Text>
             </Form.Group>
 
-            <Form.Group controlId="formBasicEmail">
-            <h5>Payment and Shipping</h5>
-              <Form.Label>Email address</Form.Label>
+            <Form.Group className="col-3" controlId="formBasicEmail">
+              <Form.Label>Exp.</Form.Label>
               <Form.Control
                 type="email"
-                placeholder="Enter email"
+                placeholder="MM/YY"
                 // isInvalid={props.loginForm.errors.email.length > 0}
                 // isValid={
                 //   props.loginForm.values.email &&
@@ -79,13 +78,32 @@ class Checkout extends React.Component{
                 {/* {props.loginForm.errors.email} */}
               </Form.Control.Feedback>
               <Form.Text className="text-muted">
-                We'll never share your email with anyone else.
+                
               </Form.Text>
             </Form.Group>
 
-            <Form.Group controlId="formBasicPassword">
-            <h5>Payment and Shipping</h5>
-              <Form.Label>Password</Form.Label>
+            <Form.Group className="col-3" controlId="formBasicPassword">
+              <Form.Label>CVV</Form.Label>
+              <Form.Control
+                type="password"
+                placeholder="123"
+                // isInvalid={props.loginForm.errors.password.length > 0}
+                // isValid={
+                //   props.loginForm.values.password &&
+                //   props.loginForm.errors.password.length === 0
+                // }
+                // onChange={e => setPassword(e.target.value)}
+              />
+              <Form.Control.Feedback type="invalid">
+                {/* {props.loginForm.errors.password} */}
+              </Form.Control.Feedback>
+              {/* <Form.Text className="text-muted">
+                MM/YY
+              </Form.Text> */}
+            </Form.Group>
+
+            <Form.Group className="col-12" controlId="formBasicPassword">
+              <Form.Label>Name on Card</Form.Label>
               <Form.Control
                 type="password"
                 placeholder="Password"
@@ -100,10 +118,162 @@ class Checkout extends React.Component{
                 {/* {props.loginForm.errors.password} */}
               </Form.Control.Feedback>
             </Form.Group>
-            <Form.Group controlId="formBasicCheckbox">
+            
+            <h5 className='col-12'>Billing Adress</h5>
+            <hr />
+
+            <Form.Group className="col-12" controlId="formBasicPassword">
+              <Form.Label>Street Address</Form.Label>
+              <Form.Control
+                type="password"
+                placeholder="123 Poke Lane, Apt. 3"
+                // isInvalid={props.loginForm.errors.password.length > 0}
+                // isValid={
+                //   props.loginForm.values.password &&
+                //   props.loginForm.errors.password.length === 0
+                // }
+                // onChange={e => setPassword(e.target.value)}
+              />
+              <Form.Control.Feedback type="invalid">
+                {/* {props.loginForm.errors.password} */}
+              </Form.Control.Feedback>
+            </Form.Group>
+
+            <Form.Group className="col-3" controlId="formBasicPassword">
+              <Form.Label>City</Form.Label>
+              <Form.Control
+                type="password"
+                placeholder="Pallet Town"
+                // isInvalid={props.loginForm.errors.password.length > 0}
+                // isValid={
+                //   props.loginForm.values.password &&
+                //   props.loginForm.errors.password.length === 0
+                // }
+                // onChange={e => setPassword(e.target.value)}
+              />
+              <Form.Control.Feedback type="invalid">
+                {/* {props.loginForm.errors.password} */}
+              </Form.Control.Feedback>
+            </Form.Group>
+
+            <Form.Group className="col-3" controlId="formBasicPassword">
+              <Form.Label>Zip Code</Form.Label>
+              <Form.Control
+                type="password"
+                placeholder="12345"
+                // isInvalid={props.loginForm.errors.password.length > 0}
+                // isValid={
+                //   props.loginForm.values.password &&
+                //   props.loginForm.errors.password.length === 0
+                // }
+                // onChange={e => setPassword(e.target.value)}
+              />
+              <Form.Control.Feedback type="invalid">
+                {/* {props.loginForm.errors.password} */}
+              </Form.Control.Feedback>
+            </Form.Group>
+
+            <Form.Group className="col-6" controlId="formBasicPassword">
+              <Form.Label>State/Province</Form.Label>
+              <Form.Control
+                type="password"
+                placeholder="Kanto Region"
+                // isInvalid={props.loginForm.errors.password.length > 0}
+                // isValid={
+                //   props.loginForm.values.password &&
+                //   props.loginForm.errors.password.length === 0
+                // }
+                // onChange={e => setPassword(e.target.value)}
+              />
+              <Form.Control.Feedback type="invalid">
+                {/* {props.loginForm.errors.password} */}
+              </Form.Control.Feedback>
+              <Form.Text className="text-muted">
+                We currently only ship to US addresses
+              </Form.Text>
+            </Form.Group>
+            
+            <h5 className='col-12'>Shipping Address</h5>
+            <hr />
+            
+            <Form.Group className="col-12" controlId="formBasicCheckbox">
               <Form.Check type="checkbox" label="Shipping address same as billing address." />
             </Form.Group>
+
+            <Form.Group className="col-12" controlId="formBasicPassword">
+              <Form.Label>Street Address</Form.Label>
+              <Form.Control
+                type="password"
+                placeholder="123 Poke Lane, Apt. 3"
+                // isInvalid={props.loginForm.errors.password.length > 0}
+                // isValid={
+                //   props.loginForm.values.password &&
+                //   props.loginForm.errors.password.length === 0
+                // }
+                // onChange={e => setPassword(e.target.value)}
+              />
+              <Form.Control.Feedback type="invalid">
+                {/* {props.loginForm.errors.password} */}
+              </Form.Control.Feedback>
+            </Form.Group>
+
+            <Form.Group className="col-3" controlId="formBasicPassword">
+              <Form.Label>City</Form.Label>
+              <Form.Control
+                type="password"
+                placeholder="Pallet Town"
+                // isInvalid={props.loginForm.errors.password.length > 0}
+                // isValid={
+                //   props.loginForm.values.password &&
+                //   props.loginForm.errors.password.length === 0
+                // }
+                // onChange={e => setPassword(e.target.value)}
+              />
+              <Form.Control.Feedback type="invalid">
+                {/* {props.loginForm.errors.password} */}
+              </Form.Control.Feedback>
+            </Form.Group>
+
+            <Form.Group className="col-3" controlId="formBasicPassword">
+              <Form.Label>Zip Code</Form.Label>
+              <Form.Control
+                type="password"
+                placeholder="12345"
+                // isInvalid={props.loginForm.errors.password.length > 0}
+                // isValid={
+                //   props.loginForm.values.password &&
+                //   props.loginForm.errors.password.length === 0
+                // }
+                // onChange={e => setPassword(e.target.value)}
+              />
+              <Form.Control.Feedback type="invalid">
+                {/* {props.loginForm.errors.password} */}
+              </Form.Control.Feedback>
+            </Form.Group>
+
+            <Form.Group className="col-6" controlId="formBasicPassword">
+              <Form.Label>State/Province</Form.Label>
+              <Form.Control
+                type="password"
+                placeholder="Kanto Region"
+                // isInvalid={props.loginForm.errors.password.length > 0}
+                // isValid={
+                //   props.loginForm.values.password &&
+                //   props.loginForm.errors.password.length === 0
+                // }
+                // onChange={e => setPassword(e.target.value)}
+              />
+              <Form.Control.Feedback type="invalid">
+                {/* {props.loginForm.errors.password} */}
+              </Form.Control.Feedback>
+              <Form.Text className="text-muted">
+                We currently only ship to US addresses
+              </Form.Text>
+            </Form.Group>
+            
+            <div className="col-8"></div>
             <Button
+              className="col-2"
               variant="primary"
               type="button"
               // onClick={() =>
@@ -112,10 +282,19 @@ class Checkout extends React.Component{
             >
               Submit
             </Button>
+            <Button
+              className="col-2"
+              variant="danger"
+              type="button"
+              // onClick={() =>
+              //   props.dispatch({ type: "FORM_SUBMIT", payload: { email, password } })
+              // }
+            >
+              Cancel
+            </Button>
+
+
           </Form>
-          <p>
-            Form will go in here?
-          </p>
         </Modal.Body>
     )
   }
