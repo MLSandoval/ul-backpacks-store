@@ -24,7 +24,7 @@ const DEFAULT_STATE = {
 export default function (state = DEFAULT_STATE, action){
   switch(action.type){
     case 'BILL_SHIP_FORM_SUBMITTED':
-      return state
+      return action
     default:
       return state
   }

@@ -148,3 +148,13 @@ export function computeCartTotal(cart){
     })
   }
 }
+
+export function storeCheckoutFormData(formInfo){
+
+  return function(dispatch){
+    dispatch({
+      type: types.BILL_SHIP_FORM_SUBMITTED,
+      payload: formInfo
+    })
+  }
+}

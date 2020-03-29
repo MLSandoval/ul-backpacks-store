@@ -6,51 +6,67 @@ import Modal from 'react-bootstrap/Modal'
 import Button from 'react-bootstrap/Button'
 import Form from 'react-bootstrap/Form'
 
+import storeCheckoutFormData from '../actions'
+
 import './styles/checkout_style.css'
 
 
 function Checkout(props){
   const {to, staticContext, ...rest} = props
-  const [formData, setForm] = useState(
-    {
-      paymentInfo:{
-        nameOnCard: '',
-        cardNumber: -1,
-        cardExp: -1,
-        cvv: -1
-      },
-      billingAdress: {
-        streetAdress: '',
-        city: '',
-        "state/province": '',
-        zip: -1
-      },
-      shippingAdress: {
-        streetAdress: '',
-        city: '',
-        "state/province": '',
-        zip: -1
-      }
-    }
-  )
-  
+  // const [formData, setForm] = useState(
+  //   {
+  //     paymentInfo:{
+  //       nameOnCard: '',
+  //       cardNumber: -1,
+  //       cardExp: -1,
+  //       cvv: -1
+  //     },
+  //     billingAdress: {
+  //       streetAdress: '',
+  //       city: '',
+  //       "state/province": '',
+  //       zip: -1
+  //     },
+  //     shippingAdress: {
+  //       streetAdress: '',
+  //       city: '',
+  //       "state/province": '',
+  //       zip: -1
+  //     }
+  //   }
+  // )
+
+  const [cardNumber, setCardNumber  ] = useState(null)
+  const [cardExp, setCardExp  ] = useState(null)
+  const [cvv, setCvv  ] = useState(null)
+  const [nameOnCard, setNameOnCard  ] = useState('')
+
+  const [billStreetAddr, setBillStreetAddr  ] = useState('')
+  const [billCity, setBillCity  ] = useState('')
+  const [billState, setBillState  ] = useState('')
+  const [billZip, setBillZip  ] = useState('')
+
+  const [shipStreetAddr, setShipStreetAddr  ] = useState('')
+  const [shipCity, setShipCity  ] = useState('')
+  const [shipState, setShipState  ] = useState('')
+  const [shipZip, setShipZip  ] = useState('')
 
   return(
     <Modal.Body>
       <Form className="row">
         <h5 className='col-12'>Payment and Shipping</h5>
         <hr />
-        <Form.Group className="col-6" controlId="formBasicEmail">
+        <Form.Group className="col-6" controlId="formBasicCardNumber">
           <Form.Label>Card Number</Form.Label>
           <Form.Control
-            type="email"
+            type="cardNumber"
             placeholder="Enter Card Number"
             // isInvalid={props.loginForm.errors.email.length > 0}
             // isValid={
             //   props.loginForm.values.email &&
             //   props.loginForm.errors.email.length === 0
             // }
-            // onChange={e => setEmail(e.target.value)}
+            onChange={e => setCardNumber(e.target.value)}
           />
           <Form.Control.Feedback type="invalid">
             {/* {props.loginForm.errors.email} */}
@@ -60,17 +76,17 @@ function Checkout(props){
           </Form.Text>
         </Form.Group>
 
-        <Form.Group className="col-3" controlId="formBasicEmail">
+        <Form.Group className="col-3" controlId="formBasicCardExp">
           <Form.Label>Exp.</Form.Label>
           <Form.Control
-            type="email"
+            type="cardExp"
             placeholder="MM/YY"
             // isInvalid={props.loginForm.errors.email.length > 0}
             // isValid={
             //   props.loginForm.values.email &&
             //   props.loginForm.errors.email.length === 0
             // }
-            // onChange={e => setEmail(e.target.value)}
+            onChange={e => setCardExp(e.target.value)}
           />
           <Form.Control.Feedback type="invalid">
             {/* {props.loginForm.errors.email} */}
@@ -80,17 +96,17 @@ function Checkout(props){
           </Form.Text>
         </Form.Group>
 
-        <Form.Group className="col-3" controlId="formBasicPassword">
+        <Form.Group className="col-3" controlId="formBasicCvv">
           <Form.Label>CVV</Form.Label>
           <Form.Control
-            type="password"
+            type="cvv"
             placeholder="123"
             // isInvalid={props.loginForm.errors.password.length > 0}
             // isValid={
             //   props.loginForm.values.password &&
             //   props.loginForm.errors.password.length === 0
             // }
-            // onChange={e => setPassword(e.target.value)}
+            onChange={e => setCvv(e.target.value)}
           />
           <Form.Control.Feedback type="invalid">
             {/* {props.loginForm.errors.password} */}
@@ -100,17 +116,17 @@ function Checkout(props){
           </Form.Text> */}
         </Form.Group>
 
-        <Form.Group className="col-12" controlId="formBasicPassword">
+        <Form.Group className="col-12" controlId="formBasicNameOnCard">
           <Form.Label>Name on Card</Form.Label>
           <Form.Control
-            type="password"
-            placeholder="Password"
+            type="nameOnCard"
+            placeholder="Enter Name"
             // isInvalid={props.loginForm.errors.password.length > 0}
             // isValid={
             //   props.loginForm.values.password &&
             //   props.loginForm.errors.password.length === 0
             // }
-            // onChange={e => setPassword(e.target.value)}
+            onChange={e => setNameOnCard(e.target.value)}
           />
           <Form.Control.Feedback type="invalid">
             {/* {props.loginForm.errors.password} */}
@@ -120,68 +136,68 @@ function Checkout(props){
         <h5 className='col-12'>Billing Adress</h5>
         <hr />
 
-        <Form.Group className="col-12" controlId="formBasicPassword">
+        <Form.Group className="col-12" controlId="formBasicBillStreetAddress">
           <Form.Label>Street Address</Form.Label>
           <Form.Control
-            type="password"
+            type="billStreetAddress"
             placeholder="123 Poke Lane, Apt. 3"
             // isInvalid={props.loginForm.errors.password.length > 0}
             // isValid={
             //   props.loginForm.values.password &&
             //   props.loginForm.errors.password.length === 0
             // }
-            // onChange={e => setPassword(e.target.value)}
+            onChange={e => setBillStreetAddr(e.target.value)}
           />
           <Form.Control.Feedback type="invalid">
             {/* {props.loginForm.errors.password} */}
           </Form.Control.Feedback>
         </Form.Group>
 
-        <Form.Group className="col-3" controlId="formBasicPassword">
+        <Form.Group className="col-3" controlId="formBasicBillCity">
           <Form.Label>City</Form.Label>
           <Form.Control
-            type="password"
+            type="billCity"
             placeholder="Pallet Town"
             // isInvalid={props.loginForm.errors.password.length > 0}
             // isValid={
             //   props.loginForm.values.password &&
             //   props.loginForm.errors.password.length === 0
             // }
-            // onChange={e => setPassword(e.target.value)}
+            onChange={e => setBillCity(e.target.value)}
           />
           <Form.Control.Feedback type="invalid">
             {/* {props.loginForm.errors.password} */}
           </Form.Control.Feedback>
         </Form.Group>
 
-        <Form.Group className="col-3" controlId="formBasicPassword">
+        <Form.Group className="col-3" controlId="formBasicBillZip">
           <Form.Label>Zip Code</Form.Label>
           <Form.Control
-            type="password"
+            type="billZip"
             placeholder="12345"
             // isInvalid={props.loginForm.errors.password.length > 0}
             // isValid={
             //   props.loginForm.values.password &&
             //   props.loginForm.errors.password.length === 0
             // }
-            // onChange={e => setPassword(e.target.value)}
+            onChange={e => setBillZip(e.target.value)}
           />
           <Form.Control.Feedback type="invalid">
             {/* {props.loginForm.errors.password} */}
           </Form.Control.Feedback>
         </Form.Group>
 
-        <Form.Group className="col-6" controlId="formBasicPassword">
-          <Form.Label>State/Province</Form.Label>
+        <Form.Group className="col-6" controlId="formBasicBillState">
+          <Form.Label>State/Territory</Form.Label>
           <Form.Control
-            type="password"
+            type="billState"
             placeholder="Kanto Region"
             // isInvalid={props.loginForm.errors.password.length > 0}
             // isValid={
             //   props.loginForm.values.password &&
             //   props.loginForm.errors.password.length === 0
             // }
-            // onChange={e => setPassword(e.target.value)}
+            onChange={e => setBillState(e.target.value)}
           />
           <Form.Control.Feedback type="invalid">
             {/* {props.loginForm.errors.password} */}
@@ -194,72 +210,91 @@ function Checkout(props){
         <h5 className='col-12'>Shipping Address</h5>
         <hr />
         
-        <Form.Group className="col-12" controlId="formBasicCheckbox">
-          <Form.Check type="checkbox" label="Shipping address same as billing address." />
+        <Form.Group className="col-12" controlId="formBasicShipSameAddress">
+          <Form.Check type="checkbox" label="Shipping address same as billing address." 
+            onClick={()=>{
+              console.log('checkbox clicked')
+              console.log('checkbox billStreetAddr: ',billStreetAddr)
+              console.log('checkbox billCity: ', billCity)
+              console.log('checkbox billState: ', billState)
+              console.log('checkbox billZip: ', billZip)
+
+              setShipStreetAddr(billStreetAddr)
+              setShipCity(billCity)
+              setShipState(billState)
+              setShipZip(billZip)
+
+              
+              console.log('checkbox shipStreetAddr: ', shipStreetAddr)
+              console.log('checkbox shipCity: ', shipCity)
+              console.log('checkbox shipState: ', shipState)
+              console.log('checkbox shipZip: ', shipZip)
+            }}
+          />
         </Form.Group>
 
-        <Form.Group className="col-12" controlId="formBasicPassword">
+        <Form.Group className="col-12" controlId="formBasicShipStreetAddress">
           <Form.Label>Street Address</Form.Label>
           <Form.Control
-            type="password"
+            type="shipStreetAddress"
             placeholder="123 Poke Lane, Apt. 3"
             // isInvalid={props.loginForm.errors.password.length > 0}
             // isValid={
             //   props.loginForm.values.password &&
             //   props.loginForm.errors.password.length === 0
             // }
-            // onChange={e => setPassword(e.target.value)}
+            onChange={e => setShipStreetAddr(e.target.value)}
           />
           <Form.Control.Feedback type="invalid">
             {/* {props.loginForm.errors.password} */}
           </Form.Control.Feedback>
         </Form.Group>
 
-        <Form.Group className="col-3" controlId="formBasicPassword">
+        <Form.Group className="col-3" controlId="formBasicShipCity">
           <Form.Label>City</Form.Label>
           <Form.Control
-            type="password"
+            type="shipCity"
             placeholder="Pallet Town"
             // isInvalid={props.loginForm.errors.password.length > 0}
             // isValid={
             //   props.loginForm.values.password &&
             //   props.loginForm.errors.password.length === 0
             // }
-            // onChange={e => setPassword(e.target.value)}
+            onChange={e => setShipCity(e.target.value)}
           />
           <Form.Control.Feedback type="invalid">
             {/* {props.loginForm.errors.password} */}
           </Form.Control.Feedback>
         </Form.Group>
 
-        <Form.Group className="col-3" controlId="formBasicPassword">
+        <Form.Group className="col-3" controlId="formBasicShipZip">
           <Form.Label>Zip Code</Form.Label>
           <Form.Control
-            type="password"
+            type="shipZip"
             placeholder="12345"
             // isInvalid={props.loginForm.errors.password.length > 0}
             // isValid={
             //   props.loginForm.values.password &&
             //   props.loginForm.errors.password.length === 0
             // }
-            // onChange={e => setPassword(e.target.value)}
+            onChange={e => setShipZip(e.target.value)}
           />
           <Form.Control.Feedback type="invalid">
             {/* {props.loginForm.errors.password} */}
           </Form.Control.Feedback>
         </Form.Group>
 
-        <Form.Group className="col-6" controlId="formBasicPassword">
-          <Form.Label>State/Province</Form.Label>
+        <Form.Group className="col-6" controlId="formBasicShipState">
+          <Form.Label>State/Territory</Form.Label>
           <Form.Control
-            type="password"
+            type="shipState"
             placeholder="Kanto Region"
             // isInvalid={props.loginForm.errors.password.length > 0}
             // isValid={
             //   props.loginForm.values.password &&
             //   props.loginForm.errors.password.length === 0
             // }
-            // onChange={e => setPassword(e.target.value)}
+            onChange={e => setShipState(e.target.value)}
           />
           <Form.Control.Feedback type="invalid">
             {/* {props.loginForm.errors.password} */}
@@ -269,45 +304,49 @@ function Checkout(props){
           </Form.Text>
         </Form.Group>
         
-        <div className="col-8"></div>
-        <Button
-          className="col-2"
-          variant="primary"
-          type="button"
-          // onClick={() =>
-          //   props.dispatch({ type: "FORM_SUBMIT", payload: { email, password } })
-          // }
-        >
-          Submit
-        </Button>
-        <Button
-          className="col-2"
-          variant="danger"
-          type="button"
-          // onClick={() =>
-          //   props.dispatch({ type: "FORM_SUBMIT", payload: { email, password } })
-          // }
-        >
-          Cancel
-        </Button>
-
-
+        <div className="col-9"></div>
+        <div className="button-container col-3 row justify-content-around">
+          <Button
+            className=" btn-sm"
+            variant="info"
+            type="button"
+            onClick={() =>
+              props.storeCheckoutFormData({ type: "BILL_SHIP_FORM_SUBMITTED", payload: { formData } })
+            }
+          >
+            Submit
+          </Button>
+          <Link to="/cart">
+            <Button
+              className=" btn-sm"
+              variant="dark"
+              type="button"
+              // onClick={() =>
+              //   props.dispatch({ type: "FORM_SUBMIT", payload: { email, password } })
+              // }
+            >
+              Cancel
+            </Button>
+          </Link>
+        </div>
       </Form>
     </Modal.Body>
   )
 }
 
+function shipSameAsBill(){
 
-  const onChange = (e) => {
-    console.log('checkout onChange called e.target.value: ', e.target.value)
-    this.props.inputValue += e.target.value
-  }
+}
+  // const onChange = (e) => {
+  //   console.log('checkout onChange called e.target.value: ', e.target.value)
+  //   this.props.inputValue += e.target.value
+  // }
   
-  const onSubmit = (e) => {
-    e.preventDefault()
-    console.log('modal on submit hit')
-    //send form values to state and then to backend
-  }
+  // const onSubmit = (e) => {
+  //   e.preventDefault()
+  //   console.log('modal on submit hit')
+  //   //send form values to state and then to backend
+  // }
 
 
 
@@ -334,4 +373,4 @@ function mapStateToProps(state){
   }
 }
 
-export default connect(mapStateToProps, null)(Checkout)
+export default connect(mapStateToProps, {storeCheckoutFormData})(Checkout)
