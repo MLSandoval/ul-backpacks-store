@@ -7,7 +7,7 @@ import cart_reducer from './cart_reducer.js'
 import set_current_product_reducer from './set_current_product_reducer.js'
 import sorted_cart_reducer from './sorted_cart_reducer.js'
 import computed_cart_total from './compute_total_reducer.js'
-import bill_ship_form_submitted_reducer from './bill_ship_form_submitted_reducer.js'
+import  checkout_form_submitted_reducer from './checkout_form_submitted_reducer.js'
 
 const rootReducer = combineReducers({
   setView: set_view_reducer,
@@ -17,7 +17,7 @@ const rootReducer = combineReducers({
   cart: cart_reducer,
   sortedCart: sorted_cart_reducer,
   totalOrderCost: computed_cart_total,
-  billShipInfo: bill_ship_form_submitted_reducer
+  checkoutFormData: checkout_form_submitted_reducer
 })
 
 export default rootReducer

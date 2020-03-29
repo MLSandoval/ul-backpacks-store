@@ -22,9 +22,10 @@ const DEFAULT_STATE = {
 }
 
 export default function (state = DEFAULT_STATE, action){
+  console.log('CHECKOUT_form_data_submitted reducer, action: ', action)
   switch(action.type){
-    case 'BILL_SHIP_FORM_SUBMITTED':
-      return action
+    case 'CHECKOUT_FORM_SUBMITTED':
+      return action.payload
     default:
       return state
   }

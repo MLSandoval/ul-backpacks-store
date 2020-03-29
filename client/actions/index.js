@@ -153,7 +153,7 @@ export function storeCheckoutFormData(formInfo){
 
   return function(dispatch){
     dispatch({
-      type: types.BILL_SHIP_FORM_SUBMITTED,
+      type: types.CHECKOUT_FORM_SUBMITTED,
       payload: formInfo
     })
   }

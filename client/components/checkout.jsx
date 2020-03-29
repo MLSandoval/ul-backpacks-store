@@ -6,35 +6,14 @@ import Modal from 'react-bootstrap/Modal'
 import Button from 'react-bootstrap/Button'
 import Form from 'react-bootstrap/Form'
 
-import storeCheckoutFormData from '../actions'
+import {storeCheckoutFormData} from '../actions'
 
 import './styles/checkout_style.css'
 
-
+//next stup, setup a useEffect() or useLayoutEffect() for filling in the shipping data with the billing data,
+//also a useEffect() for sending the formData to the store AFTER it is formed to the
 function Checkout(props){
   const {to, staticContext, ...rest} = props
-  // const [formData, setForm] = useState(
-  //   {
-  //     paymentInfo:{
-  //       nameOnCard: '',
-  //       cardNumber: -1,
-  //       cardExp: -1,
-  //       cvv: -1
-  //     },
-  //     billingAdress: {
-  //       streetAdress: '',
-  //       city: '',
-  //       "state/province": '',
-  //       zip: -1
-  //     },
-  //     shippingAdress: {
-  //       streetAdress: '',
-  //       city: '',
-  //       "state/province": '',
-  //       zip: -1
-  //     }
-  //   }
-  // )
 
   const [cardNumber, setCardNumber  ] = useState(null)
   const [cardExp, setCardExp  ] = useState(null)
@@ -50,6 +29,49 @@ function Checkout(props){
   const [shipCity, setShipCity  ] = useState('')
   const [shipState, setShipState  ] = useState('')
   const [shipZip, setShipZip  ] = useState('')
+
+  const [formData, setFormData ] = useState({})
+
+  function shipSameAsBill(){
+    console.log('shipSameAsBill called on radio click')
+    console.log('checkbox billStreetAddr: ',billStreetAddr)
+    console.log('checkbox billCity: ', billCity)
+    console.log('checkbox billState: ', billState)
+    console.log('checkbox billZip: ', billZip)
+  
+    setShipStreetAddr(billStreetAddr)
+    setShipCity(billCity)
+    setShipState(billState)
+    setShipZip(billZip)
+  
+    console.log('checkbox shipStreetAddr: ', shipStreetAddr)
+    console.log('checkbox shipCity: ', shipCity)
+    console.log('checkbox shipState: ', shipState)
+    console.log('checkbox shipZip: ', shipZip)
+  }
+
+  function consolidateFormData (){
+    setFormData({
+      paymentInfo: {
+        cardNumber,
+        cardExp,
+        cvv,
+        nameOnCard
+      },
+      billAddr: {
+        billStreetAddr,
+        billCity,
+        billState,
+        billZip
+      },
+      shipAddr: {
+        shipStreetAddr,
+        shipCity,
+        shipState,
+        shipZip
+      }
+    })
+  }
 
   return(
     <Modal.Body>
@@ -212,24 +234,7 @@ function Checkout(props){
         
         <Form.Group className="col-12" controlId="formBasicShipSameAddress">
           <Form.Check type="checkbox" label="Shipping address same as billing address." 
-            onClick={()=>{
-              console.log('checkbox clicked')
-              console.log('checkbox billStreetAddr: ',billStreetAddr)
-              console.log('checkbox billCity: ', billCity)
-              console.log('checkbox billState: ', billState)
-              console.log('checkbox billZip: ', billZip)
-
-              setShipStreetAddr(billStreetAddr)
-              setShipCity(billCity)
-              setShipState(billState)
-              setShipZip(billZip)
-
-              
-              console.log('checkbox shipStreetAddr: ', shipStreetAddr)
-              console.log('checkbox shipCity: ', shipCity)
-              console.log('checkbox shipState: ', shipState)
-              console.log('checkbox shipZip: ', shipZip)
-            }}
+            onClick={ async () =>{ shipSameAsBill()}}
           />
         </Form.Group>
 
@@ -244,6 +249,7 @@ function Checkout(props){
             //   props.loginForm.errors.password.length === 0
             // }
             onChange={e => setShipStreetAddr(e.target.value)}
+            value={shipStreetAddr}
           />
           <Form.Control.Feedback type="invalid">
             {/* {props.loginForm.errors.password} */}
@@ -261,6 +267,7 @@ function Checkout(props){
             //   props.loginForm.errors.password.length === 0
             // }
             onChange={e => setShipCity(e.target.value)}
+            value={shipCity}
           />
           <Form.Control.Feedback type="invalid">
             {/* {props.loginForm.errors.password} */}
@@ -278,6 +285,7 @@ function Checkout(props){
             //   props.loginForm.errors.password.length === 0
             // }
             onChange={e => setShipZip(e.target.value)}
+            value={shipZip}
           />
           <Form.Control.Feedback type="invalid">
             {/* {props.loginForm.errors.password} */}
@@ -295,6 +303,7 @@ function Checkout(props){
             //   props.loginForm.errors.password.length === 0
             // }
             onChange={e => setShipState(e.target.value)}
+            value={shipState}
           />
           <Form.Control.Feedback type="invalid">
             {/* {props.loginForm.errors.password} */}
@@ -310,9 +319,32 @@ function Checkout(props){
             className=" btn-sm"
             variant="info"
             type="button"
-            onClick={() =>
-              props.storeCheckoutFormData({ type: "BILL_SHIP_FORM_SUBMITTED", payload: { formData } })
-            }
+            onClick={() => {
+              setFormData({
+                paymentInfo: {
+                  cardNumber,
+                  cardExp,
+                  cvv,
+                  nameOnCard
+                },
+                billAddr: {
+                  billStreetAddr,
+                  billCity,
+                  billState,
+                  billZip
+                },
+                shipAddr: {
+                  shipStreetAddr,
+                  shipCity,
+                  shipState,
+                  shipZip
+                }
+              })
+              // props.dispatch({ type: "BILL_SHIP_FORM_SUBMITTED", payload: formData})
+              const x = props.storeCheckoutFormData
+              x(formData)
+              console.log('props after submit click: ', props)
+            }}
           >
             Submit
           </Button>
@@ -334,9 +366,6 @@ function Checkout(props){
   )
 }
 
-function shipSameAsBill(){
-
-}
   // const onChange = (e) => {
   //   console.log('checkout onChange called e.target.value: ', e.target.value)
   //   this.props.inputValue += e.target.value
