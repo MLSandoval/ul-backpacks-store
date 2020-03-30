@@ -33,17 +33,16 @@ class App extends React.Component {
     const {to, staticContext, ...rest} = this.props
     return (
         <div className="app-main">
-          {/* <Header/>
+          <Header/>
           <Route exact path="/" component={Landing} />
           <Route exact path="/products" component={ProductList}/>
           <Route exact path="/test" component={Test} />
           <Route path="/cart" component={Cart}/>
           <Route exact path="/details/:productId" component={ProductDetails}/> 
-          <Footer/> */}
+          <Footer/> 
           {/*
           this route below is for quick work on the form portion of the checkout modal, must return this to normal when done 
-          */}
-          <Route path="/" component={ModalShell}/>
+          <Route path="/" component={ModalShell}/> */}
         </div>
     )
   }

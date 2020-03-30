@@ -1,4 +1,4 @@
-import React, {createRef, useState} from 'react'
+import React, {createRef, useState, useEffect} from 'react'
 import {connect} from 'react-redux'
 import {Link, Route} from 'react-router-dom'
 
@@ -31,6 +31,10 @@ function Checkout(props){
   const [shipZip, setShipZip  ] = useState('')
 
   const [formData, setFormData ] = useState({})
+
+  // useEffect(
+  //   props.storeCheckoutFormData(formData)
+  // )
 
   function shipSameAsBill(){
     console.log('shipSameAsBill called on radio click')
@@ -341,8 +345,8 @@ function Checkout(props){
                 }
               })
               // props.dispatch({ type: "BILL_SHIP_FORM_SUBMITTED", payload: formData})
-              const x = props.storeCheckoutFormData
-              x(formData)
+              // const x = props.storeCheckoutFormData
+              // x(formData)
               console.log('props after submit click: ', props)
             }}
           >
