@@ -3,10 +3,7 @@ import types from '../actions/types.js'
 const DEFAULT_STATE = []
 
 export default function cartReducer(state = DEFAULT_STATE, action) {
-  console.log('CARTREDUCER action.payload: ', action.payload)
 
-  //need to devise test to check if the item objects nested in the cart array exist based on an id comparison, 
-  //then create new item in cart if it doenst exist yet
   const getNested = (obj, ...args)=>{
     console.log('getNested FUNCTION obj: ', obj)
     console.log('getNested FUNCTION args: ', args)
@@ -33,7 +30,6 @@ export default function cartReducer(state = DEFAULT_STATE, action) {
       
       let pushCheck = true
       console.log('pushCheck')
-      //quanitity incrementor, works
       newState.forEach(element =>{
         console.log('inside newState filter, element: ', element)
         if(element.id === action.payload.id){

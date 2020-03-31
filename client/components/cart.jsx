@@ -147,7 +147,7 @@ class Cart extends React.Component {
           <h1 className="pt-4">THIS IS THE CART VIEW</h1>
           {this.generateCartList()} 
         </div>
-        <Route path={`${this.props.match.url}/modal`} component={ModalShell}/>
+        <Route exact path={`${this.props.match.url}/modal/*`} component={ModalShell}/>
       </div>
     )
   }

@@ -1,6 +1,7 @@
 import types from '../actions/types'
 
 const DEFAULT_STATE = {
+  email: '',
   paymentInfo:{
     nameOnCard: '',
     cardNumber: -1,
@@ -22,9 +23,10 @@ const DEFAULT_STATE = {
 }
 
 export default function (state = DEFAULT_STATE, action){
-  console.log('CHECKOUT_form_data_submitted reducer, action: ', action)
+  
   switch(action.type){
     case 'CHECKOUT_FORM_SUBMITTED':
+      console.log('checkout form submitted reducer hit, action: ', action)
       return action.payload
     default:
       return state

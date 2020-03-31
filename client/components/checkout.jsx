@@ -1,5 +1,5 @@
-import React, {createRef, useState, useEffect} from 'react'
-import {connect} from 'react-redux'
+import React, {createRef, useState, useEffect, useLayoutEffect} from 'react'
+import {connect, dispatch} from 'react-redux'
 import {Link, Route} from 'react-router-dom'
 
 import Modal from 'react-bootstrap/Modal'
@@ -14,6 +14,8 @@ import './styles/checkout_style.css'
 //also a useEffect() for sending the formData to the store AFTER it is formed to the
 function Checkout(props){
   const {to, staticContext, ...rest} = props
+
+  const [email,setEmail] = useState('')
 
   const [cardNumber, setCardNumber  ] = useState(null)
   const [cardExp, setCardExp  ] = useState(null)
@@ -30,10 +32,47 @@ function Checkout(props){
   const [shipState, setShipState  ] = useState('')
   const [shipZip, setShipZip  ] = useState('')
 
-  const [formData, setFormData ] = useState({})
+  const [formData, setFormData ] = useState(
+    {
+      email,
+      cardNumber,
+      cardExp,
+      cvv,
+      nameOnCard,
+      billStreetAddr,
+      billCity,
+      billState,
+      billZip,
+      shipStreetAddr,
+      shipCity,
+      shipState,
+      shipZip
+      
+    }
+  )
 
   // useEffect(
-  //   props.storeCheckoutFormData(formData)
+    // setFormData({
+    //   paymentInfo: {
+    //     cardNumber,
+    //     cardExp,
+    //     cvv,
+    //     nameOnCard
+    //   },
+    //   billAddr: {
+    //     billStreetAddr,
+    //     billCity,
+    //     billState,
+    //     billZip
+    //   },
+    //   shipAddr: {
+    //     shipStreetAddr,
+    //     shipCity,
+    //     shipState,
+    //     shipZip
+    //   }
+    // })
+    // props.storeCheckoutFormData(formData), [formData]
   // )
 
   function shipSameAsBill(){
@@ -54,8 +93,23 @@ function Checkout(props){
     console.log('checkbox shipZip: ', shipZip)
   }
 
-  function consolidateFormData (){
+  function consolidateFormData (callback){
+    console.log('consolidate form data email: ', email)
+    console.log('consolidate form data cardNumber: ', cardNumber)
+    console.log('consolidate form data cardExp: ', cardExp)
+    console.log('consolidate form data cvv: ', cvv)
+    console.log('consolidate form data nameOnCard: ', nameOnCard)
+    console.log('consolidate form data billStreetAddr: ', billStreetAddr)
+    console.log('consolidate form data billCity: ', billCity)
+    console.log('consolidate form data billState: ', billState)
+    console.log('consolidate form data billZip: ', billZip)
+    console.log('consolidate form data shipStreetAddr: ', shipStreetAddr)
+    console.log('consolidate form data shipCity: ', shipCity)
+    console.log('consolidate form data shipState: ', shipState)
+    console.log('consolidate form data shipZip: ', shipZip)
+
     setFormData({
+      email,
       paymentInfo: {
         cardNumber,
         cardExp,
@@ -75,11 +129,37 @@ function Checkout(props){
         shipZip
       }
     })
+
+    console.log('formData at end of consolidate formData function: ', formData)
+
+    callback(formData)
+
   }
 
   return(
     <Modal.Body>
       <Form className="row">
+
+      <Form.Group className="col-9" controlId="formBasicEmail">
+          <Form.Label>Email Address</Form.Label>
+          <Form.Control
+            type="emailAddress"
+            placeholder="Enter Email"
+            // isInvalid={props.loginForm.errors.password.length > 0}
+            // isValid={
+            //   props.loginForm.values.password &&
+            //   props.loginForm.errors.password.length === 0
+            // }
+            onChange={e => setEmail(e.target.value)}
+          />
+          <Form.Text className="text-muted">
+            Email required for order receipt
+          </Form.Text>
+          <Form.Control.Feedback type="invalid">
+            {/* {props.loginForm.errors.password} */}
+          </Form.Control.Feedback>
+        </Form.Group>
+
         <h5 className='col-12'>Payment and Shipping</h5>
         <hr />
         <Form.Group className="col-6" controlId="formBasicCardNumber">
@@ -159,7 +239,7 @@ function Checkout(props){
           </Form.Control.Feedback>
         </Form.Group>
         
-        <h5 className='col-12'>Billing Adress</h5>
+        <h5 className='col-12'>Billing Address</h5>
         <hr />
 
         <Form.Group className="col-12" controlId="formBasicBillStreetAddress">
@@ -238,7 +318,7 @@ function Checkout(props){
         
         <Form.Group className="col-12" controlId="formBasicShipSameAddress">
           <Form.Check type="checkbox" label="Shipping address same as billing address." 
-            onClick={ async () =>{ shipSameAsBill()}}
+            onClick={ () =>{ shipSameAsBill()}}
           />
         </Form.Group>
 
@@ -324,29 +404,62 @@ function Checkout(props){
             variant="info"
             type="button"
             onClick={() => {
-              setFormData({
-                paymentInfo: {
-                  cardNumber,
-                  cardExp,
-                  cvv,
-                  nameOnCard
-                },
-                billAddr: {
-                  billStreetAddr,
-                  billCity,
-                  billState,
-                  billZip
-                },
-                shipAddr: {
-                  shipStreetAddr,
-                  shipCity,
-                  shipState,
-                  shipZip
-                }
+              // setFormData({
+              //   paymentInfo: {
+              //     cardNumber,
+              //     cardExp,
+              //     cvv,
+              //     nameOnCard
+              //   },
+              //   billAddr: {
+              //     billStreetAddr,
+              //     billCity,
+              //     billState,
+              //     billZip
+              //   },
+              //   shipAddr: {
+              //     shipStreetAddr,
+              //     shipCity,
+              //     shipState,
+              //     shipZip
+              //   }
+              // })
+
+              console.log('on click args: ',
+                email,
+                cardNumber,
+                cardExp,
+                cvv,
+                nameOnCard,
+                billStreetAddr,
+                billCity,
+                billState,
+                billZip,
+                shipStreetAddr,
+                shipCity,
+                shipState,
+                shipZip
+              )
+
+              props.storeCheckoutFormData({
+                email,
+                cardNumber,
+                cardExp,
+                cvv,
+                nameOnCard,
+                billStreetAddr,
+                billCity,
+                billState,
+                billZip,
+                shipStreetAddr,
+                shipCity,
+                shipState,
+                shipZip
               })
+              // consolidateFormData(props.storeCheckoutFormData)
+              console.log('synchronoous formData in button click after consolidate formData and setFormdata: ', formData)
               // props.dispatch({ type: "BILL_SHIP_FORM_SUBMITTED", payload: formData})
-              // const x = props.storeCheckoutFormData
-              // x(formData)
+              // props.storeCheckoutFormData(formData)
               console.log('props after submit click: ', props)
             }}
           >
@@ -394,7 +507,7 @@ function mapStateToProps(state){
   return {
     cart: state.cart,
     totalOrderCost: state.totalOrderCost,
-    billShipFormInfo: state.billShipInfo
+    checkoutFormData: state.checkoutFormData
     // fName,
     // lName,
     // ccNumber,
@@ -406,4 +519,4 @@ function mapStateToProps(state){
   }
 }
 
-export default connect(mapStateToProps, {storeCheckoutFormData})(Checkout)
+export default connect(mapStateToProps, {storeCheckoutFormData, dispatch})(Checkout)

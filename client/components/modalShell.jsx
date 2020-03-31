@@ -47,11 +47,12 @@ class ModalShell extends React.Component {
   
   render () {
     // let [show] = useState(false)
+    console.log('render modal shell, props: ', this.props)
     const {to, staticContext, ...rest} = this.props
     return (
       <div>
         <Modal
-        {...rest}
+        // {...rest}
         size="lg"
         aria-labelledby="contained-modal-title-vcenter"
         centered
@@ -73,8 +74,8 @@ class ModalShell extends React.Component {
             consectetur ac, vestibulum at eros.
           </p>
         </Modal.Body> */}
-        {/* {this.populateModal()} */}
-        <Checkout/>
+        {this.populateModal()}
+        {/* <Checkout/> */}
         <Modal.Footer>
           {/* <Button 
           // onClick={props.onHide}
@@ -91,7 +92,8 @@ function mapStateToProps (state) {
   return {
     // this becomes a property inside of the props of this component
     view: state.view,
-    cart: state.cart
+    cart: state.cart,
+    checkoutFormData: state.checkoutFormData
   }
 }
 
