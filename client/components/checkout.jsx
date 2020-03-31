@@ -1,5 +1,5 @@
 import React, {createRef, useState, useEffect, useLayoutEffect} from 'react'
-import {connect, dispatch} from 'react-redux'
+import {connect} from 'react-redux'
 import {Link, Route} from 'react-router-dom'
 
 import Modal from 'react-bootstrap/Modal'
@@ -519,4 +519,4 @@ function mapStateToProps(state){
   }
 }
 
-export default connect(mapStateToProps, {storeCheckoutFormData, dispatch})(Checkout)
+export default connect(mapStateToProps, {storeCheckoutFormData})(Checkout)
