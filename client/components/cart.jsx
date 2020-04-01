@@ -99,7 +99,7 @@ class Cart extends React.Component {
               <td></td>
               <td></td>
               <td>
-                <Link to={`${this.props.match.url}/modal/checkout`}
+                <Link to={`cart/modal/checkout`}
                   data-toggle="modal" data-target="#exampleModalCenter">
                   {/* <button 
                     type="button" 
@@ -115,6 +115,7 @@ class Cart extends React.Component {
             </tr>
             </tbody>
           </table>
+          <Route path={`${this.props.match.url}/modal`} component={ModalShell}/>
         </React.Fragment>
       )
     }
@@ -147,7 +148,6 @@ class Cart extends React.Component {
           <h1 className="pt-4">THIS IS THE CART VIEW</h1>
           {this.generateCartList()} 
         </div>
-        <Route exact path={`${this.props.match.url}/modal/*`} component={ModalShell}/>
       </div>
     )
   }

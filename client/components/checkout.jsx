@@ -32,49 +32,6 @@ function Checkout(props){
   const [shipState, setShipState  ] = useState('')
   const [shipZip, setShipZip  ] = useState('')
 
-  const [formData, setFormData ] = useState(
-    {
-      email,
-      cardNumber,
-      cardExp,
-      cvv,
-      nameOnCard,
-      billStreetAddr,
-      billCity,
-      billState,
-      billZip,
-      shipStreetAddr,
-      shipCity,
-      shipState,
-      shipZip
-      
-    }
-  )
-
-  // useEffect(
-    // setFormData({
-    //   paymentInfo: {
-    //     cardNumber,
-    //     cardExp,
-    //     cvv,
-    //     nameOnCard
-    //   },
-    //   billAddr: {
-    //     billStreetAddr,
-    //     billCity,
-    //     billState,
-    //     billZip
-    //   },
-    //   shipAddr: {
-    //     shipStreetAddr,
-    //     shipCity,
-    //     shipState,
-    //     shipZip
-    //   }
-    // })
-    // props.storeCheckoutFormData(formData), [formData]
-  // )
-
   function shipSameAsBill(){
     console.log('shipSameAsBill called on radio click')
     console.log('checkbox billStreetAddr: ',billStreetAddr)
@@ -135,7 +92,7 @@ function Checkout(props){
     callback(formData)
 
   }
-
+  console.log('checkout comp rendered props: ', props)
   return(
     <Modal.Body>
       <Form className="row">
@@ -162,6 +119,7 @@ function Checkout(props){
 
         <h5 className='col-12'>Payment and Shipping</h5>
         <hr />
+
         <Form.Group className="col-6" controlId="formBasicCardNumber">
           <Form.Label>Card Number</Form.Label>
           <Form.Control
@@ -399,75 +357,35 @@ function Checkout(props){
         
         <div className="col-9"></div>
         <div className="button-container col-3 row justify-content-around">
-          <Button
-            className=" btn-sm"
-            variant="info"
-            type="button"
-            onClick={() => {
-              // setFormData({
-              //   paymentInfo: {
-              //     cardNumber,
-              //     cardExp,
-              //     cvv,
-              //     nameOnCard
-              //   },
-              //   billAddr: {
-              //     billStreetAddr,
-              //     billCity,
-              //     billState,
-              //     billZip
-              //   },
-              //   shipAddr: {
-              //     shipStreetAddr,
-              //     shipCity,
-              //     shipState,
-              //     shipZip
-              //   }
-              // })
-
-              console.log('on click args: ',
-                email,
-                cardNumber,
-                cardExp,
-                cvv,
-                nameOnCard,
-                billStreetAddr,
-                billCity,
-                billState,
-                billZip,
-                shipStreetAddr,
-                shipCity,
-                shipState,
-                shipZip
-              )
-
-              props.storeCheckoutFormData({
-                email,
-                cardNumber,
-                cardExp,
-                cvv,
-                nameOnCard,
-                billStreetAddr,
-                billCity,
-                billState,
-                billZip,
-                shipStreetAddr,
-                shipCity,
-                shipState,
-                shipZip
-              })
-              // consolidateFormData(props.storeCheckoutFormData)
-              console.log('synchronoous formData in button click after consolidate formData and setFormdata: ', formData)
-              // props.dispatch({ type: "BILL_SHIP_FORM_SUBMITTED", payload: formData})
-              // props.storeCheckoutFormData(formData)
-              console.log('props after submit click: ', props)
-            }}
-          >
-            Submit
-          </Button>
-          <Link to="/cart">
+          <Link to="/cart/modal/thankyou" className="">
             <Button
               className=" btn-sm"
+              variant="info"
+              type="button"
+              onClick={() => {
+                props.storeCheckoutFormData({
+                  email,
+                  cardNumber,
+                  cardExp,
+                  cvv,
+                  nameOnCard,
+                  billStreetAddr,
+                  billCity,
+                  billState,
+                  billZip,
+                  shipStreetAddr,
+                  shipCity,
+                  shipState,
+                  shipZip
+                })
+              }}
+            >
+              Submit
+            </Button>
+          </Link>
+          <Link to="/cart">
+            <Button
+              className="btn-sm"
               variant="dark"
               type="button"
               // onClick={() =>
@@ -476,25 +394,12 @@ function Checkout(props){
             >
               Cancel
             </Button>
-          </Link>
+          </Link> 
         </div>
       </Form>
     </Modal.Body>
   )
 }
-
-  // const onChange = (e) => {
-  //   console.log('checkout onChange called e.target.value: ', e.target.value)
-  //   this.props.inputValue += e.target.value
-  // }
-  
-  // const onSubmit = (e) => {
-  //   e.preventDefault()
-  //   console.log('modal on submit hit')
-  //   //send form values to state and then to backend
-  // }
-
-
 
 function mapDispatchToProps (dispatch) {
   return {
@@ -508,14 +413,6 @@ function mapStateToProps(state){
     cart: state.cart,
     totalOrderCost: state.totalOrderCost,
     checkoutFormData: state.checkoutFormData
-    // fName,
-    // lName,
-    // ccNumber,
-    // ccExpiration,
-    // ccCVV,
-    // billingAdress,
-    // state,
-    // shippingMethod,
   }
 }
 

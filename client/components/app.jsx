@@ -20,6 +20,7 @@ import Header from './header.jsx'
 import Footer from './footer.jsx'
 import Test from './test'
 import ProductDetails from './productDetails'
+import ThankYou from './thank_you'
 
 
 
@@ -39,6 +40,7 @@ class App extends React.Component {
           <Route exact path="/test" component={Test} />
           <Route path="/cart" component={Cart}/>
           <Route exact path="/details/:productId" component={ProductDetails}/> 
+         
           <Footer/> 
           {/*
           this route below is for quick work on the form portion of the checkout modal, must return this to normal when done 
