@@ -92,6 +92,7 @@ function Checkout(props){
     callback(formData)
 
   }
+  
   console.log('checkout comp rendered props: ', props)
   return(
     <Modal.Body>

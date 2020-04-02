@@ -26,6 +26,14 @@ class ModalShell extends React.Component {
       this.orderCost = null
   }
 
+  autoRedirect(){
+
+    setTimeout(()=>{this.props.history.push( '/')}, 5000)
+
+    console.log('modal shell, autoRedirect called')
+
+  }
+
   generateModalContent(){
     console.log('generateModalContent called, path.includes("modal/checkout"): ', this.props.location.pathname.includes('modal/checkout'))
     console.log('generateModalContent called, path.includes("modal/thankyou"): ', this.props.location.pathname.includes('modal/thankyou'))
@@ -40,6 +48,7 @@ class ModalShell extends React.Component {
         this.modalContent = <ThankYou/>
         this.modalHeader = 'Thank you!'
         this.orderCost = ''
+        this.autoRedirect()
         break
       default: console.log('Modal Content Error.')
     }
