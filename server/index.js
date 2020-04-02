@@ -15,8 +15,8 @@ const db = mysql.createPool(creds)
 
 // * to allow refresh of page on child path, works with webpack dev running, not when served from the actual node server
 app.get('/*', (req, res, next) => {
-  console.log('pubDirectory: ', pubDirectory)
-  console.log('req.url: ', req.url)
+  // console.log('pubDirectory: ', pubDirectory)
+  // console.log('req.url: ', req.url)
   res.sendFile(pubDirectory)
 })
 
