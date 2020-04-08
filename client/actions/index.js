@@ -26,7 +26,12 @@ export function getTestList () {
 
 export function getProductList () {
   return function (dispatch) {
-    fetch('/api/get-products')
+    fetch('/api/fake-get-products', {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
       .then(res => res.json())
       .then(data => {
         dispatch({
