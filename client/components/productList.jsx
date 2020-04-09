@@ -23,8 +23,10 @@ class ProductList extends React.Component {
       )
     }else if(typeof this.props.products === 'object'){
       return (
+        
         this.props.products.map(element => {
-          let imgURL = element.images[0]
+          console.log('mapping this.props.products, element:, ', element)
+          let imgURL = element.image_urls[0]
           return (
             <Link className="col-4 p-1 remove-a-tag-style" 
               key={element.id} 
