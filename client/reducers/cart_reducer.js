@@ -29,10 +29,10 @@ export default function cartReducer(state = DEFAULT_STATE, action) {
       newState = [...state]
       
       let pushCheck = true
-      console.log('pushCheck')
+      console.log('pushCheck: ', pushCheck)
       newState.forEach(element =>{
         console.log('inside newState filter, element: ', element)
-        if(element.id === action.payload.id){
+        if(element.product_uuid === action.payload.product_uuid){
           console.log('PRODUCT ADDED REDUCER Increment condition, action.payload: ', action.payload)
           element.quantity++
           pushCheck = false

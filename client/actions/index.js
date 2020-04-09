@@ -48,6 +48,7 @@ export function getProductList () {
 }
 
 export function setCurrentProduct (product) {
+  console.log('setCurrentProduct action called, product: ', product)
   return function (dispatch) {
     dispatch({
       type: types.SET_CURRENT_PRODUCT,

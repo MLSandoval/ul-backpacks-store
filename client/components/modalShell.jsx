@@ -42,7 +42,7 @@ class ModalShell extends React.Component {
       case this.props.location.pathname.includes('modal/checkout'):
         this.modalContent = <Checkout/>
         this.modalHeader = 'Checkout'
-        this.orderCost = `$ ${this.props.totalOrderCost}`
+        this.orderCost = `$ ${this.props.totalOrderCost.toFixed(2)}`
         break
       case this.props.location.pathname.includes('modal/thankyou'):
         this.modalContent = <ThankYou/>

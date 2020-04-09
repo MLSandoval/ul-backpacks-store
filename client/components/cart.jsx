@@ -44,9 +44,9 @@ class Cart extends React.Component {
             {cart.map((product)=>{
               console.log('cart map for row, product: ', product)
               console.log('cart map, product.price: ', typeof product.price)
-              console.log('cart map, product.uuid for key: ', product.uuid)
+              console.log('cart map, product.uuid for key: ', product.product_uuid)
               return(
-                <tr key={product.uuid}>
+                <tr key={product.product_uuid}>
                   <th scope="row">
                     <img className="row-image" src={product.image_urls[0]}></img>
                   </th>
