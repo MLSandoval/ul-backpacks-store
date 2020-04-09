@@ -9,8 +9,7 @@ import { addItemToCart, sortCartQuantities, computeCartTotal } from '../actions'
 
 class ProductDetails extends React.Component {
   renderProductFeatures () {
-    let id = this.props.currentProduct
-    let product = this.props.products[id]
+    const product = this.props.currentProduct
 
     return (
       product.features.map( (element, index) => {
@@ -30,24 +29,25 @@ class ProductDetails extends React.Component {
   
 
   render () {
-    let id = this.props.currentProduct
-    let product = this.props.products[id]
-      
+    
+    const product = this.props.currentProduct
+    console.log('product details render, this.props.currentProduct', this.props.currentProduct)
+    console.log('product details render, product: ', product)
     return (
       <div className="product-details container pt-4">
         <div className="pt-4 row h-100 overflow-auto">
           <div className="col-8">
-            <h2 className="">{this.props.products[id].name}</h2>
-            <h6>by {this.props.products[id].brand}</h6>
+            <h2 className="">{product.name}</h2>
+            <h6>by {product.brand}</h6>
           </div>
           <div className="col-4 row flex-column justify-content-end">
-            <h4 className="align-self-center">${(this.props.products[id].price / 100).toFixed(2)}</h4>
-            <button className="btn btn-secondary" onClick={ ()=>{ this.props.addItemToCart(this.props.products[id])} }>Add To Cart</button>
+            <h4 className="align-self-center">${product.price}</h4>
+            <button className="btn btn-secondary" onClick={ ()=>{ this.props.addItemToCart(product)} }>Add To Cart</button>
           </div>
           <div className="col-8 carousel-container">
             <Carousel interval={5000}>
               {
-                product.images.map( (element, index) => {
+                product.image_urls.map( (element, index) => {
                   return(
                     <Carousel.Item key={index}>
                     <img
@@ -69,7 +69,7 @@ class ProductDetails extends React.Component {
             <div className="align-self-center">{product.short_description}</div>
             <br></br>
             <div>
-              {this.props.products[id].long_description}
+              {product.long_description}
             </div>
           </div>
         </div>

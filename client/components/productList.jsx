@@ -29,16 +29,16 @@ class ProductList extends React.Component {
           let imgURL = element.image_urls[0]
           return (
             <Link className="col-4 p-1 remove-a-tag-style" 
-              key={element.id} 
-              to={`/details/${element.id}`}
-              data-id={element.id}
-              onClick={ e =>{ this.props.setCurrentProduct(e.currentTarget.dataset.id) }}
+              key={element.product_uuid} 
+              to={`/details/${element.product_uuid}`}
+              data-uuid={element.product_uuid}
+              onClick={ e =>{ this.props.setCurrentProduct(element) }}
             >
               <div className="card">
                 <div className="card-header bg-transparent border-success">{element.name}</div>
                 <img src={imgURL} alt="" className="card-img-top img-fluid preview-image align-self-center pt-1" />
                 <div className="card-body">
-                  <div className="card-text">{element.short_description}</div>
+                  <div className="card-text text-sm-center">{element.short_description}</div>
                 </div>
                 <div className="card-footer">
                   <small className="text-muted">by {element.brand}</small>

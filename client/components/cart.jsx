@@ -42,20 +42,23 @@ class Cart extends React.Component {
             </thead>
             <tbody>
             {cart.map((product)=>{
+              console.log('cart map for row, product: ', product)
+              console.log('cart map, product.price: ', typeof product.price)
+              console.log('cart map, product.uuid for key: ', product.uuid)
               return(
-                <tr key={product.id}>
+                <tr key={product.uuid}>
                   <th scope="row">
-                    <img className="row-image" src={product.images[0]}></img>
+                    <img className="row-image" src={product.image_urls[0]}></img>
                   </th>
                   <td>{product.name}</td>
                   <td>
                   <button 
                       type="button" 
                       className="btn"
-                      data-id={product.id}
+                      data-uuid={product.uuid}
                       data-quantity={product.quantity}
                       onClick={ e => {
-                        this.props.removeItemFromCart(e.currentTarget.dataset.id)
+                        this.props.removeItemFromCart(e.currentTarget.dataset.uuid)
                       }}
                       >-
                     </button>
@@ -65,19 +68,19 @@ class Cart extends React.Component {
                       className="btn"
                       data-id={product.id}
                       onClick={ e => {
-                        this.props.addItemToCart(this.props.products.find(element => element.id === parseInt(e.currentTarget.dataset.id)))                     
+                        this.props.addItemToCart(this.props.products.find(element => element.uuid === e.currentTarget.dataset.uuid))                     
                       }}
                       >+
                     </button>
                   </td>
-                  <td>{(product.price / 100).toFixed(2)}</td>
-                  <td>{(product.price*product.quantity / 100).toFixed(2)}</td>
+                  <td>${product.price}</td>
+                  <td>${(product.price*product.quantity).toFixed(2)}</td>
                   <td>
                     <button 
                       type="button" 
                       className="btn btn-danger"
                       data-id={product.id}
-                      onClick={ e => {this.props.removeItemFromCart(e.currentTarget.dataset.id)}}
+                      onClick={ e => {this.props.removeItemFromCart(e.currentTarget.dataset.uuid)}}
                       >X
                     </button>
                   </td>
@@ -90,7 +93,7 @@ class Cart extends React.Component {
               <td></td>
               <td></td>
               <td>Order Total: </td>
-              <td>{this.props.totalOrderCost || 0}</td> 
+              <td>${this.props.totalOrderCost.toFixed(2) || 0.00}</td> 
             </tr>
             <tr>
               <th scope="row">
