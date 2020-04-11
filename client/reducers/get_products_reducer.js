@@ -5,7 +5,7 @@ const DEFAULT_STATE = 'Products Loading...'
 export default (state = DEFAULT_STATE, action) => {
   switch (action.type) {
     case types.PRODUCT_LIST_REQUESTED:
-      return action.payload.products
+      return action.payload
     default:
       return state
   }

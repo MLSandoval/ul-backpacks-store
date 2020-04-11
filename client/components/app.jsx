@@ -8,7 +8,6 @@ import {connect} from 'react-redux'
 
 import { Switch, Route, Link } from "react-router-dom"
 
-
 import {getProductList, setCurrentProduct} from '../actions'
 
 import 'bootstrap/dist/css/bootstrap.min.css'
@@ -16,20 +15,23 @@ import './styles/global_style.css'
 import Landing from './landing.jsx'
 import ProductList from './productList.jsx'
 import Cart from './cart.jsx'
-import Modal from './modalShell.jsx'
+import ModalShell from './modalShell.jsx'
 import Header from './header.jsx'
 import Footer from './footer.jsx'
 import Test from './test'
 import ProductDetails from './productDetails'
+import ThankYou from './thank_you'
 
 
 
 class App extends React.Component {
   componentDidMount () {
     this.props.getProductList()
+    
   }
 
   render() {
+    const {to, staticContext, ...rest} = this.props
     return (
         <div className="app-main">
           <Header/>
@@ -38,8 +40,11 @@ class App extends React.Component {
           <Route exact path="/test" component={Test} />
           <Route path="/cart" component={Cart}/>
           <Route exact path="/details/:productId" component={ProductDetails}/> 
-          {/* <Route path={`${this.props.match.url}/checkout`} component={Checkout}/> */}
-          <Footer/>
+         
+          <Footer/> 
+          {/*
+          this route below is for quick work on the form portion of the checkout modal, must return this to normal when done 
+          <Route path="/" component={ModalShell}/> */}
         </div>
     )
   }

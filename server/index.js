@@ -1,3 +1,8 @@
+//load environmental variables from env file
+require('dotenv').config({path: 'backpack_shopping_cart/.env'})
+
+console.log('process.env: ', process.env)
+
 const express = require('express')
 const app = express()
 
@@ -6,17 +11,40 @@ const pubDirectory = path.join(__dirname, '/public')
 app.use(express.static(pubDirectory))
 app.use(express.json())
 
+
+
+const bodyParser = require('body-parser')
+//parse application/json
+app.use(bodyParser.json())
+
 const cors = require('cors')
 app.use(cors())
 
-const mysql = require('mysql2')
-const creds = require('./sql_creds')
-const db = mysql.createPool(creds)
+//this db is an instance of Pool clas from PG
+const db = require('./connection.js')
+
+
+db.connect( (err, client, release) => {
+  console.log('pool connect err: ', err)
+  // console.log('pool connect client: ', client)
+  // console.log('pool connect release: ', release)
+  if (err) {
+    return console.error('Error acquiring client', err.stack)
+  }
+  client.query('SELECT NOW()', (err, result) => {
+    release()
+    if (err) {
+      return console.error('Error executing query', err.stack)
+    }
+    console.log(result.rows)
+  })
+})
+
 
 // * to allow refresh of page on child path, works with webpack dev running, not when served from the actual node server
 app.get('/*', (req, res, next) => {
-  console.log('pubDirectory: ', pubDirectory)
-  console.log('req.url: ', req.url)
+  // console.log('pubDirectory: ', pubDirectory)
+  // console.log('req.url: ', req.url)
   res.sendFile(pubDirectory)
 })
 
@@ -27,7 +55,8 @@ app.get('/api/test', (req, res, next) => {
   })
 })
 
-app.get('/api/get-products', (req, res, next) => {
+app.get('/api/fake-get-products', (req, res, next) => {
+  
   res.send({
     products: [
       {
@@ -172,6 +201,37 @@ app.get('/api/get-products', (req, res, next) => {
     ],
     message: 'Successful product fetch'
   })
+})
+
+
+app.get('/api/fetch-products', (req, res, next)=>{
+  console.log('this is hitting real fetch-products enpoint')
+  const query = 'SELECT * FROM products;'
+    
+  
+  // db.query(query, (err, data)=>{
+  //   if (err){
+  //     console.error('EEEERRRRROOOORRRRRR: ', err);
+  //     // return next(new ServerError('Internal server error.'), 500);
+  //   } 
+  // }).then( res=>{
+  //   console.log('DATA FROM PRODUCT FETCH: ', res)
+  //   res.send({
+  //     success: true,
+  //     res
+  //   })
+  // }).catch(e=>{
+  //   console.error(e.stack)
+  // })
+
+  db
+    .query(query)
+    .then(data=> {
+      console.log('query data RETURNED: ', data.rows)
+      res.send(data.rows)
+    })
+    .catch(e=> console.error(e.stack))
+  // res.send({message:'this is hitting real fethc products endpoing'})
 })
 
 // fixes client side routing 'cannot get xxxxxxx' on refresh issue except when there is a 

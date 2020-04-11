@@ -26,9 +26,15 @@ export function getTestList () {
 
 export function getProductList () {
   return function (dispatch) {
-    fetch('/api/get-products')
+    fetch('/api/fetch-products', {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
       .then(res => res.json())
       .then(data => {
+        console.log('product fetch action, data: ', data)
         dispatch({
           type: types.PRODUCT_LIST_REQUESTED,
           isFetching: true,
@@ -41,17 +47,18 @@ export function getProductList () {
   }
 }
 
-export function setCurrentProduct (productId) {
+export function setCurrentProduct (product) {
+  console.log('setCurrentProduct action called, product: ', product)
   return function (dispatch) {
     dispatch({
       type: types.SET_CURRENT_PRODUCT,
-      payload: productId
+      payload: product
     })
   }
 }
 
 
-export function addItemToCart (product) {
+export function addItemToCart (product) {//also need to add query to add item to database cart when this is clicked
   // console.log('addItemToCart action called, product: ', product)
   return function (dispatch) {
     dispatch({
@@ -59,16 +66,6 @@ export function addItemToCart (product) {
       payload: {...product,
         quantity: product.quantity || 1
       }
-      // {
-      //   id: product.id,
-      //   brand: product.brand,
-      //   price: product.price,
-      //   name: product.name,
-      //   weight: product.weight,
-      //   material: product.material,
-      //   images:product.images,
-      //   quantity: 0
-      // }
     })
   }
 }
@@ -137,14 +134,25 @@ export function sortCartQuantities(cart){
 export function computeCartTotal(cart){
   let total = 0
   for (let product in cart){
-    total += cart[product].quantity * cart[product].price
+    total += parseInt(cart[product].quantity) * parseInt(cart[product].price)
+    console.log('computecarttotal for in loop, product: ', product)
   }
 
-  total = (total/100).toFixed(2)
+  // total = (total/100).toFixed(2)
   return function (dispatch) {
     dispatch({
       type: types.CART_TOTAL_COMPUTED,
       payload: total
+    })
+  }
+}
+
+export function storeCheckoutFormData(formData){
+  console.log('storeCheckoutFormData action, formData: ', formData)
+  return function(dispatch){
+    dispatch({
+      type: types.CHECKOUT_FORM_SUBMITTED,
+      payload: formData
     })
   }
 }

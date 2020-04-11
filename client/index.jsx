@@ -1,14 +1,14 @@
-import React from "react";
-import ReactDOM from "react-dom";
+import React from "react"
+import ReactDOM from "react-dom"
 
-import { Provider } from "react-redux"; 
-import { createStore, applyMiddleware } from "redux";
-import thunk from 'redux-thunk';
+import { Provider } from "react-redux"
+import { createStore, applyMiddleware } from "redux"
+import thunk from 'redux-thunk'
 
-import { BrowserRouter as Router } from "react-router-dom";
+import { BrowserRouter as Router } from "react-router-dom"
 
-import rootReducer from "./reducers";
-import App from "./components/app.jsx";
+import rootReducer from "./reducers"
+import App from "./components/app.jsx"
 
 const store = createStore(rootReducer, applyMiddleware(thunk));
 
@@ -29,4 +29,4 @@ ReactDOM.render(
     </Router>
   </Provider>,
   document.getElementById("root")
-);
+)

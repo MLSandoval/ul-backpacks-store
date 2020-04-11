@@ -4,13 +4,23 @@ import { connect } from 'react-redux'
 import {withRouter} from 'react-router-dom'
 
 import Carousel from 'react-bootstrap/Carousel'
+import Tabs from 'react-bootstrap/Tabs'
+import Tab from 'react-bootstrap/Tab'
+import Table from 'react-bootstrap/Table'
+
 import './styles/product_details_style.css'
+
 import { addItemToCart, sortCartQuantities, computeCartTotal } from '../actions'
 
 class ProductDetails extends React.Component {
+  constructor(props){
+    super(props)
+    this.state = {
+      tabKey: 'features' //or description
+    }
+  }
   renderProductFeatures () {
-    let id = this.props.currentProduct
-    let product = this.props.products[id]
+    const product = this.props.currentProduct
 
     return (
       product.features.map( (element, index) => {
@@ -30,24 +40,20 @@ class ProductDetails extends React.Component {
   
 
   render () {
-    let id = this.props.currentProduct
-    let product = this.props.products[id]
-      
+    
+    const product = this.props.currentProduct
+    console.log('product details render, this.props.currentProduct', this.props.currentProduct)
+    console.log('product details render, product: ', product)
     return (
       <div className="product-details container pt-4">
-        <div className="pt-4 row h-100 overflow-auto">
-          <div className="col-8">
-            <h2 className="">{this.props.products[id].name}</h2>
-            <h6>by {this.props.products[id].brand}</h6>
-          </div>
-          <div className="col-4 row flex-column justify-content-end">
-            <h4 className="align-self-center">${(this.props.products[id].price / 100).toFixed(2)}</h4>
-            <button className="btn btn-secondary" onClick={ ()=>{ this.props.addItemToCart(this.props.products[id])} }>Add To Cart</button>
-          </div>
-          <div className="col-8 carousel-container">
+        <div className="pt-4 row h-100 justify-content-between overflow-auto">
+
+          
+          
+          <div className="col-6 carousel-container">
             <Carousel interval={5000}>
               {
-                product.images.map( (element, index) => {
+                product.image_urls.map( (element, index) => {
                   return(
                     <Carousel.Item key={index}>
                     <img
@@ -65,18 +71,70 @@ class ProductDetails extends React.Component {
               }
             </Carousel>
           </div>
-          <div className=" col-4 mb-3">
-            <div className="align-self-center">{product.short_description}</div>
-            <br></br>
-            <div>
-              {this.props.products[id].long_description}
+          <div className="col-4 row align-items-center">
+            <div >
+              <h2 className="">{product.name}</h2>
+              <h6>by {product.brand}</h6>
             </div>
+            <div className="align-self-center">{product.short_description}</div>
+            <Table className="flat no-border" striped bordered hover>
+              <thead>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Price</td>
+                  <td>${product.price}</td>
+                </tr>
+                <tr>
+                  <td>Weight</td>
+                  <td>34 oz</td>
+                </tr>
+                <tr>
+                  <td>Material</td>
+                  <td>Cuben Fber</td>
+                </tr>
+                <tr>
+                  <td>Size</td>
+                  <td>50l</td>
+                </tr>
+
+                <tr>
+                  
+                  <td clasName="row flex-start-end" colSpan="2">
+                    <button className="btn btn-secondary col-12" onClick={ ()=>{ this.props.addItemToCart(product)} }>Add To Cart</button>
+                  </td>
+                  
+                </tr>
+                
+              </tbody>
+            </Table>
+          </div>
+          
+
+
+
+
+
+          <div className=" col-4 mb-3">
+            
+            <br></br>
+            
           </div>
         </div>
         <h5 className="display-5 mt-3">Features</h5>
         <div>
-          <ul>{ this.renderProductFeatures() }</ul>
+          
         </div>
+
+        <Tabs className="row " defaultActiveKey="description" id="uncontrolled-tab-example">
+          <Tab className='pt-1' eventKey="description" title="Description">
+            {product.long_description}
+          </Tab>
+          <Tab className='row two-columns pt-1'  eventKey="features" title="Features">
+            <ul>{ this.renderProductFeatures() }</ul>
+          </Tab>
+        </Tabs>
+
       </div>
     )
   }
