@@ -1,6 +1,6 @@
 .carousel{
-    height: 760px;
-    width: 570px;
+    /* height: 760px;
+    width: 570px; */
 }
 
 .carousel-control-prev-icon,
@@ -38,4 +38,8 @@
     1px -1px 0 #000,
     -1px 1px 0 #000,
      1px 1px 0 #000;
+}
+
+.two-columns{
+  columns: 2 auto;
 }

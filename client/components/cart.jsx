@@ -2,9 +2,11 @@ import React, {createRef} from 'react'
 import {connect} from 'react-redux'
 import {Link, useRouteMatch, Route} from 'react-router-dom'
 
-
+import Table from 'react-bootstrap/Table'
 import './styles/cart_style.css'
+
 import {sortCartQuantities, computeCartTotal, addItemToCart, removeItemFromCart, reduceItemQuantity, increaseItemQuantity} from '../actions'
+
 import ModalShell from './modalShell.jsx'
 
 class Cart extends React.Component {
@@ -29,7 +31,7 @@ class Cart extends React.Component {
     }else{
       return (
         <React.Fragment>
-          <table className="table table-hover">
+          <Table className="table table-hover">
             <thead>
               <tr>
                 <th scope="col-2">Image</th>
@@ -117,7 +119,7 @@ class Cart extends React.Component {
               </td> 
             </tr>
             </tbody>
-          </table>
+          </Table>
           <Route path={`${this.props.match.url}/modal`} component={ModalShell}/>
         </React.Fragment>
       )
