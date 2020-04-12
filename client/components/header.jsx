@@ -34,8 +34,8 @@ class Header extends React.Component {
     // let itemCount = this.getCartItemCount()
     // let itemCount = 0
     return (
-      <div className="position-fixed landing-header container-fluid">
-        <div className="row ">
+      
+        <div className="container row position-fixed landing-header">
           <div className="col-8 row">
             <Link className="btn" to="/">
               <div className="h4">UltraLite</div>
@@ -53,7 +53,7 @@ class Header extends React.Component {
             </Link>
           </div>
         </div>
-      </div>
+      
     )
   }
 }

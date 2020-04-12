@@ -28,7 +28,7 @@ class ProductList extends React.Component {
           console.log('mapping this.props.products, element:, ', element)
           let imgURL = element.image_urls[0]
           return (
-            <Link className="col-4 p-1 remove-a-tag-style" 
+            <Link className="col-4 p-2 remove-a-tag-style" 
               key={element.product_uuid} 
               to={`/details/${element.product_uuid}`}
               data-uuid={element.product_uuid}
@@ -38,7 +38,7 @@ class ProductList extends React.Component {
                 <div className="card-header bg-transparent border-success">{element.name}</div>
                 <img src={imgURL} alt="" className="card-img-top img-fluid preview-image align-self-center pt-1" />
                 <div className="card-body">
-                  <div className="card-text text-sm-center">{element.short_description}</div>
+                  <div className="card-text ">{element.short_description}</div>
                 </div>
                 <div className="card-footer">
                   <small className="text-muted">by {element.brand}</small>
@@ -53,10 +53,10 @@ class ProductList extends React.Component {
 
   render(){
     return (
-      <div className="pt-4 product-list-main">
+      <div className=" row pt-4 product-list-main">
         <h1 className="pt-4">Products list</h1>
         <div className=" container">
-          <div className="card-deck">
+          <div className="card-deck justify-content-between border rounded p-3 mb-2">
             { this.generateProductList() }
           </div>
         </div>

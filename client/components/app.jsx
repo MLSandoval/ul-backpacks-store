@@ -33,7 +33,7 @@ class App extends React.Component {
   render() {
     const {to, staticContext, ...rest} = this.props
     return (
-        <div className="app-main">
+        <div className="app-main container">
           <Header/>
           <Route exact path="/" component={Landing} />
           <Route exact path="/products" component={ProductList}/>

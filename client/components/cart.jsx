@@ -148,7 +148,7 @@ class Cart extends React.Component {
 
   render () {
     return (
-      <div className="pt-4 container" ref={this.CartRef}>
+      <div className="pt-4" ref={this.CartRef}>
         <div className="row">
           <h1 className="pt-4">THIS IS THE CART VIEW</h1>
           {this.generateCartList()} 

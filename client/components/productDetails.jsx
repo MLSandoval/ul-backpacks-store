@@ -45,7 +45,7 @@ class ProductDetails extends React.Component {
     console.log('product details render, this.props.currentProduct', this.props.currentProduct)
     console.log('product details render, product: ', product)
     return (
-      <div className="product-details container pt-4">
+      <div className="product-details row pt-4">
         <div className="pt-4 row h-100 justify-content-between overflow-auto">
 
           
@@ -121,7 +121,7 @@ class ProductDetails extends React.Component {
             
           </div>
         </div>
-        <h5 className="display-5 mt-3">Features</h5>
+        
         <div>
           
         </div>
