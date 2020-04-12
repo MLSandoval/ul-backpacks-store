@@ -41,11 +41,11 @@ class Header extends React.Component {
       
        
 
-        <Navbar className="border rounded w-100 p-auto sticky-top" bg="light" expand="lg">
-          <div className="container">
-            <Navbar.Brand href="#home">
-              <div className="logo pr-3 pl-3"></div>
-              <Nav>
+        <Navbar className="border rounded w-100 p-auto" sticky="top" bg="light" expand="md">
+          {/* <div className="row flex-direction-row col-12"> */}
+            <Navbar.Brand className="row col-3" href="#home">
+              <div className="logo pr-3 pl-3 col-4"></div>
+              <Nav className="col-2">
                 <Nav.Link href="#home">
                   <Link className="btn" to="/">
                     <div className="h4">UltraLite</div>
@@ -55,13 +55,13 @@ class Header extends React.Component {
               </Nav>
             </Navbar.Brand>
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
-            <Navbar.Collapse id="basic-navbar-nav">
+            <Navbar.Collapse className=" col-9 flex-start-end justify-content-end" id="basic-navbar-nav">
               <Nav className="mr-auto">
                 
                 
-                <Nav.Link href="#link">
+                
                   <Link className="btn font-weight-bold" to="/products">Products</Link>
-                </Nav.Link>
+                
                 
               </Nav>
                 <Link className="btn font-weight-bold" to="/cart">
@@ -71,7 +71,7 @@ class Header extends React.Component {
                   </div>
                 </Link>
             </Navbar.Collapse>
-          </div>
+          {/* </div> */}
           
         </Navbar>
       

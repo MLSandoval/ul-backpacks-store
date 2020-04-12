@@ -28,7 +28,7 @@ class ProductList extends React.Component {
           console.log('mapping this.props.products, element:, ', element)
           let imgURL = element.image_urls[0]
           return (
-            <Link className="col-4 p-2 remove-a-tag-style" 
+            <Link className="col-lg-4 col-med-6 col-sm-12 p-2 remove-a-tag-style" 
               key={element.product_uuid} 
               to={`/details/${element.product_uuid}`}
               data-uuid={element.product_uuid}
