@@ -11,7 +11,8 @@ class Landing extends React.Component {
   render(){
     return (
       <React.Fragment>
-        <div className="row">
+        <div className="">
+          <div className="row">
           
             <div className="bg bg-1 col-12">BG-1</div>
             <div className="lead text text-1 col-12 radius push-over">
@@ -52,6 +53,7 @@ class Landing extends React.Component {
           </div>
             <div className="bg bg-3 col-12 push-over">BG-3</div>
         </div>
+      </div>
         
       </React.Fragment>
     );

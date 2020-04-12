@@ -45,7 +45,7 @@ class ProductDetails extends React.Component {
     console.log('product details render, this.props.currentProduct', this.props.currentProduct)
     console.log('product details render, product: ', product)
     return (
-      <div className="product-details row pt-4">
+      <div className="product-details container">
         <div className="pt-4 row h-100 justify-content-between overflow-auto">
 
           
@@ -126,11 +126,11 @@ class ProductDetails extends React.Component {
           
         </div>
 
-        <Tabs className="row " defaultActiveKey="description" id="uncontrolled-tab-example">
-          <Tab className='pt-1' eventKey="description" title="Description">
+        <Tabs className="row pb-7" defaultActiveKey="description" id="uncontrolled-tab-example">
+          <Tab className='pt-1 pb-7' eventKey="description" title="Description">
             {product.long_description}
           </Tab>
-          <Tab className='row two-columns pt-1'  eventKey="features" title="Features">
+          <Tab className='row two-columns pt-1 pb-7'  eventKey="features" title="Features">
             <ul>{ this.renderProductFeatures() }</ul>
           </Tab>
         </Tabs>

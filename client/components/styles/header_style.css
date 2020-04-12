@@ -6,8 +6,8 @@ a{
     display: flex !important
 }
 .logo{
-    height: 32px;
-    width: 32px;
+    height: 45px;
+    width: 45px;
     background-size: contain;
     background-repeat: no-repeat;
     background-image: url("../../images/logos_icons/grey_backpacker_logo.png");

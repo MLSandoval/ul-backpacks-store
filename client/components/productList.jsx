@@ -53,12 +53,12 @@ class ProductList extends React.Component {
 
   render(){
     return (
-      <div className=" row pt-4 product-list-main">
-        <h1 className="pt-4">Products list</h1>
-        <div className=" container">
-          <div className="card-deck justify-content-between border rounded p-3 mb-2">
+      <div className="product-list-main container">
+        <h1 className="col-12">Products list</h1>
+       
+          <div className=" col-12 card-deck justify-content-between border rounded p-3 mb-2">
             { this.generateProductList() }
-          </div>
+          
         </div>
       </div>
     )
