@@ -46,7 +46,7 @@ class Header extends React.Component {
             <Navbar.Brand className="row col-3" href="#home">
               <div className="logo pr-3 pl-3 col-4"></div>
               <Nav className="col-2">
-                <Nav.Link href="#home">
+                <Nav.Link href="/home">
                   <Link className="btn" to="/">
                     <div className="h4">UltraLite</div>
                     
@@ -57,12 +57,8 @@ class Header extends React.Component {
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
             <Navbar.Collapse className=" col-9 flex-start-end justify-content-end" id="basic-navbar-nav">
               <Nav className="mr-auto">
-                
-                
-                
                   <Link className="btn font-weight-bold" to="/products">Products</Link>
-                
-                
+                  <Link className="btn font-weight-bold" to="/our-story">Our Story</Link>
               </Nav>
                 <Link className="btn font-weight-bold" to="/cart">
                   <div className="cart-logo-count-bg row">

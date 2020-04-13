@@ -16,7 +16,7 @@ export default function Footer (props){
     return (
       
         
-        <Navbar className="border rounded w-100 p-auto pt-8 mt-8"  bg="dark" expand="md">
+        <Navbar className="border rounded w-100 p-auto mt-8"  bg="dark" expand="md">
           <Navbar.Brand href="#home">React-Bootstrap</Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">

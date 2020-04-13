@@ -1,6 +1,8 @@
 .carousel{
-    /* height: 760px;
-    width: 570px; */
+    height: 760px;
+    width: 570px; 
+    background-image: contain;
+    align-items: center;
 }
 
 .carousel-control-prev-icon,

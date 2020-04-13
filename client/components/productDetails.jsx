@@ -45,24 +45,24 @@ class ProductDetails extends React.Component {
     console.log('product details render, this.props.currentProduct', this.props.currentProduct)
     console.log('product details render, product: ', product)
     return (
-      <div className="product-details container">
+      <div className="product-details container pb-5">
         <div className="pt-4 row h-100 justify-content-between overflow-auto">
 
           
           
           <div className="col-6 carousel-container">
-            <Carousel interval={5000}>
+            <Carousel interval={null}>
               {
                 product.image_urls.map( (element, index) => {
                   return(
                     <Carousel.Item key={index}>
                     <img
-                      className="d-block w-100"
+                      className="d-block w-100 h-100"
                       src={'../' + element}
                       alt="First slide"
                     />
                     <Carousel.Caption>
-                      <h3>{index + 1}</h3>
+                      
                       <p></p>
                     </Carousel.Caption>
                   </Carousel.Item>
@@ -71,12 +71,13 @@ class ProductDetails extends React.Component {
               }
             </Carousel>
           </div>
-          <div className="col-4 row align-items-center">
+          <div className="col-4 row flex-direction-column">
             <div >
               <h2 className="">{product.name}</h2>
               <h6>by {product.brand}</h6>
+              <div className="align-self-center">{product.short_description}</div>
             </div>
-            <div className="align-self-center">{product.short_description}</div>
+            
             <Table className="flat no-border" striped bordered hover>
               <thead>
               </thead>

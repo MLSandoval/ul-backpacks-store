@@ -28,16 +28,16 @@ class ProductList extends React.Component {
           console.log('mapping this.props.products, element:, ', element)
           let imgURL = element.image_urls[0]
           return (
-            <Link className="col-lg-4 col-med-6 col-sm-12 p-2 remove-a-tag-style" 
+            <Link className="col-lg-4 col-med-6 col-sm-12 p-2 remove-a-tag-style " 
               key={element.product_uuid} 
               to={`/details/${element.product_uuid}`}
               data-uuid={element.product_uuid}
               onClick={ e =>{ this.props.setCurrentProduct(element) }}
             >
-              <div className="card">
+              <div className="card rounded-0">
                 <div className="card-header bg-transparent border-success">{element.name}</div>
-                <img src={imgURL} alt="" className="card-img-top img-fluid preview-image align-self-center pt-1" />
-                <div className="card-body">
+                <img src={imgURL} alt="" className="card-img-top img-fluid preview-image align-self-center pt-4 pb-4" />
+                <div className="card-body pb-4">
                   <div className="card-text ">{element.short_description}</div>
                 </div>
                 <div className="card-footer">
@@ -53,10 +53,11 @@ class ProductList extends React.Component {
 
   render(){
     return (
-      <div className="product-list-main container">
-        <h1 className="col-12">Products list</h1>
+      <div className="product-list-main container pt-4">
+        <h1 className="">Products list</h1>
        
-          <div className=" col-12 card-deck justify-content-between border rounded p-3 mb-2">
+          <div className=" col-12 card-deck justify-content-between   p-3 mb-2">
+          
             { this.generateProductList() }
           
         </div>
