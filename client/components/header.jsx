@@ -40,36 +40,76 @@ class Header extends React.Component {
     return (
       
        
-
-        <Navbar className="border rounded w-100 p-auto" sticky="top" bg="light" expand="md">
-          {/* <div className="row flex-direction-row col-12"> */}
-            <Navbar.Brand className="row col-3" href="#home">
-              <div className="logo pr-3 pl-3 col-4"></div>
-              <Nav className="col-2">
-                <Nav.Link href="/home">
-                  <Link className="btn" to="/">
-                    <div className="h4">UltraLite</div>
-                    
-                  </Link>
-                </Nav.Link>
-              </Nav>
-            </Navbar.Brand>
-            <Navbar.Toggle aria-controls="basic-navbar-nav" />
-            <Navbar.Collapse className=" col-9 flex-start-end justify-content-end" id="basic-navbar-nav">
-              <Nav className="mr-auto">
-                  <Link className="btn font-weight-bold" to="/products">Products</Link>
-                  <Link className="btn font-weight-bold" to="/our-story">Our Story</Link>
-              </Nav>
-                <Link className="btn font-weight-bold" to="/cart">
-                  <div className="cart-logo-count-bg row">
-                    <div className="cart-button"></div>
-                    <div className="cart-count">:{ this.getCartItemCount() }</div>
-                  </div>
-                </Link>
-            </Navbar.Collapse>
-          {/* </div> */}
+        //   <Navbar className="border w-100" sticky="top" bg="light" expand="sm">
+        //   <div className="row flex-direction-row col-12">
+        //     <Navbar.Brand className="" href="#home">
+        //       <Nav className="">
+                // <Nav.Link href="/home">
+                //   <Link className="btn" to="/">
+                //     <div className="row ">
+                //       <div className="logo col-3"></div>
+                //       <div className="h2 col-9 align-self-center">UltraLite</div>
+                //     </div>
+                //   </Link>
+                // </Nav.Link>
+        //       </Nav>
+        //     </Navbar.Brand>
+        //     <Navbar.Toggle aria-controls="basic-navbar-nav" />
+        //     <Navbar.Collapse wrap="false" className=" row justify-content-between" id="basic-navbar-nav">
+        //       <Nav className="col-lg-10 col-med-9">
+                  // <Link className="btn font-weight-bold" to="/our-story">Our Story</Link>
+                  // <Link className="btn font-weight-bold" to="/products">Products</Link>
+                  // <Link className="btn font-weight-bold" to="/video-review/:product_uuid">Video Reviews</Link>
+        //       </Nav>
+        //       <Nav className="col-lg-2 col-med-2">
+                // <Link className="btn font-weight-bold " to="/cart">
+                //   <div className="cart-logo-count-bg row">
+                //     <div className="cart-button"></div>
+                //     <div className="cart-count">:{ this.getCartItemCount() }</div>
+                //   </div>
+                // </Link>
+        //       </Nav>
+        //     </Navbar.Collapse>
+        //   </div>
           
-        </Navbar>
+        // </Navbar>
+        <Navbar bg="light" expand="lg">
+        <Navbar.Brand href="#home">
+          <Nav.Link href="/home">
+            <Link className="btn" to="/">
+              <div className="row ">
+                <div className="logo col-3"></div>
+                <div className="h2 col-9 align-self-center">UltraLite</div>
+              </div>
+            </Link>
+          </Nav.Link>
+        </Navbar.Brand>
+        <Navbar.Toggle aria-controls="basic-navbar-nav" />
+        <Navbar.Collapse id="basic-navbar-nav">
+          <Nav className="mr-auto">
+            <Nav.Link href="/">
+            <Link className="btn font-weight-bold" to="/our-story">Our Story</Link>  
+            </Nav.Link>
+            <Nav.Link href="products">
+              <Link className="btn font-weight-bold" to="/products">Products</Link>
+            </Nav.Link>
+            <Nav.Link href="video-reviews">
+              <Link className="btn font-weight-bold" to="/video-review/:product_uuid">Video Reviews</Link>
+            </Nav.Link>
+          </Nav>
+          <div className="nav-link">
+            <Link className="btn font-weight-bold" to="/cart">
+              <div className="cart-logo-count-bg row">
+                <div className="cart-button"></div>
+                <div className="cart-count">:{ this.getCartItemCount() }</div>
+              </div>
+            </Link>
+          </div>
+            
+          
+        </Navbar.Collapse>
+      </Navbar>
+      
       
     )
   }

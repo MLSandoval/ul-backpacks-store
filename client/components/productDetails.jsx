@@ -50,7 +50,7 @@ class ProductDetails extends React.Component {
 
           
           
-          <div className="col-6 carousel-container">
+          <div className="col-6 col-sm-12 carousel-container">
             <Carousel interval={null}>
               {
                 product.image_urls.map( (element, index) => {
@@ -71,7 +71,7 @@ class ProductDetails extends React.Component {
               }
             </Carousel>
           </div>
-          <div className="col-4 row flex-direction-column">
+          <div className="col-4 col-sm-12 row flex-direction-column">
             <div >
               <h2 className="">{product.name}</h2>
               <h6>by {product.brand}</h6>

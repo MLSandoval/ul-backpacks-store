@@ -2,9 +2,9 @@
     z-index: 3;
     background-color: rgba(116, 112, 112);
 }
-a{
+/* a{
     display: flex !important
-}
+} */
 .logo{
     height: 45px;
     width: 45px;

@@ -15,8 +15,8 @@ import "./styles/footer_style.css"
 export default function Footer (props){
     return (
       
-        
-        <Navbar className="border rounded w-100 p-auto mt-8"  bg="dark" expand="md">
+      <div className="sticky-bottom">
+        <Navbar className="border rounded p-auto mt-8"  bg="dark"  expand="sm">
           <Navbar.Brand href="#home">React-Bootstrap</Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
@@ -37,6 +37,8 @@ export default function Footer (props){
             </Form>
           </Navbar.Collapse>
         </Navbar>
+      </div>
+        
         
      
     )
