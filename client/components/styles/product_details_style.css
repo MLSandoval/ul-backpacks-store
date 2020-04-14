@@ -1,6 +1,6 @@
-.carousel{
-    height: 760px;
-    width: 570px; 
+.carousel-image{
+    max-height: 760px;
+    max-width: 570px; 
     background-image: contain;
     align-items: center;
 }
@@ -44,4 +44,10 @@
 
 .two-columns{
   columns: 2 auto;
+}
+@media (max-width: 768px){
+  .carousel-image{
+    max-height: 480px;
+    max-width: 360px;
+  }
 }

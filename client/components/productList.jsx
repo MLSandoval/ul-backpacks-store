@@ -23,12 +23,11 @@ class ProductList extends React.Component {
       )
     }else if(typeof this.props.products === 'object'){
       return (
-        
         this.props.products.map(element => {
           console.log('mapping this.props.products, element:, ', element)
           let imgURL = element.image_urls[0]
           return (
-            <Link className="col-lg-4 col-med-6 col-xs-12 p-2 remove-a-tag-style " 
+            <Link className="col-4 p-2 remove-a-tag-style " 
               key={element.product_uuid} 
               to={`/details/${element.product_uuid}`}
               data-uuid={element.product_uuid}
@@ -55,11 +54,8 @@ class ProductList extends React.Component {
     return (
       <div className="product-list-main container pt-4">
         <h1 className="">Products list</h1>
-       
           <div className="card-deck mb-2">
-          
             { this.generateProductList() }
-          
         </div>
       </div>
     )

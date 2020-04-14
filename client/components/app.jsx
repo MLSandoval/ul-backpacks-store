@@ -35,19 +35,15 @@ class App extends React.Component {
     return (
       <React.Fragment>
         <Header/>
-        <div className="app-main">
-          
+        <div className="app-main container-fluid">
           <Route exact path="/" component={Landing} />
           <Route exact path="/products" component={ProductList}/>
-          <Route exact path="/test" component={Test} />
-          <Route path="/cart" component={Cart}/>
           <Route exact path="/details/:productId" component={ProductDetails}/> 
-         
-          <Footer/> 
-          {/*
-          this route below is for quick work on the form portion of the checkout modal, must return this to normal when done 
-          <Route path="/" component={ModalShell}/> */}
+          <Route path="/cart" component={Cart}/>
+          
         </div>
+        <Footer/>
+         
       </React.Fragment>
     )
   }

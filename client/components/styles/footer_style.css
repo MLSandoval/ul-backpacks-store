@@ -1,3 +1,11 @@
-.landing-footer{
+/* .landing-footer{
     height: 10vh;
+} */
+
+.footer-pos{
+    /* position:relative;
+    bottom:0; */
+    height:2.5rem;
+    
+    /* margin-top:-2.5rem; */
 }

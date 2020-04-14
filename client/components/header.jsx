@@ -34,46 +34,8 @@ class Header extends React.Component {
   }
 
   render(){
-    //problem code for getting header cart count correct
-    // let itemCount = this.getCartItemCount()
-    // let itemCount = 0
     return (
-      
-       
-        //   <Navbar className="border w-100" sticky="top" bg="light" expand="sm">
-        //   <div className="row flex-direction-row col-12">
-        //     <Navbar.Brand className="" href="#home">
-        //       <Nav className="">
-                // <Nav.Link href="/home">
-                //   <Link className="btn" to="/">
-                //     <div className="row ">
-                //       <div className="logo col-3"></div>
-                //       <div className="h2 col-9 align-self-center">UltraLite</div>
-                //     </div>
-                //   </Link>
-                // </Nav.Link>
-        //       </Nav>
-        //     </Navbar.Brand>
-        //     <Navbar.Toggle aria-controls="basic-navbar-nav" />
-        //     <Navbar.Collapse wrap="false" className=" row justify-content-between" id="basic-navbar-nav">
-        //       <Nav className="col-lg-10 col-med-9">
-                  // <Link className="btn font-weight-bold" to="/our-story">Our Story</Link>
-                  // <Link className="btn font-weight-bold" to="/products">Products</Link>
-                  // <Link className="btn font-weight-bold" to="/video-review/:product_uuid">Video Reviews</Link>
-        //       </Nav>
-        //       <Nav className="col-lg-2 col-med-2">
-                // <Link className="btn font-weight-bold " to="/cart">
-                //   <div className="cart-logo-count-bg row">
-                //     <div className="cart-button"></div>
-                //     <div className="cart-count">:{ this.getCartItemCount() }</div>
-                //   </div>
-                // </Link>
-        //       </Nav>
-        //     </Navbar.Collapse>
-        //   </div>
-          
-        // </Navbar>
-        <Navbar bg="light" expand="lg">
+        <Navbar bg="light" sticky="top" expand="md" className="w-100 header-pos">
         <Navbar.Brand href="#home">
           <Nav.Link href="/home">
             <Link className="btn" to="/">
@@ -105,20 +67,11 @@ class Header extends React.Component {
               </div>
             </Link>
           </div>
-            
-          
         </Navbar.Collapse>
       </Navbar>
-      
-      
     )
   }
 }
-
-////???
-// Header.propTypes = {
-//   onViewChangeClick: PropTypes.func.isRequired
-// };
 
 function mapDispatchToProps (dispatch) {
   return {
@@ -138,23 +91,3 @@ function mapStateToProps(state) {
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Header);
-
-
- {/* <div className="container row position-fixed landing-header">
-          <div className="col-8 row">
-            <Link className="btn" to="/">
-              <div className="h4">UltraLite</div>
-              <div className="logo pr-3 pl-3"></div>
-            </Link>
-          </div>
-          <div className="col-4 row justify-content-end text-nowrap">
-            <Link className="btn font-weight-bold" to="/products">Products</Link>
-            
-            <Link className="btn font-weight-bold" to="/cart">
-              <div className="cart-logo-count-bg row">
-                <div className="cart-button"></div>
-                <div className="cart-count">:{ this.getCartItemCount() }</div>
-              </div>
-            </Link>
-          </div>
-        </div> */}

@@ -50,14 +50,14 @@ class ProductDetails extends React.Component {
 
           
           
-          <div className="col-6 col-sm-12 carousel-container">
+          <div className="col-sm-12 col-lg-6 carousel-container">
             <Carousel interval={null}>
               {
                 product.image_urls.map( (element, index) => {
                   return(
                     <Carousel.Item key={index}>
                     <img
-                      className="d-block w-100 h-100"
+                      className="d-block w-100 h-100 carousel-image"
                       src={'../' + element}
                       alt="First slide"
                     />
@@ -71,7 +71,7 @@ class ProductDetails extends React.Component {
               }
             </Carousel>
           </div>
-          <div className="col-4 col-sm-12 row flex-direction-column">
+          <div className="col-sm-12 col-lg-6 row flex-direction-column">
             <div >
               <h2 className="">{product.name}</h2>
               <h6>by {product.brand}</h6>
@@ -88,15 +88,15 @@ class ProductDetails extends React.Component {
                 </tr>
                 <tr>
                   <td>Weight</td>
-                  <td>34 oz</td>
+                  <td>{product.weight} Oz</td>
                 </tr>
                 <tr>
                   <td>Material</td>
-                  <td>Cuben Fber</td>
+                  <td>{product.material}</td>
                 </tr>
                 <tr>
                   <td>Size</td>
-                  <td>50l</td>
+                  <td>{product.size} l</td>
                 </tr>
 
                 <tr>

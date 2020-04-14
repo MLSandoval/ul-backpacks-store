@@ -1,8 +1,14 @@
 .app-main{
   /* background-color: lightslategray; */
+  /* height:calc(100vh - 2.5rem); */
+  /* height:100vh; */
+  
+  /* padding-top:3.5rem; */
   overflow-y: scroll;
   scrollbar-width: none; /* Firefox */
   -ms-overflow-style: none;  /* Internet Explorer 10+ */
+  /* padding-bottom: 2.5rem; */
+  /* padding-top:3.5rem; */
 }
 .app-main::-webkit-scrollbar{
   width: 0;
