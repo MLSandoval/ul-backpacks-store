@@ -60,18 +60,18 @@ class ProductList extends React.Component {
               // </div>
             
 
-            <Link className="col-4 p-2 remove-a-tag-style " 
+            <Link className="col-4 p-1 remove-a-tag-style d-flex" 
               key={element.product_uuid} 
               to={`/details/${element.product_uuid}`}
               data-uuid={element.product_uuid}
               onClick={ e =>{ this.props.setCurrentProduct(element) }}
             >
-              <Card>
+              <Card >
                 {/* <Card.Header className="bg-dark">{element.name}</Card.Header> */}
                 <Card.Img className="img-fluid" variant="top" src={imgURL} />
                 <Card.Body>
                   <Card.Title>{element.name}</Card.Title>
-                  <Card.Text>
+                  <Card.Text className="text-sm-left">
                     {element.short_description}
                   </Card.Text>
                 </Card.Body>
@@ -91,12 +91,11 @@ class ProductList extends React.Component {
 
   render(){
     return (
-      <div className="product-list-main container pt-4">
+      <div className="product-list-main container mt-3 mb-3">
         <h1 className="">Products list</h1>
-        <CardDeck className="mb-2">
-          { this.generateProductList() } 
-        </CardDeck>
-          
+          <CardDeck className="">
+            { this.generateProductList() } 
+          </CardDeck>
       </div>
     )
   }
