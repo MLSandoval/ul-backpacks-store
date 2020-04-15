@@ -35,7 +35,7 @@ class App extends React.Component {
     return (
       <React.Fragment>
         <Header/>
-        <div className="app-main container-fluid">
+        <div className="app-main">
           <Route exact path="/" component={Landing} />
           <Route exact path="/products" component={ProductList}/>
           <Route exact path="/details/:productId" component={ProductDetails}/> 

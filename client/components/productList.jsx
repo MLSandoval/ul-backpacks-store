@@ -6,6 +6,8 @@ import {Route, Link, withRouter} from 'react-router-dom'
 
 import {getProductList, setCurrentProduct} from '../actions'
 import types from '../actions/types'
+import Card from 'react-bootstrap/Card'
+import CardDeck from 'react-bootstrap/CardDeck'
 
 import "./styles/products_list_style.css"
 
@@ -27,23 +29,60 @@ class ProductList extends React.Component {
           console.log('mapping this.props.products, element:, ', element)
           let imgURL = element.image_urls[0]
           return (
+            // <Link className="col-4 p-2 remove-a-tag-style " 
+            //   key={element.product_uuid} 
+            //   to={`/details/${element.product_uuid}`}
+            //   data-uuid={element.product_uuid}
+            //   onClick={ e =>{ this.props.setCurrentProduct(element) }}
+            // >
+            //   <div className="card rounded-0 mb-2">
+            //     <div className="card-header bg-transparent border-success">{element.name}</div>
+            //     <img src={imgURL} alt="" className="card-img-top img-fluid preview-image align-self-center pt-4 pb-4" />
+            //     <div className="card-body pb-4">
+            //       <div className="card-text ">{element.short_description}</div>
+            //     </div>
+            //     <div className="card-footer">
+            //       <small className="text-muted">by {element.brand}</small>
+            //     </div>
+            //   </div>
+            // </Link>
+            
+              
+              // <div className="card rounded-0 mb-2">
+              //   <div className="card-header bg-transparent border-success">{element.name}</div>
+              //   <img src={imgURL} alt="" className="card-img-top img-fluid preview-image align-self-center pt-4 pb-4" />
+              //   <div className="card-body pb-4">
+              //     <div className="card-text ">{element.short_description}</div>
+              //   </div>
+              //   <div className="card-footer">
+              //     <small className="text-muted">by {element.brand}</small>
+              //   </div>
+              // </div>
+            
+
             <Link className="col-4 p-2 remove-a-tag-style " 
               key={element.product_uuid} 
               to={`/details/${element.product_uuid}`}
               data-uuid={element.product_uuid}
               onClick={ e =>{ this.props.setCurrentProduct(element) }}
             >
-              <div className="card rounded-0 mb-2">
-                <div className="card-header bg-transparent border-success">{element.name}</div>
-                <img src={imgURL} alt="" className="card-img-top img-fluid preview-image align-self-center pt-4 pb-4" />
-                <div className="card-body pb-4">
-                  <div className="card-text ">{element.short_description}</div>
-                </div>
-                <div className="card-footer">
+              <Card>
+                {/* <Card.Header className="bg-dark">{element.name}</Card.Header> */}
+                <Card.Img className="img-fluid" variant="top" src={imgURL} />
+                <Card.Body>
+                  <Card.Title>{element.name}</Card.Title>
+                  <Card.Text>
+                    {element.short_description}
+                  </Card.Text>
+                </Card.Body>
+                <Card.Footer>
                   <small className="text-muted">by {element.brand}</small>
-                </div>
-              </div>
+                </Card.Footer>
+              </Card>
             </Link>
+
+
+         
           )
         })
       )
@@ -54,9 +93,10 @@ class ProductList extends React.Component {
     return (
       <div className="product-list-main container pt-4">
         <h1 className="">Products list</h1>
-          <div className="card-deck mb-2">
-            { this.generateProductList() }
-        </div>
+        <CardDeck className="mb-2">
+          { this.generateProductList() } 
+        </CardDeck>
+          
       </div>
     )
   }
