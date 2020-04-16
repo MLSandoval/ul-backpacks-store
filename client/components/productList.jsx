@@ -1,49 +1,58 @@
 import React from 'react'
-
 import { connect } from "react-redux"
-
 import {Route, Link, withRouter} from 'react-router-dom'
+
+import * as Scroll from 'react-scroll'
+import { Link, Element , Events, animateScroll as scroll, scrollSpy, scroller } from 'react-scroll'
 
 import {getProductList, setCurrentProduct} from '../actions'
 import types from '../actions/types'
+import Card from 'react-bootstrap/Card'
+import CardDeck from 'react-bootstrap/CardDeck'
 
 import "./styles/products_list_style.css"
 
+import scrollData from './app.jsx'
+
 class ProductList extends React.Component {
 
-  componentDidMount () {
 
+  
+
+  componentDidMount() {
+  /
   }
 
   generateProductList () {
-   
     if (typeof this.props.products === 'string') {
       return (
       <h1>{this.props.products}</h1>
       )
     }else if(typeof this.props.products === 'object'){
       return (
-        
         this.props.products.map(element => {
-          console.log('mapping this.props.products, element:, ', element)
           let imgURL = element.image_urls[0]
           return (
-            <Link className="col-4 p-1 remove-a-tag-style" 
+            <Link 
+              className={`col-4 p-1 remove-a-tag-style d-flex restore-{${this.props.currentProduct.hasOwnPropery ? this.props.currentProduct.product_uuid : ''}}`}
               key={element.product_uuid} 
               to={`/details/${element.product_uuid}`}
               data-uuid={element.product_uuid}
               onClick={ e =>{ this.props.setCurrentProduct(element) }}
             >
-              <div className="card">
-                <div className="card-header bg-transparent border-success">{element.name}</div>
-                <img src={imgURL} alt="" className="card-img-top img-fluid preview-image align-self-center pt-1" />
-                <div className="card-body">
-                  <div className="card-text text-sm-center">{element.short_description}</div>
-                </div>
-                <div className="card-footer">
+              <Card >
+                {/* <Card.Header className="bg-dark">{element.name}</Card.Header> */}
+                <Card.Img className="img-fluid" variant="top" src={imgURL} />
+                <Card.Body>
+                  <Card.Title>{element.name}</Card.Title>
+                  <Card.Text className="text-sm-left">
+                    {element.short_description}
+                  </Card.Text>
+                </Card.Body>
+                <Card.Footer>
                   <small className="text-muted">by {element.brand}</small>
-                </div>
-              </div>
+                </Card.Footer>
+              </Card>
             </Link>
           )
         })
@@ -53,13 +62,11 @@ class ProductList extends React.Component {
 
   render(){
     return (
-      <div className="pt-4 product-list-main">
-        <h1 className="pt-4">Products list</h1>
-        <div className=" container">
-          <div className="card-deck">
-            { this.generateProductList() }
-          </div>
-        </div>
+      <div className="product-list-main container mt-3 mb-3 flex-grow-1">
+        <h1 className="">Products list</h1>
+          <CardDeck className="">
+            { this.generateProductList() } 
+          </CardDeck>
       </div>
     )
   }
@@ -96,7 +103,7 @@ function mapDispatchToProps (dispatch) {
 }
 
 function mapStateToProps(state){
-  console.log('PRODUCTLIST state: ', state);
+  // console.log('PRODUCTLIST state: ', state);
   return {
     products: state.products,
     currentProduct: state.currentProduct

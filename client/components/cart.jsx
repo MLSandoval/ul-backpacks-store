@@ -2,6 +2,9 @@ import React, {createRef} from 'react'
 import {connect} from 'react-redux'
 import {Link, useRouteMatch, Route} from 'react-router-dom'
 
+import * as Scroll from 'react-scroll';
+import { Link, Element , Events, animateScroll as scroll, scrollSpy, scroller } from 'react-scroll'
+
 import Table from 'react-bootstrap/Table'
 import './styles/cart_style.css'
 
@@ -140,7 +143,7 @@ class Cart extends React.Component {
 
   componentDidMount(){
     this.props.computeCartTotal(this.props.cart)
-    console.log('Cart component props: ', this.props)
+    // console.log('Cart component props: ', this.props)
   }
   componentDidUpdate(){
     this.props.computeCartTotal(this.props.cart)
@@ -148,9 +151,9 @@ class Cart extends React.Component {
 
   render () {
     return (
-      <div className="pt-4 container" ref={this.CartRef}>
+      <div className="container flex-grow-1" ref={this.CartRef}>
         <div className="row">
-          <h1 className="pt-4">THIS IS THE CART VIEW</h1>
+          <h1 className="">THIS IS THE CART VIEW</h1>
           {this.generateCartList()} 
         </div>
       </div>
@@ -170,7 +173,7 @@ function mapDispatchToProps(dispatch){
 }
 
 function mapStateToProps(state){
-  console.log('CART state: ', state)
+  // console.log('CART state: ', state)
   return {
     products: state.products,
     cart: state.cart,

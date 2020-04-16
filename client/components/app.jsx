@@ -3,10 +3,11 @@
 /* eslint-enable */
 
 import React from 'react'
-
 import {connect} from 'react-redux'
-
 import { Switch, Route, Link } from "react-router-dom"
+
+import * as Scroll from 'react-scroll';
+import { Link, Element , Events, animateScroll as scroll, scrollSpy, scroller } from 'react-scroll'
 
 import {getProductList, setCurrentProduct} from '../actions'
 
@@ -22,7 +23,7 @@ import Test from './test'
 import ProductDetails from './productDetails'
 import ThankYou from './thank_you'
 
-
+export let scrollData={}
 
 class App extends React.Component {
   componentDidMount () {
@@ -33,19 +34,24 @@ class App extends React.Component {
   render() {
     const {to, staticContext, ...rest} = this.props
     return (
-        <div className="app-main">
+      <React.Fragment>
+        
+        <div className="app-main d-flex flex-column"
+        //  d-flex flex-direction-column"
+        >
           <Header/>
-          <Route exact path="/" component={Landing} />
-          <Route exact path="/products" component={ProductList}/>
-          <Route exact path="/test" component={Test} />
-          <Route path="/cart" component={Cart}/>
-          <Route exact path="/details/:productId" component={ProductDetails}/> 
-         
-          <Footer/> 
-          {/*
-          this route below is for quick work on the form portion of the checkout modal, must return this to normal when done 
-          <Route path="/" component={ModalShell}/> */}
+          <div className="main-content">
+            <Route exact path="/" component={Landing} />
+            <Route exact path="/products" component={ProductList}/>
+            <Route exact path="/details/:productId" component={ProductDetails}/> 
+            <Route path="/cart" component={Cart}/>
+          </div>
+          <Footer/>
         </div>
+        
+        
+         
+      </React.Fragment>
     )
   }
 }

@@ -1,10 +1,14 @@
 import React from 'react'
-
 import { connect } from 'react-redux'
 import {Link} from 'react-router-dom'
+
 import "./styles/header_style.css"
 
-import Landing from './landing.jsx'
+import Navbar from 'react-bootstrap/Navbar'
+import Nav from 'react-bootstrap/Nav'
+import NavDropdown from 'react-bootstrap/NavDropdown'
+import Form from 'react-bootstrap/Form'
+import Button from 'react-bootstrap/Button'
 
 // import { Switch, Route, Link } from "react-router-dom";
 
@@ -30,38 +34,32 @@ class Header extends React.Component {
   }
 
   render(){
-    //problem code for getting header cart count correct
-    // let itemCount = this.getCartItemCount()
-    // let itemCount = 0
     return (
-      <div className="position-fixed landing-header container-fluid">
-        <div className="row ">
-          <div className="col-8 row">
-            <Link className="btn" to="/">
-              <div className="h4">UltraLite</div>
-              <div className="logo pr-3 pl-3"></div>
-            </Link>
-          </div>
-          <div className="col-4 row justify-content-end text-nowrap">
-            <Link className="btn font-weight-bold" to="/products">Products</Link>
-            {/* <Link className="btn font-weight-bold" to="/test">Test</Link> */}
-            <Link className="btn font-weight-bold" to="/cart">
-              <div className="cart-logo-count-bg row">
-                <div className="cart-button"></div>
-                <div className="cart-count">:{ this.getCartItemCount() }</div>
-              </div>
-            </Link>
-          </div>
-        </div>
-      </div>
+        <Navbar bg="light" sticky="top" expand="md" className=" header-size">
+          <Link className="btn navbar-brand" to="/">
+            <div className="row ">
+              <div className="logo col-3"></div>
+              <div className="h2 col-9 align-self-center">UltraLite</div>
+            </div>
+          </Link>
+        <Navbar.Toggle aria-controls="basic-navbar-nav" />
+        <Navbar.Collapse id="basic-navbar-nav">
+          <Nav className="mr-auto">
+            <Link className="btn font-weight-bold nav-link" to="/our-story">Our Story</Link>  
+            <Link className="btn font-weight-bold nav-link" to="/products">Products</Link>
+            <Link className="btn font-weight-bold nav-link" to="/video-review/:product_uuid">Video Reviews</Link>
+          </Nav>
+          <Link className="btn font-weight-bold nav-link" to="/cart">
+            <div className="cart-logo-count-bg row">
+              <div className="cart-button"></div>
+              <div className="cart-count">:{ this.getCartItemCount() }</div>
+            </div>
+          </Link>
+        </Navbar.Collapse>
+      </Navbar>
     )
   }
 }
-
-////???
-// Header.propTypes = {
-//   onViewChangeClick: PropTypes.func.isRequired
-// };
 
 function mapDispatchToProps (dispatch) {
   return {
@@ -72,7 +70,7 @@ function mapDispatchToProps (dispatch) {
 }
 
 function mapStateToProps(state) {
-  console.log('HEADER state: ', state)
+  // console.log('HEADER state: ', state)
   return {
     //this becomes a property inside of the props of this component
     view: state.view,

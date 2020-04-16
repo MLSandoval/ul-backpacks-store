@@ -2,12 +2,15 @@
     z-index: 3;
     background-color: rgba(116, 112, 112);
 }
-a{
-    display: flex !important
+
+.header-size{
+    height: 3.5rem;
+    /* margin-bottom:-3.5rem; */
+    
 }
 .logo{
-    height: 32px;
-    width: 32px;
+    height: 45px;
+    width: 45px;
     background-size: contain;
     background-repeat: no-repeat;
     background-image: url("../../images/logos_icons/grey_backpacker_logo.png");

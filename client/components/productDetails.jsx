@@ -1,7 +1,8 @@
 import React from 'react'
 import { connect } from 'react-redux'
 
-import {withRouter} from 'react-router-dom'
+import * as Scroll from 'react-scroll'
+import { Link, Element , Events, animateScroll as scroll, scrollSpy, scroller } from 'react-scroll'
 
 import Carousel from 'react-bootstrap/Carousel'
 import Tabs from 'react-bootstrap/Tabs'
@@ -10,7 +11,7 @@ import Table from 'react-bootstrap/Table'
 
 import './styles/product_details_style.css'
 
-import { addItemToCart, sortCartQuantities, computeCartTotal } from '../actions'
+import { addItemToCart, sortCartQuantities } from '../actions'
 
 class ProductDetails extends React.Component {
   constructor(props){
@@ -35,6 +36,7 @@ class ProductDetails extends React.Component {
 
   
   componentDidMount(){
+    window.scrollTo(0, 0)
     console.log('Product Details Comp this.props: ', this.props)
   }
   
@@ -45,24 +47,24 @@ class ProductDetails extends React.Component {
     console.log('product details render, this.props.currentProduct', this.props.currentProduct)
     console.log('product details render, product: ', product)
     return (
-      <div className="product-details container pt-4">
+      <div className="product-details container pb-5 flex-grow-1">
         <div className="pt-4 row h-100 justify-content-between overflow-auto">
 
           
           
-          <div className="col-6 carousel-container">
-            <Carousel interval={5000}>
+          <div className="col-sm-12 col-lg-6 carousel-container">
+            <Carousel interval={null}>
               {
                 product.image_urls.map( (element, index) => {
                   return(
                     <Carousel.Item key={index}>
                     <img
-                      className="d-block w-100"
+                      className="d-block w-100 h-100 carousel-image"
                       src={'../' + element}
                       alt="First slide"
                     />
                     <Carousel.Caption>
-                      <h3>{index + 1}</h3>
+                      
                       <p></p>
                     </Carousel.Caption>
                   </Carousel.Item>
@@ -71,12 +73,13 @@ class ProductDetails extends React.Component {
               }
             </Carousel>
           </div>
-          <div className="col-4 row align-items-center">
+          <div className="col-sm-12 col-lg-6 row flex-direction-column">
             <div >
               <h2 className="">{product.name}</h2>
               <h6>by {product.brand}</h6>
+              <div className="align-self-center">{product.short_description}</div>
             </div>
-            <div className="align-self-center">{product.short_description}</div>
+            
             <Table className="flat no-border" striped bordered hover>
               <thead>
               </thead>
@@ -87,23 +90,20 @@ class ProductDetails extends React.Component {
                 </tr>
                 <tr>
                   <td>Weight</td>
-                  <td>34 oz</td>
+                  <td>{parseInt(product.weight_ounces).toFixed(1)} Oz</td>
                 </tr>
                 <tr>
                   <td>Material</td>
-                  <td>Cuben Fber</td>
+                  <td>{product.material}</td>
                 </tr>
                 <tr>
                   <td>Size</td>
-                  <td>50l</td>
+                  <td>{parseInt(product.size_liters).toFixed(0)}L</td>
                 </tr>
-
                 <tr>
-                  
-                  <td clasName="row flex-start-end" colSpan="2">
+                  <td className="" colSpan="2">
                     <button className="btn btn-secondary col-12" onClick={ ()=>{ this.props.addItemToCart(product)} }>Add To Cart</button>
                   </td>
-                  
                 </tr>
                 
               </tbody>
@@ -121,16 +121,16 @@ class ProductDetails extends React.Component {
             
           </div>
         </div>
-        <h5 className="display-5 mt-3">Features</h5>
+        
         <div>
           
         </div>
 
-        <Tabs className="row " defaultActiveKey="description" id="uncontrolled-tab-example">
+        <Tabs className="row pt-2 pb-4" defaultActiveKey="description" id="uncontrolled-tab-example">
           <Tab className='pt-1' eventKey="description" title="Description">
             {product.long_description}
           </Tab>
-          <Tab className='row two-columns pt-1'  eventKey="features" title="Features">
+          <Tab className='row two-columns'  eventKey="features" title="Features">
             <ul>{ this.renderProductFeatures() }</ul>
           </Tab>
         </Tabs>
@@ -149,7 +149,7 @@ function mapDispatchToProps(dispatch) {
 }
 
 function mapStateToProps(state) {
-  console.log('PRODUCTDETAILS state: ', state);
+  // console.log('PRODUCTDETAILS state: ', state);
   return {
     products: state.products,
     currentProduct: state.currentProduct,

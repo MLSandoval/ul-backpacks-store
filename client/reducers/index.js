@@ -9,6 +9,7 @@ import sorted_cart_reducer from './sorted_cart_reducer.js'
 import computed_cart_total from './compute_total_reducer.js'
 import  checkout_form_submitted_reducer from './checkout_form_submitted_reducer.js'
 
+
 const rootReducer = combineReducers({
   setView: set_view_reducer,
   test: test_reducer,
