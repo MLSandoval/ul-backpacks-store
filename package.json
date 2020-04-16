@@ -24,6 +24,7 @@
   "homepage": "https://github.com/MLSandoval/ul-backpacks-store#readme",
   "dependencies": {
     "bootstrap": "^4.4.1",
+    "connected-react-router": "^6.8.0",
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",

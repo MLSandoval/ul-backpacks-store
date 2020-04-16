@@ -89,7 +89,7 @@ class ProductDetails extends React.Component {
                 </tr>
                 <tr>
                   <td>Weight</td>
-                  <td>{product.weight_oz} Oz</td>
+                  <td>{parseInt(product.weight_ounces).toFixed(1)} Oz</td>
                 </tr>
                 <tr>
                   <td>Material</td>
@@ -97,15 +97,12 @@ class ProductDetails extends React.Component {
                 </tr>
                 <tr>
                   <td>Size</td>
-                  <td>{product.size} l</td>
+                  <td>{parseInt(product.size_liters).toFixed(0)}L</td>
                 </tr>
-
                 <tr>
-                  
-                  <td clasName="row flex-start-end" colSpan="2">
+                  <td className="" colSpan="2">
                     <button className="btn btn-secondary col-12" onClick={ ()=>{ this.props.addItemToCart(product)} }>Add To Cart</button>
                   </td>
-                  
                 </tr>
                 
               </tbody>
@@ -128,11 +125,11 @@ class ProductDetails extends React.Component {
           
         </div>
 
-        <Tabs className="row pb-7" defaultActiveKey="description" id="uncontrolled-tab-example">
-          <Tab className='pt-1 pb-7' eventKey="description" title="Description">
+        <Tabs className="row pt-2 pb-4" defaultActiveKey="description" id="uncontrolled-tab-example">
+          <Tab className='pt-1' eventKey="description" title="Description">
             {product.long_description}
           </Tab>
-          <Tab className='row two-columns pt-1 pb-7'  eventKey="features" title="Features">
+          <Tab className='row two-columns'  eventKey="features" title="Features">
             <ul>{ this.renderProductFeatures() }</ul>
           </Tab>
         </Tabs>
@@ -151,7 +148,7 @@ function mapDispatchToProps(dispatch) {
 }
 
 function mapStateToProps(state) {
-  console.log('PRODUCTDETAILS state: ', state);
+  // console.log('PRODUCTDETAILS state: ', state);
   return {
     products: state.products,
     currentProduct: state.currentProduct,

@@ -34,7 +34,7 @@ export function getProductList () {
     })
       .then(res => res.json())
       .then(data => {
-        console.log('product fetch action, data: ', data)
+        // console.log('product fetch action, data: ', data)
         dispatch({
           type: types.PRODUCT_LIST_REQUESTED,
           isFetching: true,

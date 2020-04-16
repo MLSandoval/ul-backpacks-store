@@ -35,38 +35,26 @@ class Header extends React.Component {
 
   render(){
     return (
-        <Navbar bg="light" sticky="top" expand="md" className="w-100 header-pos">
-        <Navbar.Brand href="#home">
-          <Nav.Link href="/home">
-            <Link className="btn" to="/">
-              <div className="row ">
-                <div className="logo col-3"></div>
-                <div className="h2 col-9 align-self-center">UltraLite</div>
-              </div>
-            </Link>
-          </Nav.Link>
-        </Navbar.Brand>
+        <Navbar bg="light" sticky="top" expand="md" className=" header-size">
+          <Link className="btn navbar-brand" to="/">
+            <div className="row ">
+              <div className="logo col-3"></div>
+              <div className="h2 col-9 align-self-center">UltraLite</div>
+            </div>
+          </Link>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="mr-auto">
-            <Nav.Link href="/">
-            <Link className="btn font-weight-bold" to="/our-story">Our Story</Link>  
-            </Nav.Link>
-            <Nav.Link href="products">
-              <Link className="btn font-weight-bold" to="/products">Products</Link>
-            </Nav.Link>
-            <Nav.Link href="video-reviews">
-              <Link className="btn font-weight-bold" to="/video-review/:product_uuid">Video Reviews</Link>
-            </Nav.Link>
+            <Link className="btn font-weight-bold nav-link" to="/our-story">Our Story</Link>  
+            <Link className="btn font-weight-bold nav-link" to="/products">Products</Link>
+            <Link className="btn font-weight-bold nav-link" to="/video-review/:product_uuid">Video Reviews</Link>
           </Nav>
-          <div className="nav-link">
-            <Link className="btn font-weight-bold" to="/cart">
-              <div className="cart-logo-count-bg row">
-                <div className="cart-button"></div>
-                <div className="cart-count">:{ this.getCartItemCount() }</div>
-              </div>
-            </Link>
-          </div>
+          <Link className="btn font-weight-bold nav-link" to="/cart">
+            <div className="cart-logo-count-bg row">
+              <div className="cart-button"></div>
+              <div className="cart-count">:{ this.getCartItemCount() }</div>
+            </div>
+          </Link>
         </Navbar.Collapse>
       </Navbar>
     )
@@ -82,7 +70,7 @@ function mapDispatchToProps (dispatch) {
 }
 
 function mapStateToProps(state) {
-  console.log('HEADER state: ', state)
+  // console.log('HEADER state: ', state)
   return {
     //this becomes a property inside of the props of this component
     view: state.view,

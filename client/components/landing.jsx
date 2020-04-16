@@ -9,6 +9,7 @@ import { Switch, Route, Link } from "react-router-dom"
 class Landing extends React.Component {
   
   render(){
+    // console.log('LANDIng props: ', this.props)
     return (
       
         <div className="container-fluid flex-grow-1">
@@ -65,7 +66,7 @@ class Landing extends React.Component {
 
 
 function mapStateToProps(state) {
-  // console.log('Redux state in Clock Component: ', state);
+  // console.log('LANDING state: ', state);
   return {
     //this becomes a property inside of the props of this component
     view: state.view,

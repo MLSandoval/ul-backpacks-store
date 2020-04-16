@@ -140,7 +140,7 @@ class Cart extends React.Component {
 
   componentDidMount(){
     this.props.computeCartTotal(this.props.cart)
-    console.log('Cart component props: ', this.props)
+    // console.log('Cart component props: ', this.props)
   }
   componentDidUpdate(){
     this.props.computeCartTotal(this.props.cart)
@@ -170,7 +170,7 @@ function mapDispatchToProps(dispatch){
 }
 
 function mapStateToProps(state){
-  console.log('CART state: ', state)
+  // console.log('CART state: ', state)
   return {
     products: state.products,
     cart: state.cart,

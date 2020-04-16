@@ -22,7 +22,7 @@ import Test from './test'
 import ProductDetails from './productDetails'
 import ThankYou from './thank_you'
 
-
+export let scrollData={}
 
 class App extends React.Component {
   componentDidMount () {
@@ -45,7 +45,7 @@ class App extends React.Component {
             <Route exact path="/details/:productId" component={ProductDetails}/> 
             <Route path="/cart" component={Cart}/>
           </div>
-          <Footer className="flex-shrink-0"/>
+          <Footer/>
         </div>
         
         

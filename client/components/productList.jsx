@@ -11,14 +11,76 @@ import CardDeck from 'react-bootstrap/CardDeck'
 
 import "./styles/products_list_style.css"
 
+import scrollData from './app.jsx'
+
 class ProductList extends React.Component {
+
+  // getSnapshotBeforeUpdate(prevProps) {
+  //   console.log(' XX get snapshot prevProps: ', prevProps)
+  //   const {
+  //     history: { action },
+  //     location: { pathname }
+  //   } = prevProps;
+  //   console.log(' ProductList getSnapShot action: ', action)
+  //   console.log(' ProductList getSnapShot pathname: ', pathname)
+
+  //   if (action !== "POP") {
+  //     scrollData = { ...scrollData, [pathname]: window.pageYOffset };
+  //   }
+
+  //   return null;
+  // }
+
+  // componentDidUpdate() {
+  //   // window.scrollTo(0, 0)
+  //   console.log(' XX componentDidUpdate productList this.props: ', this.props)
+    
+  //   const {
+  //     history: { action },
+  //     location: { pathname }
+  //   } = this.props;
+
+  //   if (action === "POP") {
+  //     if (scrollData[pathname]) {
+  //       setTimeout(() =>
+  //         window.scrollTo({
+  //           left: 0,
+  //           top: scrollData[pathname],
+  //           behavior: "smooth"
+  //         })
+  //       );
+  //     } else {
+  //       setTimeout(window.scrollTo({ left: 0, top: 0 }));
+  //     }
+  //   } else {
+  //     setTimeout(window.scrollTo({ left: 0, top: 0 }));
+  //   }
+  // }
 
   componentDidMount() {
     window.scrollTo(0, 0)
+    console.log('this.props on productList mount: ', this.props)
+    console.log(' XX componentDidUpdate productList scrollData: ', scrollData)
+    // setTimeout(400, console.log('query selector test on mount: ', document.querySelector(`img-fluid`)))
+    // console.log('query selector for move scroll to: ', document.querySelector(`.restore-${this.props.currentProduct.product_uuid}`))
+    
+    // if(!this.props.currentProduct.product_uuid){
+    //   window.scrollTo(0, 0)
+    // }else if(true){
+    //   console.log('inside if else')
+    // }
   }
 
+  // componentDidMount() {
+  //   const item = document.querySelector(
+  //     ".restore-" + this.props.location.state
+  //   );
+  //   if (item) {
+  //     item.scrollIntoView();
+  //   }
+  // }
+
   generateProductList () {
-   
     if (typeof this.props.products === 'string') {
       return (
       <h1>{this.props.products}</h1>
@@ -26,41 +88,10 @@ class ProductList extends React.Component {
     }else if(typeof this.props.products === 'object'){
       return (
         this.props.products.map(element => {
-          console.log('mapping this.props.products, element:, ', element)
           let imgURL = element.image_urls[0]
           return (
-            // <Link className="col-4 p-2 remove-a-tag-style " 
-            //   key={element.product_uuid} 
-            //   to={`/details/${element.product_uuid}`}
-            //   data-uuid={element.product_uuid}
-            //   onClick={ e =>{ this.props.setCurrentProduct(element) }}
-            // >
-            //   <div className="card rounded-0 mb-2">
-            //     <div className="card-header bg-transparent border-success">{element.name}</div>
-            //     <img src={imgURL} alt="" className="card-img-top img-fluid preview-image align-self-center pt-4 pb-4" />
-            //     <div className="card-body pb-4">
-            //       <div className="card-text ">{element.short_description}</div>
-            //     </div>
-            //     <div className="card-footer">
-            //       <small className="text-muted">by {element.brand}</small>
-            //     </div>
-            //   </div>
-            // </Link>
-            
-              
-              // <div className="card rounded-0 mb-2">
-              //   <div className="card-header bg-transparent border-success">{element.name}</div>
-              //   <img src={imgURL} alt="" className="card-img-top img-fluid preview-image align-self-center pt-4 pb-4" />
-              //   <div className="card-body pb-4">
-              //     <div className="card-text ">{element.short_description}</div>
-              //   </div>
-              //   <div className="card-footer">
-              //     <small className="text-muted">by {element.brand}</small>
-              //   </div>
-              // </div>
-            
-
-            <Link className="col-4 p-1 remove-a-tag-style d-flex" 
+            <Link 
+              className={`col-4 p-1 remove-a-tag-style d-flex restore-{${this.props.currentProduct.hasOwnPropery ? this.props.currentProduct.product_uuid : ''}}`}
               key={element.product_uuid} 
               to={`/details/${element.product_uuid}`}
               data-uuid={element.product_uuid}
@@ -80,9 +111,6 @@ class ProductList extends React.Component {
                 </Card.Footer>
               </Card>
             </Link>
-
-
-         
           )
         })
       )
@@ -132,7 +160,7 @@ function mapDispatchToProps (dispatch) {
 }
 
 function mapStateToProps(state){
-  console.log('PRODUCTLIST state: ', state);
+  // console.log('PRODUCTLIST state: ', state);
   return {
     products: state.products,
     currentProduct: state.currentProduct
