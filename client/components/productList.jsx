@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from "react-redux"
-import {Route, Link, withRouter} from 'react-router-dom'
+import {Route, Link as LinkRouter, withRouter} from 'react-router-dom'
 
 import * as Scroll from 'react-scroll'
 import { Link, Element , Events, animateScroll as scroll, scrollSpy, scroller } from 'react-scroll'
@@ -20,7 +20,7 @@ class ProductList extends React.Component {
   
 
   componentDidMount() {
-  /
+  
   }
 
   generateProductList () {
@@ -33,7 +33,7 @@ class ProductList extends React.Component {
         this.props.products.map(element => {
           let imgURL = element.image_urls[0]
           return (
-            <Link 
+            <LinkRouter
               className={`col-4 p-1 remove-a-tag-style d-flex restore-{${this.props.currentProduct.hasOwnPropery ? this.props.currentProduct.product_uuid : ''}}`}
               key={element.product_uuid} 
               to={`/details/${element.product_uuid}`}
@@ -53,7 +53,7 @@ class ProductList extends React.Component {
                   <small className="text-muted">by {element.brand}</small>
                 </Card.Footer>
               </Card>
-            </Link>
+            </LinkRouter>
           )
         })
       )

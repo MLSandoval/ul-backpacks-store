@@ -4,7 +4,7 @@
 
 import React from 'react'
 import {connect} from 'react-redux'
-import { Switch, Route, Link } from "react-router-dom"
+import { Switch, Route} from "react-router-dom"
 
 import * as Scroll from 'react-scroll';
 import { Link, Element , Events, animateScroll as scroll, scrollSpy, scroller } from 'react-scroll'
@@ -23,9 +23,45 @@ import Test from './test'
 import ProductDetails from './productDetails'
 import ThankYou from './thank_you'
 
+import ScrollerProto from './reactScrollerProto.jsx'
+
 export let scrollData={}
 
 class App extends React.Component {
+
+
+
+  scrollToTop() {
+    scroll.scrollToTop();
+  }
+  scrollToBottom() {
+    scroll.scrollToBottom();
+  }
+  scrollTo() {
+    scroll.scrollTo(100);
+  }
+  scrollMore() {
+    scroll.scrollMore(100);
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   componentDidMount () {
     this.props.getProductList()
     
@@ -36,7 +72,7 @@ class App extends React.Component {
     return (
       <React.Fragment>
         
-        <div className="app-main d-flex flex-column"
+        {/* <div className="app-main d-flex flex-column"
         //  d-flex flex-direction-column"
         >
           <Header/>
@@ -47,7 +83,9 @@ class App extends React.Component {
             <Route path="/cart" component={Cart}/>
           </div>
           <Footer/>
-        </div>
+          
+        </div> */}
+        <ScrollerProto/>
         
         
          
@@ -65,40 +103,3 @@ function mapStateToProps(state){
 }
 
 export default connect(mapStateToProps, {getProductList, setCurrentProduct})(App)
-
-
-// export default function App() {
-//   return (
-//     <Router>
-//       <div>
-//         <nav>
-//           <ul>
-//             <li>
-//               <Link to="/">Home</Link>
-//             </li>
-//             <li>
-//               <Link to="/about">About</Link>
-//             </li>
-//             <li>
-//               <Link to="/users">Users</Link>
-//             </li>
-//           </ul>
-//         </nav>
-
-//         {/* A <Switch> looks through its children <Route>s and
-//             renders the first one that matches the current URL. */}
-//         <Switch>
-//           <Route path="/about">
-//             <About />
-//           </Route>
-//           <Route path="/users">
-//             <Users />
-//           </Route>
-//           <Route path="/">
-//             <Home />
-//           </Route>
-//         </Switch>
-//       </div>
-//     </Router>
-//   );
-// }

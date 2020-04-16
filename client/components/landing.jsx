@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { Switch, Route, Link } from 'react-router-dom'
+import { Switch, Route, Link as LinkRouter } from 'react-router-dom'
 
 import * as Scroll from 'react-scroll'
 import { Link, Element , Events, animateScroll as scroll, scrollSpy, scroller } from 'react-scroll'

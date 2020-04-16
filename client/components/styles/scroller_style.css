@@ -1,0 +1,33 @@
+.scroller-container{
+  height:100vh;
+  display:flex;
+  background-color: aqua;
+  overflow-y: scroll;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none;  /* Internet Explorer 10+ */
+  flex-direction:column;
+}
+.header{
+  flex: 0 1 auto;
+  background-color: red;
+  height: 3.5rem;
+}
+.body-content{
+  flex: 1 0 auto;
+  background-color: purple;
+}
+.take-space{
+  height: 10vh;
+  margin: 10px;
+  background-color: yellow;
+  align-content: center;
+  text-align: center;
+}
+.centered-p{
+
+}
+.footer{
+  flex: 0 1 auto;
+  background-color: grey;
+  height: 2.5rem;
+}
