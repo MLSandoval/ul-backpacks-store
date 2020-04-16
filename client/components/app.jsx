@@ -3,10 +3,11 @@
 /* eslint-enable */
 
 import React from 'react'
-
 import {connect} from 'react-redux'
-
 import { Switch, Route, Link } from "react-router-dom"
+
+import * as Scroll from 'react-scroll';
+import { Link, Element , Events, animateScroll as scroll, scrollSpy, scroller } from 'react-scroll'
 
 import {getProductList, setCurrentProduct} from '../actions'
 

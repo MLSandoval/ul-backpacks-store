@@ -1,7 +1,8 @@
 import React from 'react'
 import { connect } from 'react-redux'
 
-import {withRouter} from 'react-router-dom'
+import * as Scroll from 'react-scroll'
+import { Link, Element , Events, animateScroll as scroll, scrollSpy, scroller } from 'react-scroll'
 
 import Carousel from 'react-bootstrap/Carousel'
 import Tabs from 'react-bootstrap/Tabs'
@@ -10,7 +11,7 @@ import Table from 'react-bootstrap/Table'
 
 import './styles/product_details_style.css'
 
-import { addItemToCart, sortCartQuantities, computeCartTotal } from '../actions'
+import { addItemToCart, sortCartQuantities } from '../actions'
 
 class ProductDetails extends React.Component {
   constructor(props){

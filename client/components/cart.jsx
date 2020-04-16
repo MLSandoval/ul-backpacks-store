@@ -2,6 +2,9 @@ import React, {createRef} from 'react'
 import {connect} from 'react-redux'
 import {Link, useRouteMatch, Route} from 'react-router-dom'
 
+import * as Scroll from 'react-scroll';
+import { Link, Element , Events, animateScroll as scroll, scrollSpy, scroller } from 'react-scroll'
+
 import Table from 'react-bootstrap/Table'
 import './styles/cart_style.css'
 

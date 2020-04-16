@@ -2,6 +2,9 @@ import React, {createRef, useState, useEffect, useLayoutEffect} from 'react'
 import {connect} from 'react-redux'
 import {Link, Route} from 'react-router-dom'
 
+import * as Scroll from 'react-scroll';
+import { Link, Element , Events, animateScroll as scroll, scrollSpy, scroller } from 'react-scroll'
+
 import Modal from 'react-bootstrap/Modal'
 import Button from 'react-bootstrap/Button'
 import Form from 'react-bootstrap/Form'
