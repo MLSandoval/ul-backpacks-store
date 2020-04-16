@@ -35,6 +35,7 @@ class ProductDetails extends React.Component {
 
   
   componentDidMount(){
+    window.scrollTo(0, 0)
     console.log('Product Details Comp this.props: ', this.props)
   }
   
@@ -45,7 +46,7 @@ class ProductDetails extends React.Component {
     console.log('product details render, this.props.currentProduct', this.props.currentProduct)
     console.log('product details render, product: ', product)
     return (
-      <div className="product-details container pb-5">
+      <div className="product-details container pb-5 flex-grow-1">
         <div className="pt-4 row h-100 justify-content-between overflow-auto">
 
           
@@ -88,7 +89,7 @@ class ProductDetails extends React.Component {
                 </tr>
                 <tr>
                   <td>Weight</td>
-                  <td>{product.weight} Oz</td>
+                  <td>{product.weight_oz} Oz</td>
                 </tr>
                 <tr>
                   <td>Material</td>

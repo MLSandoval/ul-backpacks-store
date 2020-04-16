@@ -11,7 +11,7 @@ class Landing extends React.Component {
   render(){
     return (
       
-        <div className="container-fluid">
+        <div className="container-fluid flex-grow-1">
           <div className="row">
           
             <div className="bg bg-1 col-12">BG-1</div>
@@ -50,7 +50,7 @@ class Landing extends React.Component {
               eleifend quam adipiscing vitae proin sagittis nisl. Habitasse
               platea dictumst vestibulum rhoncus est pellentesque elit
               ullamcorper. Ultrices neque ornare aenean euismod elementum nisi.
-            </div>
+          </div>
             <div className="bg bg-3 col-12 push-over">BG-3</div>
         </div>
         </div>

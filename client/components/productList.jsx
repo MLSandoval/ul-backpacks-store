@@ -13,8 +13,8 @@ import "./styles/products_list_style.css"
 
 class ProductList extends React.Component {
 
-  componentDidMount () {
-
+  componentDidMount() {
+    window.scrollTo(0, 0)
   }
 
   generateProductList () {
@@ -91,7 +91,7 @@ class ProductList extends React.Component {
 
   render(){
     return (
-      <div className="product-list-main container mt-3 mb-3">
+      <div className="product-list-main container mt-3 mb-3 flex-grow-1">
         <h1 className="">Products list</h1>
           <CardDeck className="">
             { this.generateProductList() } 

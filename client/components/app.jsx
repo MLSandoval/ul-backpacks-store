@@ -34,15 +34,21 @@ class App extends React.Component {
     const {to, staticContext, ...rest} = this.props
     return (
       <React.Fragment>
-        <Header/>
-        <div className="app-main">
-          <Route exact path="/" component={Landing} />
-          <Route exact path="/products" component={ProductList}/>
-          <Route exact path="/details/:productId" component={ProductDetails}/> 
-          <Route path="/cart" component={Cart}/>
-          
+        
+        <div className="app-main d-flex flex-column"
+        //  d-flex flex-direction-column"
+        >
+          <Header/>
+          <div className="main-content">
+            <Route exact path="/" component={Landing} />
+            <Route exact path="/products" component={ProductList}/>
+            <Route exact path="/details/:productId" component={ProductDetails}/> 
+            <Route path="/cart" component={Cart}/>
+          </div>
+          <Footer className="flex-shrink-0"/>
         </div>
-        <Footer/>
+        
+        
          
       </React.Fragment>
     )
