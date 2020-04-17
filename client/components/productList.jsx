@@ -15,25 +15,37 @@ import "./styles/products_list_style.css"
 import scrollData from './app.jsx'
 
 class ProductList extends React.Component {
-
-
-  
-
-  componentDidMount() {
-  
+  constructor(props){
+    super(props)
+    this.levityRef = React.createRef();
   }
 
+
+  componentDidMount() {
+    this.levityRef.getBoundingClientRect()
+    console.log('')
+  }
+
+
+ 
   generateProductList () {
     if (typeof this.props.products === 'string') {
       return (
       <h1>{this.props.products}</h1>
       )
     }else if(typeof this.props.products === 'object'){
+      const attributeSwitch = {
+        ref: this.levityRef
+      }
       return (
         this.props.products.map(element => {
+          if( element.product_uuid !== "4e874c44-a4d2-4dd7-b896-8486e67c4845"){
+            attributeSwitch.ref = null
+          }
           let imgURL = element.image_urls[0]
           return (
             <LinkRouter
+              {...attributeSwitch}
               className={`col-4 p-1 remove-a-tag-style d-flex restore-{${this.props.currentProduct.hasOwnPropery ? this.props.currentProduct.product_uuid : ''}}`}
               key={element.product_uuid} 
               to={`/details/${element.product_uuid}`}

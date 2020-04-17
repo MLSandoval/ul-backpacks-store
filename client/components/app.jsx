@@ -24,43 +24,11 @@ import ProductDetails from './productDetails'
 import ThankYou from './thank_you'
 
 import ScrollerProto from './reactScrollerProto.jsx'
+import Section from './EXAMPLE.jsx'
 
 export let scrollData={}
 
 class App extends React.Component {
-
-
-
-  scrollToTop() {
-    scroll.scrollToTop();
-  }
-  scrollToBottom() {
-    scroll.scrollToBottom();
-  }
-  scrollTo() {
-    scroll.scrollTo(100);
-  }
-  scrollMore() {
-    scroll.scrollMore(100);
-  }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
   componentDidMount () {
     this.props.getProductList()
@@ -72,7 +40,7 @@ class App extends React.Component {
     return (
       <React.Fragment>
         
-        {/* <div className="app-main d-flex flex-column"
+        <div className="app-main d-flex flex-column"
         //  d-flex flex-direction-column"
         >
           <Header/>
@@ -84,8 +52,9 @@ class App extends React.Component {
           </div>
           <Footer/>
           
-        </div> */}
-        <ScrollerProto/>
+        </div>
+        {/* <ScrollerProto/> */}
+        {/* <Section></Section> */}
         
         
          

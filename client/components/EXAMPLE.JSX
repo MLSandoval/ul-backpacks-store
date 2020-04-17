@@ -71,7 +71,15 @@ class Section extends React.Component {
             <div className="container-fluid">
               <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul className="nav navbar-nav">
-                  <li><Link activeClass="active" className="test1" to="test1" spy={true} smooth={true} duration={500} >Test 1</Link></li>
+                  <li>
+                    <Link 
+                      activeClass="active" 
+                      className="test1" 
+                      to="test1" 
+                      spy={true} 
+                      smooth={true} 
+                      duration={500} 
+                    >Test 1</Link></li>
                   <li><Link activeClass="active" className="test2" to="test2" spy={true} smooth={true} duration={500}>Test 2</Link></li>
                   <li><Link activeClass="active" className="test3" to="test3" spy={true} smooth={true} duration={500} >Test 3</Link></li>
                   <li><Link activeClass="active" className="test4" to="test4" spy={true} smooth={true} duration={500}>Test 4</Link></li>
@@ -130,16 +138,16 @@ class Section extends React.Component {
           }}>
 
             <Element name="firstInsideContainer" style={{
-              marginBottom: '200px'
-            }}>
-              first element inside container
-          </Element>
+                marginBottom: '200px'
+              }}>
+                first element inside container
+            </Element>
 
             <Element name="secondInsideContainer" style={{
-              marginBottom: '200px'
-            }}>
-              second element inside container
-          </Element>
+                marginBottom: '200px'
+              }}>
+                second element inside container
+            </Element>
           </Element>
 
 
@@ -178,5 +186,5 @@ class Section extends React.Component {
   }
 };
 
-render(<Section />, document.getElementById('root'));
+export default Section;
 
