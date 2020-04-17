@@ -22,11 +22,14 @@ class ProductList extends React.Component {
 
 
   componentDidMount() {
-    this.levityRef.getBoundingClientRect()
+    console.log('this.levityRef in mount: ', this.levityRef)
+    // this.levityRef.current.getBoundingClientRect()
     console.log('')
   }
 
-
+  componentDidUpdate(){
+    console.log('this.levityRef: ', this.levityRef)
+  }
  
   generateProductList () {
     if (typeof this.props.products === 'string') {
@@ -39,20 +42,21 @@ class ProductList extends React.Component {
       }
       return (
         this.props.products.map(element => {
+          attributeSwitch.ref = this.levityRef
           if( element.product_uuid !== "4e874c44-a4d2-4dd7-b896-8486e67c4845"){
             attributeSwitch.ref = null
           }
           let imgURL = element.image_urls[0]
           return (
             <LinkRouter
-              {...attributeSwitch}
+              
               className={`col-4 p-1 remove-a-tag-style d-flex restore-{${this.props.currentProduct.hasOwnPropery ? this.props.currentProduct.product_uuid : ''}}`}
               key={element.product_uuid} 
               to={`/details/${element.product_uuid}`}
               data-uuid={element.product_uuid}
               onClick={ e =>{ this.props.setCurrentProduct(element) }}
             >
-              <Card >
+              <Card {...attributeSwitch} >
                 {/* <Card.Header className="bg-dark">{element.name}</Card.Header> */}
                 <Card.Img className="img-fluid" variant="top" src={imgURL} />
                 <Card.Body>
