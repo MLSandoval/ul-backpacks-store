@@ -22,13 +22,12 @@ class ProductList extends React.Component {
 
 
   componentDidMount() {
-    console.log('this.levityRef in mount: ', this.levityRef)
-    // this.levityRef.current.getBoundingClientRect()
-    console.log('')
+    console.log('this.levityRef.current in mount: ', this.levityRef.current)
+    // if(!this.levityRef.current) console.log('component didmount this.levityRef.current.getBoundingClientRect(): ', this.levityRef.current.getBoundingClientRect())
   }
 
   componentDidUpdate(){
-    console.log('this.levityRef: ', this.levityRef)
+    console.log('component Didupdate this.levityRef.current.getBoundingClientRect()', this.levityRef.current.getBoundingClientRect())
   }
  
   generateProductList () {

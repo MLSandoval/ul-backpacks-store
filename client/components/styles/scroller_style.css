@@ -2,18 +2,18 @@
   height:100vh;
   display:flex;
   background-color: aqua;
-  overflow-y: scroll;
-  scrollbar-width: none; /* Firefox */
-  -ms-overflow-style: none;  /* Internet Explorer 10+ */
+  /* overflow-y: scroll; 
+  scrollbar-width: none; 
+  -ms-overflow-style: none;   */
   flex-direction:column;
 }
 .header{
-  width:100%;
+  /* width:100%; */
   flex: 0 1 auto;
   display:flex;
   background-color: red;
   height: 3.5rem;
-  position:fixed;
+  position:sticky;
   top:0;
 }
 .nav-link-1{
@@ -21,6 +21,7 @@
   border:1px black;
 }
 .body-content{
+  /* height:100%; */
   flex: 1 0 auto;
   background-color: purple;
 }
@@ -36,6 +37,8 @@
 }
 .footer{
   flex: 0 1 auto;
+  position:sticky;
+  top: calc(100vh-2.5rem);
   background-color: grey;
   height: 2.5rem;
 }
