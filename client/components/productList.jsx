@@ -5,7 +5,7 @@ import {Route, Link as LinkRouter, withRouter} from 'react-router-dom'
 import * as Scroll from 'react-scroll'
 import { Link, Element , Events, animateScroll as scroll, scrollSpy, scroller } from 'react-scroll'
 
-import {getProductList, setCurrentProduct} from '../actions'
+import {getProductList, setCurrentProduct, savePrevY} from '../actions'
 import types from '../actions/types'
 import Card from 'react-bootstrap/Card'
 import CardDeck from 'react-bootstrap/CardDeck'
@@ -20,15 +20,73 @@ class ProductList extends React.Component {
     this.levityRef = React.createRef();
   }
 
+  scrollToTop() {
+    scroll.scrollTop.duration = 0;
+    scroll.scrollToTop();
+  }
+  scrollToCustom(targetName) {
+    scroller.scrollTo(`${targetName}`, {
+      duration: 300,
+      delay: 0,
+      smooth:true,
+      // offset:-53
+    })
+  }
+
+  scrollToWithContainer(targetInApp) {
+    let goToContainer = new Promise((resolve, reject) => {
+      Events.scrollEvent.register('end', () => {
+        resolve();
+        Events.scrollEvent.remove('end');
+      })
+      scroller.scrollTo('card-deck', {
+        duration: 300,
+        delay: 0,
+        smooth: 'easeInOutQuart'
+      })
+    })
+
+    goToContainer.then(() =>
+      scroller.scrollTo(targetInApp, {
+        duration: 300,
+        delay: 0,
+        smooth: 'easeInOutQuart',
+        containerId: 'card-deck'
+      }))
+  }
 
   componentDidMount() {
-    console.log('this.levityRef.current in mount: ', this.levityRef.current)
+    console.log('product list props: ', this.props)
+    
+
+      // this.scrollToCustom('top-list')
+    scroll.scrollToTop({
+      duration: 0,
+      // offset: '3.5rem'
+    })
+    console.log('pre if statement product_uuid, scrolled to header then 3.5rem: ')
+    if(this.props.currentProduct.hasOwnProperty('product_uuid')){
+      
+      // scroll.scrollTo(this.props.prevY)
+        scroll.scrollTo(this.props.prevY)
+      
+      // this.scrollToCustom(this.props.prevY)
+      
+    }
+    console.log('current product uuid flag found, scrolled to header then 3.5rem, this.props.currentProduct.product_uuid: ', this.props.currentProduct.name , this.props.currentProduct.product_uuid)
     // if(!this.levityRef.current) console.log('component didmount this.levityRef.current.getBoundingClientRect(): ', this.levityRef.current.getBoundingClientRect())
   }
 
-  componentDidUpdate(){
-    console.log('component Didupdate this.levityRef.current.getBoundingClientRect()', this.levityRef.current.getBoundingClientRect())
+  componentWillUnmount(){
+    
+    console.log('product list unmount, window.scrollY: ', typeof window.scrollY)
+    this.props.savePrevY(window.scrollY)
+    console.log('product list unmount, this.props.prevY: ', this.props.prevY)
   }
+
+  // componentDidUpdate(){
+  //   console.log('component Didupdate this.levityRef.current.getBoundingClientRect()', this.levityRef.current.getBoundingClientRect())
+  // }
  
   generateProductList () {
     if (typeof this.props.products === 'string') {
@@ -53,6 +111,7 @@ class ProductList extends React.Component {
               key={element.product_uuid} 
               to={`/details/${element.product_uuid}`}
               data-uuid={element.product_uuid}
+              name={element.product_uuid}
               onClick={ e =>{ this.props.setCurrentProduct(element) }}
             >
               <Card {...attributeSwitch} >
@@ -77,12 +136,13 @@ class ProductList extends React.Component {
 
   render(){
     return (
-      <div className="product-list-main container mt-3 mb-3 flex-grow-1">
-        <h1 className="">Products list</h1>
-          <CardDeck className="">
+      <Element className="product-list-main container mt-3 mb-3 flex-grow-1" name="top-listo" containerId="top-list">
+        {/* <div style={{height: '3.5rem'}}></div> */}
+        <h1 className="" name="top">Products list</h1>
+          <CardDeck className="" containerId="card-deck">
             { this.generateProductList() } 
           </CardDeck>
-      </div>
+      </Element>
     )
   }
 }
@@ -121,9 +181,10 @@ function mapStateToProps(state){
   // console.log('PRODUCTLIST state: ', state);
   return {
     products: state.products,
-    currentProduct: state.currentProduct
+    currentProduct: state.currentProduct,
+    prevY: state.prevY
   }
 }
 
 // export default connect(mapStateToProps, mapDispatchToProps)(ProductList);
-export default connect(mapStateToProps, {setCurrentProduct})(ProductList)
+export default connect(mapStateToProps, {setCurrentProduct, savePrevY})(ProductList)

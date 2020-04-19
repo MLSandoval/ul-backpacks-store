@@ -27,11 +27,11 @@ class ScrollerProto extends React.Component{
   }
 
   scrollToTop() {
-    scroll.scrollToTop();
+    scroll.scrollToTop(0);
   }
 
   scrollToCustom(targetName) {
-    scroller.scrollTo(`${targetname}`, {
+    scroller.scrollTo(`${targetName}`, {
       duration: 800,
       delay: 0,
       smooth: 'easeInOutQuart'
@@ -149,9 +149,7 @@ class ScrollerProto extends React.Component{
             Go to first element inside container
         </Link> */}
         
-        <Element 
-          // style={{marginTop:'50px'}} 
-          className="body-content" 
+        <Element  className="body-content" 
           id="body-container">
           <Element className="take-space" name="first-element">first element</Element>
           <Element className="take-space" name="second-element">second element</Element>

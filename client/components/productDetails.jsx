@@ -34,10 +34,46 @@ class ProductDetails extends React.Component {
     )
   }
 
+  scrollToTop() {
+    scroll.scrollToTop.duration = 0;
+    scroll.scrollToTop();
+  }
+
+  scrollToCustom(targetName) {
+    scroller.scrollTo(`${targetName}`, {
+      duration: 0,
+      delay: 0
+    })
+  }
+
+  scrollToWithContainer(targetInApp) {
+    let goToContainer = new Promise((resolve, reject) => {
+      Events.scrollEvent.register('end', () => {
+        resolve();
+        Events.scrollEvent.remove('end');
+      });
+      scroller.scrollTo('app', {
+        duration: 300,
+        delay: 0,
+        smooth: 'easeInOutQuart'
+      })
+    })
+
+    goToContainer.then(() =>
+      scroller.scrollTo(targetInApp, {
+        duration: 800,
+        delay: 0,
+        smooth: 'easeInOutQuart',
+        containerId: 'app'
+      }));
+  }
   
   componentDidMount(){
-    window.scrollTo(0, 0)
     console.log('Product Details Comp this.props: ', this.props)
+    this.scrollToTop()
+  }
+  componentWillUnmount(){
+    
   }
   
 
@@ -126,7 +162,7 @@ class ProductDetails extends React.Component {
           
         </div>
 
-        <Tabs className="row pt-2 pb-4" defaultActiveKey="description" id="uncontrolled-tab-example">
+        <Tabs className="row pt-2 pb-4" onClick={()=>{this.scrollToWithContainer('bottom')}} defaultActiveKey="description" id="uncontrolled-tab-example">
           <Tab className='pt-1' eventKey="description" title="Description">
             {product.long_description}
           </Tab>
@@ -153,7 +189,8 @@ function mapStateToProps(state) {
   return {
     products: state.products,
     currentProduct: state.currentProduct,
-    cart: state.cart
+    cart: state.cart,
+    prevY: state.prevY
   }
 }
 

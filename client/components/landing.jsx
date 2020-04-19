@@ -8,12 +8,33 @@ import { Link, Element , Events, animateScroll as scroll, scrollSpy, scroller } 
 import './styles/landing_style.css'
 
 class Landing extends React.Component {
+
+  scrollToTop() {
+    // scroll.scrollTop.duration = 0;
+    scroll.scrollToTop()
+  }
+
+  scrollToCustom(targetName) {
+    scroller.scrollTo(`${targetName}`, {
+      duration: 0,
+      delay: 0
+    })
+  }
+
+  componentDidMount(){
+    this.scrollToTop({
+      offset: '3.5rem',
+      smooth: true,
+      duration: 0,
+      delay: 0
+    })
+    // this.scrollToCustom('landing-top')
+  }
   
   render(){
-    // console.log('LANDIng props: ', this.props)
     return (
       
-        <div className="container-fluid flex-grow-1">
+        <div className="container-fluid landing-top">
           <div className="row">
           
             <div className="bg bg-1 col-12">BG-1</div>

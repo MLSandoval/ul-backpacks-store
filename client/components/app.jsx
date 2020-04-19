@@ -34,25 +34,57 @@ class App extends React.Component {
     
   }
 
+  scrollToTop() {
+    scroll.scrollToTop();
+  }
+  scrollToCustom(targetName) {
+    scroller.scrollTo(`${targetName}`, {
+      duration: 0,
+      delay: 0
+    })
+  }
+
+  scrollToWithContainer(targetInApp) {
+    let goToContainer = new Promise((resolve, reject) => {
+      Events.scrollEvent.register('end', () => {
+        resolve();
+        Events.scrollEvent.remove('end');
+      });
+      scroller.scrollTo('app', {
+        duration: 300,
+        delay: 0,
+        smooth: 'easeInOutQuart'
+      })
+    })
+
+    goToContainer.then(() =>
+      scroller.scrollTo(targetInApp, {
+        duration: 800,
+        delay: 0,
+        smooth: 'easeInOutQuart',
+        containerId: 'app'
+      }));
+  }
+
   render() {
     const {to, staticContext, ...rest} = this.props
     return (
       <React.Fragment>
         
-        {/* <div className="app-main d-flex flex-column"
+        <Element className="app-main d-flex flex-column"
         //  d-flex flex-direction-column"
+          containerId="app"
         >
           <Header/>
-          <div className="main-content">
+          <div className="main-content flex-grow-1">
             <Route exact path="/" component={Landing} />
             <Route exact path="/products" component={ProductList}/>
             <Route exact path="/details/:productId" component={ProductDetails}/> 
             <Route path="/cart" component={Cart}/>
           </div>
           <Footer/>
-          
-        </div> */}
-        <ScrollerProto/>
+        </Element>
+        {/* <ScrollerProto/> */}
         {/* <Section></Section> */}
         
         

@@ -37,7 +37,7 @@
 }
 .footer{
   flex: 0 1 auto;
-  position:sticky;
+  /* position:sticky; */
   top: calc(100vh-2.5rem);
   background-color: grey;
   height: 2.5rem;

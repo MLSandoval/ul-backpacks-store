@@ -7,7 +7,9 @@ import cart_reducer from './cart_reducer.js'
 import set_current_product_reducer from './set_current_product_reducer.js'
 import sorted_cart_reducer from './sorted_cart_reducer.js'
 import computed_cart_total from './compute_total_reducer.js'
-import  checkout_form_submitted_reducer from './checkout_form_submitted_reducer.js'
+import checkout_form_submitted_reducer from './checkout_form_submitted_reducer.js'
+import save_pervious_y_scroll_reducer from './save_pervious_y_scroll_reducer.js'
+
 
 
 const rootReducer = combineReducers({
@@ -18,7 +20,8 @@ const rootReducer = combineReducers({
   cart: cart_reducer,
   sortedCart: sorted_cart_reducer,
   totalOrderCost: computed_cart_total,
-  checkoutFormData: checkout_form_submitted_reducer
+  checkoutFormData: checkout_form_submitted_reducer,
+  prevY: save_pervious_y_scroll_reducer
 })
 
 export default rootReducer

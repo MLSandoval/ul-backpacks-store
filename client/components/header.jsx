@@ -38,7 +38,7 @@ class Header extends React.Component {
 
   render(){
     return (
-        <Navbar bg="light" sticky="top" expand="md" className=" header-size">
+        <Navbar bg="light" fixed="top" expand="md" className="flex-shrink-1 header-size" name="header">
           <LinkRouter className="btn navbar-brand" to="/">
             <div className="row ">
               <div className="logo col-3"></div>
