@@ -48,7 +48,7 @@ export function getProductList () {
 }
 
 export function setCurrentProduct (product) {
-  console.log('setCurrentProduct action called, product: ', product)
+  // console.log('setCurrentProduct action called, product: ', product)
   return function (dispatch) {
     dispatch({
       type: types.SET_CURRENT_PRODUCT,
@@ -135,7 +135,7 @@ export function computeCartTotal(cart){
   let total = 0
   for (let product in cart){
     total += parseInt(cart[product].quantity) * parseInt(cart[product].price)
-    console.log('computecarttotal for in loop, product: ', product)
+    // console.log('computecarttotal for in loop, product: ', product)
   }
 
   // total = (total/100).toFixed(2)
@@ -148,11 +148,21 @@ export function computeCartTotal(cart){
 }
 
 export function storeCheckoutFormData(formData){
-  console.log('storeCheckoutFormData action, formData: ', formData)
+  // console.log('storeCheckoutFormData action, formData: ', formData)
   return function(dispatch){
     dispatch({
       type: types.CHECKOUT_FORM_SUBMITTED,
       payload: formData
+    })
+  }
+}
+
+export function savePrevY(prevY){
+  console.log(' ACTION savePrevY, prevY: ', prevY)
+  return function(dispatch){
+    dispatch({
+      type: types.PREVIOUS_Y_SAVED,
+      payload: prevY
     })
   }
 }

@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { Switch, Route, Link } from 'react-router-dom'
+import { Switch, Route, Link as LinkRouter } from 'react-router-dom'
 
 import * as Scroll from 'react-scroll'
 import { Link, Element , Events, animateScroll as scroll, scrollSpy, scroller } from 'react-scroll'
@@ -8,12 +8,27 @@ import { Link, Element , Events, animateScroll as scroll, scrollSpy, scroller } 
 import './styles/landing_style.css'
 
 class Landing extends React.Component {
+
+  scrollToTop() {
+    // scroll.scrollTop.duration = 0;
+    scroll.scrollToTop()
+  }
+
+  scrollToCustom(targetName) {
+    scroller.scrollTo(`${targetName}`, {
+      duration: 0,
+      delay: 0
+    })
+  }
+
+  componentDidMount(){
+    window.scrollTo(0, 0)
+  }
   
   render(){
-    // console.log('LANDIng props: ', this.props)
     return (
       
-        <div className="container-fluid flex-grow-1">
+        <div className="container-fluid landing-top">
           <div className="row">
           
             <div className="bg bg-1 col-12">BG-1</div>

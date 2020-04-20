@@ -243,6 +243,6 @@ app.get('/*', (req, res, next) => {
   })
 })
 
-app.listen(3001, () => {
-  console.log('Node server listening on port 3001.')
+app.listen(3003, () => {
+  console.log('Node server listening on port 3003.')
 })

@@ -1,0 +1,16 @@
+.back-to-top-button{
+  background-color: rgba(0, 0, 0, 0.575);
+  color: rgba(212, 211, 211, 0.836);
+
+  height:2rem;
+  width:2rem;
+  position: absolute;
+  top: 80%;
+  left: 90%;
+}
+.hide_until_scroll{
+  display:none
+}
+.active{
+  display:inline;
+}

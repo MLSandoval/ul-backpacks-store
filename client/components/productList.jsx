@@ -1,11 +1,11 @@
 import React from 'react'
 import { connect } from "react-redux"
-import {Route, Link, withRouter} from 'react-router-dom'
+import {Route, Link as LinkRouter, withRouter} from 'react-router-dom'
 
 import * as Scroll from 'react-scroll'
 import { Link, Element , Events, animateScroll as scroll, scrollSpy, scroller } from 'react-scroll'
 
-import {getProductList, setCurrentProduct} from '../actions'
+import {getProductList, setCurrentProduct, savePrevY} from '../actions'
 import types from '../actions/types'
 import Card from 'react-bootstrap/Card'
 import CardDeck from 'react-bootstrap/CardDeck'
@@ -15,32 +15,106 @@ import "./styles/products_list_style.css"
 import scrollData from './app.jsx'
 
 class ProductList extends React.Component {
-
-
-  
-
-  componentDidMount() {
-  /
+  constructor(props){
+    super(props)
+    this.levityRef = React.createRef();
   }
 
+  scrollToTop() {
+    scroll.scrollTop.duration = 0;
+    scroll.scrollToTop();
+  }
+  scrollToCustom(targetName) {
+    scroller.scrollTo(`${targetName}`, {
+      duration: 300,
+      delay: 0,
+      smooth:true,
+      // offset:-53
+    })
+  }
+
+  scrollToWithContainer(targetInApp) {
+    let goToContainer = new Promise((resolve, reject) => {
+      Events.scrollEvent.register('end', () => {
+        resolve();
+        Events.scrollEvent.remove('end');
+      })
+      scroller.scrollTo('card-deck', {
+        duration: 300,
+        delay: 0,
+        smooth: 'easeInOutQuart'
+      })
+    })
+
+    goToContainer.then(() =>
+      scroller.scrollTo(targetInApp, {
+        duration: 300,
+        delay: 0,
+        smooth: 'easeInOutQuart',
+        containerId: 'card-deck'
+      }))
+  }
+
+  componentDidMount() {
+    console.log('product list props: ', this.props)
+    
+
+      // this.scrollToCustom('top-list')
+    scroll.scrollToTop({
+      duration: 0,
+      // offset: '3.5rem'
+    })
+    console.log('pre if statement product_uuid, scrolled to header then 3.5rem: ')
+    if(this.props.currentProduct.hasOwnProperty('product_uuid')){
+      
+      // scroll.scrollTo(this.props.prevY)
+        scroll.scrollTo(this.props.prevY)
+      
+      // this.scrollToCustom(this.props.prevY)
+      
+    }
+    console.log('current product uuid flag found, scrolled to header then 3.5rem, this.props.currentProduct.product_uuid: ', this.props.currentProduct.name , this.props.currentProduct.product_uuid)
+    // if(!this.levityRef.current) console.log('component didmount this.levityRef.current.getBoundingClientRect(): ', this.levityRef.current.getBoundingClientRect())
+  }
+
+  componentWillUnmount(){
+    
+    console.log('product list unmount, window.scrollY: ', typeof window.scrollY)
+    this.props.savePrevY(window.scrollY)
+    console.log('product list unmount, this.props.prevY: ', this.props.prevY)
+  }
+
+  // componentDidUpdate(){
+  //   console.log('component Didupdate this.levityRef.current.getBoundingClientRect()', this.levityRef.current.getBoundingClientRect())
+  // }
+ 
   generateProductList () {
     if (typeof this.props.products === 'string') {
       return (
       <h1>{this.props.products}</h1>
       )
     }else if(typeof this.props.products === 'object'){
+      const attributeSwitch = {
+        ref: this.levityRef
+      }
       return (
         this.props.products.map(element => {
+          attributeSwitch.ref = this.levityRef
+          if( element.product_uuid !== "4e874c44-a4d2-4dd7-b896-8486e67c4845"){
+            attributeSwitch.ref = null
+          }
           let imgURL = element.image_urls[0]
           return (
-            <Link 
+            <LinkRouter
+              
               className={`col-4 p-1 remove-a-tag-style d-flex restore-{${this.props.currentProduct.hasOwnPropery ? this.props.currentProduct.product_uuid : ''}}`}
               key={element.product_uuid} 
               to={`/details/${element.product_uuid}`}
               data-uuid={element.product_uuid}
+              name={element.product_uuid}
               onClick={ e =>{ this.props.setCurrentProduct(element) }}
             >
-              <Card >
+              <Card {...attributeSwitch} >
                 {/* <Card.Header className="bg-dark">{element.name}</Card.Header> */}
                 <Card.Img className="img-fluid" variant="top" src={imgURL} />
                 <Card.Body>
@@ -53,7 +127,7 @@ class ProductList extends React.Component {
                   <small className="text-muted">by {element.brand}</small>
                 </Card.Footer>
               </Card>
-            </Link>
+            </LinkRouter>
           )
         })
       )
@@ -62,12 +136,13 @@ class ProductList extends React.Component {
 
   render(){
     return (
-      <div className="product-list-main container mt-3 mb-3 flex-grow-1">
-        <h1 className="">Products list</h1>
-          <CardDeck className="">
+      <Element className="product-list-main container mt-3 mb-3 flex-grow-1" name="top-listo" containerId="top-list">
+        {/* <div style={{height: '3.5rem'}}></div> */}
+        <h1 className="" name="top">Products list</h1>
+          <CardDeck className="" containerId="card-deck">
             { this.generateProductList() } 
           </CardDeck>
-      </div>
+      </Element>
     )
   }
 }
@@ -106,9 +181,10 @@ function mapStateToProps(state){
   // console.log('PRODUCTLIST state: ', state);
   return {
     products: state.products,
-    currentProduct: state.currentProduct
+    currentProduct: state.currentProduct,
+    prevY: state.prevY
   }
 }
 
 // export default connect(mapStateToProps, mapDispatchToProps)(ProductList);
-export default connect(mapStateToProps, {setCurrentProduct})(ProductList)
+export default connect(mapStateToProps, {setCurrentProduct, savePrevY})(ProductList)

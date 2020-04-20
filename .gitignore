@@ -4,3 +4,4 @@ main.js.map
 sql_creds.js
 .env
 pg_db_creds.js
+ultralite-db-create.sql

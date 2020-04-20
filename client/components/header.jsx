@@ -1,6 +1,9 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import {Link} from 'react-router-dom'
+import {Link as LinkRouter} from 'react-router-dom'
+
+import * as Scroll from 'react-scroll'
+import { Link, Element , Events, animateScroll as scroll, scrollSpy, scroller } from 'react-scroll'
 
 import "./styles/header_style.css"
 
@@ -35,26 +38,26 @@ class Header extends React.Component {
 
   render(){
     return (
-        <Navbar bg="light" sticky="top" expand="md" className=" header-size">
-          <Link className="btn navbar-brand" to="/">
+        <Navbar bg="light" fixed="top" expand="md" className="flex-shrink-1 header-size" name="header">
+          <LinkRouter className="btn navbar-brand" to="/">
             <div className="row ">
               <div className="logo col-3"></div>
               <div className="h2 col-9 align-self-center">UltraLite</div>
             </div>
-          </Link>
+          </LinkRouter>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="mr-auto">
-            <Link className="btn font-weight-bold nav-link" to="/our-story">Our Story</Link>  
-            <Link className="btn font-weight-bold nav-link" to="/products">Products</Link>
-            <Link className="btn font-weight-bold nav-link" to="/video-review/:product_uuid">Video Reviews</Link>
+            <LinkRouter className="btn font-weight-bold nav-link" to="/our-story">Our Story</LinkRouter>  
+            <LinkRouter className="btn font-weight-bold nav-link" to="/products">Products</LinkRouter>
+            <LinkRouter className="btn font-weight-bold nav-link" to="/video-review/:product_uuid">Video Reviews</LinkRouter>
           </Nav>
-          <Link className="btn font-weight-bold nav-link" to="/cart">
+          <LinkRouter className="btn font-weight-bold nav-link" to="/cart">
             <div className="cart-logo-count-bg row">
               <div className="cart-button"></div>
               <div className="cart-count">:{ this.getCartItemCount() }</div>
             </div>
-          </Link>
+          </LinkRouter>
         </Navbar.Collapse>
       </Navbar>
     )

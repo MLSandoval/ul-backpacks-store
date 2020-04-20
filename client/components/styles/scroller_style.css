@@ -1,0 +1,44 @@
+.app{
+  height:100vh;
+  display:flex;
+  background-color: aqua;
+  /* overflow-y: scroll; 
+  scrollbar-width: none; 
+  -ms-overflow-style: none;   */
+  flex-direction:column;
+}
+.header{
+  /* width:100%; */
+  flex: 0 1 auto;
+  display:flex;
+  background-color: red;
+  height: 3.5rem;
+  position:sticky;
+  top:0;
+}
+.nav-link-1{
+  padding: 1rem;
+  border:1px black;
+}
+.body-content{
+  /* height:100%; */
+  flex: 1 0 auto;
+  background-color: purple;
+}
+.take-space{
+  height: 65vh;
+  margin: 10px;
+  background-color: yellow;
+  align-content: center;
+  text-align: center;
+}
+.centered-p{
+
+}
+.footer{
+  flex: 0 1 auto;
+  /* position:sticky; */
+  top: calc(100vh-2.5rem);
+  background-color: grey;
+  height: 2.5rem;
+}

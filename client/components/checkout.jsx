@@ -1,6 +1,6 @@
 import React, {createRef, useState, useEffect, useLayoutEffect} from 'react'
 import {connect} from 'react-redux'
-import {Link, Route} from 'react-router-dom'
+import {Link as LinkRouter, Route} from 'react-router-dom'
 
 import * as Scroll from 'react-scroll';
 import { Link, Element , Events, animateScroll as scroll, scrollSpy, scroller } from 'react-scroll'
@@ -361,7 +361,7 @@ function Checkout(props){
         
         <div className="col-9"></div>
         <div className="button-container col-3 row justify-content-around">
-          <Link to="/cart/modal/thankyou" className="">
+          <LinkRouter to="/cart/modal/thankyou" className="">
             <Button
               className=" btn-sm"
               variant="info"
@@ -386,8 +386,8 @@ function Checkout(props){
             >
               Submit
             </Button>
-          </Link>
-          <Link to="/cart">
+          </LinkRouter>
+          <LinkRouter to="/cart">
             <Button
               className="btn-sm"
               variant="dark"
@@ -398,7 +398,7 @@ function Checkout(props){
             >
               Cancel
             </Button>
-          </Link> 
+          </LinkRouter> 
         </div>
       </Form>
     </Modal.Body>

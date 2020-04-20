@@ -1,6 +1,6 @@
 import React, {createRef} from 'react'
 import {connect} from 'react-redux'
-import {Link, useRouteMatch, Route} from 'react-router-dom'
+import {Link as LinkRouter, useRouteMatch, Route} from 'react-router-dom'
 
 import * as Scroll from 'react-scroll';
 import { Link, Element , Events, animateScroll as scroll, scrollSpy, scroller } from 'react-scroll'
@@ -107,7 +107,7 @@ class Cart extends React.Component {
               <td></td>
               <td></td>
               <td>
-                <Link to={`cart/modal/checkout`}
+                <LinkRouter to={`cart/modal/checkout`}
                   data-toggle="modal" data-target="#exampleModalCenter">
                   {/* <button 
                     type="button" 
@@ -118,7 +118,7 @@ class Cart extends React.Component {
                   <button type="button" className="btn btn-primary" >
                     Checkout
                   </button>
-                </Link>
+                </LinkRouter>
               </td> 
             </tr>
             </tbody>

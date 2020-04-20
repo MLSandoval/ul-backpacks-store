@@ -1,12 +1,13 @@
 .app-main{
   /* background-color: lightslategray; */
-  /* height:calc(100vh - 3.5rem); */
-  height:100vh;
-  
+  height:calc(100vh - 3.5rem);
+  /* height:100vh; */
+  display:flex;
+  margin-top:3.5rem;
   /* padding-top:3.5rem; */
-  overflow-y: scroll;
-  scrollbar-width: none; /* Firefox */
-  -ms-overflow-style: none;  /* Internet Explorer 10+ */
+  /* overflow-y: scroll;
+  scrollbar-width: none; 
+  -ms-overflow-style: none;   */
   /* padding-bottom: 2.5rem; */
   /* padding-top:3.5rem; */
   /* height: calc(100vh - 6rem); */
@@ -19,6 +20,6 @@
   outline: none !important;
   box-shadow: none !important;
 }
-.main-content{
+/* .main-content{
   flex: 1 0 auto;
-}
+} */

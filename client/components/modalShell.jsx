@@ -4,7 +4,6 @@ import {createPortal} from 'react-dom'
 import {Link, Route} from 'react-router-dom'
 
 import { connect } from 'react-redux'
-import { reduxForm, Field } from 'redux-form'
 
 import Modal from 'react-bootstrap/Modal'
 import Button from 'react-bootstrap/Button'

@@ -4,7 +4,7 @@
 
 import React from 'react'
 import {connect} from 'react-redux'
-import { Switch, Route, Link } from "react-router-dom"
+import { Switch, Route} from "react-router-dom"
 
 import * as Scroll from 'react-scroll';
 import { Link, Element , Events, animateScroll as scroll, scrollSpy, scroller } from 'react-scroll'
@@ -23,12 +23,47 @@ import Test from './test'
 import ProductDetails from './productDetails'
 import ThankYou from './thank_you'
 
-export let scrollData={}
+import ScrollerProto from './reactScrollerProto.jsx'
+import Section from './EXAMPLE.jsx'
+
 
 class App extends React.Component {
+
   componentDidMount () {
     this.props.getProductList()
     
+  }
+
+  scrollToTop() {
+    scroll.scrollToTop();
+  }
+  scrollToCustom(targetName) {
+    scroller.scrollTo(`${targetName}`, {
+      duration: 0,
+      delay: 0
+    })
+  }
+
+  scrollToWithContainer(targetInApp) {
+    let goToContainer = new Promise((resolve, reject) => {
+      Events.scrollEvent.register('end', () => {
+        resolve();
+        Events.scrollEvent.remove('end');
+      });
+      scroller.scrollTo('app', {
+        duration: 300,
+        delay: 0,
+        smooth: 'easeInOutQuart'
+      })
+    })
+
+    goToContainer.then(() =>
+      scroller.scrollTo(targetInApp, {
+        duration: 800,
+        delay: 0,
+        smooth: 'easeInOutQuart',
+        containerId: 'app'
+      }));
   }
 
   render() {
@@ -36,18 +71,21 @@ class App extends React.Component {
     return (
       <React.Fragment>
         
-        <div className="app-main d-flex flex-column"
+        <Element className="app-main d-flex flex-column"
         //  d-flex flex-direction-column"
+          containerId="app"
         >
           <Header/>
-          <div className="main-content">
+          <div className="main-content flex-grow-1">
             <Route exact path="/" component={Landing} />
             <Route exact path="/products" component={ProductList}/>
             <Route exact path="/details/:productId" component={ProductDetails}/> 
             <Route path="/cart" component={Cart}/>
           </div>
           <Footer/>
-        </div>
+        </Element>
+        {/* <ScrollerProto/> */}
+        {/* <Section></Section> */}
         
         
          
@@ -65,40 +103,3 @@ function mapStateToProps(state){
 }
 
 export default connect(mapStateToProps, {getProductList, setCurrentProduct})(App)
-
-
-// export default function App() {
-//   return (
-//     <Router>
-//       <div>
-//         <nav>
-//           <ul>
-//             <li>
-//               <Link to="/">Home</Link>
-//             </li>
-//             <li>
-//               <Link to="/about">About</Link>
-//             </li>
-//             <li>
-//               <Link to="/users">Users</Link>
-//             </li>
-//           </ul>
-//         </nav>
-
-//         {/* A <Switch> looks through its children <Route>s and
-//             renders the first one that matches the current URL. */}
-//         <Switch>
-//           <Route path="/about">
-//             <About />
-//           </Route>
-//           <Route path="/users">
-//             <Users />
-//           </Route>
-//           <Route path="/">
-//             <Home />
-//           </Route>
-//         </Switch>
-//       </div>
-//     </Router>
-//   );
-// }
