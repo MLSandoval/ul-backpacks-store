@@ -11,7 +11,7 @@ import Table from 'react-bootstrap/Table'
 
 import './styles/product_details_style.css'
 
-import { addItemToCart, sortCartQuantities } from '../actions'
+import { addItemToCart, sortCartQuantities, setCurrentProduct} from '../actions'
 
 class ProductDetails extends React.Component {
   constructor(props){
@@ -35,7 +35,6 @@ class ProductDetails extends React.Component {
   }
 
   scrollToTop() {
-    scroll.scrollToTop.duration = 0;
     scroll.scrollToTop();
   }
 
@@ -73,7 +72,7 @@ class ProductDetails extends React.Component {
     this.scrollToTop()
   }
   componentWillUnmount(){
-    
+    this.props.setCurrentProduct({})
   }
   
 
@@ -85,9 +84,6 @@ class ProductDetails extends React.Component {
     return (
       <div className="product-details container pb-5 flex-grow-1">
         <div className="pt-4 row h-100 justify-content-between overflow-auto">
-
-          
-          
           <div className="col-sm-12 col-lg-6 carousel-container">
             <Carousel interval={null}>
               {
@@ -100,7 +96,6 @@ class ProductDetails extends React.Component {
                       alt="First slide"
                     />
                     <Carousel.Caption>
-                      
                       <p></p>
                     </Carousel.Caption>
                   </Carousel.Item>
@@ -115,7 +110,6 @@ class ProductDetails extends React.Component {
               <h6>by {product.brand}</h6>
               <div className="align-self-center">{product.short_description}</div>
             </div>
-            
             <Table className="flat no-border" striped bordered hover>
               <thead>
               </thead>
@@ -141,20 +135,11 @@ class ProductDetails extends React.Component {
                     <button className="btn btn-secondary col-12" onClick={ ()=>{ this.props.addItemToCart(product)} }>Add To Cart</button>
                   </td>
                 </tr>
-                
               </tbody>
             </Table>
           </div>
-          
-
-
-
-
-
-          <div className=" col-4 mb-3">
-            
+          <div className=" col-12 mb-3">
             <br></br>
-            
           </div>
         </div>
         
@@ -162,7 +147,7 @@ class ProductDetails extends React.Component {
           
         </div>
 
-        <Tabs className="row pt-2 pb-4" onClick={()=>{this.scrollToWithContainer('bottom')}} defaultActiveKey="description" id="uncontrolled-tab-example">
+        <Tabs className="row pt-2 pb-4" onClick={()=>{scroll.scrollToBottom()}} defaultActiveKey="description" id="uncontrolled-tab-example">
           <Tab className='pt-1' eventKey="description" title="Description">
             {product.long_description}
           </Tab>
@@ -194,4 +179,4 @@ function mapStateToProps(state) {
   }
 }
 
-export default connect(mapStateToProps, {addItemToCart, sortCartQuantities})(ProductDetails)
+export default connect(mapStateToProps, {addItemToCart, sortCartQuantities, setCurrentProduct})(ProductDetails)

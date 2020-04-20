@@ -22,13 +22,7 @@ class Landing extends React.Component {
   }
 
   componentDidMount(){
-    this.scrollToTop({
-      offset: '3.5rem',
-      smooth: true,
-      duration: 0,
-      delay: 0
-    })
-    // this.scrollToCustom('landing-top')
+    window.scrollTo(0, 0)
   }
   
   render(){
