@@ -85,8 +85,8 @@ class ProductDetails extends React.Component {
     // console.log('product details render, product: ', product)
     return (
       <div className="product-details container pb-5 flex-grow-1">
-        <div className="pt-4 row h-100 justify-content-between overflow-auto">
-          <div className="col-sm-12 col-md-6  carousel-container">
+        <div className="align-items-center container pt-4 d-flex flex-wrap h-100 justify-content-center">
+          <div className="col-sm-12 col-md-6 carousel-container">
             <Carousel interval={null}>
               {
                 product.image_urls.map( (element, index) => {
@@ -106,13 +106,13 @@ class ProductDetails extends React.Component {
               }
             </Carousel>
           </div>
-          <div className=" col-sm-12 col-md-6  row flex-column justify-content-around">
+          <div className="col-sm-12 col-md-6 d-flex flex-column flex-grow-1 justify-content-between">
             <div className=''>
               <h2 className="">{product.name}</h2>
               <h6>by {product.brand}</h6>
               <div className="align-self-center">{product.short_description}</div>
             </div>
-            <Table className="flat no-border" striped bordered hover>
+            <Table className="flat no-border" hover>
               <thead>
               </thead>
               <tbody>

@@ -74,7 +74,7 @@ class ModalShell extends React.Component {
       <div>
         <Modal
         // {...rest}
-        size="lg"
+        size="md"
         aria-labelledby="contained-modal-title-vcenter"
         centered
         show={true}

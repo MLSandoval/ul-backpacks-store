@@ -111,7 +111,7 @@ class ProductList extends React.Component {
            
             <LinkRouter
               
-              className={`col-4 p-1 remove-a-tag-style d-flex restore-{${this.props.currentProduct.hasOwnPropery ? this.props.currentProduct.product_uuid : ''}}`}
+              className={`col-12 col-sm-6 col-md-4 col-lg-3 p-1 remove-a-tag-style d-flex restore-{${this.props.currentProduct.hasOwnPropery ? this.props.currentProduct.product_uuid : ''}}`}
               key={element.product_uuid} 
               to={`/details/${element.product_uuid}`}
               data-uuid={element.product_uuid}
@@ -121,7 +121,7 @@ class ProductList extends React.Component {
                <FadeInSection className="d-flex">
               <Card {...attributeSwitch} >
                 {/* <Card.Header className="bg-dark">{element.name}</Card.Header> */}
-                <Card.Img className="img-fluid" variant="top" src={imgURL} />
+                <Card.Img className="img-fluid img-size-restrict" variant="top" src={imgURL} />
                 <Card.Body>
                   <Card.Title>{element.name}</Card.Title>
                   <Card.Text className="text-sm-left">

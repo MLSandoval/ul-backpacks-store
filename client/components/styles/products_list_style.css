@@ -16,3 +16,17 @@
 	bottom: .5rem;
 	right: .5rem;
 }
+
+@media
+
+
+
+/* at large screen and up*/
+@media (min-width: 992px){
+.img-size-restrict{}
+}
+
+/* at medium screen and up*/
+@media (min-width: 768px)
+.img-size-restrict{}
+
