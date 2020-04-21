@@ -13,6 +13,8 @@ import './styles/product_details_style.css'
 
 import { addItemToCart, sortCartQuantities, setCurrentProduct} from '../actions'
 
+import BackToTopButton from './back_to_top_button.jsx'
+
 class ProductDetails extends React.Component {
   constructor(props){
     super(props)
@@ -84,7 +86,7 @@ class ProductDetails extends React.Component {
     return (
       <div className="product-details container pb-5 flex-grow-1">
         <div className="pt-4 row h-100 justify-content-between overflow-auto">
-          <div className="col-sm-12 col-lg-6 carousel-container">
+          <div className="col-sm-12 col-md-6  carousel-container">
             <Carousel interval={null}>
               {
                 product.image_urls.map( (element, index) => {
@@ -104,8 +106,8 @@ class ProductDetails extends React.Component {
               }
             </Carousel>
           </div>
-          <div className="col-sm-12 col-lg-6 row flex-direction-column">
-            <div >
+          <div className=" col-sm-12 col-md-6  row flex-column justify-content-around">
+            <div className=''>
               <h2 className="">{product.name}</h2>
               <h6>by {product.brand}</h6>
               <div className="align-self-center">{product.short_description}</div>
@@ -155,7 +157,7 @@ class ProductDetails extends React.Component {
             <ul>{ this.renderProductFeatures() }</ul>
           </Tab>
         </Tabs>
-
+        <BackToTopButton/>
       </div>
     )
   }

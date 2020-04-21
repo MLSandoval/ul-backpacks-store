@@ -10,9 +10,12 @@ import types from '../actions/types'
 import Card from 'react-bootstrap/Card'
 import CardDeck from 'react-bootstrap/CardDeck'
 
+import BackToTopButton from './back_to_top_button.jsx'
+import FadeInSection from './fade_in_section.jsx'
+
 import "./styles/products_list_style.css"
 
-import scrollData from './app.jsx'
+
 
 class ProductList extends React.Component {
   constructor(props){
@@ -105,6 +108,7 @@ class ProductList extends React.Component {
           }
           let imgURL = element.image_urls[0]
           return (
+           
             <LinkRouter
               
               className={`col-4 p-1 remove-a-tag-style d-flex restore-{${this.props.currentProduct.hasOwnPropery ? this.props.currentProduct.product_uuid : ''}}`}
@@ -114,6 +118,7 @@ class ProductList extends React.Component {
               name={element.product_uuid}
               onClick={ e =>{ this.props.setCurrentProduct(element) }}
             >
+               <FadeInSection className="d-flex">
               <Card {...attributeSwitch} >
                 {/* <Card.Header className="bg-dark">{element.name}</Card.Header> */}
                 <Card.Img className="img-fluid" variant="top" src={imgURL} />
@@ -127,7 +132,9 @@ class ProductList extends React.Component {
                   <small className="text-muted">by {element.brand}</small>
                 </Card.Footer>
               </Card>
+              </FadeInSection>
             </LinkRouter>
+            
           )
         })
       )
@@ -142,6 +149,10 @@ class ProductList extends React.Component {
           <CardDeck className="" containerId="card-deck">
             { this.generateProductList() } 
           </CardDeck>
+          <div className="to-top-pos">
+            <BackToTopButton/>
+          </div>
+          
       </Element>
     )
   }

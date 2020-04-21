@@ -11,3 +11,8 @@
 .remove-a-tag-style:hover{
     text-decoration: none;
 }
+.to-top-pos{
+	position: sticky;
+	bottom: .5rem;
+	right: .5rem;
+}
