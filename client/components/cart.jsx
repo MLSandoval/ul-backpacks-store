@@ -60,10 +60,12 @@ class Cart extends React.Component {
                   <button 
                       type="button" 
                       className="btn"
-                      data-uuid={product.uuid}
+                      data-uuid={product.product_uuid}
                       data-quantity={product.quantity}
                       onClick={ e => {
-                        this.props.removeItemFromCart(e.currentTarget.dataset.uuid)
+                        console.log('reduceitemquantity CLICKED, uuid: ', e.currentTarget.dataset.uuid)
+                        this.props.reduceItemQuantity(e.currentTarget.dataset.uuid)
+                        
                       }}
                       >-
                     </button>
@@ -71,9 +73,11 @@ class Cart extends React.Component {
                     <button 
                       type="button" 
                       className="btn"
-                      data-id={product.id}
+                      data-uuid={product.product_uuid}
                       onClick={ e => {
-                        this.props.addItemToCart(this.props.products.find(element => element.uuid === e.currentTarget.dataset.uuid))                     
+                        console.log('additemtocart CLICKED, uuid: ', e.currentTarget.dataset.uuid)   
+                        this.props.increaseItemQuantity(e.currentTarget.dataset.uuid)
+                                          
                       }}
                       >+
                     </button>
@@ -84,7 +88,7 @@ class Cart extends React.Component {
                     <button 
                       type="button" 
                       className="btn btn-danger"
-                      data-id={product.id}
+                      data-uuid={product.product_uuid}
                       onClick={ e => {this.props.removeItemFromCart(e.currentTarget.dataset.uuid)}}
                       >X
                     </button>
@@ -142,10 +146,12 @@ class Cart extends React.Component {
   }
 
   componentDidMount(){
+    
     this.props.computeCartTotal(this.props.cart)
     // console.log('Cart component props: ', this.props)
   }
   componentDidUpdate(){
+    console.log('cart DidUpdate, this.props.cart: ', this.props.cart)
     this.props.computeCartTotal(this.props.cart)
   }
 

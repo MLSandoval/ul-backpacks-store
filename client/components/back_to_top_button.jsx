@@ -25,7 +25,7 @@ function BackToTop(props){
 	// }
 
 	function handleVisibilityChange(){
-		if(window.pageYOffset > 60){
+		if(window.pageYOffset > 50){
 			setVisibility(true)
 		}else{
 			setVisibility(false)
@@ -38,7 +38,7 @@ function BackToTop(props){
 		})
 
 		return(
-			document.removeEventListener('scroll', function(){
+			document.removeEventListener('scroll', function(e){
 				handleVisibilityChange()
 			})
 		)

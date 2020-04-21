@@ -71,7 +71,7 @@ class ProductDetails extends React.Component {
   
   componentDidMount(){
     console.log('Product Details Comp this.props: ', this.props)
-    this.scrollToTop()
+    window.scrollTo(0,0)
   }
   componentWillUnmount(){
     this.props.setCurrentProduct({})
@@ -81,8 +81,8 @@ class ProductDetails extends React.Component {
   render () {
     
     const product = this.props.currentProduct
-    console.log('product details render, this.props.currentProduct', this.props.currentProduct)
-    console.log('product details render, product: ', product)
+    // console.log('product details render, this.props.currentProduct', this.props.currentProduct)
+    // console.log('product details render, product: ', product)
     return (
       <div className="product-details container pb-5 flex-grow-1">
         <div className="pt-4 row h-100 justify-content-between overflow-auto">
