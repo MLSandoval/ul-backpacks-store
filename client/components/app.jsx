@@ -16,7 +16,7 @@ import './styles/global_style.css'
 import Landing from './landing.jsx'
 import ProductList from './productList.jsx'
 import Cart from './cart.jsx'
-import ModalShell from './modalShell.jsx'
+import ModalShell from './modal_shell.jsx'
 import Header from './header.jsx'
 import Footer from './footer.jsx'
 import Test from './test'
@@ -79,7 +79,7 @@ class App extends React.Component {
           <div className="main-content flex-grow-1">
             <Route exact path="/" component={Landing} />
             <Route exact path="/products" component={ProductList}/>
-            <Route exact path="/details/:productId" component={ProductDetails}/> 
+            <Route path="/details/:productId" component={ProductDetails}/> 
             <Route path="/cart" component={Cart}/>
           </div>
           <Footer/>

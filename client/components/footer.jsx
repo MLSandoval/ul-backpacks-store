@@ -14,7 +14,7 @@ import "./styles/footer_style.css"
 
 export default function Footer (props){
     return (
-      <Navbar className="border p-auto mt-8 footer-pos flex-shrink-1" name="footer"  bg="dark"  expand="md">
+      <Navbar className="border p-auto mt-8 footer-pos flex-shrink-1" name="footer"  bg="dark"  expand="md" inverse={true}>
         <Navbar.Brand href="#home">React-Bootstrap</Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">

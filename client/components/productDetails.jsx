@@ -1,6 +1,8 @@
 import React from 'react'
 import { connect } from 'react-redux'
 
+import {Route, Link as LinkRouter} from 'react-router-dom'
+
 import * as Scroll from 'react-scroll'
 import { Link, Element , Events, animateScroll as scroll, scrollSpy, scroller } from 'react-scroll'
 
@@ -14,6 +16,7 @@ import './styles/product_details_style.css'
 import { addItemToCart, sortCartQuantities, setCurrentProduct} from '../actions'
 
 import BackToTopButton from './back_to_top_button.jsx'
+import ModalShell from './modal_shell.jsx'
 
 class ProductDetails extends React.Component {
   constructor(props){
@@ -134,7 +137,7 @@ class ProductDetails extends React.Component {
                 </tr>
                 <tr>
                   <td className="" colSpan="2">
-                    <button className="btn btn-secondary col-12" onClick={ ()=>{ this.props.addItemToCart(product)} }>Add To Cart</button>
+                    <LinkRouter to={`${this.props.currentProduct.product_uuid}/modal/continue-shopping`} type="button" className="btn btn-secondary col-12" onClick={ ()=>{ this.props.addItemToCart(product)} }>Add To Cart</LinkRouter>
                   </td>
                 </tr>
               </tbody>
@@ -158,6 +161,7 @@ class ProductDetails extends React.Component {
           </Tab>
         </Tabs>
         <BackToTopButton/>
+        <Route path={`${this.props.match.url}/modal`} component={ModalShell}/>
       </div>
     )
   }

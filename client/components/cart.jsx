@@ -10,7 +10,7 @@ import './styles/cart_style.css'
 
 import {sortCartQuantities, computeCartTotal, addItemToCart, removeItemFromCart, reduceItemQuantity, increaseItemQuantity} from '../actions'
 
-import ModalShell from './modalShell.jsx'
+import ModalShell from './modal_shell.jsx'
 
 class Cart extends React.Component {
   constructor(props){
@@ -157,7 +157,7 @@ class Cart extends React.Component {
 
   render () {
     return (
-      <div className="container flex-grow-1" ref={this.CartRef}>
+      <div className="container" ref={this.CartRef}>
         <div className="row">
           <h1 className="">THIS IS THE CART VIEW</h1>
           {this.generateCartList()} 
