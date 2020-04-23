@@ -1,6 +1,8 @@
 import React from 'react'
 import { connect } from 'react-redux'
 
+import {Route, Link as LinkRouter} from 'react-router-dom'
+
 import * as Scroll from 'react-scroll'
 import { Link, Element , Events, animateScroll as scroll, scrollSpy, scroller } from 'react-scroll'
 
@@ -12,6 +14,9 @@ import Table from 'react-bootstrap/Table'
 import './styles/product_details_style.css'
 
 import { addItemToCart, sortCartQuantities, setCurrentProduct} from '../actions'
+
+import BackToTopButton from './back_to_top_button.jsx'
+import ModalShell from './modal_shell.jsx'
 
 class ProductDetails extends React.Component {
   constructor(props){
@@ -69,7 +74,7 @@ class ProductDetails extends React.Component {
   
   componentDidMount(){
     console.log('Product Details Comp this.props: ', this.props)
-    this.scrollToTop()
+    window.scrollTo(0,0)
   }
   componentWillUnmount(){
     this.props.setCurrentProduct({})
@@ -79,12 +84,12 @@ class ProductDetails extends React.Component {
   render () {
     
     const product = this.props.currentProduct
-    console.log('product details render, this.props.currentProduct', this.props.currentProduct)
-    console.log('product details render, product: ', product)
+    // console.log('product details render, this.props.currentProduct', this.props.currentProduct)
+    // console.log('product details render, product: ', product)
     return (
       <div className="product-details container pb-5 flex-grow-1">
-        <div className="pt-4 row h-100 justify-content-between overflow-auto">
-          <div className="col-sm-12 col-lg-6 carousel-container">
+        <div className="align-items-center container pt-4 d-flex flex-wrap h-100 justify-content-center">
+          <div className="col-sm-12 col-md-6 carousel-container">
             <Carousel interval={null}>
               {
                 product.image_urls.map( (element, index) => {
@@ -104,13 +109,13 @@ class ProductDetails extends React.Component {
               }
             </Carousel>
           </div>
-          <div className="col-sm-12 col-lg-6 row flex-direction-column">
-            <div >
+          <div className="col-sm-12 col-md-6 d-flex flex-column flex-grow-1 justify-content-between">
+            <div className=''>
               <h2 className="">{product.name}</h2>
               <h6>by {product.brand}</h6>
               <div className="align-self-center">{product.short_description}</div>
             </div>
-            <Table className="flat no-border" striped bordered hover>
+            <Table className="flat no-border" hover>
               <thead>
               </thead>
               <tbody>
@@ -132,7 +137,7 @@ class ProductDetails extends React.Component {
                 </tr>
                 <tr>
                   <td className="" colSpan="2">
-                    <button className="btn btn-secondary col-12" onClick={ ()=>{ this.props.addItemToCart(product)} }>Add To Cart</button>
+                    <LinkRouter to={`${this.props.currentProduct.product_uuid}/modal/continue-shopping`} type="button" className="btn btn-secondary col-12" onClick={ ()=>{ this.props.addItemToCart(product)} }>Add To Cart</LinkRouter>
                   </td>
                 </tr>
               </tbody>
@@ -155,7 +160,8 @@ class ProductDetails extends React.Component {
             <ul>{ this.renderProductFeatures() }</ul>
           </Tab>
         </Tabs>
-
+        <BackToTopButton/>
+        <Route path={`${this.props.match.url}/modal`} component={ModalShell}/>
       </div>
     )
   }

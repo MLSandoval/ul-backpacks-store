@@ -11,6 +11,7 @@ import Button from 'react-bootstrap/Button'
 import './styles/modalShell_style.css'
 import Checkout from './checkout.jsx'
 import ThankYou from './thank_you.jsx'
+import ContinueShopping from './continue_shopping.jsx'
 
 
 
@@ -49,6 +50,10 @@ class ModalShell extends React.Component {
         this.orderCost = ''
         this.autoRedirect()
         break
+      case this.props.location.pathname.includes('modal/continue-shopping'):
+        this.modalContent = <ContinueShopping/>
+        this.modalHeader = 'Continue shopping?'
+        this.orderCost = ''
       default: console.log('Modal Content Error.')
     }
   }
@@ -67,6 +72,7 @@ class ModalShell extends React.Component {
   }
   
   render () {
+    console.log('MODAL RENDER CALLED, this.modalheader: ', this.modalHeader)
     // let [show] = useState(false)
     console.log('render modal shell, props: ', this.props)
     const {to, staticContext, ...rest} = this.props
@@ -74,6 +80,7 @@ class ModalShell extends React.Component {
       <div>
         <Modal
         // {...rest}
+        className="modal-add"
         size="lg"
         aria-labelledby="contained-modal-title-vcenter"
         centered
