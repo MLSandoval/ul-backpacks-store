@@ -102,16 +102,10 @@ class ProductList extends React.Component {
       }
       return (
         this.props.products.map(element => {
-          attributeSwitch.ref = this.levityRef
-          if( element.product_uuid !== "4e874c44-a4d2-4dd7-b896-8486e67c4845"){
-            attributeSwitch.ref = null
-          }
           let imgURL = element.image_urls[0]
           return (
-           
             <LinkRouter
-              
-              className={`col-12 col-sm-6 col-md-4 col-lg-3 p-1 remove-a-tag-style d-flex restore-{${this.props.currentProduct.hasOwnPropery ? this.props.currentProduct.product_uuid : ''}}`}
+              className={`col-12 col-sm-6 col-md-4 col-lg-3 p-1 remove-a-tag-style d-flex }`}
               key={element.product_uuid} 
               to={`/details/${element.product_uuid}`}
               data-uuid={element.product_uuid}

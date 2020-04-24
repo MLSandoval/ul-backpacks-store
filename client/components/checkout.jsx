@@ -9,9 +9,10 @@ import Modal from 'react-bootstrap/Modal'
 import Button from 'react-bootstrap/Button'
 import Form from 'react-bootstrap/Form'
 
-import {storeCheckoutFormData} from '../actions'
+import {storeCheckoutFormData, setModalConfig} from '../actions'
 
 import './styles/checkout_style.css'
+import ThankYou from './thank_you.jsx'
 
 //next stup, setup a useEffect() or useLayoutEffect() for filling in the shipping data with the billing data,
 //also a useEffect() for sending the formData to the store AFTER it is formed to the
@@ -94,6 +95,14 @@ function Checkout(props){
 
     callback(formData)
 
+  }
+
+  function handleSubmitClick(){
+    setModalConfig({
+      header:'Thank You!',
+      content: <ThankYou/>,
+      orderCost: `${props.totalOrderCost.toFixed(2)}`
+    })
   }
   
   console.log('checkout comp rendered props: ', props)
@@ -361,7 +370,8 @@ function Checkout(props){
         
         <div className="col-9"></div>
         <div className="button-container col-3 row justify-content-around">
-          <LinkRouter to="/cart/modal/thankyou" className="">
+          <LinkRouter to="/cart/modal/thankyou" className="" onClick={handleSubmitClick.bind(this)}
+          >
             <Button
               className=" btn-sm"
               variant="info"
@@ -405,6 +415,8 @@ function Checkout(props){
   )
 }
 
+
+
 function mapDispatchToProps (dispatch) {
   return {
     onChange: dispatch()
@@ -416,8 +428,9 @@ function mapStateToProps(state){
   return {
     cart: state.cart,
     totalOrderCost: state.totalOrderCost,
-    checkoutFormData: state.checkoutFormData
+    checkoutFormData: state.checkoutFormData,
+    modalConfig: state.modalConfig
   }
 }
 
-export default connect(mapStateToProps, {storeCheckoutFormData})(Checkout)
+export default connect(mapStateToProps, {storeCheckoutFormData, setModalConfig})(Checkout)

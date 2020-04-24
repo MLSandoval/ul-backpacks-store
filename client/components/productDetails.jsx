@@ -13,7 +13,7 @@ import Table from 'react-bootstrap/Table'
 
 import './styles/product_details_style.css'
 
-import { addItemToCart, sortCartQuantities, setCurrentProduct, setModalConfig} from '../actions'
+import { addItemToCart, sortCartQuantities, setCurrentProduct, setModalConfig, computeCartTotal} from '../actions'
 
 import BackToTopButton from './back_to_top_button.jsx'
 import ModalShell from './modal_shell.jsx'
@@ -74,6 +74,9 @@ class ProductDetails extends React.Component {
   }
   handleClick(){
     this.props.addItemToCart(this.props.currentProduct)
+    
+    this.props.computeCartTotal(this.props.cart)
+    console.log('product details handclick computecart total totalOrderCost: ', this.props.totalOrderCost)
     // this.props.setModalConfig({})
   }
   
@@ -191,8 +194,9 @@ function mapStateToProps(state) {
     currentProduct: state.currentProduct,
     cart: state.cart,
     prevY: state.prevY,
-    modalConfig: state.modalConfig
+    modalConfig: state.modalConfig,
+    totalOrderCost: state.totalOrderCost
   }
 }
 
-export default connect(mapStateToProps, {addItemToCart, sortCartQuantities, setCurrentProduct, setModalConfig})(ProductDetails)
+export default connect(mapStateToProps, {addItemToCart, sortCartQuantities, setCurrentProduct, setModalConfig, computeCartTotal})(ProductDetails)
