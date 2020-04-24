@@ -167,3 +167,12 @@ export function savePrevY(prevY){
     })
   }
 }
+
+export function setModalConfig(modalConfig){
+  return function(dispatch){
+    dispatch({
+      type: types.MODAL_CONFIG_SET,
+      payload: modalConfig
+    })
+  }
+}

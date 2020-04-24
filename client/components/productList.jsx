@@ -143,10 +143,16 @@ class ProductList extends React.Component {
 
   render(){
     return (
-      <Element className="product-list-main container mt-3 mb-3 flex-grow-1" name="top-listo" containerId="top-list">
+      <Element  className="product-list-main container mt-3 mb-3 flex-grow-1" name="top-listo" 
+      // containerId="top-list"
+      >
         {/* <div style={{height: '3.5rem'}}></div> */}
         <h1 className="" name="top">Products list</h1>
-          <CardDeck className="" containerId="card-deck">
+          <CardDeck 
+            // as={CardDeck} 
+            className="" 
+            id="card-deck"
+          >
             { this.generateProductList() } 
           </CardDeck>
           <div className="to-top-pos">

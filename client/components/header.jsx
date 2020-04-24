@@ -78,7 +78,7 @@ class Header extends React.Component {
     console.log('this.state.className at time of render: ', this.state.className)
     return (
         <Navbar 
-          toggleNavKey={4} 
+          // toggleNavKey={4} 
           bg="light" 
           fixed="top" 
           expand="md" 

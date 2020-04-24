@@ -73,7 +73,7 @@ class App extends React.Component {
         
         <Element className="app-main d-flex flex-column"
         //  d-flex flex-direction-column"
-          containerId="app"
+          id="app"
         >
           <Header/>
           <div className="main-content flex-grow-1">

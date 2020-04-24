@@ -21,17 +21,14 @@ function ThankYou (props) {
       <Modal.Body>
         <div>Your order has been submitted.</div>
         <div>The receipt and order information have been sent to your email.</div>
-        <div>The receipt and order information have been sent to your email.</div>
       <Modal.Footer>
         <Link to="/">
-          <div>If you are not automatically redirected, please click here to return to our homepage.</div>
+          <div>If you are not automatically redirected, please click here to return to the homepage.</div>
         </Link>
       </Modal.Footer>  
         
         {/* {() => {setTimeout(5000, history.push('/'))}} */}
       </Modal.Body>
-    
-    
   )
 }
 
