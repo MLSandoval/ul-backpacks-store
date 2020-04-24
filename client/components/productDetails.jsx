@@ -13,7 +13,7 @@ import Table from 'react-bootstrap/Table'
 
 import './styles/product_details_style.css'
 
-import { addItemToCart, sortCartQuantities, setCurrentProduct, setModalConfig, computeCartTotal} from '../actions'
+import { getProductList,addItemToCart, sortCartQuantities, setCurrentProduct, setModalConfig, computeCartTotal} from '../actions'
 
 import BackToTopButton from './back_to_top_button.jsx'
 import ModalShell from './modal_shell.jsx'
@@ -81,6 +81,9 @@ class ProductDetails extends React.Component {
   }
   
   componentDidMount(){
+    if(!this.props.currentProduc){
+      this.props.getProductList()
+    }
     console.log('Product Details Comp this.props: ', this.props)
     window.scrollTo(0,0)
   }
@@ -199,4 +202,4 @@ function mapStateToProps(state) {
   }
 }
 
-export default connect(mapStateToProps, {addItemToCart, sortCartQuantities, setCurrentProduct, setModalConfig, computeCartTotal})(ProductDetails)
+export default connect(mapStateToProps, {addItemToCart, sortCartQuantities, setCurrentProduct, setModalConfig, computeCartTotal, getProductList})(ProductDetails)
