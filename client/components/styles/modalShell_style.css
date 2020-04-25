@@ -13,7 +13,7 @@ input {
 .modal-add{
   max-height: 90vh;
   /* max-width: 80vw; */
-  overflow:scroll;
+  /* overflow-y:scroll; */
 }
 
 .modal-c {

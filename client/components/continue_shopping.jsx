@@ -87,7 +87,7 @@ function ContinueShopping(props){
       <Modal.Body> 
         <div  className="d-flex container mt-3">
           <div className="col-9"></div>
-          <h6 className="col-3" name="top" style={{'white-space': 'nowrap'}}>Item count: {computeItemCount()}</h6>
+          <h6 className="col-3" name="top" style={{'white-space': 'nowrap'}}></h6>
         </div>
         
         <Table size="sm">
@@ -101,7 +101,7 @@ function ContinueShopping(props){
           <tbody>
             {generateRows()}
             <tr>
-              <td></td>
+              <td style={{'white-space': 'nowrap'}}>Item Count: {computeItemCount()}</td>
               <td className="d-flex justify-content-end" style={{'white-space': 'nowrap'}}>Cart Total:</td>
               <td>${props.totalOrderCost.toFixed(2)}</td>
             </tr>
