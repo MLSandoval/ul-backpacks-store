@@ -1,6 +1,8 @@
-const path = require('path');
-const srcPath = path.resolve(__dirname, 'client');
-const publicPath = path.resolve(__dirname, 'server/public/');
+const path = require('path')
+const srcPath = path.resolve(__dirname, 'client')
+const publicPath = path.resolve(__dirname, 'server/public/')
+
+const autoprefixer = require('autoprefixer')
 
 module.exports = {
   resolve: {
@@ -26,7 +28,16 @@ module.exports = {
       },
       {
         test: /\.css$/,
-        use: ["style-loader", "css-loader", "postcss-loader"]
+        use: [
+          // "css-loader",
+          "style-loader",
+          {
+            loader: 'postcss-loader',
+            options: {
+              plugins: () => [autoprefixer()]
+            }
+          }
+        ]
       },
       {
         test: /\.(png|svg|jpg|gif|webp|jpeg|ico)$/,
@@ -50,4 +61,4 @@ module.exports = {
     },
     historyApiFallback: true
   }
-};
+}

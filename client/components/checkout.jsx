@@ -370,7 +370,7 @@ function Checkout(props){
         
         <div className="col-9"></div>
         <div className="button-container col-3 row justify-content-around">
-          <LinkRouter to="/cart/modal/thankyou" className="" onClick={handleSubmitClick.bind(this)}
+          <LinkRouter to="/cart/modal/thankyou" className="" onClick={()=>{handleSubmitClick()}}
           >
             <Button
               className=" btn-sm"
