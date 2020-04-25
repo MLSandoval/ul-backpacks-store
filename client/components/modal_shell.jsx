@@ -13,86 +13,78 @@ import Checkout from './checkout.jsx'
 import ThankYou from './thank_you.jsx'
 import ContinueShopping from './continue_shopping.jsx'
 
-
+import {setModalConfig, computeCartTotal} from '../actions'
 
 class ModalShell extends React.Component {
   constructor (props) {
       super(props)
 
       this.inputRef = createRef()
-
-      this.modalContent = null
-      this.modalHeader = null
-      this.orderCost = null
   }
 
   autoRedirect(){
-
     setTimeout(()=>{this.props.history.push( '/')}, 5000)
-
-    console.log('modal shell, autoRedirect called')
-
+    // console.log('modal shell, autoRedirect called')
   }
 
   generateModalContent(){
-    console.log('generateModalContent called, path.includes("modal/checkout"): ', this.props.location.pathname.includes('modal/checkout'))
-    console.log('generateModalContent called, path.includes("modal/thankyou"): ', this.props.location.pathname.includes('modal/thankyou'))
+    // console.log('generateModalContent called, path.includes("modal/checkout"): ', this.props.location.pathname.includes('modal/checkout'))
+    // console.log('generateModalContent called, path.includes("modal/thankyou"): ', this.props.location.pathname.includes('modal/thankyou'))
+    // console.log('generateModalContent called, path.includes("modal/continue-shopping"): ', this.props.location.pathname.includes('modal/continue-shopping'))
 
     switch(true){
       case this.props.location.pathname.includes('modal/checkout'):
-        this.modalContent = <Checkout/>
-        this.modalHeader = 'Checkout'
-        this.orderCost = `$ ${this.props.totalOrderCost.toFixed(2)}`
+        this.props.setModalConfig({
+          header:'Checkout',
+          content: <Checkout/>,
+          orderCost: `$ ${this.props.totalOrderCost.toFixed(2)}`
+        })
         break
       case this.props.location.pathname.includes('modal/thankyou'):
-        this.modalContent = <ThankYou/>
-        this.modalHeader = 'Thank you!'
-        this.orderCost = ''
-        this.autoRedirect()
+        this.props.setModalConfig({
+          header:'Thank You!',
+          content: <ThankYou/>,
+          orderCost: ``
+        })
         break
       case this.props.location.pathname.includes('modal/continue-shopping'):
-        this.modalContent = <ContinueShopping/>
-        this.modalHeader = 'Continue shopping?'
-        this.orderCost = ''
+        this.props.setModalConfig({
+          header:'Continue Shopping?',
+          content: <ContinueShopping/>,
+          orderCost: `Cart Total: $${this.props.totalOrderCost.toFixed(2)}`
+        })
+        break
       default: console.log('Modal Content Error.')
     }
-  }
-
-  populateModal(){
-    return this.modalContent
+    // console.log('this.props.MODALCONFIG: ', this.props.modalConfig)
   }
 
   componentDidMount(){
-    console.log('ModalShell component mounted, props: ', this.props)
+    console.log('props in MOdalShell componenet: ', this.props)
+    this.props.computeCartTotal()
     this.generateModalContent()
   }
-  componentDidUpdate(){
-    console.log('modalShell component did update, generate modal content called again')
-    this.generateModalContent()
-  }
-  
+
   render () {
-    console.log('MODAL RENDER CALLED, this.modalheader: ', this.modalHeader)
-    // let [show] = useState(false)
-    console.log('render modal shell, props: ', this.props)
+    // console.log('render modal shell, props: ', this.props)
     const {to, staticContext, ...rest} = this.props
     return (
       <div>
         <Modal
-        // {...rest}
-        className="modal-add"
-        size="lg"
-        aria-labelledby="contained-modal-title-vcenter"
-        centered
-        show={true}
+          // {...rest}
+          className="modal-add"
+          size="lg"
+          aria-labelledby="contained-modal-title-vcenter"
+          centered
+          show={true}
         >
-          <Modal.Header>
-            <Modal.Title className="w-100 row justify-content-between" id="contained-modal-title-vcenter">
+          <Modal.Header className="modal-header">
+            <Modal.Title className="w-100 row justify-content-between modal-title" id="contained-modal-title-vcenter">
               <div className="col-6">
-                {this.modalHeader}  
+                {this.props.modalConfig.header}  
               </div>
               <div className="col-6">
-                {`${this.orderCost}` || ''}
+                {`${this.props.modalConfig.orderCost}` || ''}
               </div>
             </Modal.Title>
           </Modal.Header>
@@ -107,15 +99,8 @@ class ModalShell extends React.Component {
               consectetur ac, vestibulum at eros.
             </p>
           </Modal.Body> */}
-          {this.populateModal()}
-          {/* <Checkout/> */}
-          <Modal.Footer>
-            {/* <Button 
-            // onClick={props.onHide}
-            >Close</Button> */}
-          </Modal.Footer>
+          {this.props.modalConfig.content}
         </Modal>
-        
       </div>
     )
   }
@@ -128,7 +113,9 @@ function mapStateToProps (state) {
     view: state.view,
     cart: state.cart,
     checkoutFormData: state.checkoutFormData,
-    totalOrderCost: state.totalOrderCost
+    totalOrderCost: state.totalOrderCost,
+    currentProduct: state.currentProduct,
+    modalConfig: state.modalConfig
   }
 }
 
@@ -141,4 +128,4 @@ function mapDispatchToProps (dispatch) {
 }
 
 
-export default connect(mapStateToProps, mapDispatchToProps)(ModalShell)
+export default connect(mapStateToProps, {setModalConfig, computeCartTotal})(ModalShell)

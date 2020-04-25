@@ -149,6 +149,8 @@ class Cart extends React.Component {
     
     this.props.computeCartTotal(this.props.cart)
     // console.log('Cart component props: ', this.props)
+    this.props.computeCartTotal(this.props.cart)
+    console.log('cart didmount compute Cart total: ', this.props.totalOrderCost)
   }
   componentDidUpdate(){
     console.log('cart DidUpdate, this.props.cart: ', this.props.cart)

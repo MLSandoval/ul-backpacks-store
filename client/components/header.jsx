@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import {Link as LinkRouter} from 'react-router-dom'
+import {Link as LinkRouter, withRouter} from 'react-router-dom'
 
 import * as Scroll from 'react-scroll'
 import { Link, Element , Events, animateScroll as scroll, scrollSpy, scroller } from 'react-scroll'
@@ -65,12 +65,26 @@ class Header extends React.Component {
     setTimeout(this.setState({className: 'header-update'}), 1000)
   }
 
+  removeActiveOnClick(){
+    document.querySelectorAll('.active').forEach((element)=>{
+      element.classList.remove('active')
+    })
+  }
+
   componentDidMount(){
     // setTimeout(this.setState({className: 'header-update'}, ()=>{console.log('setState callback triggered, this.state.className after: ', this.state.className)}), 300)
   }
   componentDidUpdate(){
-    // if(this.state.className !== 'header-update')
-    //   setTimeout(this.setState({className: 'header-update'}, ()=>{console.log('setState callback triggered, this.state.className after: ', this.state.className)}), 2000)
+    console.log('header componenet componenet did update props: ', this.props)
+    if(this.props.location.pathname.includes('cart')){
+      document.querySelectorAll('.active').forEach((element)=>{
+        element.classList.remove('active')
+      })
+      this.classSwitch = 'active'
+    }else{
+      this.classSwitch = ''
+    }
+      
 
   }
 
@@ -78,7 +92,8 @@ class Header extends React.Component {
     console.log('this.state.className at time of render: ', this.state.className)
     return (
         <Navbar 
-          toggleNavKey={4} 
+          onClick={()=>{this.removeActiveOnClick()}}
+          // toggleNavKey={4} 
           bg="light" 
           fixed="top" 
           expand="md" 
@@ -110,16 +125,13 @@ class Header extends React.Component {
             <Nav.Link as={LinkRouter} title="reviews" onSelect={() => null} eventKey={3} className="btn font-weight-bold" to="/video-review/:product_uuid">
               Reviews
             </Nav.Link>
-            <Nav.Link as={LinkRouter} title="cart" onSelect={() => null} eventKey={4} className="btn font-weight-bold " to="/cart">
+            <Nav.Link as={LinkRouter} title="cart" onSelect={() => null} eventKey={4} className={`btn font-weight-bold nav-link ${this.classSwitch}`} to="/cart">
               <div className="cart-logo-count-bg">
-                <div className="">
-                  <div className={this.state.className}></div>
-                  <div className="d-flex justify-content-center">
-                    <div className="cart-button"></div>
-                    <div className="cart-count">:{ this.getCartItemCount() }</div>
-                  </div>
+                <div className={this.state.className}></div>
+                <div className="d-flex justify-content-center">
+                  <div className="cart-button"></div>
+                  <div className="cart-count">:{ this.getCartItemCount() }</div>
                 </div>
-                  
               </div>
             </Nav.Link>
             <button onClick={this.triggerFade}>FADECLICK</button>
@@ -160,4 +172,4 @@ function mapStateToProps(state) {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Header);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Header))

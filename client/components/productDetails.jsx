@@ -13,7 +13,7 @@ import Table from 'react-bootstrap/Table'
 
 import './styles/product_details_style.css'
 
-import { addItemToCart, sortCartQuantities, setCurrentProduct} from '../actions'
+import { getProductList,addItemToCart, sortCartQuantities, setCurrentProduct, setModalConfig, computeCartTotal} from '../actions'
 
 import BackToTopButton from './back_to_top_button.jsx'
 import ModalShell from './modal_shell.jsx'
@@ -24,6 +24,7 @@ class ProductDetails extends React.Component {
     this.state = {
       tabKey: 'features' //or description
     }
+    this.handleClick = this.handleClick.bind(this)
   }
   renderProductFeatures () {
     const product = this.props.currentProduct
@@ -71,14 +72,27 @@ class ProductDetails extends React.Component {
         containerId: 'app'
       }));
   }
+  handleClick(){
+    this.props.addItemToCart(this.props.currentProduct)
+    
+    this.props.computeCartTotal(this.props.cart)
+    console.log('product details handclick computecart total totalOrderCost: ', this.props.totalOrderCost)
+    // this.props.setModalConfig({})
+  }
   
   componentDidMount(){
+    if(!this.props.currentProduc){
+      this.props.getProductList()
+    }
     console.log('Product Details Comp this.props: ', this.props)
     window.scrollTo(0,0)
   }
-  componentWillUnmount(){
-    this.props.setCurrentProduct({})
-  }
+  // componentDidUpdate(){
+  //   console.log('productDetails did update, this.props: ', this.props)
+  // }
+  // componentWillUnmount(){
+  //   this.props.setCurrentProduct({})
+  // }
   
 
   render () {
@@ -137,7 +151,8 @@ class ProductDetails extends React.Component {
                 </tr>
                 <tr>
                   <td className="" colSpan="2">
-                    <LinkRouter to={`${this.props.currentProduct.product_uuid}/modal/continue-shopping`} type="button" className="btn btn-secondary col-12" onClick={ ()=>{ this.props.addItemToCart(product)} }>Add To Cart</LinkRouter>
+                    <LinkRouter to={`${this.props.currentProduct.product_uuid}/modal/continue-shopping`} type="button" className="btn btn-secondary col-12" 
+                      onClick={this.handleClick}>Add To Cart</LinkRouter>
                   </td>
                 </tr>
               </tbody>
@@ -181,8 +196,10 @@ function mapStateToProps(state) {
     products: state.products,
     currentProduct: state.currentProduct,
     cart: state.cart,
-    prevY: state.prevY
+    prevY: state.prevY,
+    modalConfig: state.modalConfig,
+    totalOrderCost: state.totalOrderCost
   }
 }
 
-export default connect(mapStateToProps, {addItemToCart, sortCartQuantities, setCurrentProduct})(ProductDetails)
+export default connect(mapStateToProps, {addItemToCart, sortCartQuantities, setCurrentProduct, setModalConfig, computeCartTotal, getProductList})(ProductDetails)
