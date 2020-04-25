@@ -51,7 +51,7 @@ class App extends React.Component {
         Events.scrollEvent.remove('end');
       });
       scroller.scrollTo('app', {
-        duration: 300,
+        duration: 200,
         delay: 0,
         smooth: 'easeInOutQuart'
       })
@@ -59,7 +59,7 @@ class App extends React.Component {
 
     goToContainer.then(() =>
       scroller.scrollTo(targetInApp, {
-        duration: 800,
+        duration: 200,
         delay: 0,
         smooth: 'easeInOutQuart',
         containerId: 'app'

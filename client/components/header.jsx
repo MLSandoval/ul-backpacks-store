@@ -65,6 +65,12 @@ class Header extends React.Component {
     setTimeout(this.setState({className: 'header-update'}), 1000)
   }
 
+  removeActiveOnClick(){
+    document.querySelectorAll('.active').forEach((element)=>{
+      element.classList.remove('active')
+    })
+  }
+
   componentDidMount(){
     // setTimeout(this.setState({className: 'header-update'}, ()=>{console.log('setState callback triggered, this.state.className after: ', this.state.className)}), 300)
   }
@@ -86,6 +92,7 @@ class Header extends React.Component {
     console.log('this.state.className at time of render: ', this.state.className)
     return (
         <Navbar 
+          onClick={()=>{this.removeActiveOnClick()}}
           // toggleNavKey={4} 
           bg="light" 
           fixed="top" 
