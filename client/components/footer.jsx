@@ -3,27 +3,24 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { push } from 'react-router-redux'
 
+import Navbar from 'react-bootstrap/Navbar'
+import Nav from 'react-bootstrap/Nav'
+import NavDropdown from 'react-bootstrap/NavDropdown'
+import Form from 'react-bootstrap/Form'
+import Button from 'react-bootstrap/Button'
+
+
 import "./styles/footer_style.css"
 
 export default function Footer (props){
     return (
-      <div className="container-fluid h-100">
-        <div className="">
-          
-          <div class="pos-f-t">
-            <div class="collapse" id="navbarToggleExternalContent">
-              <div class="bg-dark p-4">
-                <h5 class="text-white h4">Collapsed content</h5>
-                <span class="text-muted">Toggleable via the navbar brand.</span>
-              </div>
-            </div>
-            <nav class="navbar navbar-dark bg-dark">
-              <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-              </button>
-            </nav>
-          </div>
-        </div>
-      </div>
+      <Navbar className="border p-auto mt-8 footer-pos flex-shrink-1" name="footer"  bg="dark"  expand="md">
+        <Navbar.Brand href="#home">React-Bootstrap</Navbar.Brand>
+          <Nav className="mr-auto">
+            <Nav.Link href="#home">Home</Nav.Link>
+            <Nav.Link href="#link">Link</Nav.Link>
+              
+          </Nav>
+      </Navbar>
     )
 }

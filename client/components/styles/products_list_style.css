@@ -1,13 +1,48 @@
 .preview-image{
-    /* object-fit: cover; */
-    max-height: 190.5px;
-    max-width: 190.5px;
-    /* background-size: contain;
-    background-repeat: no-repeat; */
+	object-fit: cover;
+	/* max-height: 190.5px;
+	max-width: 190.5px; */
+	background-size: contain;
+	background-repeat: no-repeat; 
 }
 .remove-a-tag-style{
-    color:black;
+	color:black;
 }
 .remove-a-tag-style:hover{
-    text-decoration: none;
+	text-decoration: none;
 }
+.to-top-pos{
+	position: sticky;
+	bottom: .5rem;
+	right: .5rem;
+}
+
+
+
+
+
+/* at large screen and up*/
+@media (min-width: 992px){
+	.img-size-restrict{
+		max-height: 500px;
+		max-width: 300px;
+	}
+}
+
+/* at medium screen and up*/
+@media (min-width: 768px){
+	.img-size-restrict{
+		max-height: 500px;
+		max-width: 300px;
+	}
+}
+
+/* at small screen and up*/
+@media (min-width: 576px){
+	.img-size-restrict{
+		max-height: 500px;
+		max-width: 300px;
+	}
+}
+
+

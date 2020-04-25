@@ -1,13 +1,16 @@
 import React, {createRef} from 'react'
 import {connect} from 'react-redux'
-import {Link, useRouteMatch, Route} from 'react-router-dom'
+import {Link as LinkRouter, useRouteMatch, Route} from 'react-router-dom'
+
+import * as Scroll from 'react-scroll';
+import { Link, Element , Events, animateScroll as scroll, scrollSpy, scroller } from 'react-scroll'
 
 import Table from 'react-bootstrap/Table'
 import './styles/cart_style.css'
 
 import {sortCartQuantities, computeCartTotal, addItemToCart, removeItemFromCart, reduceItemQuantity, increaseItemQuantity} from '../actions'
 
-import ModalShell from './modalShell.jsx'
+import ModalShell from './modal_shell.jsx'
 
 class Cart extends React.Component {
   constructor(props){
@@ -57,10 +60,12 @@ class Cart extends React.Component {
                   <button 
                       type="button" 
                       className="btn"
-                      data-uuid={product.uuid}
+                      data-uuid={product.product_uuid}
                       data-quantity={product.quantity}
                       onClick={ e => {
-                        this.props.removeItemFromCart(e.currentTarget.dataset.uuid)
+                        console.log('reduceitemquantity CLICKED, uuid: ', e.currentTarget.dataset.uuid)
+                        this.props.reduceItemQuantity(e.currentTarget.dataset.uuid)
+                        
                       }}
                       >-
                     </button>
@@ -68,9 +73,11 @@ class Cart extends React.Component {
                     <button 
                       type="button" 
                       className="btn"
-                      data-id={product.id}
+                      data-uuid={product.product_uuid}
                       onClick={ e => {
-                        this.props.addItemToCart(this.props.products.find(element => element.uuid === e.currentTarget.dataset.uuid))                     
+                        console.log('additemtocart CLICKED, uuid: ', e.currentTarget.dataset.uuid)   
+                        this.props.increaseItemQuantity(e.currentTarget.dataset.uuid)
+                                          
                       }}
                       >+
                     </button>
@@ -81,7 +88,7 @@ class Cart extends React.Component {
                     <button 
                       type="button" 
                       className="btn btn-danger"
-                      data-id={product.id}
+                      data-uuid={product.product_uuid}
                       onClick={ e => {this.props.removeItemFromCart(e.currentTarget.dataset.uuid)}}
                       >X
                     </button>
@@ -104,7 +111,7 @@ class Cart extends React.Component {
               <td></td>
               <td></td>
               <td>
-                <Link to={`cart/modal/checkout`}
+                <LinkRouter to={`cart/modal/checkout`}
                   data-toggle="modal" data-target="#exampleModalCenter">
                   {/* <button 
                     type="button" 
@@ -115,7 +122,7 @@ class Cart extends React.Component {
                   <button type="button" className="btn btn-primary" >
                     Checkout
                   </button>
-                </Link>
+                </LinkRouter>
               </td> 
             </tr>
             </tbody>
@@ -139,18 +146,22 @@ class Cart extends React.Component {
   }
 
   componentDidMount(){
+    
     this.props.computeCartTotal(this.props.cart)
-    console.log('Cart component props: ', this.props)
+    // console.log('Cart component props: ', this.props)
+    this.props.computeCartTotal(this.props.cart)
+    console.log('cart didmount compute Cart total: ', this.props.totalOrderCost)
   }
   componentDidUpdate(){
+    console.log('cart DidUpdate, this.props.cart: ', this.props.cart)
     this.props.computeCartTotal(this.props.cart)
   }
 
   render () {
     return (
-      <div className="pt-4 container" ref={this.CartRef}>
+      <div className="container" ref={this.CartRef}>
         <div className="row">
-          <h1 className="pt-4">THIS IS THE CART VIEW</h1>
+          <h1 className="">THIS IS THE CART VIEW</h1>
           {this.generateCartList()} 
         </div>
       </div>
@@ -170,7 +181,7 @@ function mapDispatchToProps(dispatch){
 }
 
 function mapStateToProps(state){
-  console.log('CART state: ', state)
+  // console.log('CART state: ', state)
   return {
     products: state.products,
     cart: state.cart,

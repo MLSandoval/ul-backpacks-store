@@ -26,7 +26,7 @@ module.exports = {
       },
       {
         test: /\.css$/,
-        use: ["style-loader", "css-loader"]
+        use: ["style-loader", "css-loader", "postcss-loader"]
       },
       {
         test: /\.(png|svg|jpg|gif|webp|jpeg|ico)$/,
@@ -41,12 +41,12 @@ module.exports = {
   devtool: "source-map",
   devServer: {
     host: "0.0.0.0",
-    port: 3000,
+    port: 3002,
     contentBase: publicPath,
     watchContentBase: true,
     stats: "minimal",
     proxy: {
-      "/api": "http://localhost:3001"
+      "/api": "http://localhost:3003"
     },
     historyApiFallback: true
   }

@@ -1,6 +1,8 @@
-.carousel{
-    /* height: 760px;
-    width: 570px; */
+.carousel-image{
+    max-height: 760px;
+    max-width: 570px; 
+    background-image: contain;
+    align-items: center;
 }
 
 .carousel-control-prev-icon,
@@ -39,7 +41,22 @@
     -1px 1px 0 #000,
      1px 1px 0 #000;
 }
+.carousel-indicators li{
+  background-color:black;
+  text-shadow:
+  -1px -1px 0 #000,  
+   1px -1px 0 #000,
+   -1px 1px 0 #000,
+    1px 1px 0 #000;
+}
+
 
 .two-columns{
   columns: 2 auto;
+}
+@media (max-width: 768px){
+  .carousel-image{
+    max-height: 480px;
+    max-width: 360px;
+  }
 }

@@ -1,0 +1,35 @@
+/* .back-to-top-button{
+  background-color: rgba(0, 0, 0, 0.575);
+  color: rgba(212, 211, 211, 0.836);
+  opacity: .5;
+  height:2rem;
+  width:2rem;
+  position: sticky;
+  top: 95%;
+  left: 95%;
+} */
+.hide-until-scroll{
+  /* display:none; */
+}
+.active{
+  display: inline-block;
+}
+
+
+
+.back-to-top-button {
+  position: fixed;
+  bottom: 3.8rem;
+  right: 1rem;
+  animation: fadeIn 700ms ease-in-out 1s both;
+  cursor: pointer;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
