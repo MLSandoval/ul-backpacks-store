@@ -78,11 +78,12 @@ class App extends React.Component {
         >
           <Header/>
           <div className="main-content flex-grow-1">
-            {/* <Route path="/" component={Landing2}></Route> */}
-            <Route exact path="/" component={Landing} />
-            {/* <Route exact path="/products" component={ProductList}/>
+            <Route exact path="/" component={Landing2}/>
+            {/* <Route exact path="/" component={Landing} /> */}
+            <Route exact path="/our-story" component={Landing}/>
+            <Route exact path="/products" component={ProductList}/>
             <Route path="/details/:productId" component={ProductDetails}/> 
-            <Route path="/cart" component={Cart}/> */}
+            <Route path="/cart" component={Cart}/>
           </div>
           <Footer/>
         </Element>
