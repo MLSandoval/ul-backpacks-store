@@ -1,6 +1,3 @@
-//load environmental variables from env file
-
-// console.log('process.env in connection.js: ', dotenv)
 const {PGUSER, PGHOST, PGPORT} = process.env
 const pg = require('pg')
 

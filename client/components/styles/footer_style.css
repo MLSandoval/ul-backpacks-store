@@ -3,9 +3,9 @@
 } */
 
 .footer-pos{
-    /* position:relative;
-    bottom:0; */
-    height:4rem;
+    position:relative; 
+    bottom:0;
+    /* height:4rem; */
     
     /* margin-top:-2.5rem; */
 }

@@ -1,7 +1,6 @@
 import React from 'react'
 
 import { connect } from 'react-redux'
-import { push } from 'react-router-redux'
 
 import Navbar from 'react-bootstrap/Navbar'
 import Nav from 'react-bootstrap/Nav'
@@ -19,8 +18,8 @@ export default function Footer (props){
           <Nav className="mr-auto">
             <Nav.Link href="#home">Home</Nav.Link>
             <Nav.Link href="#link">Link</Nav.Link>
-              
           </Nav>
       </Navbar>
+      
     )
 }

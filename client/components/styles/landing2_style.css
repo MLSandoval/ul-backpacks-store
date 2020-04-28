@@ -1,0 +1,35 @@
+.landing-top{
+  /* margin-top: 4rem; */
+  /* position:relative; */
+  /* height:100vh;
+  width:100vw; */
+  /* overflow-x: hidden; */
+  /* overflow-y: scroll; */
+}
+.text{
+  background-color: black;
+}
+.left-text{}
+.parallax-container{
+  height: 100vh;
+  width: 100vw;
+  
+}
+.bg{
+  height:100%;
+  width:100%;
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+.bg-1{
+  background-image: url('../../images/backgrounds/BP_landscape_3.jpg');
+}
+.horizontal-divider{
+  height:3rem;
+  background-color: black;
+}
+.bg-2{
+  background-image: url('../../images/backgrounds/BP_landscape_4.jpeg');
+}
