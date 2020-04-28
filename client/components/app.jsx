@@ -14,6 +14,7 @@ import {getProductList, setCurrentProduct} from '../actions'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import './styles/global_style.css'
 import Landing from './landing.jsx'
+import Landing2 from './landing2.jsx'
 import ProductList from './productList.jsx'
 import Cart from './cart.jsx'
 import ModalShell from './modal_shell.jsx'
@@ -77,10 +78,11 @@ class App extends React.Component {
         >
           <Header/>
           <div className="main-content flex-grow-1">
+            {/* <Route path="/" component={Landing2}></Route> */}
             <Route exact path="/" component={Landing} />
-            <Route exact path="/products" component={ProductList}/>
+            {/* <Route exact path="/products" component={ProductList}/>
             <Route path="/details/:productId" component={ProductDetails}/> 
-            <Route path="/cart" component={Cart}/>
+            <Route path="/cart" component={Cart}/> */}
           </div>
           <Footer/>
         </Element>

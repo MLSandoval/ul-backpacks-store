@@ -41,9 +41,10 @@ class Landing extends React.Component {
                     At UltraLite, we know our customers aren't just outdoor enthusiasts: they're fanatics.
                     Leaving cell reception range, waking up covered in the morning dew, ascending the peak as the day's sun sets, and gazing up through our galaxy at night drive their need for adventure.
                     However, at UltraLite we also know that a few ounces can make the difference when reaching the final crest.
-                    <Button>Shop Now</Button>
-                    Let us help you get there.
+                    
                   </div>
+                  <Button>Shop Now</Button>
+                    Let us help you get there.
                 </FadeInSection>
               </div>
               <div className="black-line-bottom"></div>
