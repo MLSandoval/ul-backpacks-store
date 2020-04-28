@@ -1,7 +1,6 @@
 import React from 'react'
 
 import { connect } from 'react-redux'
-import { push } from 'react-router-redux'
 
 import Navbar from 'react-bootstrap/Navbar'
 import Nav from 'react-bootstrap/Nav'
