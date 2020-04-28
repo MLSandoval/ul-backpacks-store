@@ -2,8 +2,6 @@ const path = require('path')
 const srcPath = path.resolve(__dirname, 'client')
 const publicPath = path.resolve(__dirname, 'server/public/')
 
-const autoprefixer = require('autoprefixer')
-
 module.exports = {
   resolve: {
     extensions: [".js", ".jsx"]
@@ -29,24 +27,14 @@ module.exports = {
       {
         test: /\.css$/,
         use: [
-          // "css-loader",
-          "style-loader",
-          {
-            loader: 'postcss-loader',
-            options: {
-              plugins: () => [autoprefixer()]
-            }
-          }
+          "css-loader",
+          "style-loader"
         ]
       },
       {
         test: /\.(png|svg|jpg|gif|webp|jpeg|ico)$/,
         use: ["url-loader"]
       },
-      // {
-      //   test: /\.(png|svg|jpg|gif|webp|jpeg)$/,
-      //   use: ["file-loader"]
-      // }
     ],
   },
   devtool: "source-map",
