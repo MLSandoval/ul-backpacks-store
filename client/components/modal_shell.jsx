@@ -59,6 +59,10 @@ class ModalShell extends React.Component {
     // console.log('this.props.MODALCONFIG: ', this.props.modalConfig)
   }
 
+  handleOnHide(){
+    this.props.history.goBack()
+  }
+
   componentDidMount(){
     console.log('props in MOdalShell componenet: ', this.props)
     this.props.computeCartTotal()
@@ -77,6 +81,8 @@ class ModalShell extends React.Component {
           aria-labelledby="contained-modal-title-vcenter"
           centered
           show={true}
+          backdrop={true}
+          onHide={()=>{console.log('this is onHide fnc'); this.handleOnHide() }}
         >
           <Modal.Header className="modal-header">
             <Modal.Title className="w-100 row justify-content-between modal-title" id="contained-modal-title-vcenter">

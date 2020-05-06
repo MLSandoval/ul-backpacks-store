@@ -148,12 +148,13 @@ export function computeCartTotal(cart){
   }
 }
 
-export function storeCheckoutFormData(formData){
+export function storeCheckoutFormData(key, value){
   // console.log('storeCheckoutFormData action, formData: ', formData)
   return function(dispatch){
     dispatch({
       type: types.CHECKOUT_FORM_SUBMITTED,
-      payload: formData
+      key,
+      value
     })
   }
 }
