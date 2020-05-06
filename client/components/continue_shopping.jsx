@@ -87,7 +87,7 @@ function ContinueShopping(props){
       <Modal.Body> 
         <div  className="d-flex container mt-3">
           <div className="col-9"></div>
-          <h6 className="col-3" name="top" style={{'white-space': 'nowrap'}}></h6>
+          <h6 className="col-3 no-wrap-white" name="top" ></h6>
         </div>
         
         <Table size="sm">
@@ -101,8 +101,8 @@ function ContinueShopping(props){
           <tbody>
             {generateRows()}
             <tr>
-              <td style={{'white-space': 'nowrap'}}>Item Count: {computeItemCount()}</td>
-              <td className="d-flex justify-content-end" style={{'white-space': 'nowrap'}}>Cart Total:</td>
+              <td >Item Count: {computeItemCount()}</td>
+              <td className="d-flex justify-content-end no-wrap-white">Cart Total:</td>
               <td>${props.totalOrderCost.toFixed(2)}</td>
             </tr>
             
@@ -111,10 +111,10 @@ function ContinueShopping(props){
       </Modal.Body>
       <Modal.Footer className="d-flex">
         <div className="col-8"></div>
-        <div className="button-container col-4 row justify-content-around">
-          <LinkRouter to="/cart" className="">
+        <div className="button-container col-4 row flex-column justify-content-around">
+          <LinkRouter to="/cart">
             <Button
-              className="btn-sm"
+              className="btn-sm col-12 w-100"
               variant="info"
               type="button"
               onClick={() => {
@@ -127,7 +127,7 @@ function ContinueShopping(props){
           </LinkRouter>
           <LinkRouter to={`/products`}>
             <Button
-              className="btn-sm"
+              className="btn-sm col-12 w-100"
               variant="dark"
               type="button"
               // onClick={() =>
