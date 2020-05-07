@@ -4,90 +4,80 @@ const DEFAULT_STATE = []
 
 export default function cartReducer(state = DEFAULT_STATE, action) {
 
-  const getNested = (obj, ...args)=>{
-    console.log('getNested FUNCTION obj: ', obj)
-    console.log('getNested FUNCTION args: ', args)
-    let i = 1
-    return args.reduce((obj, prop)=>{
-      console.log(`getNested FUNCTION obj in reduce ${i} iteration: `, obj)
-      console.log(`getNested FUNCTION prop in reduce ${i} iteration: `, prop)
-      i++
-      obj && obj[prop], prop
-    })
-  }
+  // const getNested = (obj, ...args)=>{
+  //   console.log('getNested FUNCTION obj: ', obj)
+  //   console.log('getNested FUNCTION args: ', args)
+  //   let i = 1
+  //   return args.reduce((obj, prop)=>{
+  //     console.log(`getNested FUNCTION obj in reduce ${i} iteration: `, obj)
+  //     console.log(`getNested FUNCTION prop in reduce ${i} iteration: `, prop)
+  //     i++
+  //     obj && obj[prop], prop
+  //   })
+  // }
 
   switch (action.type) {
     case types.PRODUCT_ADDED_TO_CART:
-
+      console.log('cart REDUCER add to cart called, action.payload: ', action.payload)
       let newState = [];
       if(state.length === 0){
-        console.log('PRODuct ADDed first item in cart: ', action.payload)
-        newState.push(action.payload)
-        return newState
+        console.log('cart starts empty, first item in cart: ', action.payload)
+        state.push(action.payload)
+        return [...state]
       }
 
-      newState = [...state]
+      
+      
       
       let pushCheck = true
-      console.log('pushCheck: ', pushCheck)
-      newState.forEach(element =>{
-        console.log('inside newState filter, element: ', element)
+      
+      state.forEach(element =>{
+        console.log('inside newState forEach, element: ', element)
+        console.log('pushCheck should be true: ', pushCheck)
         if(element.product_uuid === action.payload.product_uuid){
-          console.log('PRODUCT ADDED REDUCER Increment condition, action.payload: ', action.payload)
-          element.quantity++
+          // console.log('PRODUCT ADDED REDUCER Increment condition, action.payload: ', action.payload)
           pushCheck = false
+          element.quantity++
+          console.log('pushCheck should be false: ', pushCheck)
         }
       })
 
       if(!pushCheck){
-        return newState
+        return [...state]
       }else{
-        newState.push(action.payload)
-        return newState
+        return [...state, action.payload]
       }
-
-      // let newObj = Object.assign({}, newState)
-      // console.log('newObj: ', newObj)
-      // console.log('CARTREDUCER action.payload.id: ', action.payload.id)
-      // // console.log(!action.payload in newState)
-      // console.log(getNested(newState, 'id', action.payload.id))
-      // console.log('cartReducser newState: ', newState)
-
-
-      // // if(!action.payload in newState){
-      // //   console.log('payload is not in newState')
-      // //   onsole.log('PRODUCT ADDED REDUCER else condition, action.payload: ', action.payload)
-      // //   newState.push(action.payload)
-      // // }
-      
-      // if(getNested(newObj, 'id', action.payload.id) === undefined){
-      //   newState.push(action.payload)
-      // }
-
-      // // console.log('PRODUCT ADDED REDUCER else condition, action.payload: ', action.payload)
-      // // newState.push(action.payload)
-      // console.log('cartReducser newState: ', newState)
-      // return newState
-
-      
-      
-
     case types.PRODUCT_REMOVED_FROM_CART:
+      console.log('cart REDUCER remove from cart called, action.payload: ', action.payload)
+      return (state.filter((element) => {
+        if(element.product_uuid !== action.payload){
+          return true
+        }else{
+          return false
+        }
+        }) 
+      ) 
+    case types.INCREASED_PRODUCT_QUANTITY:
+      console.log('increased product quantity reducer, action.payload should be UUID: ', action.payload)
+      return state.map(element => {
+        if(element.product_uuid === action.payload){
+          console.log(element.quantity)
+          element.quantity++
+          console.log(element.quantity)
+        } 
+        return element
+      })
+      break
+    case types.REDUCED_PRODUCT_QUANTITY:
+      return state.map(element => {
+        if(element.product_uuid === action.payload && element.quantity >1) element.quantity--
+        return element
+      })
 
-        return state.filter((element, index) => {
-          if(element.id !== action.payload){
-            // console.log('REDUCE ITEM QUANTITY REDUCER action.payload: ', action.payload)
-            // console.log('REDUCE ITEM QUANTITY REDUCER element unchanged: ', element)
-            return true
-          }else{
-            // console.log('REDUCE ITEM QUANTITY REDUCER action.payload: ', action.payload)
-            // console.log('REDUCE ITEM QUANTITY REDUCER element reduced quantity: ', element)
-            
-            if(element.quantity > 1)
-              element.quantity--
-            return true
-          }
-        })
+      
+      
+
+    
 
     default:
       return state

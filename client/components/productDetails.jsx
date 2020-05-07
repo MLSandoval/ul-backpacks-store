@@ -1,6 +1,8 @@
 import React from 'react'
 import { connect } from 'react-redux'
 
+import {Route, Link as LinkRouter} from 'react-router-dom'
+
 import * as Scroll from 'react-scroll'
 import { Link, Element , Events, animateScroll as scroll, scrollSpy, scroller } from 'react-scroll'
 
@@ -11,7 +13,10 @@ import Table from 'react-bootstrap/Table'
 
 import './styles/product_details_style.css'
 
-import { addItemToCart, sortCartQuantities, setCurrentProduct} from '../actions'
+import { getProductList,addItemToCart, sortCartQuantities, setCurrentProduct, setModalConfig, computeCartTotal} from '../actions'
+
+import BackToTopButton from './back_to_top_button.jsx'
+import ModalShell from './modal_shell.jsx'
 
 class ProductDetails extends React.Component {
   constructor(props){
@@ -19,6 +24,7 @@ class ProductDetails extends React.Component {
     this.state = {
       tabKey: 'features' //or description
     }
+    this.handleClick = this.handleClick.bind(this)
   }
   renderProductFeatures () {
     const product = this.props.currentProduct
@@ -66,25 +72,38 @@ class ProductDetails extends React.Component {
         containerId: 'app'
       }));
   }
+  handleClick(){
+    this.props.addItemToCart(this.props.currentProduct)
+    
+    this.props.computeCartTotal(this.props.cart)
+    console.log('product details handclick computecart total totalOrderCost: ', this.props.totalOrderCost)
+    // this.props.setModalConfig({})
+  }
   
   componentDidMount(){
+    if(!this.props.currentProduc){
+      this.props.getProductList()
+    }
     console.log('Product Details Comp this.props: ', this.props)
-    this.scrollToTop()
+    window.scrollTo(0,0)
   }
-  componentWillUnmount(){
-    this.props.setCurrentProduct({})
-  }
+  // componentDidUpdate(){
+  //   console.log('productDetails did update, this.props: ', this.props)
+  // }
+  // componentWillUnmount(){
+  //   this.props.setCurrentProduct({})
+  // }
   
 
   render () {
     
     const product = this.props.currentProduct
-    console.log('product details render, this.props.currentProduct', this.props.currentProduct)
-    console.log('product details render, product: ', product)
+    // console.log('product details render, this.props.currentProduct', this.props.currentProduct)
+    // console.log('product details render, product: ', product)
     return (
       <div className="product-details container pb-5 flex-grow-1">
-        <div className="pt-4 row h-100 justify-content-between overflow-auto">
-          <div className="col-sm-12 col-lg-6 carousel-container">
+        <div className="align-items-center container pt-4 d-flex flex-wrap h-100 justify-content-center">
+          <div className="col-sm-12 col-md-6 carousel-container">
             <Carousel interval={null}>
               {
                 product.image_urls.map( (element, index) => {
@@ -104,13 +123,13 @@ class ProductDetails extends React.Component {
               }
             </Carousel>
           </div>
-          <div className="col-sm-12 col-lg-6 row flex-direction-column">
-            <div >
+          <div className="col-sm-12 col-md-6 d-flex flex-column flex-grow-1 justify-content-between">
+            <div className=''>
               <h2 className="">{product.name}</h2>
               <h6>by {product.brand}</h6>
               <div className="align-self-center">{product.short_description}</div>
             </div>
-            <Table className="flat no-border" striped bordered hover>
+            <Table className="flat no-border" hover>
               <thead>
               </thead>
               <tbody>
@@ -132,7 +151,8 @@ class ProductDetails extends React.Component {
                 </tr>
                 <tr>
                   <td className="" colSpan="2">
-                    <button className="btn btn-secondary col-12" onClick={ ()=>{ this.props.addItemToCart(product)} }>Add To Cart</button>
+                    <LinkRouter to={`${this.props.currentProduct.product_uuid}/modal/continue-shopping`} type="button" className="btn btn-secondary col-12" 
+                      onClick={this.handleClick}>Add To Cart</LinkRouter>
                   </td>
                 </tr>
               </tbody>
@@ -155,7 +175,8 @@ class ProductDetails extends React.Component {
             <ul>{ this.renderProductFeatures() }</ul>
           </Tab>
         </Tabs>
-
+        <BackToTopButton/>
+        <Route path={`${this.props.match.url}/modal`} component={ModalShell}/>
       </div>
     )
   }
@@ -175,8 +196,10 @@ function mapStateToProps(state) {
     products: state.products,
     currentProduct: state.currentProduct,
     cart: state.cart,
-    prevY: state.prevY
+    prevY: state.prevY,
+    modalConfig: state.modalConfig,
+    totalOrderCost: state.totalOrderCost
   }
 }
 
-export default connect(mapStateToProps, {addItemToCart, sortCartQuantities, setCurrentProduct})(ProductDetails)
+export default connect(mapStateToProps, {addItemToCart, sortCartQuantities, setCurrentProduct, setModalConfig, computeCartTotal, getProductList})(ProductDetails)

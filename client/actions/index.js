@@ -70,29 +70,29 @@ export function addItemToCart (product) {//also need to add query to add item to
   }
 }
 
-export function removeItemFromCart(productId){
+export function removeItemFromCart(product_uuid){
   return function (dispatch) {
     dispatch({
       type: types.PRODUCT_REMOVED_FROM_CART,
-      payload: parseInt(productId)
+      payload: product_uuid
     })
   }
 }
 
-export function increaseItemQuantity(productId){
+export function increaseItemQuantity(product_uuid){
   return function (dispatch) {
     dispatch({
       type: types.INCREASED_PRODUCT_QUANTITY,
-      payload: parseInt(productId)
+      payload: product_uuid
     })
   }
 }
 
-export function reduceItemQuantity(productId){
+export function reduceItemQuantity(product_uuid){
   return function (dispatch) {
     dispatch({
       type: types.REDUCED_PRODUCT_QUANTITY,
-      payload: parseInt(productId)
+      payload: product_uuid
     })
   }
 }
@@ -132,6 +132,7 @@ export function sortCartQuantities(cart){
 }
 
 export function computeCartTotal(cart){
+  console.log('computeCartTotal action called, cart: ', cart)
   let total = 0
   for (let product in cart){
     total += parseInt(cart[product].quantity) * parseInt(cart[product].price)
@@ -147,12 +148,13 @@ export function computeCartTotal(cart){
   }
 }
 
-export function storeCheckoutFormData(formData){
+export function storeCheckoutFormData(key, value){
   // console.log('storeCheckoutFormData action, formData: ', formData)
   return function(dispatch){
     dispatch({
       type: types.CHECKOUT_FORM_SUBMITTED,
-      payload: formData
+      key,
+      value
     })
   }
 }
@@ -163,6 +165,15 @@ export function savePrevY(prevY){
     dispatch({
       type: types.PREVIOUS_Y_SAVED,
       payload: prevY
+    })
+  }
+}
+
+export function setModalConfig(modalConfig){
+  return function(dispatch){
+    dispatch({
+      type: types.MODAL_CONFIG_SET,
+      payload: modalConfig
     })
   }
 }

@@ -10,9 +10,12 @@ import types from '../actions/types'
 import Card from 'react-bootstrap/Card'
 import CardDeck from 'react-bootstrap/CardDeck'
 
+import BackToTopButton from './back_to_top_button.jsx'
+import FadeInSection from './fade_in_section.jsx'
+
 import "./styles/products_list_style.css"
 
-import scrollData from './app.jsx'
+
 
 class ProductList extends React.Component {
   constructor(props){
@@ -99,24 +102,20 @@ class ProductList extends React.Component {
       }
       return (
         this.props.products.map(element => {
-          attributeSwitch.ref = this.levityRef
-          if( element.product_uuid !== "4e874c44-a4d2-4dd7-b896-8486e67c4845"){
-            attributeSwitch.ref = null
-          }
           let imgURL = element.image_urls[0]
           return (
             <LinkRouter
-              
-              className={`col-4 p-1 remove-a-tag-style d-flex restore-{${this.props.currentProduct.hasOwnPropery ? this.props.currentProduct.product_uuid : ''}}`}
+              className={`col-12 col-sm-6 col-md-4 col-lg-3 p-1 remove-a-tag-style d-flex }`}
               key={element.product_uuid} 
               to={`/details/${element.product_uuid}`}
               data-uuid={element.product_uuid}
               name={element.product_uuid}
               onClick={ e =>{ this.props.setCurrentProduct(element) }}
             >
+               <FadeInSection className="d-flex">
               <Card {...attributeSwitch} >
                 {/* <Card.Header className="bg-dark">{element.name}</Card.Header> */}
-                <Card.Img className="img-fluid" variant="top" src={imgURL} />
+                <Card.Img className="img-fluid img-size-restrict" variant="top" src={imgURL} />
                 <Card.Body>
                   <Card.Title>{element.name}</Card.Title>
                   <Card.Text className="text-sm-left">
@@ -127,7 +126,9 @@ class ProductList extends React.Component {
                   <small className="text-muted">by {element.brand}</small>
                 </Card.Footer>
               </Card>
+              </FadeInSection>
             </LinkRouter>
+            
           )
         })
       )
@@ -136,12 +137,22 @@ class ProductList extends React.Component {
 
   render(){
     return (
-      <Element className="product-list-main container mt-3 mb-3 flex-grow-1" name="top-listo" containerId="top-list">
+      <Element  className="product-list-main container mt-3 mb-3 flex-grow-1" name="top-listo" 
+      // containerId="top-list"
+      >
         {/* <div style={{height: '3.5rem'}}></div> */}
         <h1 className="" name="top">Products list</h1>
-          <CardDeck className="" containerId="card-deck">
+          <CardDeck 
+            // as={CardDeck} 
+            className="" 
+            id="card-deck"
+          >
             { this.generateProductList() } 
           </CardDeck>
+          <div className="to-top-pos">
+            <BackToTopButton/>
+          </div>
+          
       </Element>
     )
   }

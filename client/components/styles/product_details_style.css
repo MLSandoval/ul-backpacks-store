@@ -41,6 +41,15 @@
     -1px 1px 0 #000,
      1px 1px 0 #000;
 }
+.carousel-indicators li{
+  background-color:black;
+  text-shadow:
+  -1px -1px 0 #000,  
+   1px -1px 0 #000,
+   -1px 1px 0 #000,
+    1px 1px 0 #000;
+}
+
 
 .two-columns{
   columns: 2 auto;

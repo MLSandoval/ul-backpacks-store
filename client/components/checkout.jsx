@@ -9,9 +9,10 @@ import Modal from 'react-bootstrap/Modal'
 import Button from 'react-bootstrap/Button'
 import Form from 'react-bootstrap/Form'
 
-import {storeCheckoutFormData} from '../actions'
+import {storeCheckoutFormData, setModalConfig} from '../actions'
 
 import './styles/checkout_style.css'
+import ThankYou from './thank_you.jsx'
 
 //next stup, setup a useEffect() or useLayoutEffect() for filling in the shipping data with the billing data,
 //also a useEffect() for sending the formData to the store AFTER it is formed to the
@@ -95,6 +96,54 @@ function Checkout(props){
     callback(formData)
 
   }
+
+  function handleSubmitClick(){
+    setModalConfig({
+      header:'Thank You!',
+      content: <ThankYou/>,
+      orderCost: `${props.totalOrderCost.toFixed(2)}`
+    })
+  }
+
+  function clearForm(){
+    setEmail('')
+    setNameOnCard('')
+    setCardNumber(-1)
+    setCardExp(-1)
+    setCvv(-1)
+  
+    setBillStreetAddr('')
+    setBillCity('')
+    setBillState('')
+    setBillZip(-1)
+
+    setShipStreetAddr('')
+    setShipCity('')
+    setShipState('')
+    setShipZip(-1)
+
+    props.storeCheckoutFormData({
+      email,
+      cardNumber,
+      cardExp,
+      cvv,
+      nameOnCard,
+      billStreetAddr,
+      billCity,
+      billState,
+      billZip,
+      shipStreetAddr,
+      shipCity,
+      shipState,
+      shipZip
+    })
+  }
+    
+      
+      
+    
+
+  
   
   console.log('checkout comp rendered props: ', props)
   return(
@@ -106,12 +155,13 @@ function Checkout(props){
           <Form.Control
             type="emailAddress"
             placeholder="Enter Email"
+            value={props.checkoutFormData.email ? props.checkoutFormData.email : ''}
             // isInvalid={props.loginForm.errors.password.length > 0}
             // isValid={
             //   props.loginForm.values.password &&
             //   props.loginForm.errors.password.length === 0
             // }
-            onChange={e => setEmail(e.target.value)}
+            onChange={(e) => {setEmail(e.target.value); props.storeCheckoutFormData('email', e.target.value)}}
           />
           <Form.Text className="text-muted">
             Email required for order receipt
@@ -120,6 +170,17 @@ function Checkout(props){
             {/* {props.loginForm.errors.password} */}
           </Form.Control.Feedback>
         </Form.Group>
+        <div className="col-3">
+          <Button
+            className="btn-sm w-100"
+            variant="dark"
+            type="button"
+            onClick={() => clearForm()
+            }
+          >
+            Clear Info
+          </Button>
+        </div>
 
         <h5 className='col-12'>Payment and Shipping</h5>
         <hr />
@@ -129,12 +190,13 @@ function Checkout(props){
           <Form.Control
             type="cardNumber"
             placeholder="Enter Card Number"
+            value={props.checkoutFormData.cardNumber || null}
             // isInvalid={props.loginForm.errors.email.length > 0}
             // isValid={
             //   props.loginForm.values.email &&
             //   props.loginForm.errors.email.length === 0
             // }
-            onChange={e => setCardNumber(e.target.value)}
+            onChange={(e) => {setCardNumber(e.target.value); props.storeCheckoutFormData('cardNumber', e.target.value)}}
           />
           <Form.Control.Feedback type="invalid">
             {/* {props.loginForm.errors.email} */}
@@ -359,9 +421,12 @@ function Checkout(props){
           </Form.Text>
         </Form.Group>
         
-        <div className="col-9"></div>
+        <div className="col-9">
+        
+        </div>
         <div className="button-container col-3 row justify-content-around">
-          <LinkRouter to="/cart/modal/thankyou" className="">
+          <LinkRouter to="/cart/modal/thankyou" className="" onClick={()=>{handleSubmitClick()}}
+          >
             <Button
               className=" btn-sm"
               variant="info"
@@ -405,6 +470,8 @@ function Checkout(props){
   )
 }
 
+
+
 function mapDispatchToProps (dispatch) {
   return {
     onChange: dispatch()
@@ -416,8 +483,9 @@ function mapStateToProps(state){
   return {
     cart: state.cart,
     totalOrderCost: state.totalOrderCost,
-    checkoutFormData: state.checkoutFormData
+    checkoutFormData: state.checkoutFormData,
+    modalConfig: state.modalConfig
   }
 }
 
-export default connect(mapStateToProps, {storeCheckoutFormData})(Checkout)
+export default connect(mapStateToProps, {storeCheckoutFormData, setModalConfig})(Checkout)

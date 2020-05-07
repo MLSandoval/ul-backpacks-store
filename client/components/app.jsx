@@ -14,14 +14,16 @@ import {getProductList, setCurrentProduct} from '../actions'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import './styles/global_style.css'
 import Landing from './landing.jsx'
+import Landing2 from './landing2.jsx'
 import ProductList from './productList.jsx'
 import Cart from './cart.jsx'
-import ModalShell from './modalShell.jsx'
+import ModalShell from './modal_shell.jsx'
 import Header from './header.jsx'
 import Footer from './footer.jsx'
 import Test from './test'
 import ProductDetails from './productDetails'
 import ThankYou from './thank_you'
+import Checkout from './checkout'
 
 import ScrollerProto from './reactScrollerProto.jsx'
 import Section from './EXAMPLE.jsx'
@@ -51,7 +53,7 @@ class App extends React.Component {
         Events.scrollEvent.remove('end');
       });
       scroller.scrollTo('app', {
-        duration: 300,
+        duration: 200,
         delay: 0,
         smooth: 'easeInOutQuart'
       })
@@ -59,7 +61,7 @@ class App extends React.Component {
 
     goToContainer.then(() =>
       scroller.scrollTo(targetInApp, {
-        duration: 800,
+        duration: 200,
         delay: 0,
         smooth: 'easeInOutQuart',
         containerId: 'app'
@@ -73,14 +75,16 @@ class App extends React.Component {
         
         <Element className="app-main d-flex flex-column"
         //  d-flex flex-direction-column"
-          containerId="app"
+          id="app"
         >
           <Header/>
           <div className="main-content flex-grow-1">
-            <Route exact path="/" component={Landing} />
+            {/* <Route exact path="/" component={Landing2}/>
+            <Route exact path="/our-story" component={Landing}/>
             <Route exact path="/products" component={ProductList}/>
-            <Route exact path="/details/:productId" component={ProductDetails}/> 
-            <Route path="/cart" component={Cart}/>
+            <Route path="/details/:productId" component={ProductDetails}/> 
+            <Route path="/cart" component={Cart}/> */}
+            <Route path="/" component={Checkout}/>
           </div>
           <Footer/>
         </Element>
