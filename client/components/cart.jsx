@@ -6,6 +6,8 @@ import * as Scroll from 'react-scroll';
 import { Link, Element , Events, animateScroll as scroll, scrollSpy, scroller } from 'react-scroll'
 
 import Table from 'react-bootstrap/Table'
+import Button from 'react-bootstrap/Button'
+
 import './styles/cart_style.css'
 
 import {sortCartQuantities, computeCartTotal, addItemToCart, removeItemFromCart, reduceItemQuantity, increaseItemQuantity} from '../actions'
@@ -119,9 +121,9 @@ class Cart extends React.Component {
                     // onClick={()=>{let x = 'someCallBack'}}
                     >Checkout
                   </button>   */}
-                  <button type="button" className="btn btn-primary" >
+                  <Button variant="info" type="button" className="btn-sm" >
                     Checkout
-                  </button>
+                  </Button>
                 </LinkRouter>
               </td> 
             </tr>

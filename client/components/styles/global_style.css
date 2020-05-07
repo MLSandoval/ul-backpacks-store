@@ -1,9 +1,9 @@
 .app-main{
   /* background-color: lightslategray; */
-  height:calc(100vh - 3.5rem);
+  height:calc(100vh - 4.6rem);
   /* height:100vh; */
   display:flex;
-  margin-top:3.5rem;
+  margin-top:4.6rem;
   /* padding-top:3.5rem; */
   /* overflow-y: scroll;
   scrollbar-width: none; 

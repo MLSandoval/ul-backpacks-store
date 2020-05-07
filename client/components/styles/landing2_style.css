@@ -1,5 +1,5 @@
 .landing-top{
-  /* margin-top: 4rem; */
+  /* padding-top: 4rem; */
   /* position:relative; */
   /* height:100vh;
   width:100vw; */
@@ -31,5 +31,5 @@
   background-color: black;
 }
 .bg-2{
-  background-image: url('../../images/backgrounds/BP_landscape_4.jpeg');
+  background-image: url('../../images/backgrounds/BP_landscape_4.jpg');
 }

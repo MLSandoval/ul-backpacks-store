@@ -27,7 +27,7 @@ export default function (state = DEFAULT_STATE, action){
   switch(action.type){
     case 'CHECKOUT_FORM_SUBMITTED':
       console.log('checkout form submitted reducer hit, action: ', action)
-      return action.payload
+      return {...state, [action.key]: action.value }
     default:
       return state
   }
