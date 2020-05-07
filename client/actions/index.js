@@ -149,14 +149,25 @@ export function computeCartTotal(cart){
 }
 
 export function storeCheckoutFormData(key, value){
-  // console.log('storeCheckoutFormData action, formData: ', formData)
-  return function(dispatch){
-    dispatch({
-      type: types.CHECKOUT_FORM_SUBMITTED,
-      key,
-      value
-    })
+  console.log('storeCheckoutFormData action, key: value:: ', key, value)
+  if(typeof key === 'string'){
+    console.log('typeof key === string true')
+    return function(dispatch){
+      dispatch({
+        type: types.CHECKOUT_FORM_SUBMITTED_SINGLE,
+        key,
+        value
+      })
+    }
+  }else{
+    return function(dispatch){
+      dispatch({
+        type: types.CHECKOUT_FORM_SUBMITTED_MULTIPLE,
+        payload: key
+      })
+    }
   }
+  
 }
 
 export function savePrevY(prevY){
