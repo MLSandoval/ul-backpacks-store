@@ -86,7 +86,7 @@ function Checkout(props){
     // setShipCity('')
     // setShipState('')
     // setShipZip(-1)
-
+    
     props.storeCheckoutFormData({
       email: '',
       shippingOption: 'Standard',
@@ -94,15 +94,16 @@ function Checkout(props){
       cardNumber: '',
       cardExp: '',
       cvv: '',
-      billStreetAdress: '',
+      billStreetAddress: '',
       billCity: '',
       billState: '',
       billZip: '',
-      shipStreetAdress: '',
+      shipStreetAddress: '',
       shipCity: '',
       shipState: '',
       shipZip: ''
     })
+    console.log('clearForm data called, props.checkoutformdata: ', props.checkoutFormData) 
   }
     
   function handleRadioClick(shippingOption){
@@ -119,7 +120,18 @@ function Checkout(props){
     <Modal.Body>
       <Form className="row">
      
-        <h5 className='col-12'>Email Address</h5>
+        <h5 className='col-9'>Email Address</h5>
+        <div className="col-3">
+          <Button
+            className="btn-sm w-100"
+            variant="dark"
+            type="button"
+            onClick={() => clearForm()
+            }
+          >
+            Clear Info
+          </Button>
+        </div>
         <hr/>
         <Form.Group className="col-9" controlId="formBasicEmail">
           {/* <Form.Label>Email Address</Form.Label> */}
@@ -132,7 +144,7 @@ function Checkout(props){
             //   props.loginForm.values.password &&
             //   props.loginForm.errors.password.length === 0
             // }
-            onChange={(e) => {setEmail(e.target.value); props.storeCheckoutFormData('email', e.target.value)}}
+            onChange={(e) => {props.storeCheckoutFormData('email', e.target.value)}}
           />
           <Form.Text className="text-muted">
             Email required for order receipt
@@ -141,17 +153,7 @@ function Checkout(props){
             {/* {props.loginForm.errors.password} */}
           </Form.Control.Feedback>
         </Form.Group>
-        <div className="col-3">
-          <Button
-            className="btn-sm w-100"
-            variant="dark"
-            type="button"
-            onClick={() => clearForm()
-            }
-          >
-            Clear Info
-          </Button>
-        </div>
+      
 
         <h5 className='col-12'>Payment and Shipping</h5>
         <hr />
@@ -515,8 +517,8 @@ function Checkout(props){
         
         </div>
         <div className="button-container col-3 row justify-content-around">
-          <LinkRouter
-            as={Button}
+          <Button 
+            as={LinkRouter}
             to="/cart/modal/thankyou"
             className=""
             onClick={()=>{handleSubmitClick()}}
@@ -525,7 +527,7 @@ function Checkout(props){
             type="button"
           >
             Submit
-          </LinkRouter>
+          </Button>
           <LinkRouter to="/cart">
             <Button
               className="btn-sm"

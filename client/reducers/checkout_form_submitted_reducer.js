@@ -7,11 +7,11 @@ const DEFAULT_STATE = {
   cardNumber: '',
   cardExp: '',
   cvv: '',
-  billStreetAdress: '',
+  billStreetAddress: '',
   billCity: '',
   billState: '',
   billZip: '',
-  shipStreetAdress: '',
+  shipStreetAddress: '',
   shipCity: '',
   shipState: '',
   shipZip: ''
@@ -24,7 +24,7 @@ export default function (state = DEFAULT_STATE, action){
     case 'CHECKOUT_FORM_SUBMITTED_SINGLE':
       console.log('checkout form single submitted reducer hit, action: ', action)
       return {...state, [action.key]: action.value }
-    case 'CHECKOUT_FORM_SUBMITTIED_MULTIPLE':
+    case 'CHECKOUT_FORM_SUBMITTED_MULTIPLE':
       console.log('checkout form multiple submitted reducer hit, action: ', action)
       return {...state, ...action.payload}
     default:
