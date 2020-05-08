@@ -25,8 +25,6 @@ import ProductDetails from './productDetails'
 import ThankYou from './thank_you'
 import Checkout from './checkout'
 
-import ScrollerProto from './reactScrollerProto.jsx'
-import Section from './EXAMPLE.jsx'
 
 
 class App extends React.Component {
@@ -80,9 +78,10 @@ class App extends React.Component {
           <Header/>
           <div className="main-content flex-grow-1">
             <Route exact path="/" component={Landing2}/>
-            <Route exact path="/our-story" component={Landing}/>
+            {/* <Route exact path="/our-story" component={OurStory}/>
+            <Route exact path="/video-review/:product_uuid" component={VideoReviews}/> */}
             <Route exact path="/products" component={ProductList}/>
-            <Route path="/details/:productId" component={ProductDetails}/> 
+            <Route path="/details/:product_uuid" component={ProductDetails}/> 
             <Route path="/cart" component={Cart}/>
             {/* <Route path="/" component={Checkout}/> */}
           </div>

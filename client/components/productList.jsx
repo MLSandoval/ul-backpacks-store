@@ -123,7 +123,7 @@ class ProductList extends React.Component {
                   </Card.Text>
                 </Card.Body>
                 <Card.Footer>
-                  <small className="text-muted">by {element.brand}</small>
+                  <div className="text-muted text-right">by {element.brand}</div>
                 </Card.Footer>
               </Card>
               </FadeInSection>
@@ -137,9 +137,10 @@ class ProductList extends React.Component {
 
   render(){
     return (
-      <Element  className="product-list-main container mt-3 mb-3 flex-grow-1" name="top-listo" 
+      <Element  className="product-list-main container  mb-3 flex-grow-1" name="top-listo" 
       // containerId="top-list"
       >
+        <div className="row">
         {/* <div style={{height: '3.5rem'}}></div> */}
         <h1 className="" name="top">Products list</h1>
           <CardDeck 
@@ -152,6 +153,8 @@ class ProductList extends React.Component {
           <div className="to-top-pos">
             <BackToTopButton/>
           </div>
+        </div>
+       
           
       </Element>
     )

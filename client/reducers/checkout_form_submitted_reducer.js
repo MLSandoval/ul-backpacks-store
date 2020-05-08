@@ -1,6 +1,7 @@
 import types from '../actions/types'
 
 const DEFAULT_STATE = {
+  shipSameAsBill: false,
   email: '',
   shippingOption: 'Standard',
   nameOnCard: '',
@@ -15,7 +16,6 @@ const DEFAULT_STATE = {
   shipCity: '',
   shipState: '',
   shipZip: ''
-  
 }
 
 export default function (state = DEFAULT_STATE, action){

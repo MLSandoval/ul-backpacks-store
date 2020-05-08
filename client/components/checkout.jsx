@@ -48,13 +48,26 @@ function Checkout(props){
     // setShipCity(billCity)
     // setShipState(billState)
     // setShipZip(billZip)
+    if(props.checkoutFormData.shipSameAsBill === true){
+      props.storeCheckoutFormData({
+        shipSameAsBill: false,
+        shipStreetAddress: '',
+        shipCity: '',
+        shipState: '',
+        shipZip: ''
+      })
 
-    props.storeCheckoutFormData({
-      shipStreetAddress: billStreetAddress,
-      shipCity: billCity,
-      shipState: billState,
-      shipZip:billZip
-    })
+    }else{
+      props.storeCheckoutFormData({
+        shipSameAsBill: true,
+        shipStreetAddress: props.checkoutFormData.billStreetAddress,
+        shipCity: props.checkoutFormData.billCity,
+        shipState: props.checkoutFormData.billState,
+        shipZip: props.checkoutFormData.billZip
+      })
+    }
+
+  
   
   //   console.log('checkbox shipStreetAddr: ', shipStreetAddr)
   //   console.log('checkbox shipCity: ', shipCity)
@@ -338,7 +351,7 @@ function Checkout(props){
 
         <Form.Group className="col-6" controlId="formBasicBillState">
           <Form.Label>State/Territory</Form.Label>
-          <Form.Control
+          {/* <Form.Control
             type="billState"
             placeholder="Kanto Region"
             value={props.checkoutFormData.billState}
@@ -348,13 +361,80 @@ function Checkout(props){
             //   props.loginForm.errors.password.length === 0
             // }
             onChange={(e) => {props.storeCheckoutFormData('billState', e.target.value)}}
-          />
+          /> */}
+          <Form.Control as="select"
+            type="billState"
+            placeholder="Kanto Region"
+            value={props.checkoutFormData.billState}
+            // isInvalid={props.loginForm.errors.password.length > 0}
+            // isValid={
+            //   props.loginForm.values.password &&
+            //   props.loginForm.errors.password.length === 0
+            // }
+            onChange={(e) => {props.storeCheckoutFormData('billState', e.target.value)}}
+          >
+            <option>Alabama</option>
+            <option>Alaska</option>
+            <option>Arizona</option>
+            <option>Arkansas</option>
+            <option>California</option>
+            <option>Colorado</option>
+            <option>Connecticut</option>
+            <option>Delaware</option>
+            <option>Florida</option>
+            <option>Georgia</option>
+            <option>Hawaii</option>
+            <option>Idaho</option>
+            <option>Illinois</option>
+            <option>Indiana</option>
+            <option>Iowa</option>
+            <option>Kansas</option>
+            <option>Kentucky</option>
+            <option>Louisiana</option>
+            <option>Maine</option>
+            <option>Maryland</option>
+            <option>Massachusetts</option>
+            <option>Michigan</option>
+            <option>Minnesota</option>
+            <option>Mississippi</option>
+            <option>Missouri</option>
+            <option>Montana</option>
+            <option>Nebraska</option>
+            <option>Nevada</option>
+            <option>New Hampshire</option>
+            <option>New Jersey</option>
+            <option>New Mexico</option>
+            <option>New York</option>
+            <option>North Carolina</option>
+            <option>North Dakota</option>
+            <option>Ohio</option>
+            <option>Oklahoma</option>
+            <option>Oregon</option>
+            <option>Pennsylvania</option>
+            <option>Rhode Island</option>
+            <option>South Carolina</option>
+            <option>South Dakota</option>
+            <option>Tennessee</option>
+            <option>Texas</option>
+            <option>Utah</option>
+            <option>Vermont</option>
+            <option>Virginia</option>
+            <option>Washington</option>
+            <option>West Virginia</option>
+            <option>Wisconsin</option>
+            <option>Wyoming</option>
+            <option>*</option>
+            <option>District of Columbia</option>
+            <option>Puerto Rico</option>
+            <option>Guam</option>
+            <option>American Samoa</option>
+            <option>U.S. Virgin Islands</option>
+            <option>Northern Mariana Islands</option>
+          </Form.Control>
           <Form.Control.Feedback type="invalid">
             {/* {props.loginForm.errors.password} */}
           </Form.Control.Feedback>
-          <Form.Text className="text-muted">
-            We currently only ship to US addresses
-          </Form.Text>
+       
         </Form.Group>
         
         <h5 className='col-12'>Shipping Address</h5>
@@ -362,7 +442,8 @@ function Checkout(props){
         
         <Form.Group className="col-12" controlId="formBasicShipSameAddress">
           <Form.Check type="checkbox" label="Shipping address same as billing address." 
-            onClick={() =>{shipSameAsBill()}}
+            onClick={(e) =>{shipSameAsBill(); console.log('e: ', e)}}
+            checked={props.checkoutFormData.shipSameAsBill}
           />
         </Form.Group>
 
