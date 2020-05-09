@@ -19,58 +19,25 @@ import {computeCartTotal} from '../actions'
 function ContinueShopping(props){
 
   function generateRows(){
-    // return ( props.cart.map(element => {
-    //   console.log('inside continueshopping comp, generate content map, props.cart=> element: ', element)
-    //   let imgURL = element.image_urls[0]
-    //   return (
-    //     <LinkRouter
-    //       className={`col-6 p-1 remove-a-tag-style d-flex }`}
-    //       key={element.product_uuid} 
-    //       to={`/details/${element.product_uuid}`}
-    //       data-uuid={element.product_uuid}
-    //       name={element.product_uuid}
-    //       // onClick={ e =>{ props.setCurrentProduct(element) }}
-    //     >
-    //       {/* <FadeInSection className="d-flex"> */}
-    //       <Card >
-    //         {/* <Card.Header className="bg-dark">{element.name}</Card.Header> */}
-    //         <Card.Img className="img-fluid img-size-restrict" variant="top" src={imgURL} />
-    //         <Card.Body>
-    //           <Card.Title>{element.name}</Card.Title>
-    //           <Card.Text className="text-sm-left">
-    //             {element.short_description}
-    //           </Card.Text>
-    //         </Card.Body>
-    //         <Card.Footer>
-    //           <small className="text-muted">by {element.brand}</small>
-    //         </Card.Footer>
-    //       </Card>
-    //       {/* </FadeInSection> */}
-    //      </LinkRouter>
-    //     )
-    //   })
-    // )
     return( 
       props.cart.map((element)=>{
         return(
           <React.Fragment key={element.product_uuid}>
-            <tr>
+            <tr key={element.product_uuid}>
               <td>{element.name + ' '}
-                <sm>by {element.brand}</sm>
+                <div>by {element.brand}</div>
               </td>
-              <td></td>
-              <td>${element.price}</td>
+              <td>{element.quantity}</td>
+              <td>${(parseInt(element.price) * element.quantity).toFixed(2)}</td>
             </tr>
-            
           </React.Fragment>
-          
         )
       })
     )
   }
 
   useEffect(()=>{
-    console.log('continueshopping props: ', props)
+    // console.log('continueshopping props: ', props)
     props.computeCartTotal(props.cart)
   })
 
@@ -83,27 +50,27 @@ function ContinueShopping(props){
   }
 
   return(
-    <React.Fragment>
+    <React.Fragment key='modalcontentfrag'>
       <Modal.Body> 
         <div  className="d-flex container mt-3">
           <div className="col-9"></div>
           <h6 className="col-3 no-wrap-white" name="top" ></h6>
         </div>
         
-        <Table size="sm">
-          <thead>
+        <Table size="sm" key='cxaosiu'>
+          <thead key='asdfh'>
             <tr>
               <th>{props.cart.length === 1 ? 'Item' : 'Items' }</th>
-              <th></th>
+              <th>Quantity</th>
               <th>Price</th>
             </tr>
           </thead>
           <tbody>
             {generateRows()}
-            <tr>
-              <td >Item Count: {computeItemCount()}</td>
-              <td className="d-flex justify-content-end no-wrap-white">Cart Total:</td>
-              <td>${props.totalOrderCost.toFixed(2)}</td>
+            <tr >
+              <td ></td>
+              <td  className="d-flex justify-content-end no-wrap-white">Cart Total:</td>
+              <td >${props.totalOrderCost.toFixed(2)}</td>
             </tr>
             
           </tbody>
@@ -117,10 +84,10 @@ function ContinueShopping(props){
               className="btn-sm col-12 w-100"
               variant="info"
               type="button"
-              onClick={() => {
-                console.log('go to cart on click')
-                }
-              }
+              // onClick={() => {
+              //   console.log('go to cart on click')
+              //   }
+              // }
             >
               Go to Cart
             </Button>

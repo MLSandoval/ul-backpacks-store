@@ -22,11 +22,6 @@ class ModalShell extends React.Component {
       this.inputRef = createRef()
   }
 
-  autoRedirect(){
-    setTimeout(()=>{this.props.history.push( '/')}, 5000)
-    // console.log('modal shell, autoRedirect called')
-  }
-
   generateModalContent(){
     // console.log('generateModalContent called, path.includes("modal/checkout"): ', this.props.location.pathname.includes('modal/checkout'))
     // console.log('generateModalContent called, path.includes("modal/thankyou"): ', this.props.location.pathname.includes('modal/thankyou'))
@@ -40,7 +35,7 @@ class ModalShell extends React.Component {
           orderCost: `$ ${this.props.totalOrderCost.toFixed(2)}`
         })
         break
-      case this.props.location.pathname.includes('modal/thankyou'):
+      case this.props.location.pathname.includes('modal/thank-you'):
         this.props.setModalConfig({
           header:'Thank You!',
           content: <ThankYou/>,
@@ -60,7 +55,12 @@ class ModalShell extends React.Component {
   }
 
   handleOnHide(){
-    this.props.history.goBack()
+    if(this.props.modalConfig.header === "Thank You!"){
+      this.props.history.go(-2)
+    }else{
+      this.props.history.goBack()
+    }
+    
   }
 
   componentDidMount(){

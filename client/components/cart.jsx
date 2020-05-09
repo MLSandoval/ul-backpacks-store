@@ -28,9 +28,31 @@ class Cart extends React.Component {
     if(cartCheck === undefined){
       return(
         <React.Fragment>
-          <div className="empty-cart">
-            Cart is empty :&#40;
+          <Table className="empty-cart">
+            <thead>
+            <tr>
+                <th scope="col-2"></th>
+                <th scope="col-2">Product</th>
+                <th scope="col-2">Quantity</th>
+                <th scope="col-2">Price</th>
+                <th scope="col-2">Total</th>
+                <th scope="col-1"></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td>$0.00</td>
+              </tr>
+            </tbody>
+          </Table>
+          <div  className=" col-12 d-flex justify-content-around">
+            <h3 className="text-center">Your Cart is Empty :&#40;</h3>
           </div>
+          
         </React.Fragment>
       )
     }else{
@@ -39,7 +61,7 @@ class Cart extends React.Component {
           <Table className="table table-hover">
             <thead>
               <tr>
-                <th scope="col-2">Image</th>
+                <th scope="col-2"></th>
                 <th scope="col-2">Product</th>
                 <th scope="col-2">Quantity</th>
                 <th scope="col-2">Price</th>
@@ -49,9 +71,9 @@ class Cart extends React.Component {
             </thead>
             <tbody>
             {cart.map((product)=>{
-              console.log('cart map for row, product: ', product)
-              console.log('cart map, product.price: ', typeof product.price)
-              console.log('cart map, product.uuid for key: ', product.product_uuid)
+              // console.log('cart map for row, product: ', product)
+              // console.log('cart map, product.price: ', typeof product.price)
+              // console.log('cart map, product.uuid for key: ', product.product_uuid)
               return(
                 <tr key={product.product_uuid}>
                   <th scope="row">
@@ -65,7 +87,7 @@ class Cart extends React.Component {
                       data-uuid={product.product_uuid}
                       data-quantity={product.quantity}
                       onClick={ e => {
-                        console.log('reduceitemquantity CLICKED, uuid: ', e.currentTarget.dataset.uuid)
+                        // console.log('reduceitemquantity CLICKED, uuid: ', e.currentTarget.dataset.uuid)
                         this.props.reduceItemQuantity(e.currentTarget.dataset.uuid)
                         
                       }}
@@ -77,7 +99,7 @@ class Cart extends React.Component {
                       className="btn"
                       data-uuid={product.product_uuid}
                       onClick={ e => {
-                        console.log('additemtocart CLICKED, uuid: ', e.currentTarget.dataset.uuid)   
+                        // console.log('additemtocart CLICKED, uuid: ', e.currentTarget.dataset.uuid)   
                         this.props.increaseItemQuantity(e.currentTarget.dataset.uuid)
                                           
                       }}
@@ -152,10 +174,10 @@ class Cart extends React.Component {
     this.props.computeCartTotal(this.props.cart)
     // console.log('Cart component props: ', this.props)
     this.props.computeCartTotal(this.props.cart)
-    console.log('cart didmount compute Cart total: ', this.props.totalOrderCost)
+    // console.log('cart didmount compute Cart total: ', this.props.totalOrderCost)
   }
   componentDidUpdate(){
-    console.log('cart DidUpdate, this.props.cart: ', this.props.cart)
+    // console.log('cart DidUpdate, this.props.cart: ', this.props.cart)
     this.props.computeCartTotal(this.props.cart)
   }
 
@@ -163,7 +185,7 @@ class Cart extends React.Component {
     return (
       <div className="container" ref={this.CartRef}>
         <div className="row">
-          <h1 className="">THIS IS THE CART VIEW</h1>
+          <h1 className="">Cart</h1>
           {this.generateCartList()} 
         </div>
       </div>

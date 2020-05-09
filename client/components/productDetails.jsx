@@ -76,7 +76,7 @@ class ProductDetails extends React.Component {
     this.props.addItemToCart(this.props.currentProduct)
     
     this.props.computeCartTotal(this.props.cart)
-    console.log('product details handclick computecart total totalOrderCost: ', this.props.totalOrderCost)
+    // console.log('product details handclick computecart total totalOrderCost: ', this.props.totalOrderCost)
     // this.props.setModalConfig({})
   }
   
@@ -84,7 +84,7 @@ class ProductDetails extends React.Component {
     if(!this.props.currentProduc){
       this.props.getProductList()
     }
-    console.log('Product Details Comp this.props: ', this.props)
+    // console.log('Product Details Comp this.props: ', this.props)
     window.scrollTo(0,0)
   }
   // componentDidUpdate(){
