@@ -37,7 +37,7 @@ class Header extends React.Component {
     // setTimeout(this.setState({className: 'header-update'}, ()=>{console.log('setState callback triggered, this.state.className after: ', this.state.className)}), 300)
   }
   componentDidUpdate(){
-    console.log('header componenet componenet did update props: ', this.props)
+    // console.log('header componenet componenet did update props: ', this.props)
     if(this.props.location.pathname.includes('cart')){
       document.querySelectorAll('.active').forEach((element)=>{
         element.classList.remove('active')

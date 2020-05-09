@@ -59,37 +59,18 @@ class ProductList extends React.Component {
   }
 
   componentDidMount() {
-    console.log('product list props: ', this.props)
-    
-
-      // this.scrollToCustom('top-list')
     scroll.scrollToTop({
-      duration: 0,
-      // offset: '3.5rem'
+      duration: 0
     })
-    console.log('pre if statement product_uuid, scrolled to header then 3.5rem: ')
     if(this.props.currentProduct.hasOwnProperty('product_uuid')){
-      
-      // scroll.scrollTo(this.props.prevY)
         scroll.scrollTo(this.props.prevY)
-      
-      // this.scrollToCustom(this.props.prevY)
-      
     }
-    console.log('current product uuid flag found, scrolled to header then 3.5rem, this.props.currentProduct.product_uuid: ', this.props.currentProduct.name , this.props.currentProduct.product_uuid)
-    // if(!this.levityRef.current) console.log('component didmount this.levityRef.current.getBoundingClientRect(): ', this.levityRef.current.getBoundingClientRect())
+    // console.log('current product uuid flag found, scrolled to header then 3.5rem, this.props.currentProduct.product_uuid: ', this.props.currentProduct.name , this.props.currentProduct.product_uuid)
   }
 
   componentWillUnmount(){
-    
-    console.log('product list unmount, window.scrollY: ', typeof window.scrollY)
     this.props.savePrevY(window.scrollY)
-    console.log('product list unmount, this.props.prevY: ', this.props.prevY)
   }
-
-  // componentDidUpdate(){
-  //   console.log('component Didupdate this.levityRef.current.getBoundingClientRect()', this.levityRef.current.getBoundingClientRect())
-  // }
  
   generateProductList () {
     if (typeof this.props.products === 'string') {

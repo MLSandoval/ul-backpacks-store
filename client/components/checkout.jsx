@@ -10,7 +10,7 @@ import Button from 'react-bootstrap/Button'
 import Form from 'react-bootstrap/Form'
 import Table from 'react-bootstrap/Table'
 
-import {storeCheckoutFormData, setModalConfig} from '../actions'
+import {storeCheckoutFormData, setModalConfig, clearCart} from '../actions'
 
 import './styles/checkout_style.css'
 import ThankYou from './thank_you.jsx'
@@ -18,36 +18,8 @@ import ThankYou from './thank_you.jsx'
 //next stup, setup a useEffect() or useLayoutEffect() for filling in the shipping data with the billing data,
 //also a useEffect() for sending the formData to the store AFTER it is formed to the
 function Checkout(props){
-  // const {to, staticContext, ...rest} = props
-
-  // const [email,setEmail] = useState('')
-
-  // const [cardNumber, setCardNumber  ] = useState(null)
-  // const [cardExp, setCardExp  ] = useState(null)
-  // const [cvv, setCvv  ] = useState(null)
-  // const [nameOnCard, setNameOnCard  ] = useState('')
-
-  // const [billStreetAddress, setBillStreetAddress  ] = useState('')
-  // const [billCity, setBillCity  ] = useState('')
-  // const [billState, setBillState  ] = useState('')
-  // const [billZip, setBillZip  ] = useState('')
-
-  // const [shipStreetAddress, setShipStreetAddress  ] = useState('')
-  // const [shipCity, setShipCity  ] = useState('')
-  // const [shipState, setShipState  ] = useState('')
-  // const [shipZip, setShipZip  ] = useState('')
 
   function shipSameAsBill(){
-    // console.log('shipSameAsBill called on radio click')
-    // console.log('checkbox billStreetAddr: ',billStreetAddr)
-    // console.log('checkbox billCity: ', billCity)
-    // console.log('checkbox billState: ', billState)
-    // console.log('checkbox billZip: ', billZip)
-  
-    // setShipStreetAddress(billStreetAddress)
-    // setShipCity(billCity)
-    // setShipState(billState)
-    // setShipZip(billZip)
     if(props.checkoutFormData.shipSameAsBill === true){
       props.storeCheckoutFormData({
         shipSameAsBill: false,
@@ -56,7 +28,6 @@ function Checkout(props){
         shipState: '',
         shipZip: ''
       })
-
     }else{
       props.storeCheckoutFormData({
         shipSameAsBill: true,
@@ -66,40 +37,18 @@ function Checkout(props){
         shipZip: props.checkoutFormData.billZip
       })
     }
-
-  
-  
-  //   console.log('checkbox shipStreetAddr: ', shipStreetAddr)
-  //   console.log('checkbox shipCity: ', shipCity)
-  //   console.log('checkbox shipState: ', shipState)
-  //   console.log('checkbox shipZip: ', shipZip)
   }
 
-  function handleSubmitClick(){
-    setModalConfig({
+  const handleSubmitClick = ()=>{
+    props.setModalConfig({
       header:'Thank You!',
       content: <ThankYou/>,
-      orderCost: `${props.totalOrderCost.toFixed(2)}`
+      orderCost: ``
     })
+    
   }
 
   function clearForm(){
-    // setEmail('')
-    // setNameOnCard('')
-    // setCardNumber(-1)
-    // setCardExp(-1)
-    // setCvv(-1)
-  
-    // setBillStreetAddress('')
-    // setBillCity('')
-    // setBillState('')
-    // setBillZip(-1)
-
-    // setShipStreetAddress('')
-    // setShipCity('')
-    // setShipState('')
-    // setShipZip(-1)
-    
     props.storeCheckoutFormData({
       email: '',
       shippingOption: 'Standard',
@@ -116,19 +65,12 @@ function Checkout(props){
       shipState: '',
       shipZip: ''
     })
-    console.log('clearForm data called, props.checkoutformdata: ', props.checkoutFormData) 
   }
     
   function handleRadioClick(shippingOption){
-    console.log('handleRadioClick reached shippingOption:', shippingOption)
     props.storeCheckoutFormData('shippingOption', shippingOption)
   }
-      
-    
 
-  
-  
-  console.log('checkout comp rendered props: ', props)
   return(
     <Modal.Body>
       <Form className="row">
@@ -442,7 +384,7 @@ function Checkout(props){
         
         <Form.Group className="col-12" controlId="formBasicShipSameAddress">
           <Form.Check type="checkbox" label="Shipping address same as billing address." 
-            onClick={(e) =>{shipSameAsBill(); console.log('e: ', e)}}
+            onChange={(e) =>{shipSameAsBill()}}
             checked={props.checkoutFormData.shipSameAsBill}
           />
         </Form.Group>
@@ -600,7 +542,7 @@ function Checkout(props){
         <div className="button-container col-3 row justify-content-around">
           <Button 
             as={LinkRouter}
-            to="/cart/modal/thankyou"
+            to="/cart/modal/thank-you"
             className=""
             onClick={()=>{handleSubmitClick()}}
             className=" btn-sm"
@@ -645,4 +587,4 @@ function mapStateToProps(state){
   }
 }
 
-export default connect(mapStateToProps, {storeCheckoutFormData, setModalConfig})(Checkout)
+export default connect(mapStateToProps, {storeCheckoutFormData, setModalConfig, clearCart})(Checkout)

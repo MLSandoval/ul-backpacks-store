@@ -31,6 +31,9 @@ class App extends React.Component {
 
   componentDidMount () {
     this.props.getProductList()
+    // if(!localStorage.getItem('cart')){
+
+    // }
     
   }
 

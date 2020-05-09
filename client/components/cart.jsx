@@ -71,9 +71,9 @@ class Cart extends React.Component {
             </thead>
             <tbody>
             {cart.map((product)=>{
-              console.log('cart map for row, product: ', product)
-              console.log('cart map, product.price: ', typeof product.price)
-              console.log('cart map, product.uuid for key: ', product.product_uuid)
+              // console.log('cart map for row, product: ', product)
+              // console.log('cart map, product.price: ', typeof product.price)
+              // console.log('cart map, product.uuid for key: ', product.product_uuid)
               return(
                 <tr key={product.product_uuid}>
                   <th scope="row">
@@ -87,7 +87,7 @@ class Cart extends React.Component {
                       data-uuid={product.product_uuid}
                       data-quantity={product.quantity}
                       onClick={ e => {
-                        console.log('reduceitemquantity CLICKED, uuid: ', e.currentTarget.dataset.uuid)
+                        // console.log('reduceitemquantity CLICKED, uuid: ', e.currentTarget.dataset.uuid)
                         this.props.reduceItemQuantity(e.currentTarget.dataset.uuid)
                         
                       }}
@@ -99,7 +99,7 @@ class Cart extends React.Component {
                       className="btn"
                       data-uuid={product.product_uuid}
                       onClick={ e => {
-                        console.log('additemtocart CLICKED, uuid: ', e.currentTarget.dataset.uuid)   
+                        // console.log('additemtocart CLICKED, uuid: ', e.currentTarget.dataset.uuid)   
                         this.props.increaseItemQuantity(e.currentTarget.dataset.uuid)
                                           
                       }}
@@ -174,10 +174,10 @@ class Cart extends React.Component {
     this.props.computeCartTotal(this.props.cart)
     // console.log('Cart component props: ', this.props)
     this.props.computeCartTotal(this.props.cart)
-    console.log('cart didmount compute Cart total: ', this.props.totalOrderCost)
+    // console.log('cart didmount compute Cart total: ', this.props.totalOrderCost)
   }
   componentDidUpdate(){
-    console.log('cart DidUpdate, this.props.cart: ', this.props.cart)
+    // console.log('cart DidUpdate, this.props.cart: ', this.props.cart)
     this.props.computeCartTotal(this.props.cart)
   }
 
