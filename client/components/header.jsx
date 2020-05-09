@@ -18,53 +18,15 @@ import Button from 'react-bootstrap/Button'
 class Header extends React.Component {
   constructor(props){
     super(props)
-    this.cartCount = null
-    this.state={
-      className: "header-update" 
-    }
-    
-    // this.setNavExpanded = this.setNavExpanded.bind(this)
-    // this.closeNav = this.closeNav.bind(this)
-    this.triggerFade = this.triggerFade.bind(this)
   }
   getCartItemCount(){
     let total = 0
     if(this.props.cart[0])
       this.props.cart.forEach(element=>{total += element.quantity})
     return total || 0
-
   }
-
-  componentDidUpdate(prevProps){
-    
-    
-  }
-
-  componentDidMount(){
-
-  }
-  setNavExpanded(expanded) {
-    this.setState({ navExpanded: expanded });
-  }
-
-  closeNav() {
-    this.setState({ navExpanded: false });
-  }
-
-  triggerFade(){
-    let className = this.state.className
-    className =  className + ' ' + 'elementToFadeInAndOut'
-
-    
-    this.setState({className},
-    ()=>{
-      console.log('setState callback triggered, this.state.className before: ', this.state.className)
-      // setTimeout(this.setState({className: 'header-update'}), 1000)
-    
-    })
-    setTimeout(this.setState({className: 'header-update'}), 1000)
-  }
-
+  componentDidUpdate(prevProps){}
+  componentDidMount(){}
   removeActiveOnClick(){
     document.querySelectorAll('.active').forEach((element)=>{
       element.classList.remove('active')
@@ -75,7 +37,7 @@ class Header extends React.Component {
     // setTimeout(this.setState({className: 'header-update'}, ()=>{console.log('setState callback triggered, this.state.className after: ', this.state.className)}), 300)
   }
   componentDidUpdate(){
-    console.log('header componenet componenet did update props: ', this.props)
+    // console.log('header componenet componenet did update props: ', this.props)
     if(this.props.location.pathname.includes('cart')){
       document.querySelectorAll('.active').forEach((element)=>{
         element.classList.remove('active')
@@ -84,14 +46,12 @@ class Header extends React.Component {
     }else{
       this.classSwitch = ''
     }
-      
-
   }
 
   render(){
-    console.log('this.state.className at time of render: ', this.state.className)
     return (
-        <Navbar 
+      <div className="container">
+<Navbar 
           onClick={()=>{this.removeActiveOnClick()}}
           // toggleNavKey={4} 
           bg="light" 
@@ -112,8 +72,7 @@ class Header extends React.Component {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         {/* <div className="header-update"></div> */}
         <Navbar.Collapse className="justify-content-end" id="basic-navbar-nav" >
-          <Nav 
-            // onSelect={this.closeNav}
+          <Nav
             className="row"
           >
             <Nav.Link as={LinkRouter} title="story" onSelect={() => null} eventKey={1} className="btn font-weight-bold" to="/our-story">
@@ -127,14 +86,13 @@ class Header extends React.Component {
             </Nav.Link>
             <Nav.Link as={LinkRouter} title="cart" onSelect={() => null} eventKey={4} className={`btn font-weight-bold nav-link ${this.classSwitch}`} to="/cart">
               <div className="cart-logo-count-bg">
-                <div className={this.state.className}></div>
+                <div ></div>
                 <div className="d-flex justify-content-center">
                   <div className="cart-button"></div>
                   <div className="cart-count">:{ this.getCartItemCount() }</div>
                 </div>
               </div>
             </Nav.Link>
-            <button onClick={this.triggerFade}>FADECLICK</button>
           </Nav>
           
           
@@ -151,6 +109,8 @@ class Header extends React.Component {
           
         </Navbar.Collapse>
       </Navbar>
+      </div>
+        
     )
   }
 }

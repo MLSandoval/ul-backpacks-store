@@ -34,7 +34,6 @@ export function getProductList () {
     })
       .then(res => res.json())
       .then(data => {
-        // console.log('product fetch action, data: ', data)
         dispatch({
           type: types.PRODUCT_LIST_REQUESTED,
           isFetching: true,
@@ -42,13 +41,12 @@ export function getProductList () {
         })
       })
       .catch(err => {
-        console.log('Product list fetch error: ', err)
+        console.error('Product list fetch error: ', err)
       })
   }
 }
 
 export function setCurrentProduct (product) {
-  // console.log('setCurrentProduct action called, product: ', product)
   return function (dispatch) {
     dispatch({
       type: types.SET_CURRENT_PRODUCT,
@@ -59,7 +57,7 @@ export function setCurrentProduct (product) {
 
 
 export function addItemToCart (product) {//also need to add query to add item to database cart when this is clicked
-  // console.log('addItemToCart action called, product: ', product)
+  console.log('addItemToCart action called, product: ', product)
   return function (dispatch) {
     dispatch({
       type: types.PRODUCT_ADDED_TO_CART,
@@ -98,7 +96,6 @@ export function reduceItemQuantity(product_uuid){
 }
 
 export function sortCartQuantities(cart){
-  // console.log('sortCartQuantities action called, cart: ', cart)
   const sortedCartQuantities = cart.reduce((accumulator, currentValue)=>{
     if(!!accumulator[currentValue.id] === false){
       accumulator[currentValue.id] = {}
@@ -112,11 +109,9 @@ export function sortCartQuantities(cart){
     }
     return accumulator
   }, {})
-
   
   let quantitiesArr = []
   quantitiesArr = Object.values(sortedCartQuantities)
-  // console.log('sortCartQuantities action, quantitiesArr: ', quantitiesArr)
 
   return function(dispatch){
     dispatch({
@@ -124,22 +119,14 @@ export function sortCartQuantities(cart){
       payload: quantitiesArr
     })
   }
-  //or more elegant way to count elements in the array
-  // const sortedCart = cart.reduce((map, product) => ({
-  //   ...map,
-  //   [product]: (map[product] || 0) + 1,
-  // }), {})
 }
 
 export function computeCartTotal(cart){
-  console.log('computeCartTotal action called, cart: ', cart)
   let total = 0
   for (let product in cart){
     total += parseInt(cart[product].quantity) * parseInt(cart[product].price)
-    // console.log('computecarttotal for in loop, product: ', product)
   }
 
-  // total = (total/100).toFixed(2)
   return function (dispatch) {
     dispatch({
       type: types.CART_TOTAL_COMPUTED,
@@ -149,18 +136,25 @@ export function computeCartTotal(cart){
 }
 
 export function storeCheckoutFormData(key, value){
-  // console.log('storeCheckoutFormData action, formData: ', formData)
-  return function(dispatch){
-    dispatch({
-      type: types.CHECKOUT_FORM_SUBMITTED,
-      key,
-      value
-    })
+  if(typeof key === 'string'){
+    return function(dispatch){
+      dispatch({
+        type: types.CHECKOUT_FORM_SUBMITTED_SINGLE,
+        key,
+        value
+      })
+    }
+  }else{
+    return function(dispatch){
+      dispatch({
+        type: types.CHECKOUT_FORM_SUBMITTED_MULTIPLE,
+        payload: key
+      })
+    }
   }
 }
 
 export function savePrevY(prevY){
-  console.log(' ACTION savePrevY, prevY: ', prevY)
   return function(dispatch){
     dispatch({
       type: types.PREVIOUS_Y_SAVED,
@@ -174,6 +168,14 @@ export function setModalConfig(modalConfig){
     dispatch({
       type: types.MODAL_CONFIG_SET,
       payload: modalConfig
+    })
+  }
+}
+
+export function clearCart(){
+  return function(dispatch){
+    dispatch({
+      type: types.CART_CLEARED
     })
   }
 }
