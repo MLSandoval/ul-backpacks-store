@@ -179,3 +179,34 @@ export function clearCart(){
     })
   }
 }
+
+export function getUserData(user_uuid){
+  fetch('/api/get-user', {
+    method: 'GET',
+    body: user_uuid
+  })
+    .then(res=>res.json)
+    .then((res)=>{
+      console.log('getUserData action called, user: ', res)
+      dispatch({
+        type: types.USER_DATA_RETRIEVED,
+        payload: res
+      })
+    })
+    .catch(err=>console.error('Error at getUserData action: ', err))
+}
+
+export function createUser(){
+  fetch('/api/create-user', {
+    method: 'PUT'
+  })
+    .then(res=>res.json)
+    .then((res)=>{
+      console.log('createNewUser action called, user: ', res)
+      dispatch({
+        type: types.NEW_USER_CREATED,
+        payload: res
+      })
+    })
+    .catch(err=>console.error('Error at createUser action: ', err))
+}

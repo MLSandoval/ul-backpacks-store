@@ -9,7 +9,7 @@ import { Switch, Route} from "react-router-dom"
 import * as Scroll from 'react-scroll';
 import { Link, Element , Events, animateScroll as scroll, scrollSpy, scroller } from 'react-scroll'
 
-import {getProductList, setCurrentProduct} from '../actions'
+import {getProductList, setCurrentProduct, createNewUser, getUserData} from '../actions'
 
 import 'bootstrap/dist/css/bootstrap.min.css'
 import './styles/global_style.css'
@@ -30,10 +30,14 @@ import Checkout from './checkout'
 class App extends React.Component {
 
   componentDidMount () {
+    //fetch products
     this.props.getProductList()
-    // if(!localStorage.getItem('cart')){
-
-    // }
+    //check if returning user or new user
+    if(!localStorage.getItem('user_uuid')){
+      this.props.createNewUser()
+    }else{
+      this.props.getUserData()
+    }
     
   }
 
@@ -108,4 +112,4 @@ function mapStateToProps(state){
   }
 }
 
-export default connect(mapStateToProps, {getProductList, setCurrentProduct})(App)
+export default connect(mapStateToProps, {getProductList, setCurrentProduct, createNewUser, getUserData})(App)

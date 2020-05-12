@@ -203,29 +203,11 @@ app.get('/api/fake-get-products', (req, res, next) => {
   })
 })
 
-
 app.get('/api/fetch-products', (req, res, next)=>{
   console.log('this is hitting real fetch-products enpoint')
   const query = 'SELECT * FROM products;'
-    
-  
-  // db.query(query, (err, data)=>{
-  //   if (err){
-  //     console.error('EEEERRRRROOOORRRRRR: ', err);
-  //     // return next(new ServerError('Internal server error.'), 500);
-  //   } 
-  // }).then( res=>{
-  //   console.log('DATA FROM PRODUCT FETCH: ', res)
-  //   res.send({
-  //     success: true,
-  //     res
-  //   })
-  // }).catch(e=>{
-  //   console.error(e.stack)
-  // })
 
-  db
-    .query(query)
+  db.query(query)
     .then(data=> {
       console.log('query data RETURNED: ', data.rows)
       res.send(data.rows)
@@ -233,6 +215,65 @@ app.get('/api/fetch-products', (req, res, next)=>{
     .catch(e=> console.error(e.stack))
   // res.send({message:'this is hitting real fethc products endpoing'})
 })
+
+app.get('/api/get-user', (req, res, next)=>{
+  console.log('get-user endpoint hit, req.body: ', req.body)
+  const {user_uuid} = req.body 
+  const queryObj = {
+    text: `SELECT * FROM users WHERE user_uuid = $1`,
+    values: [user_uuid]
+  }
+
+  db.query(queryObj)
+    .then(data=>{
+      console.log('get user query successful, data: ', data)
+      res.send(data.rows)
+    })
+    .catch(err=>console.error('Error: ', err))
+})
+
+app.put('/api/create-user', (req, res, next)=>{
+  console.log('create-user endpoint hit!!! req.body: ', req.body)
+  const {email, fName, lName} = req.body
+
+  let x = 
+  `with new_order as (
+    insert into orders (date) values (current_date)
+    returning id
+  )
+  insert into completedby (employee_id, order_id)
+  values 
+  ( 42 -- employee_id, 
+    (select id from new_order)
+  );`
+
+  let y = `
+    WITH new_user AS (
+      INSERT INTO users VALUES (uuid_generate_v4(), $1, $2, $3) RETURNING user_uuid
+    )
+    INSERT INTO cart VALUES (uuid_generate_v4(),(SELECT user_uuid FROM new_user), '[]')
+  `
+  const queryObj = {
+    text: 
+    `WITH new_user AS (
+      INSERT INTO users VALUES (uuid_generate_v4(), $1, $2, $3) RETURNING user_uuid
+    )
+    INSERT INTO cart 
+      VALUES (uuid_generate_v4(),(SELECT user_uuid FROM new_user), '[]')
+      RETURNING (SELECT user_uuid FROM new_user)
+  `,
+    values: [email || null, fName || null, lName || null,]
+  }
+
+  db.query(queryObj)
+    .then(data=>{
+      console.log('create user query successful, data: ', data)
+      res.send(data.rows)
+    })
+    .catch(err=>console.error('Error: ', err))
+})
+
+
 
 // fixes client side routing 'cannot get xxxxxxx' on refresh issue except when there is a 
 app.get('/*', (req, res, next) => {
@@ -246,3 +287,13 @@ app.get('/*', (req, res, next) => {
 app.listen(3003, () => {
   console.log('Node server listening on port 3003.')
 })
+
+
+// GET FULL USER AND CART DATA OF INDIVIDUAL
+// `SELECT * FROM users
+// INNER JOIN cart ON users.user_uuid = cart.user_uuid;`
+
+// MULTIPLE TABLE DELETIONS WITH 1 query
+// WITH cartty AS (
+//   DELETE FROM cart WHERE user_uuid = '8c98431e-1df7-437e-96d8-febb5d2ee81c' returning user_uuid)
+// DELETE FROM user WHERE user_uuid in (SELECT user_uuid from cartty)
