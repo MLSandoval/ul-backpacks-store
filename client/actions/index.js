@@ -28,15 +28,11 @@ export function getProductList () {
   return function (dispatch) {
     fetch('/api/fetch-products', {
       method: 'GET',
-      headers: {
-        'Content-Type': 'application/json'
-      }
     })
       .then(res => res.json())
       .then(data => {
         dispatch({
           type: types.PRODUCT_LIST_REQUESTED,
-          isFetching: true,
           payload: data
         })
       })
@@ -54,7 +50,6 @@ export function setCurrentProduct (product) {
     })
   }
 }
-
 
 export function addItemToCart (product) {//also need to add query to add item to database cart when this is clicked
   console.log('addItemToCart action called, product: ', product)
@@ -181,32 +176,52 @@ export function clearCart(){
 }
 
 export function getUserData(user_uuid){
-  fetch('/api/get-user', {
-    method: 'GET',
-    body: user_uuid
-  })
-    .then(res=>res.json)
-    .then((res)=>{
-      console.log('getUserData action called, user: ', res)
-      dispatch({
-        type: types.USER_DATA_RETRIEVED,
-        payload: res
-      })
+  console.log('getUserData action hit, user_uuid arg: ', user_uuid)
+  return function(dispatch){
+    fetch('/api/get-user', {
+      method: 'GET',
+      headers: {
+        user_uuid
+      }
     })
+    .then(res=>res.json())
+    .then((data)=>{
+      const {user_uuid, cart_uuid, email, first_name, last_name} = data
+      console.log('getUserData action called, data: ', data)
+      // localStorage.setItem('user_uuid', user_uuid)
+      console.log('get user data action, local storage after set before dispatch: ', localStorage)
+        dispatch({
+          type: types.USER_DATA_RETRIEVED,
+          payload: {user_uuid, cart_uuid, email, first_name, last_name}
+        })
+      }
+    )
     .catch(err=>console.error('Error at getUserData action: ', err))
+  }
 }
 
-export function createUser(){
-  fetch('/api/create-user', {
-    method: 'PUT'
-  })
-    .then(res=>res.json)
-    .then((res)=>{
-      console.log('createNewUser action called, user: ', res)
-      dispatch({
-        type: types.NEW_USER_CREATED,
-        payload: res
-      })
+export function createNewUser(email, first_name, last_name){
+  return function(dispatch){
+    fetch('/api/create-user', {
+      method: 'PUT',
+      body: {
+        email,
+        first_name,
+        last_name
+      }
     })
+    .then(res=>res.json())
+    .then((data)=>{
+      const {user_uuid, cart_uuid} = data
+      console.log('createNewUser action called, data: ', data)
+      localStorage.setItem('user_uuid', user_uuid)
+      console.log('CREATE NEW USER action, local storage after set before dispatch: ', localStorage)
+        dispatch({
+          type: types.NEW_USER_CREATED,
+          payload: {user_uuid, cart_uuid}
+        })
+      }
+    )
     .catch(err=>console.error('Error at createUser action: ', err))
+  }
 }

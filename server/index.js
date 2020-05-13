@@ -217,60 +217,48 @@ app.get('/api/fetch-products', (req, res, next)=>{
 })
 
 app.get('/api/get-user', (req, res, next)=>{
-  console.log('get-user endpoint hit, req.body: ', req.body)
-  const {user_uuid} = req.body 
+  console.log('get-user endpoint hit, req.headers: ', req.headers)
+  const {user_uuid} = req.headers
+  console.log('get user endpoint, req.headers.user_uuid: ', req.headers.user_uuid)
   const queryObj = {
-    text: `SELECT * FROM users WHERE user_uuid = $1`,
+    text: `SELECT users.user_uuid, users.email, users.first_name, users.last_name, cart.cart_uuid, cart.cart_items 
+      FROM users, cart 
+      WHERE users.user_uuid = $1
+        AND cart.user_uuid = $1`,
     values: [user_uuid]
   }
 
   db.query(queryObj)
     .then(data=>{
       console.log('get user query successful, data: ', data)
-      res.send(data.rows)
+      const [arrToObjRes] = data.rows
+      res.send(arrToObjRes)
     })
-    .catch(err=>console.error('Error: ', err))
+    .catch(err=>console.error('Get User Query Error: ', err))
 })
 
 app.put('/api/create-user', (req, res, next)=>{
   console.log('create-user endpoint hit!!! req.body: ', req.body)
-  const {email, fName, lName} = req.body
+  const {email, first_name, last_name} = req.body
 
-  let x = 
-  `with new_order as (
-    insert into orders (date) values (current_date)
-    returning id
-  )
-  insert into completedby (employee_id, order_id)
-  values 
-  ( 42 -- employee_id, 
-    (select id from new_order)
-  );`
-
-  let y = `
-    WITH new_user AS (
-      INSERT INTO users VALUES (uuid_generate_v4(), $1, $2, $3) RETURNING user_uuid
-    )
-    INSERT INTO cart VALUES (uuid_generate_v4(),(SELECT user_uuid FROM new_user), '[]')
-  `
   const queryObj = {
     text: 
-    `WITH new_user AS (
-      INSERT INTO users VALUES (uuid_generate_v4(), $1, $2, $3) RETURNING user_uuid
-    )
-    INSERT INTO cart 
-      VALUES (uuid_generate_v4(),(SELECT user_uuid FROM new_user), '[]')
-      RETURNING (SELECT user_uuid FROM new_user)
-  `,
-    values: [email || null, fName || null, lName || null,]
+      `WITH new_user AS (
+        INSERT INTO users VALUES (uuid_generate_v4(), $1, $2, $3) RETURNING user_uuid
+      )
+      INSERT INTO cart 
+        VALUES (uuid_generate_v4(),(SELECT user_uuid FROM new_user), '[]')
+          RETURNING (SELECT user_uuid FROM new_user), cart.cart_uuid`,
+    values: [email || null, first_name || null, last_name || null,]
   }
 
   db.query(queryObj)
     .then(data=>{
-      console.log('create user query successful, data: ', data)
-      res.send(data.rows)
+      console.log('create user query successful, data.rows: ', data.rows)
+      const [arrToObjRes] = data.rows
+      res.send(arrToObjRes)
     })
-    .catch(err=>console.error('Error: ', err))
+    .catch(err=>console.error('Create User Query Error: ', err))
 })
 
 

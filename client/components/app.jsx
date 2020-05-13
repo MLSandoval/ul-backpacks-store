@@ -30,15 +30,28 @@ import Checkout from './checkout'
 class App extends React.Component {
 
   componentDidMount () {
+    console.log('app comp didMount, localStorage: ', localStorage)
     //fetch products
     this.props.getProductList()
-    //check if returning user or new user
-    if(!localStorage.getItem('user_uuid')){
+
+    //check if returning user or new user, fetch data or create new user
+    if(!localStorage.user_uuid){
       this.props.createNewUser()
+      // .then(()=>{
+      //   localStorage.setItem('user_uuid', this.props.userData.user_uuid)
+      //   console.log('after createNewuser called, localStorage.userData: ', localStorage.userData)
+      // })
+      
+      
     }else{
-      this.props.getUserData()
+      const user_uuid = localStorage.user_uuid
+      console.log(' pre-getuser localStorage: ', localStorage)
+      this.props.getUserData(user_uuid)
+      // .then(()=>{
+      //   console.log('after getUserData called, localStorage.userData: ', localStorage.userData)
+      // })
+      
     }
-    
   }
 
   scrollToTop() {
@@ -105,10 +118,11 @@ class App extends React.Component {
 }
 
 function mapStateToProps(state){
-  // console.log('state in app component: ', state);
+  console.log('state in app component: ', state);
   return {
     products: state.products.products,
-    currentProduct: state.currentProduct
+    currentProduct: state.currentProduct,
+    userData: state.userData
   }
 }
 
