@@ -1,32 +1,9 @@
 /* global fetch */
 import types from './types.js'
 
-export function setView (view) {
-  return {
-    type: types.VIEW_CHANGED,
-    payload: view
-  }
-}
-
-export function getTestList () {
-  return function (dispatch) {
-    fetch('/api/test')
-      .then((res) => res.json())
-      .then(data => {
-        dispatch({
-          type: types.TEST_LIST_REQUESTED,
-          payload: data
-        })
-      })
-      .catch(err => {
-        console.error('Test list fetch error: ', err)
-      })
-  }
-}
-
 export function getProductList () {
   return function (dispatch) {
-    fetch('/api/fetch-products', {
+    fetch('/api/get-products', {
       method: 'GET',
     })
       .then(res => res.json())
@@ -51,15 +28,46 @@ export function setCurrentProduct (product) {
   }
 }
 
-export function addItemToCart (product) {//also need to add query to add item to database cart when this is clicked
+export function savePrevY(prevY){
+  return function(dispatch){
+    dispatch({
+      type: types.PREVIOUS_Y_SAVED,
+      payload: prevY
+    })
+  }
+}
+
+export function setModalConfig(modalConfig){
+  return function(dispatch){
+    dispatch({
+      type: types.MODAL_CONFIG_SET,
+      payload: modalConfig
+    })
+  }
+}
+export function addItemToCart (cart, product) {//also need to add query to add item to database cart when this is clicked
   console.log('addItemToCart action called, product: ', product)
   return function (dispatch) {
-    dispatch({
-      type: types.PRODUCT_ADDED_TO_CART,
-      payload: {...product,
-        quantity: product.quantity || 1
+    fetch('/api/add-item-to-cart', {
+      method:'PATCH',
+      body: {
+        cart,
+        product
       }
     })
+    .then(res=>res.json())
+    .then(data=>{
+      console.log('addItemToCart action, data: ', data)
+      // dispatch({
+      //   type: types.PRODUCT_ADDED_TO_CART,
+      //   payload: {...product,
+      //     quantity: product.quantity || 1
+      //   }
+      // })
+    })
+    .catch(err=>console.error('addItemToCart Error: ', err))
+
+    
   }
 }
 
@@ -149,23 +157,6 @@ export function storeCheckoutFormData(key, value){
   }
 }
 
-export function savePrevY(prevY){
-  return function(dispatch){
-    dispatch({
-      type: types.PREVIOUS_Y_SAVED,
-      payload: prevY
-    })
-  }
-}
-
-export function setModalConfig(modalConfig){
-  return function(dispatch){
-    dispatch({
-      type: types.MODAL_CONFIG_SET,
-      payload: modalConfig
-    })
-  }
-}
 
 export function clearCart(){
   return function(dispatch){
@@ -176,7 +167,6 @@ export function clearCart(){
 }
 
 export function getUserData(user_uuid){
-  console.log('getUserData action hit, user_uuid arg: ', user_uuid)
   return function(dispatch){
     fetch('/api/get-user', {
       method: 'GET',
@@ -186,13 +176,18 @@ export function getUserData(user_uuid){
     })
     .then(res=>res.json())
     .then((data)=>{
-      const {user_uuid, cart_uuid, email, first_name, last_name} = data
-      console.log('getUserData action called, data: ', data)
-      // localStorage.setItem('user_uuid', user_uuid)
-      console.log('get user data action, local storage after set before dispatch: ', localStorage)
+      const {user_uuid, email, first_name, last_name, cart_items, cart_uuid} = data
         dispatch({
           type: types.USER_DATA_RETRIEVED,
-          payload: {user_uuid, cart_uuid, email, first_name, last_name}
+          payload: {
+            user_uuid,
+            email, 
+            first_name, 
+            last_name, 
+            cart: {
+              cart_uuid,
+              cart_items
+            }}
         })
       }
     )
@@ -201,6 +196,7 @@ export function getUserData(user_uuid){
 }
 
 export function createNewUser(email, first_name, last_name){
+  console.log('create new user action called: ')
   return function(dispatch){
     fetch('/api/create-user', {
       method: 'PUT',
@@ -210,18 +206,23 @@ export function createNewUser(email, first_name, last_name){
         last_name
       }
     })
-    .then(res=>res.json())
-    .then((data)=>{
-      const {user_uuid, cart_uuid} = data
-      console.log('createNewUser action called, data: ', data)
+    .then(res => res.json())
+    .then(data =>{
+      const {user_uuid, cart_uuid, cart_items} = data
+      console.log('user_uuid and cart_uuid from createNewUser Action: ', user_uuid, cart_uuid)
       localStorage.setItem('user_uuid', user_uuid)
-      console.log('CREATE NEW USER action, local storage after set before dispatch: ', localStorage)
         dispatch({
           type: types.NEW_USER_CREATED,
-          payload: {user_uuid, cart_uuid}
+          payload: {
+            user_uuid,
+            cart: {
+              cart_uuid,
+              cart_items
+            }
+          
+          }
         })
-      }
-    )
+      })
     .catch(err=>console.error('Error at createUser action: ', err))
   }
 }

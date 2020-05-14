@@ -20,7 +20,6 @@ import Cart from './cart.jsx'
 import ModalShell from './modal_shell.jsx'
 import Header from './header.jsx'
 import Footer from './footer.jsx'
-import Test from './test'
 import ProductDetails from './productDetails'
 import ThankYou from './thank_you'
 import Checkout from './checkout'
@@ -36,6 +35,7 @@ class App extends React.Component {
 
     //check if returning user or new user, fetch data or create new user
     if(!localStorage.user_uuid){
+      console.log('user_uuid not in local storage, calling createNewUser')
       this.props.createNewUser()
       // .then(()=>{
       //   localStorage.setItem('user_uuid', this.props.userData.user_uuid)
