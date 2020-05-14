@@ -1,36 +1,40 @@
 import types from '../actions/types.js'
 
-const DEFAULT_STATE = []
+const DEFAULT_STATE = {
+  cart_uuid: '',
+  cart_items: []
+}
 
 export default function cartReducer(state = DEFAULT_STATE, action) {
 
   switch (action.type) {
     case types.PRODUCT_ADDED_TO_CART:
       console.log('cart REDUCER add to cart called, action.payload: ', action.payload)
-      let newState = [];
-      if(state.length === 0){
-        console.log('cart starts empty, first item in cart: ', action.payload)
-        newState.push(action.payload)
-        return newState
-      }
-      let pushCheck = true
+      // let newState = [];
+      // if(state.length === 0){
+      //   console.log('cart starts empty, first item in cart: ', action.payload)
+      //   newState.push(action.payload)
+      //   return newState
+      // }
+      // let pushCheck = true
       
-      state.forEach(element =>{
-        // console.log('inside newState forEach, element: ', element)
-        // console.log('pushCheck should be true: ', pushCheck)
-        if(element.product_uuid === action.payload.product_uuid){
-          // console.log('PRODUCT ADDED REDUCER Increment condition, action.payload: ', action.payload)
-          pushCheck = false
-          element.quantity++
-          // console.log('pushCheck should be false: ', pushCheck)
-        }
-      })
+      // state.forEach(element =>{
+      //   // console.log('inside newState forEach, element: ', element)
+      //   // console.log('pushCheck should be true: ', pushCheck)
+      //   if(element.product_uuid === action.payload.product_uuid){
+      //     // console.log('PRODUCT ADDED REDUCER Increment condition, action.payload: ', action.payload)
+      //     pushCheck = false
+      //     element.quantity++
+      //     // console.log('pushCheck should be false: ', pushCheck)
+      //   }
+      // })
 
-      if(!pushCheck){
-        return [...state]
-      }else{
-        return [...state, action.payload]
-      }
+      // if(!pushCheck){
+      //   return [...state]
+      // }else{
+      //   return [...state, action.payload]
+      // }
+      return {...state, cart_items: action.payload}
     case types.PRODUCT_REMOVED_FROM_CART:
       // console.log('cart REDUCER remove from cart called, action.payload: ', action.payload)
       return (state.filter((element) => {
@@ -60,6 +64,9 @@ export default function cartReducer(state = DEFAULT_STATE, action) {
 
     case types.CART_CLEARED: 
       return []
+
+    case types.CART_DATA_RETRIEVED: 
+      return action.payload
     default:
       return state
   }

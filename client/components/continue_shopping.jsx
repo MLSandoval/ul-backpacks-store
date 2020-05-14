@@ -19,26 +19,28 @@ import {computeCartTotal} from '../actions'
 function ContinueShopping(props){
 
   function generateRows(){
+    console.log('continue shopping generate rows called, props.cart: ', props.cart)
     return( 
-      props.cart.map((element)=>{
-        return(
-          <React.Fragment key={element.product_uuid}>
-            <tr key={element.product_uuid}>
-              <td>{element.name + ' '}
-                <div>by {element.brand}</div>
-              </td>
-              <td>{element.quantity}</td>
-              <td>${(parseInt(element.price) * element.quantity).toFixed(2)}</td>
-            </tr>
-          </React.Fragment>
-        )
-      })
+      // props.cart.cart_items.map((element)=>{
+      //   return(
+      //     <React.Fragment key={element.product_uuid}>
+      //       <tr key={element.product_uuid}>
+      //         <td>{element.name + ' '}
+      //           <div>by {element.brand}</div>
+      //         </td>
+      //         <td>{element.quantity}</td>
+      //         <td>${(parseInt(element.price) * element.quantity).toFixed(2)}</td>
+      //       </tr>
+      //     </React.Fragment>
+      //   )
+      // })
+      <tr><td>pleaseholder</td></tr>
     )
   }
 
   useEffect(()=>{
     // console.log('continueshopping props: ', props)
-    props.computeCartTotal(props.cart)
+    props.computeCartTotal(props.cart.cart_items)
   })
 
   function computeItemCount(){

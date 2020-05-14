@@ -73,7 +73,8 @@ class ProductDetails extends React.Component {
       }));
   }
   handleClick(){
-    this.props.addItemToCart(this.props.userData.cart, this.props.currentProduct)
+    console.log('prodDetails handle click reached, this.props.cart and this.props.currentProduct: ', this.props.cart, this.props.currentProduct)
+    this.props.addItemToCart(this.props.cart, this.props.currentProduct)
     
     this.props.computeCartTotal(this.props.cart)
     // console.log('product details handclick computecart total totalOrderCost: ', this.props.totalOrderCost)

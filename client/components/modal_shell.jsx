@@ -64,7 +64,7 @@ class ModalShell extends React.Component {
   }
 
   componentDidMount(){
-    console.log('props in MOdalShell componenet: ', this.props)
+    // console.log('props in MOdalShell componenet: ', this.props)
     this.props.computeCartTotal()
     this.generateModalContent()
   }
@@ -113,7 +113,7 @@ class ModalShell extends React.Component {
 }
 
 function mapStateToProps (state) {
-  console.log('state in ModalShell component: ', state);
+  // console.log('state in ModalShell component: ', state);
   return {
     // this becomes a property inside of the props of this component
     view: state.view,

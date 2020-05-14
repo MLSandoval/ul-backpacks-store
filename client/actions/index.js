@@ -46,29 +46,53 @@ export function setModalConfig(modalConfig){
   }
 }
 export function addItemToCart (cart, product) {//also need to add query to add item to database cart when this is clicked
-  console.log('addItemToCart action called, product: ', product)
+  console.log('addItemToCart action called, cart, product: ', cart, product)
+  // cart = {
+  //   cart_uuid: 123,
+  //   cart_items: {}
+  // }
+  // product = {
+  //   product_uuid: 12345
+  // }
   return function (dispatch) {
-    fetch('/api/add-item-to-cart', {
-      method:'PATCH',
-      body: {
-        cart,
-        product
-      }
-    })
-    .then(res=>res.json())
-    .then(data=>{
-      console.log('addItemToCart action, data: ', data)
-      // dispatch({
-      //   type: types.PRODUCT_ADDED_TO_CART,
-      //   payload: {...product,
-      //     quantity: product.quantity || 1
-      //   }
-      // })
-    })
-    .catch(err=>console.error('addItemToCart Error: ', err))
+    // fetch('/api/add-item-to-cart', {
+    //   method:'PUT',
+    //   "Content-Type": "application/json",
+    //   body: {
+    //     "cart": {
+    //       "cart_uuid": "0654a760-e696-4064-a039-7d688defbaec",
+    //       "cart_items": []
+    //     },
+    //     "product": {
+    //       "product_uuid": "ZZ7e3d73-58f0-460f-87f8-1d122c7a511e"
+    //     }
+    //   },
+    //   mode: 'cors'
+    // })
+    // .then(res => res.json())
+    // .then(data => {
+    //   console.log('addItemToCart action, data: ', data)
+    //   // dispatch({
+    //   //   type: types.PRODUCT_ADDED_TO_CART,
+    //   //   payload: data
+    //   // })
+    // })
+    // .catch(err=>console.error('addItemToCart Error: ', err))
 
-    
+    fetch('/api/add-item-to-cart', {
+      method: 'PUT',
+      // body: {test:'thisis the body test'}
+      headers:{
+        customHeader: 'customboi'
+      }
+    })  
+    .then(res => res.json())
+    .then(data => {
+      console.log('add item action request success data: ', data)
+    })
+    .catch(err=>console.error(err))
   }
+
 }
 
 export function removeItemFromCart(product_uuid){
@@ -157,7 +181,6 @@ export function storeCheckoutFormData(key, value){
   }
 }
 
-
 export function clearCart(){
   return function(dispatch){
     dispatch({
@@ -200,7 +223,7 @@ export function getUserData(user_uuid){
 }
 
 export function createNewUser(email, first_name, last_name){
-  console.log('create new user action called: ')
+  // console.log('create new user action called: ')
   return function(dispatch){
     fetch('/api/create-user', {
       method: 'PUT',
@@ -213,17 +236,19 @@ export function createNewUser(email, first_name, last_name){
     .then(res => res.json())
     .then(data =>{
       const {user_uuid, cart_uuid, cart_items} = data
-      console.log('user_uuid and cart_uuid from createNewUser Action: ', user_uuid, cart_uuid)
+      // console.log('user_uuid and cart_uuid from createNewUser Action: ', user_uuid, cart_uuid)
       localStorage.setItem('user_uuid', user_uuid)
         dispatch({
           type: types.NEW_USER_CREATED,
           payload: {
-            user_uuid,
-            cart: {
-              cart_uuid,
-              cart_items
-            }
-          
+            user_uuid
+          }
+        })
+        dispatch({
+          type: types.CART_DATA_RETRIEVED,
+          payload: {
+            cart_uuid,
+            cart_items
           }
         })
       })

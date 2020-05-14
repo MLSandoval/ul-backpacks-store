@@ -102,54 +102,57 @@ app.put('/api/create-user', (req, res, next)=>{
     .catch(err=>console.error('Create User Query Error: ', err))
 })
 
-app.patch('/api/add-item-to-cart', (req, res, next)=>{
-  const {cart, product} = req.body
-  console.log('product: ', product)
-  console.log('cart: ', cart)
-  const uuidArray = []
-
+app.put('/api/add-item-to-cart', (req, res, next)=>{
+  console.log(' add-item-to-cart end point req.body: ', req.body)
+  console.log(' add-item-to-cart end point req.headers: ', req.headers)
+  res.send('hello from add to item cart endpoint')
   
-  cart.products.forEach((element)=>{
-    uuidArray.push(element.product_uuid)
-  })
+  // const {cart, product} = req.body
+  // console.log('addItemTOCart endpoint product: ', product)
+  // console.log('addItemTOCart endpoint cart: ', cart)
+
+  // const uuidArray = []
+  // // cart.cart_items.forEach((element)=>{
+  // //   uuidArray.push(element.product_uuid)
+  // // })
+
+  // if(uuidArray.includes(product.product_uuid)){
+  //   const query = {
+  //     text: `fake query
+
+  //     `,
+  //     values: []
+  //   }
+  //   res.send('this is the quantity up')
+  // }else{
+
+  //   // `UPDATE table
+  //   // SET column1 = value1,
+  //   //     column2 = value2 ,...
+  //   // WHERE
+  //   //   condition;`
+
+  //   product.quantity = 1
+  //   console.log('product right before add new item query: ', product)
+  //   const query = {
+  //     text: `
+  //       UPDATE cart SET 
+  //         cart_items = cart_items || ARRAY [hstore($1, $2)]
+  //         WHERE cart_uuid = $3
+  //         RETURNING (SELECT array_to_json(cart_items)
+  //         FROM cart WHERE cart.cart_uuid = $3)
+  //     `,
+  //     values: [product.product_uuid, product.quantity, cart.cart_uuid]
+  //   }
     
+  //   db.query(query)
+  //   .then(data=>{
+  //     console.log('add new item to cart, data.rows', data.rows)
+  //     res.send(data.rows)
+  //   })
+  //   .catch(err=>console.error('Add New Item To Cart Error: ', err))
 
-  if(uuidArray.includes(product.product_uuid)){
-    const query = {
-      text: `fake query
-
-      `,
-      values: []
-    }
-    res.send('this is the quantity up')
-  }else{
-
-    // `UPDATE table
-    // SET column1 = value1,
-    //     column2 = value2 ,...
-    // WHERE
-    //   condition;`
-
-    product.quantity = 1
-    console.log('product right before add new item query: ', product)
-    const query = {
-      text: `
-        UPDATE cart SET 
-          cart_items = cart_items || ARRAY [hstore($1, $2)]
-          WHERE cart_uuid = $3
-          RETURNING cart_items
-      `,
-      values: [product.product_uuid, product.quantity, cart.cart_uuid]
-    }
-    
-    db.query(query)
-    .then(data=>{
-      console.log('add new item to cart, data.rows', data.rows)
-      res.send(data.rows)
-    })
-    .catch(err=>console.error('Add New Item To Cart Error: ', err))
-
-  }
+  // }
 
   
 })

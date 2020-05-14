@@ -29,13 +29,13 @@ import Checkout from './checkout'
 class App extends React.Component {
 
   componentDidMount () {
-    console.log('app comp didMount, localStorage: ', localStorage)
+    // console.log('app comp didMount, localStorage: ', localStorage)
     //fetch products
     this.props.getProductList()
 
     //check if returning user or new user, fetch data or create new user
     if(!localStorage.user_uuid){
-      console.log('user_uuid not in local storage, calling createNewUser')
+      // console.log('user_uuid not in local storage, calling createNewUser')
       this.props.createNewUser()
       // .then(()=>{
       //   localStorage.setItem('user_uuid', this.props.userData.user_uuid)
@@ -45,7 +45,7 @@ class App extends React.Component {
       
     }else{
       const user_uuid = localStorage.user_uuid
-      console.log(' pre-getuser localStorage: ', localStorage)
+      // console.log(' pre-getuser localStorage: ', localStorage)
       this.props.getUserData(user_uuid)
       // .then(()=>{
       //   console.log('after getUserData called, localStorage.userData: ', localStorage.userData)
