@@ -10,6 +10,7 @@ export default function userReducer(state = DEFAULT_STATE, action) {
     case types.USER_DATA_RETRIEVED:
       console.log('userReducer RETRIEVE EXISTING hit, action.payload: ', action.payload)
       return action.payload
+    case types.
     default:
       return state
   }

@@ -184,10 +184,14 @@ export function getUserData(user_uuid){
             email, 
             first_name, 
             last_name, 
-            cart: {
-              cart_uuid,
-              cart_items
-            }}
+          }
+        })
+        dispatch({
+          type: types.CART_DATA_RETRIEVED,
+          payload: {
+            cart_uuid,
+            cart_items
+          }
         })
       }
     )
