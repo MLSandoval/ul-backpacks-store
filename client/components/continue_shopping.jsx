@@ -1,17 +1,10 @@
-import React, {createRef, useEffect} from 'react'
+import React, {useEffect} from 'react'
 import { connect } from 'react-redux'
 import {Link as LinkRouter, Route} from 'react-router-dom'
-
-import { Link, Element , Events, animateScroll as scroll, scrollSpy, scroller } from 'react-scroll'
-
-
 
 import Modal from 'react-bootstrap/Modal'
 import Button from 'react-bootstrap/Button'
 import Table from 'react-bootstrap/Table'
-import Card from 'react-bootstrap/Card'
-import CardDeck from 'react-bootstrap/CardDeck'
-
 
 import './styles/continue_shopping_style.css'
 import {computeCartTotal} from '../actions'
@@ -20,7 +13,6 @@ function ContinueShopping(props){
   
   function generateRows(){
     const products = [...props.products]
-    console.log('continue shopping generate products:: ', products)
 
     const cart = Object.entries(props.cart.cart_items)
     const cartArr = []
@@ -28,17 +20,9 @@ function ContinueShopping(props){
       cartArr.push({product_uuid, quantity})
     })
 
-    // const objectArray = Object.entries(numbers);
-    // objectArray.forEach(([key, value]) => {
-    //   console.log(key); // 'one'
-    //   console.log(value); // 1
-    // });
-    console.log('cartArr: ', cartArr)
     return( 
       cartArr.map((product)=>{
-        console.log('cartArr map, product_uuid, quantity: ', product.product_uuid, product.quantity)
         const element = products.filter(currentIteratedProduct => currentIteratedProduct.product_uuid === product.product_uuid)[0]
-        console.log('element where uuids match: ', element)
         return(
           <React.Fragment key={element.product_uuid}>
             <tr key={element.product_uuid}>
@@ -48,11 +32,9 @@ function ContinueShopping(props){
               <td>{product.quantity}</td>
               <td>${(parseInt(element.price) * product.quantity).toFixed(2)}</td>
             </tr>
-            {/* <tr><td>placeholder</td></tr> */}
           </React.Fragment>
         )
       })
-      // [<tr><td>placeholder</td></tr>,<tr><td>placeholder</td></tr>,<tr><td>placeholder</td></tr>,<tr><td>placeholder</td></tr>]
     )
   }
 
