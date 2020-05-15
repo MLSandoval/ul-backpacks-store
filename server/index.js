@@ -1,7 +1,7 @@
 //load environmental variables from env file
 require('dotenv').config({path: 'backpack_shopping_cart/.env'})
 
-console.log('process.env: ', process.env)
+// console.log('process.env: ', process.env)
 
 const express = require('express')
 const app = express()
@@ -45,12 +45,12 @@ app.get('/*', (req, res, next) => {
 })
 
 app.get('/api/get-products', (req, res, next)=>{
-  console.log('this is hitting real fetch-products enpoint')
+  // console.log('this is hitting real fetch-products enpoint')
   const query = 'SELECT * FROM products;'
 
   db.query(query)
     .then(data=> {
-      console.log('query data RETURNED: ', data.rows)
+      // console.log('query data RETURNED: ', data.rows)
       res.send(data.rows)
     })
     .catch(e=> console.error(e.stack))
@@ -62,10 +62,11 @@ app.get('/api/get-user', (req, res, next)=>{
   const {user_uuid} = req.headers
   console.log('get user endpoint, req.headers.user_uuid: ', req.headers.user_uuid)
   const queryObj = {
-    text: `SELECT users.user_uuid, users.email, users.first_name, users.last_name, cart.cart_uuid, cart.cart_items 
+    text: `SELECT users.user_uuid, users.email, users.first_name, users.last_name, cart.cart_uuid, cart.cart_items::json
       FROM users, cart 
       WHERE users.user_uuid = $1
-        AND cart.user_uuid = $1`,
+        AND cart.user_uuid = $1
+      `,
     values: [user_uuid]
   }
 
@@ -88,8 +89,8 @@ app.put('/api/create-user', (req, res, next)=>{
         INSERT INTO users VALUES (uuid_generate_v4(), $1, $2, $3) RETURNING user_uuid
       )
       INSERT INTO cart 
-        VALUES (uuid_generate_v4(), (SELECT user_uuid FROM new_user), ARRAY []::hstore[])
-          RETURNING (SELECT user_uuid FROM new_user), cart.cart_uuid, cart.cart_items`,
+        VALUES (uuid_generate_v4(), (SELECT user_uuid FROM new_user), hstore(''))
+          RETURNING (SELECT user_uuid FROM new_user), cart.cart_uuid, hstore_to_json(cart.cart_items)`,
     values: [email || null, first_name || null, last_name || null,]
   }
 
@@ -102,57 +103,50 @@ app.put('/api/create-user', (req, res, next)=>{
     .catch(err=>console.error('Create User Query Error: ', err))
 })
 
-app.put('/api/add-item-to-cart', (req, res, next)=>{
-  console.log(' add-item-to-cart end point req.body: ', req.body)
-  console.log(' add-item-to-cart end point req.headers: ', req.headers)
-  res.send('hello from add to item cart endpoint')
+app.patch('/api/add-item-to-cart', (req, res, next)=>{
+  // console.log(' add-item-to-cart end point req.body: ', req.body)
+  // console.log(' add-item-to-cart end point req.headers: ', req.headers)
   
-  // const {cart, product} = req.body
-  // console.log('addItemTOCart endpoint product: ', product)
-  // console.log('addItemTOCart endpoint cart: ', cart)
+  
+  const {cart, product} = req.body
+  console.log('addItemTOCart endpoint product: ', product)
+  console.log('addItemTOCart endpoint cart: ', cart)
 
-  // const uuidArray = []
-  // // cart.cart_items.forEach((element)=>{
-  // //   uuidArray.push(element.product_uuid)
-  // // })
-
-  // if(uuidArray.includes(product.product_uuid)){
-  //   const query = {
-  //     text: `fake query
-
-  //     `,
-  //     values: []
-  //   }
-  //   res.send('this is the quantity up')
-  // }else{
-
-  //   // `UPDATE table
-  //   // SET column1 = value1,
-  //   //     column2 = value2 ,...
-  //   // WHERE
-  //   //   condition;`
-
-  //   product.quantity = 1
-  //   console.log('product right before add new item query: ', product)
-  //   const query = {
-  //     text: `
-  //       UPDATE cart SET 
-  //         cart_items = cart_items || ARRAY [hstore($1, $2)]
-  //         WHERE cart_uuid = $3
-  //         RETURNING (SELECT array_to_json(cart_items)
-  //         FROM cart WHERE cart.cart_uuid = $3)
-  //     `,
-  //     values: [product.product_uuid, product.quantity, cart.cart_uuid]
-  //   }
-    
-  //   db.query(query)
-  //   .then(data=>{
-  //     console.log('add new item to cart, data.rows', data.rows)
-  //     res.send(data.rows)
-  //   })
-  //   .catch(err=>console.error('Add New Item To Cart Error: ', err))
-
+  const uuidArray = []
+  // for(element in cart.cart_items){
+  //   uuidArray.push(element.product_uuid)
   // }
+
+  if(uuidArray.includes(product.product_uuid)){
+    const query = {
+      text: `fake query
+
+      `,
+      values: []
+    }
+    res.send('this is the quantity up')
+  }else{
+
+    console.log('product right before add new item query: ', product)
+    const query = {
+      text: `
+      UPDATE cart SET 
+        cart_items = cart_items || hstore($1, $2)::hstore
+        WHERE cart_uuid = $3
+        RETURNING hstore_to_json(cart_items)
+      `,
+      values: [product.product_uuid, product.quantity, cart.cart_uuid]
+      // values: ['344e3d73-58f0-460f-87f8-1d122c7a511e', '7777', cart.cart_uuid]
+    }
+    
+    db.query(query)
+    .then(data=>{
+      console.log('add new item to cart, data.rows', data.rows[0].hstore_to_json)
+      res.send(data.rows[0].hstore_to_json)
+    })
+    .catch(err=>console.error('Add New Item To Cart Error: ', err))
+
+  }
 
   
 })

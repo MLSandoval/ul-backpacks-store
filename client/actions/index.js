@@ -55,42 +55,46 @@ export function addItemToCart (cart, product) {//also need to add query to add i
   //   product_uuid: 12345
   // }
   return function (dispatch) {
-    // fetch('/api/add-item-to-cart', {
-    //   method:'PUT',
-    //   "Content-Type": "application/json",
-    //   body: {
-    //     "cart": {
-    //       "cart_uuid": "0654a760-e696-4064-a039-7d688defbaec",
-    //       "cart_items": []
-    //     },
-    //     "product": {
-    //       "product_uuid": "ZZ7e3d73-58f0-460f-87f8-1d122c7a511e"
-    //     }
-    //   },
-    //   mode: 'cors'
-    // })
-    // .then(res => res.json())
-    // .then(data => {
-    //   console.log('addItemToCart action, data: ', data)
-    //   // dispatch({
-    //   //   type: types.PRODUCT_ADDED_TO_CART,
-    //   //   payload: data
-    //   // })
-    // })
-    // .catch(err=>console.error('addItemToCart Error: ', err))
-
     fetch('/api/add-item-to-cart', {
-      method: 'PUT',
-      // body: {test:'thisis the body test'}
+      method:'PATCH',
       headers:{
-        customHeader: 'customboi'
-      }
-    })  
+        "Content-Type": 'application/json'
+      },
+      body: JSON.stringify({
+        cart: {
+          cart_uuid: cart.cart_uuid,
+          cart_items: cart.cart_items
+        },
+        product: {
+          product_uuid: product.product_uuid,
+          quantity: product.quantity || 1
+        }
+      }),
+    })
     .then(res => res.json())
     .then(data => {
-      console.log('add item action request success data: ', data)
+      console.log('addItemToCart action, data: ', data)
+      dispatch({
+        type: types.PRODUCT_ADDED_TO_CART,
+        payload: data
+      })
     })
-    .catch(err=>console.error(err))
+    .catch(err=>console.error('addItemToCart Error: ', err))
+
+  //   fetch('/api/add-item-to-cart', {
+  //     method: 'PUT',
+  //     // body: {test:'thisis the body test'}
+  //     headers:{
+  //       customHeader: 'customboi',
+  //       "Content-Type": 'application/json'
+  //     },
+  //     body:JSON.stringify({bodyStuff: 'this is body stuff'})
+  //   })  
+  //   .then(res => res.json())
+  //   .then(data => {
+  //     console.log('add item action request success data: ', data)
+  //   })
+  //   .catch(err=>console.error(err))
   }
 
 }
@@ -235,8 +239,9 @@ export function createNewUser(email, first_name, last_name){
     })
     .then(res => res.json())
     .then(data =>{
-      const {user_uuid, cart_uuid, cart_items} = data
-      // console.log('user_uuid and cart_uuid from createNewUser Action: ', user_uuid, cart_uuid)
+      const {user_uuid, cart_uuid} = data
+      console.log('user_uuid and cart_uuid from createNewUser Action: ', user_uuid, cart_uuid)
+      console.log('createNewUser Action data: ', data)
       localStorage.setItem('user_uuid', user_uuid)
         dispatch({
           type: types.NEW_USER_CREATED,
@@ -248,7 +253,7 @@ export function createNewUser(email, first_name, last_name){
           type: types.CART_DATA_RETRIEVED,
           payload: {
             cart_uuid,
-            cart_items
+            cart_items: data.hstore_to_json
           }
         })
       })

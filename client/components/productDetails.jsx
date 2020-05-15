@@ -192,7 +192,7 @@ function mapDispatchToProps(dispatch) {
 }
 
 function mapStateToProps(state) {
-  // console.log('PRODUCTDETAILS state: ', state);
+  console.log('PRODUCTDETAILS state: ', state);
   return {
     products: state.products,
     currentProduct: state.currentProduct,
