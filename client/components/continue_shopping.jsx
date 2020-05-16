@@ -58,7 +58,6 @@ function ContinueShopping(props){
           <div className="col-9"></div>
           <h6 className="col-3 no-wrap-white" name="top" ></h6>
         </div>
-        
         <Table size="sm" key='cxaosiu'>
           <thead key='asdfh'>
             <tr>
@@ -74,7 +73,6 @@ function ContinueShopping(props){
               <td  className="d-flex justify-content-end no-wrap-white">Cart Total:</td>
               <td >${props.totalOrderCost.toFixed(2)}</td>
             </tr>
-            
           </tbody>
         </Table>
       </Modal.Body>
@@ -86,10 +84,6 @@ function ContinueShopping(props){
               className="btn-sm col-12 w-100"
               variant="info"
               type="button"
-              // onClick={() => {
-              //   console.log('go to cart on click')
-              //   }
-              // }
             >
               Go to Cart
             </Button>
@@ -99,9 +93,6 @@ function ContinueShopping(props){
               className="btn-sm col-12 w-100"
               variant="dark"
               type="button"
-              // onClick={() =>
-              //   props.dispatch({ type: "FORM_SUBMIT", payload: { email, password } })
-              // }
             >
               Continue Shopping
             </Button>
@@ -123,4 +114,3 @@ function mapStateToProps(state){
 }
 
 export default connect(mapStateToProps, {computeCartTotal})(ContinueShopping)
-

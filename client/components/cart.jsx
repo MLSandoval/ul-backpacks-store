@@ -21,11 +21,20 @@ class Cart extends React.Component {
   }
 
   generateCartList(){
-    const cart = this.props.cart
-    let cartCheck;
-    [cartCheck] = this.props.cart
+    // const cart = this.props.cart
 
-    if(cartCheck === undefined){
+    const products = [...this.props.products]
+    console.log('PRODUCTS array in cart: ', products)
+    
+    const cart = Object.entries(this.props.cart.cart_items)
+    const cartArr = []
+    cart.forEach(([product_uuid, quantity])=>{
+      cartArr.push({product_uuid, quantity})
+    })
+    
+    console.log('cartArr in cart_items: ', cartArr)
+
+    if(cartArr[0] === undefined){
       return(
         <React.Fragment>
           <Table className="empty-cart">
@@ -70,16 +79,19 @@ class Cart extends React.Component {
               </tr>
             </thead>
             <tbody>
-            {cart.map((product)=>{
-              // console.log('cart map for row, product: ', product)
+            {cartArr.map((product)=>{
+              console.log('cart map product: ', product)
+              console.log('cart map PRODUCTS: ', products)
               // console.log('cart map, product.price: ', typeof product.price)
               // console.log('cart map, product.uuid for key: ', product.product_uuid)
+              const element = products.filter(currentIteratedProduct => currentIteratedProduct.product_uuid === product.product_uuid)[0]
+              console.log('cart map element: ', element)
               return(
                 <tr key={product.product_uuid}>
                   <th scope="row">
-                    <img className="row-image" src={product.image_urls[0]}></img>
+                    <img className="row-image" src={element.image_urls[0]}></img>
                   </th>
-                  <td>{product.name}</td>
+                  <td>{element.name}</td>
                   <td>
                   <button 
                       type="button" 
@@ -106,8 +118,8 @@ class Cart extends React.Component {
                       >+
                     </button>
                   </td>
-                  <td>${product.price}</td>
-                  <td>${(product.price*product.quantity).toFixed(2)}</td>
+                  <td>${element.price}</td>
+                  <td>${(element.price*product.quantity).toFixed(2)}</td>
                   <td>
                     <button 
                       type="button" 
