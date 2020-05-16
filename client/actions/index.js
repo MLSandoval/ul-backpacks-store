@@ -6,16 +6,17 @@ export function getProductList () {
     fetch('/api/get-products', {
       method: 'GET',
     })
-      .then(res => res.json())
-      .then(data => {
-        dispatch({
-          type: types.PRODUCT_LIST_REQUESTED,
-          payload: data
-        })
+    .then(res => res.json())
+    .then(data => {
+      console.log('get products request resovles, products sent to state')
+      dispatch({
+        type: types.PRODUCT_LIST_REQUESTED,
+        payload: data
       })
-      .catch(err => {
-        console.error('Product list fetch error: ', err)
-      })
+    })
+    .catch(err => {
+      console.error('Product list fetch error: ', err)
+    })
   }
 }
 
@@ -193,7 +194,7 @@ export function clearCart(){
   }
 }
 
-export function getUserData(user_uuid){
+export function getUserData(user_uuid, products){
   return function(dispatch){
     fetch('/api/get-user', {
       method: 'GET',
@@ -213,11 +214,29 @@ export function getUserData(user_uuid){
             last_name, 
           }
         })
+
+        const cart = Object.entries(cart_items)
+        const cartKeys = Object.keys(cart_items)
+        console.log('cartKeys: ', cartKeys)
+        console.log('PRODUCTS: ', products)
+        cartKeys.map((key)=>{
+          const currentIndex = products.findIndex(element=>element.product_uuid === key)
+          console.log('carKeys map currentIndex: ', currentIndex)
+        })
+
+        // const cartArr = []
+        // cart.forEach(([product_uuid, quantity])=>{
+        //   cartArr.push({product_uuid, quantity})
+        // })
+        // cartArr.map(item=>{
+        //   item = {...item, ...}
+        // })
+
         dispatch({
           type: types.CART_DATA_RETRIEVED,
           payload: {
             cart_uuid,
-            cart_items
+            cart_items: cartArr
           }
         })
       }
