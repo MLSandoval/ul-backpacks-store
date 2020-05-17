@@ -76,7 +76,7 @@ class ProductDetails extends React.Component {
     console.log('prodDetails handle click reached, this.props.cart and this.props.currentProduct: ', this.props.cart, this.props.currentProduct)
     this.props.addItemToCart(this.props.cart, this.props.currentProduct)
     
-    this.props.computeCartTotal(this.props.cart)
+    this.props.computeCartTotal(this.props.cart.cart_items, this.props.products)
     // console.log('product details handclick computecart total totalOrderCost: ', this.props.totalOrderCost)
     // this.props.setModalConfig({})
   }

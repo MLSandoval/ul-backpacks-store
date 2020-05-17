@@ -153,10 +153,14 @@ export function sortCartQuantities(cart){
   }
 }
 
-export function computeCartTotal(cart){
+export function computeCartTotal(cart_items, products){
+  if(!products[0]) return 0
   let total = 0
-  for (let product in cart){
-    total += parseInt(cart[product].quantity) * parseInt(cart[product].price)
+  console.log('computeCartTotal action cart_items: ', cart_items)
+  console.log('computeCartTotal action products: ', products)
+  for (let key in cart_items){
+    let currentProduct = products.filter(prod => key === prod.product_uuid)
+    total += parseInt(cart_items[key]) * parseInt(currentProduct[0].price)
   }
 
   return function (dispatch) {

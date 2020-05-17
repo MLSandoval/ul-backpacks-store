@@ -13,24 +13,31 @@ function ContinueShopping(props){
   
   function generateRows(){
     const products = [...props.products]
+    console.log('props after products spread op: ', props)
 
     const cart = Object.entries(props.cart.cart_items)
     const cartArr = []
     cart.forEach(([product_uuid, quantity])=>{
       cartArr.push({product_uuid, quantity})
     })
-
+    console.log('inside generate rows, right before compute cart total products: ', products)
+    props.computeCartTotal(props.cart.cart_items, products)
     return( 
       cartArr.map((product)=>{
+        console.log('continueShopping cartArr map, cartArr: ', cartArr)
+        console.log('continueShopping cartArr map, product: ', product)
+        console.log('continueShopping cartArr map, parseInt(product.quantity): ', parseInt(product.quantity))
+        
         const element = products.filter(currentIteratedProduct => currentIteratedProduct.product_uuid === product.product_uuid)[0]
+        console.log('continueShopping cartArr map, parseInt(element.price): ', parseInt(element.price))
         return(
           <React.Fragment key={element.product_uuid}>
             <tr key={element.product_uuid}>
               <td>{element.name + ' '}
-                <div>by {element.brand}</div>
+                <div className="small-text">by {element.brand}</div>
               </td>
               <td>{product.quantity}</td>
-              <td>${(parseInt(element.price) * product.quantity).toFixed(2)}</td>
+              <td>${(parseInt(element.price) * parseInt(product.quantity)).toFixed(2)}</td>
             </tr>
           </React.Fragment>
         )
@@ -40,16 +47,7 @@ function ContinueShopping(props){
 
   useEffect(()=>{
     console.log('continueshopping props: ', props)
-    props.computeCartTotal(props.cart.cart_items)
   })
-
-  function computeItemCount(){
-    let total=0
-    props.cart.map((element)=>{
-      total += element.quantity
-    })
-    return total
-  }
 
   return(
     <React.Fragment key='modalcontentfrag'>
