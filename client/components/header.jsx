@@ -20,9 +20,21 @@ class Header extends React.Component {
     super(props)
   }
   getCartItemCount(){
+    console.log('props at start of getItemCount in header: ', this.props)
     let total = 0
-    if(this.props.cart[0])
-      this.props.cart.forEach(element=>{total += element.quantity})
+
+    const {cart_items} = this.props.cart
+    console.log('header getItemCount cart: ', cart_items)
+    console.log('header getItemCount Object.keys(cart_items).length: ', Object.keys(cart_items).length)
+    console.log('header getItemCount cart_items.constructor === Object: ', cart_items.constructor === Object)
+
+    if(Object.keys(cart_items).length !== 0 && cart_items.constructor === Object){
+      console.log('inside true condition')
+      for(let key in cart_items){
+        console.log('cart loop for itemcounter in header cart_items[key]: ', cart_items[key])
+        total += parseInt(cart_items[key])
+      }
+    }
     return total || 0
   }
   componentDidUpdate(prevProps){}

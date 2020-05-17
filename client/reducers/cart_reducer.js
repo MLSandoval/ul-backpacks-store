@@ -2,7 +2,7 @@ import types from '../actions/types.js'
 
 const DEFAULT_STATE = {
   cart_uuid: '',
-  cart_items: []
+  cart_items: {}
 }
 
 export default function cartReducer(state = DEFAULT_STATE, action) {

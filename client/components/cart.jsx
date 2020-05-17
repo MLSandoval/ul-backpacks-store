@@ -24,7 +24,7 @@ class Cart extends React.Component {
     // const cart = this.props.cart
 
     const products = [...this.props.products]
-    console.log('PRODUCTS array in cart: ', products)
+    // console.log('PRODUCTS array in cart: ', products)
     
     const cart = Object.entries(this.props.cart.cart_items)
     const cartArr = []
@@ -32,7 +32,7 @@ class Cart extends React.Component {
       cartArr.push({product_uuid, quantity})
     })
     
-    console.log('cartArr in cart_items: ', cartArr)
+    // console.log('cartArr in cart_items: ', cartArr)
 
     if(cartArr[0] === undefined){
       return(
@@ -80,12 +80,12 @@ class Cart extends React.Component {
             </thead>
             <tbody>
             {cartArr.map((product)=>{
-              console.log('cart map product: ', product)
-              console.log('cart map PRODUCTS: ', products)
+              // console.log('cart map product: ', product)
+              // console.log('cart map PRODUCTS: ', products)
               // console.log('cart map, product.price: ', typeof product.price)
               // console.log('cart map, product.uuid for key: ', product.product_uuid)
               const element = products.filter(currentIteratedProduct => currentIteratedProduct.product_uuid === product.product_uuid)[0]
-              console.log('cart map element: ', element)
+              // console.log('cart map element: ', element)
               return(
                 <tr key={product.product_uuid}>
                   <th scope="row">

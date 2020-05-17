@@ -215,14 +215,14 @@ export function getUserData(user_uuid, products){
           }
         })
 
-        const cart = Object.entries(cart_items)
-        const cartKeys = Object.keys(cart_items)
-        console.log('cartKeys: ', cartKeys)
-        console.log('PRODUCTS: ', products)
-        cartKeys.map((key)=>{
-          const currentIndex = products.findIndex(element=>element.product_uuid === key)
-          console.log('carKeys map currentIndex: ', currentIndex)
-        })
+        // const cart = Object.entries(cart_items)
+        // const cartKeys = Object.keys(cart_items)
+        // console.log('cartKeys: ', cartKeys)
+        // console.log('PRODUCTS: ', products)
+        // cartKeys.map((key)=>{
+        //   const currentIndex = products.findIndex(element=>element.product_uuid === key)
+        //   console.log('carKeys map currentIndex: ', currentIndex)
+        // })
 
         // const cartArr = []
         // cart.forEach(([product_uuid, quantity])=>{
@@ -236,7 +236,7 @@ export function getUserData(user_uuid, products){
           type: types.CART_DATA_RETRIEVED,
           payload: {
             cart_uuid,
-            cart_items: cartArr
+            cart_items
           }
         })
       }

@@ -36,9 +36,9 @@ class App extends React.Component {
       this.props.createNewUser()
     }else{
       const user_uuid = localStorage.user_uuid
-      console.log('products before getUserData called: ', this.props.products)
+      // console.log('products before getUserData called: ', this.props.products)
       // console.log(' pre-getuser localStorage: ', localStorage)
-      setTimeout(()=>{this.props.getUserData(user_uuid, this.props.products)}, 2000)
+      this.props.getUserData(user_uuid, this.props.products)
     }
     
   }
@@ -107,7 +107,7 @@ class App extends React.Component {
 }
 
 function mapStateToProps(state){
-  console.log('state in app component: ', state);
+  // console.log('state in app component: ', state);
   return {
     products: state.products.products,
     currentProduct: state.currentProduct,
