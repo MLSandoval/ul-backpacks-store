@@ -7,22 +7,8 @@ import Button from 'react-bootstrap/Button'
 
 import './styles/back_to_top_style.css'
 
-
-
-
-
-
 function BackToTop(props){
   let [visibility, setVisibility] = useState(false)
-	var scrollComponent = this;
-  // function revealButton(){
-  //   window.scrollY > prev?
-  //   !show && setShow(true)
-  //   :
-  //   isHide && setShow(false)
-  
-  //   let prev = window.scrollY;
-	// }
 
 	function handleVisibilityChange(){
 		if(window.pageYOffset > 50){
@@ -44,16 +30,15 @@ function BackToTop(props){
 		)
 	})
   
-
   return(
-      <div name="backToTop" className="back-to-top-button">
-				{visibility && (
-					<Button variant="dark" type="button" onClick={()=>{scroll.scrollToTop()}}>
-          ^^
-        	</Button>
-				)}
-      </div>
-    
+		<div name="backToTop" className="back-to-top-button">
+			{visibility && (
+				<Button variant="dark" type="button" className="opacity-hover btn-sm" onClick={()=>{scroll.scrollToTop()}}>
+					^
+				<div>TOP</div>		
+				</Button>
+			)}
+		</div>
   )
 }
 export default connect(null)(BackToTop)
