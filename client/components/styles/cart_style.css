@@ -1,7 +1,10 @@
 .cart{}
+.pointer{
+  cursor: pointer;
+}
 .row-image{
   height: 45px;
-  width: 45px
+  width: 45px;
 }
 .rel{
   position:relative;
