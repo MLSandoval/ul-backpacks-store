@@ -104,18 +104,9 @@ app.put('/api/create-user', (req, res, next)=>{
 })
 
 app.patch('/api/add-item-to-cart', (req, res, next)=>{
-  // console.log(' add-item-to-cart end point req.body: ', req.body)
-  // console.log(' add-item-to-cart end point req.headers: ', req.headers)
-  
-  
   const {cart, product} = req.body
-  console.log('addItemTOCart endpoint product: ', product)
-  console.log('addItemTOCart endpoint cart: ', cart)
 
   const uuidArray = []
-  // for(element in cart.cart_items){
-  //   uuidArray.push(element.product_uuid)
-  // }
 
   if(uuidArray.includes(product.product_uuid)){
     const query = {
@@ -136,7 +127,6 @@ app.patch('/api/add-item-to-cart', (req, res, next)=>{
         RETURNING hstore_to_json(cart_items)
       `,
       values: [product.product_uuid, product.quantity, cart.cart_uuid]
-      // values: ['344e3d73-58f0-460f-87f8-1d122c7a511e', '7777', cart.cart_uuid]
     }
     
     db.query(query)
@@ -145,10 +135,49 @@ app.patch('/api/add-item-to-cart', (req, res, next)=>{
       res.send(data.rows[0].hstore_to_json)
     })
     .catch(err=>console.error('Add New Item To Cart Error: ', err))
+  }
+})
 
+app.patch('/api/inc-dec-quantity', (req, res, next)=>{
+  console.log('increase-quantity endpoint hit, req.body: ', req.body)
+  const {cart_uuid, product_uuid, incDec} = req.body
+  let query
+  if(incDec === 'increment'){
+    query = {
+      text: `
+      WITH quantity AS (
+        SELECT cart_items -> $1 AS quantity 
+        FROM cart WHERE cart_uuid = $2
+        )
+      UPDATE cart
+        SET cart_items = cart_items || hstore($1::text, (SELECT quantity.quantity::int + 1 FROM quantity)::text)
+        WHERE cart_uuid = $2
+        RETURNING cart_items 
+      `,
+      values: [product_uuid, cart_uuid]
+    }
+  }else if(incDec === 'decrement'){
+    query = {
+      text: `
+      WITH quantity AS (
+        SELECT cart_items -> $1 AS quantity 
+        FROM cart WHERE cart_uuid = $2
+        )
+      UPDATE cart
+        SET cart_items = cart_items || hstore($1::text, (SELECT quantity.quantity::int - 1 FROM quantity)::text)
+        WHERE cart_uuid = $2
+        RETURNING cart_items 
+      `,
+      values: [product_uuid, cart_uuid]
+    }
   }
 
-  
+  db.query(query)
+  .then(data=>{
+    console.log('inside db query success, data.rows: ', data.rows)
+    res.send(data.rows)
+  })
+  .catch(err=>console.error('Increase Quantity Error: ', err))
 })
 
 // fixes client side routing 'cannot get xxxxxxx' on refresh issue except when there is a 

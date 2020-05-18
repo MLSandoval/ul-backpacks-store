@@ -109,8 +109,16 @@ export function removeItemFromCart(product_uuid){
   }
 }
 
-export function increaseItemQuantity(product_uuid){
+export function increaseItemQuantity(cart_uuid, product_uuid, incDec){
   return function (dispatch) {
+    fetch('/api/inc-dec-quantity', {
+      method: "PATCH",
+      body: {
+        cart_uuid,
+        product_uuid,
+        incDec
+      }
+    })
     dispatch({
       type: types.INCREASED_PRODUCT_QUANTITY,
       payload: product_uuid
