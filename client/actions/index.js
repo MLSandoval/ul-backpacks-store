@@ -119,10 +119,15 @@ export function increaseItemQuantity(cart_uuid, product_uuid, incDec){
         incDec
       }
     })
-    dispatch({
-      type: types.INCREASED_PRODUCT_QUANTITY,
-      payload: product_uuid
+    .then()
+    .then(data=>{
+      dispatch({
+        type: types.INCREASED_PRODUCT_QUANTITY,
+        payload: product_uuid
+      })
     })
+    .catch(err=>console.error('alterItemQuantity Error: ', err))
+    
   }
 }
 
