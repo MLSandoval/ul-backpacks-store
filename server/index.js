@@ -152,7 +152,7 @@ app.patch('/api/inc-dec-quantity', (req, res, next)=>{
       UPDATE cart
         SET cart_items = cart_items || hstore($1::text, (SELECT quantity.quantity::int + 1 FROM quantity)::text)
         WHERE cart_uuid = $2
-        RETURNING cart_items 
+        RETURNING hstore_to_json(cart_items)
       `,
       values: [product_uuid, cart_uuid]
     }
@@ -166,7 +166,7 @@ app.patch('/api/inc-dec-quantity', (req, res, next)=>{
       UPDATE cart
         SET cart_items = cart_items || hstore($1::text, (SELECT quantity.quantity::int - 1 FROM quantity)::text)
         WHERE cart_uuid = $2
-        RETURNING cart_items 
+        RETURNING hstore_to_json(cart_items)
       `,
       values: [product_uuid, cart_uuid]
     }
@@ -174,8 +174,8 @@ app.patch('/api/inc-dec-quantity', (req, res, next)=>{
 
   db.query(query)
   .then(data=>{
-    console.log('inside db query success, data.rows: ', data.rows)
-    res.send(data.rows)
+    console.log('inside db query success, data.rows: ', data.rows[0])
+    res.send(data.rows[0])
   })
   .catch(err=>console.error('Increase Quantity Error: ', err))
 })

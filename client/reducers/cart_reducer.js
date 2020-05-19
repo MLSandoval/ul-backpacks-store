@@ -6,7 +6,7 @@ const DEFAULT_STATE = {
 }
 
 export default function cartReducer(state = DEFAULT_STATE, action) {
-
+  console.log()
   switch (action.type) {
     case types.PRODUCT_ADDED_TO_CART:
       console.log('cart REDUCER add to cart called, action.payload: ', action.payload)
@@ -35,8 +35,11 @@ export default function cartReducer(state = DEFAULT_STATE, action) {
       //   return [...state, action.payload]
       // }
       return {...state, cart_items: action.payload}
+    case types.ALTERED_ITEM_QUANTITY:
+      console.log('cart REDUCER alteredItemQuantity called, action.payload: ', action.payload)
+      return {...state, cart_items: action.payload}
     case types.PRODUCT_REMOVED_FROM_CART:
-      // console.log('cart REDUCER remove from cart called, action.payload: ', action.payload)
+      console.log('cart REDUCER remove from cart called, action.payload: ', action.payload)
       return (state.filter((element) => {
         if(element.product_uuid !== action.payload){
           return true
@@ -45,25 +48,25 @@ export default function cartReducer(state = DEFAULT_STATE, action) {
         }
         }) 
       ) 
-    case types.INCREASED_PRODUCT_QUANTITY:
-      console.log('increased product quantity reducer, action.payload should be UUID: ', action.payload)
-      return state.map(element => {
-        if(element.product_uuid === action.payload){
-          console.log(element.quantity)
-          element.quantity++
-          console.log(element.quantity)
-        } 
-        return element
-      })
-      break
-    case types.REDUCED_PRODUCT_QUANTITY:
-      return state.map(element => {
-        if(element.product_uuid === action.payload && element.quantity >1) element.quantity--
-        return element
-      })
+    // case types.INCREASED_PRODUCT_QUANTITY:
+    //   console.log('increased product quantity reducer, action.payload should be UUID: ', action.payload)
+    //   return state.map(element => {
+    //     if(element.product_uuid === action.payload){
+    //       console.log(element.quantity)
+    //       element.quantity++
+    //       console.log(element.quantity)
+    //     } 
+    //     return element
+    //   })
+    //   break
+    // case types.REDUCED_PRODUCT_QUANTITY:
+    //   return state.map(element => {
+    //     if(element.product_uuid === action.payload && element.quantity >1) element.quantity--
+    //     return element
+    //   })
 
     case types.CART_CLEARED: 
-      return []
+      return {...state, cart_items:{}}
 
     case types.CART_DATA_RETRIEVED: 
       return action.payload

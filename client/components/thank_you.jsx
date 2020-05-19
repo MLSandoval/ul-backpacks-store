@@ -21,7 +21,7 @@ function ThankYou (props) {
   //   return props.clearCart
   // }, [])
 
-  console.log('thankyou comp rendered props: ', props)
+  // console.log('thankyou comp rendered props: ', props)
   // autoRedirect()
   return(
       <Modal.Body>

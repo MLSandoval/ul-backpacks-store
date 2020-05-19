@@ -10,7 +10,7 @@ import Button from 'react-bootstrap/Button'
 
 import './styles/cart_style.css'
 
-import {sortCartQuantities, computeCartTotal, addItemToCart, removeItemFromCart, reduceItemQuantity, increaseItemQuantity} from '../actions'
+import {computeCartTotal, addItemToCart, removeItemFromCart, alterItemQuantity} from '../actions'
 
 import ModalShell from './modal_shell.jsx'
 
@@ -100,7 +100,7 @@ class Cart extends React.Component {
                       data-quantity={product.quantity}
                       onClick={ e => {
                         // console.log('reduceitemquantity CLICKED, uuid: ', e.currentTarget.dataset.uuid)
-                        this.props.reduceItemQuantity(e.currentTarget.dataset.uuid)
+                        this.props.alterItemQuantity(this.props.cart.cart_uuid, e.currentTarget.dataset.uuid, 'decrement')
                         
                       }}
                       >-
@@ -112,7 +112,7 @@ class Cart extends React.Component {
                       data-uuid={product.product_uuid}
                       onClick={ e => {
                         // console.log('additemtocart CLICKED, uuid: ', e.currentTarget.dataset.uuid)   
-                        this.props.increaseItemQuantity(e.currentTarget.dataset.uuid)
+                        this.props.alterItemQuantity(this.props.cart.cart_uuid, e.currentTarget.dataset.uuid, 'increment')
                                           
                       }}
                       >+
@@ -221,7 +221,6 @@ function mapStateToProps(state){
   return {
     products: state.products,
     cart: state.cart,
-    sortedCart: state.sortedCart,
     totalOrderCost: state.totalOrderCost
   }
 }
@@ -229,10 +228,8 @@ function mapStateToProps(state){
 export default connect(
   mapStateToProps, 
   {
-    sortCartQuantities, 
+    alterItemQuantity,
     computeCartTotal, 
     addItemToCart, 
-    removeItemFromCart, 
-    reduceItemQuantity, 
-    increaseItemQuantity
+    removeItemFromCart
   })(Cart)

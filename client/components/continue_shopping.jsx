@@ -13,23 +13,20 @@ function ContinueShopping(props){
   
   function generateRows(){
     const products = [...props.products]
-    console.log('props after products spread op: ', props)
 
     const cart = Object.entries(props.cart.cart_items)
+    console.log('genRows cart before foreach: ', cart)
     const cartArr = []
+    
     cart.forEach(([product_uuid, quantity])=>{
-      cartArr.push({product_uuid, quantity})
+      cartArr.push({product_uuid, quantity: parseInt(quantity)})
     })
-    console.log('inside generate rows, right before compute cart total products: ', products)
-    props.computeCartTotal(props.cart.cart_items, products)
+    console.log('contiShop genRows, products:  ', products)
+    console.log('contiShop genRows, cartArr:  ', cartArr)
+    // props.computeCartTotal(props.cart.cart_items, products)
     return( 
       cartArr.map((product)=>{
-        console.log('continueShopping cartArr map, cartArr: ', cartArr)
-        console.log('continueShopping cartArr map, product: ', product)
-        console.log('continueShopping cartArr map, parseInt(product.quantity): ', parseInt(product.quantity))
-        
         const element = products.filter(currentIteratedProduct => currentIteratedProduct.product_uuid === product.product_uuid)[0]
-        console.log('continueShopping cartArr map, parseInt(element.price): ', parseInt(element.price))
         return(
           <React.Fragment key={element.product_uuid}>
             <tr key={element.product_uuid}>
@@ -46,7 +43,7 @@ function ContinueShopping(props){
   }
 
   useEffect(()=>{
-    console.log('continueshopping props: ', props)
+    // console.log('CONTINUESHOPPING props: ', props)
   })
 
   return(

@@ -109,21 +109,26 @@ export function removeItemFromCart(product_uuid){
   }
 }
 
-export function increaseItemQuantity(cart_uuid, product_uuid, incDec){
+export function alterItemQuantity(cart_uuid, product_uuid, incDec){
+  console.log('alterItemQ action, cart_uuid, product_uuid, incDec: ', cart_uuid, product_uuid, incDec)
   return function (dispatch) {
     fetch('/api/inc-dec-quantity', {
-      method: "PATCH",
-      body: {
+      method: 'PATCH',
+      body: JSON.stringify({
         cart_uuid,
         product_uuid,
         incDec
+      }),
+      headers: {
+        "Content-Type": 'application/json'
       }
     })
-    .then()
+    .then(res=>res.json())
     .then(data=>{
+      console.log('alteredItemQuantity action success, data: ', data)
       dispatch({
-        type: types.INCREASED_PRODUCT_QUANTITY,
-        payload: product_uuid
+        type: types.ALTERED_ITEM_QUANTITY,
+        payload: data.hstore_to_json
       })
     })
     .catch(err=>console.error('alterItemQuantity Error: ', err))
