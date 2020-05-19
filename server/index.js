@@ -159,14 +159,15 @@ app.patch('/api/inc-dec-quantity', (req, res, next)=>{
   }else if(incDec === 'decrement'){
     query = {
       text: `
-      WITH quantity AS (
-        SELECT cart_items -> $1 AS quantity 
-        FROM cart WHERE cart_uuid = $2
-        )
-      UPDATE cart
-        SET cart_items = cart_items || hstore($1::text, (SELECT quantity.quantity::int - 1 FROM quantity)::text)
-        WHERE cart_uuid = $2
-        RETURNING hstore_to_json(cart_items)
+    WITH quantity AS (
+      SELECT cart_items -> $1 AS quantity 
+      FROM cart WHERE cart_uuid = $2
+      )
+
+    UPDATE cart
+      SET cart_items = cart_items || hstore($1, (SELECT nonegative((SELECT quantity::int - 1 FROM quantity)))::text)
+      WHERE cart_uuid = $2
+      RETURNING hstore_to_json(cart_items)
       `,
       values: [product_uuid, cart_uuid]
     }
