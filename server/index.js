@@ -39,8 +39,6 @@ db.connect( (err, client, release) => {
 
 // * to allow refresh of page on child path, works with webpack dev running, not when served from the actual node server
 app.get('/*', (req, res, next) => {
-  // console.log('pubDirectory: ', pubDirectory)
-  // console.log('req.url: ', req.url)
   res.sendFile(pubDirectory)
 })
 
@@ -193,13 +191,13 @@ app.put('/api/place-order', (req, res, next)=>{
 })
 
 // fixes client side routing 'cannot get xxxxxxx' on refresh issue except when there is a 
-// app.get('/*', (req, res, next) => {
-//   res.sendFile(path.join(__dirname, pubDirectory), (err) => {
-//     if (err) {
-//       res.status(500).send(err)
-//     }
-//   })
-// })
+app.get('/*', (req, res, next) => {
+  res.sendFile(path.join(__dirname), (err) => {
+    if (err) {
+      res.status(500).send(err)
+    }
+  })
+})
 
 app.listen(3003, () => {
   console.log('Node server listening on port 3003.')

@@ -222,7 +222,7 @@ export function createNewUser(email, first_name, last_name){
 
 export function placeOrder (user_uuid, cart){
   const {cart_uuid, cart_items} = cart
-
+  console.log('placeOrder action reacheed, user_uuid, cart: ', user_uuid, cart)
   return function(dispatch){
     fetch('/api/place-order', {
       method: 'PUT',
@@ -237,13 +237,13 @@ export function placeOrder (user_uuid, cart){
     })
     .then(res=>res.json())
     .then(data=>{
-
+      console.log('placeOrder fetch success, data: ', data)
       dispatch({
         type: types.ORDER_PLACED,
         action: data
       })
     })
-    .catch()
+    .catch(err=>console.error('Place Order Action Error: ', err))
   }
 }
 
