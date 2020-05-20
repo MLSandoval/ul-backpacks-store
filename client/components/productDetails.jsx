@@ -81,32 +81,26 @@ class ProductDetails extends React.Component {
       this.props.addItemToCart(this.props.cart, this.props.currentProduct)
     }
     
-    
     this.props.computeCartTotal(this.props.cart.cart_items, this.props.products)
-    // console.log('product details handclick computecart total totalOrderCost: ', this.props.totalOrderCost)
-    // this.props.setModalConfig({})
   }
   
   componentDidMount(){
-    if(!this.props.currentProduc){
+    if(!this.props.currentProduct){
       this.props.getProductList()
     }
-    // console.log('Product Details Comp this.props: ', this.props)
+    if(!this.props.currentProduct){
+      setTimeout(this.props.setCurrentProduct(this.props.productList.filter(
+        element=>{
+          element.product_uuid === this.props.match.params.product_uuid ? true : false
+        }
+      ))[0], 100)
+    }
+    console.log('Product Details Comp this.props: ', this.props)
     window.scrollTo(0,0)
   }
-  // componentDidUpdate(){
-  //   console.log('productDetails did update, this.props: ', this.props)
-  // }
-  // componentWillUnmount(){
-  //   this.props.setCurrentProduct({})
-  // }
-  
 
   render () {
-    
     const product = this.props.currentProduct
-    // console.log('product details render, this.props.currentProduct', this.props.currentProduct)
-    // console.log('product details render, product: ', product)
     return (
       <div className="product-details container pb-5 flex-grow-1">
         <div className="align-items-center container pt-4 d-flex flex-wrap h-100 justify-content-center">
@@ -169,11 +163,8 @@ class ProductDetails extends React.Component {
             <br></br>
           </div>
         </div>
-        
         <div>
-          
         </div>
-
         <Tabs className="row pt-2 pb-4" onClick={()=>{scroll.scrollToBottom()}} defaultActiveKey="description" id="uncontrolled-tab-example">
           <Tab className='pt-1' eventKey="description" title="Description">
             {product.long_description}

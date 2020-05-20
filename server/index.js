@@ -45,22 +45,17 @@ app.get('/*', (req, res, next) => {
 })
 
 app.get('/api/get-products', (req, res, next)=>{
-  // console.log('this is hitting real fetch-products enpoint')
   const query = 'SELECT * FROM products;'
 
   db.query(query)
     .then(data=> {
-      // console.log('query data RETURNED: ', data.rows)
       res.send(data.rows)
     })
     .catch(e=> console.error(e.stack))
-  // res.send({message:'this is hitting real fethc products endpoing'})
 })
 
 app.get('/api/get-user', (req, res, next)=>{
-  console.log('get-user endpoint hit, req.headers: ', req.headers)
   const {user_uuid} = req.headers
-  console.log('get user endpoint, req.headers.user_uuid: ', req.headers.user_uuid)
   const queryObj = {
     text: `SELECT users.user_uuid, users.email, users.first_name, users.last_name, cart.cart_uuid, cart.cart_items::json
       FROM users, cart 
@@ -72,7 +67,6 @@ app.get('/api/get-user', (req, res, next)=>{
 
   db.query(queryObj)
     .then(data=>{
-      console.log('get user query successful, data: ', data)
       const [user] = data.rows
       res.send(user)
     })
@@ -80,7 +74,6 @@ app.get('/api/get-user', (req, res, next)=>{
 })
 
 app.put('/api/create-user', (req, res, next)=>{
-  console.log('create-user endpoint hit!!! req.body: ', req.body)
   const {email, first_name, last_name} = req.body
 
   const queryObj = {
@@ -125,7 +118,6 @@ app.patch('/api/add-item-to-cart', (req, res, next)=>{
 })
 
 app.patch('/api/alter-quantity', (req, res, next)=>{
-  console.log('increase-quantity endpoint hit, req.body: ', req.body)
   const {cart_uuid, product_uuid, incDec} = req.body
   let query
   if(incDec === 'increment'){
@@ -168,8 +160,6 @@ app.patch('/api/alter-quantity', (req, res, next)=>{
 })
 
 app.patch('/api/remove-item', (req, res, next)=>{
-  console.log('remove item req.body: ', req.body)
-  
   const {cart_uuid, product_uuid} = req.body
   
   const query = {
@@ -184,32 +174,33 @@ app.patch('/api/remove-item', (req, res, next)=>{
 
   db.query(query)
   .then(data=>{
-    console.log('inside successful remove item query, data.rows[0].hstore_to_json: ', data.rows[0].hstore_to_json)
     const newCart = data.rows[0].hstore_to_json
     res.send(newCart)
   })
   .catch(err=>console.error('Product Removal Query Error: ', ))
 
 })
-// fixes client side routing 'cannot get xxxxxxx' on refresh issue except when there is a 
-app.get('/*', (req, res, next) => {
-  res.sendFile(path.join(__dirname, pubDirectory), (err) => {
-    if (err) {
-      res.status(500).send(err)
-    }
-  })
+
+app.put('/api/place-order', (req, res, next)=>{
+  const {user_uuid, cart_uuid, cart_items} = req.body
+
+  const query = {
+    text: `
+
+    `,
+    values: []
+  }
 })
+
+// fixes client side routing 'cannot get xxxxxxx' on refresh issue except when there is a 
+// app.get('/*', (req, res, next) => {
+//   res.sendFile(path.join(__dirname, pubDirectory), (err) => {
+//     if (err) {
+//       res.status(500).send(err)
+//     }
+//   })
+// })
 
 app.listen(3003, () => {
   console.log('Node server listening on port 3003.')
 })
-
-
-// GET FULL USER AND CART DATA OF INDIVIDUAL
-// `SELECT * FROM users
-// INNER JOIN cart ON users.user_uuid = cart.user_uuid;`
-
-// MULTIPLE TABLE DELETIONS WITH 1 query
-// WITH cartty AS (
-//   DELETE FROM cart WHERE user_uuid = '8c98431e-1df7-437e-96d8-febb5d2ee81c' returning user_uuid)
-// DELETE FROM user WHERE user_uuid in (SELECT user_uuid from cartty)

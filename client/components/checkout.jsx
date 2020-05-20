@@ -10,13 +10,11 @@ import Button from 'react-bootstrap/Button'
 import Form from 'react-bootstrap/Form'
 import Table from 'react-bootstrap/Table'
 
-import {storeCheckoutFormData, setModalConfig, clearCart} from '../actions'
+import {storeCheckoutFormData, setModalConfig, clearCart, placeOrder} from '../actions'
 
 import './styles/checkout_style.css'
 import ThankYou from './thank_you.jsx'
 
-//next stup, setup a useEffect() or useLayoutEffect() for filling in the shipping data with the billing data,
-//also a useEffect() for sending the formData to the store AFTER it is formed to the
 function Checkout(props){
 
   function shipSameAsBill(){
@@ -46,6 +44,7 @@ function Checkout(props){
       orderCost: ``
     })
     
+    placeOrder(props.user_uuid, props.cart)
   }
 
   function clearForm(){
@@ -74,7 +73,6 @@ function Checkout(props){
   return(
     <Modal.Body>
       <Form className="row">
-     
         <h5 className='col-9'>Email Address</h5>
         <div className="col-3">
           <Button
@@ -88,6 +86,7 @@ function Checkout(props){
           </Button>
         </div>
         <hr/>
+
         <Form.Group className="col-9" controlId="formBasicEmail">
           {/* <Form.Label>Email Address</Form.Label> */}
           <Form.Control
@@ -109,7 +108,6 @@ function Checkout(props){
           </Form.Control.Feedback>
         </Form.Group>
       
-
         <h5 className='col-12'>Payment and Shipping</h5>
         <hr />
         
@@ -121,13 +119,9 @@ function Checkout(props){
             type="radio" 
             label="Standard(5-6 Days) +$0.00" 
             checked={props.checkoutFormData.shippingOption === 'Standard' ? true : false}
-            // checked={true}
             onChange={() =>{
               handleRadioClick('Standard')
-              // props.storeCheckoutFormData('shippingOption', 'standard')
             }}
-            
-            
           />
           <Form.Check 
             name="shipRadios"
@@ -137,7 +131,6 @@ function Checkout(props){
             checked={props.checkoutFormData.shippingOption === '2-day' ? true : false}
             onChange={() =>{
               handleRadioClick('2-day')
-              // props.storeCheckoutFormData('shippingOption', '2-day')
             }}
           />
           <Form.Check 
@@ -148,7 +141,6 @@ function Checkout(props){
             checked={props.checkoutFormData.shippingOption === 'overnight' ? true : false}
             onChange={() =>{
               handleRadioClick('overnight')
-              // props.storeCheckoutFormData('shippingOption', 'overnight')
             }}
           />
         </Form.Group>
@@ -190,9 +182,6 @@ function Checkout(props){
           <Form.Control.Feedback type="invalid">
             {/* {props.loginForm.errors.email} */}
           </Form.Control.Feedback>
-          <Form.Text className="text-muted">
-            
-          </Form.Text>
         </Form.Group>
 
         <Form.Group className="col-3" controlId="formBasicCvv">
@@ -211,9 +200,6 @@ function Checkout(props){
           <Form.Control.Feedback type="invalid">
             {/* {props.loginForm.errors.password} */}
           </Form.Control.Feedback>
-          {/* <Form.Text className="text-muted">
-            MM/YY
-          </Form.Text> */}
         </Form.Group>
 
         <Form.Group className="col-12" controlId="formBasicNameOnCard">
@@ -293,17 +279,6 @@ function Checkout(props){
 
         <Form.Group className="col-6" controlId="formBasicBillState">
           <Form.Label>State/Territory</Form.Label>
-          {/* <Form.Control
-            type="billState"
-            placeholder="Kanto Region"
-            value={props.checkoutFormData.billState}
-            // isInvalid={props.loginForm.errors.password.length > 0}
-            // isValid={
-            //   props.loginForm.values.password &&
-            //   props.loginForm.errors.password.length === 0
-            // }
-            onChange={(e) => {props.storeCheckoutFormData('billState', e.target.value)}}
-          /> */}
           <Form.Control as="select"
             type="billState"
             placeholder="Kanto Region"
@@ -456,7 +431,6 @@ function Checkout(props){
             //   props.loginForm.values.password &&
             //   props.loginForm.errors.password.length === 0
             // }
-            onChange={(e) => {props.storeCheckoutFormData('shipState', e.target.value)}}
             
           /> */}
           <Form.Control as="select"
@@ -536,9 +510,8 @@ function Checkout(props){
           </Form.Text>
         </Form.Group>
         
-        <div className="col-9">
+        <div className="col-9"/>
         
-        </div>
         <div className="button-container col-3 row justify-content-around">
           <Button 
             as={LinkRouter}
@@ -556,9 +529,6 @@ function Checkout(props){
               className="btn-sm"
               variant="dark"
               type="button"
-              // onClick={() =>
-              //   props.dispatch({ type: "FORM_SUBMIT", payload: { email, password } })
-              // }
             >
               Cancel
             </Button>
@@ -568,8 +538,6 @@ function Checkout(props){
     </Modal.Body>
   )
 }
-
-
 
 function mapDispatchToProps (dispatch) {
   return {
@@ -587,4 +555,4 @@ function mapStateToProps(state){
   }
 }
 
-export default connect(mapStateToProps, {storeCheckoutFormData, setModalConfig, clearCart})(Checkout)
+export default connect(mapStateToProps, {storeCheckoutFormData, setModalConfig, clearCart, placeOrder})(Checkout)

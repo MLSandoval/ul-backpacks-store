@@ -21,18 +21,13 @@ class Cart extends React.Component {
   }
 
   generateCartList(){
-    // const cart = this.props.cart
-
     const products = [...this.props.products]
-    // console.log('PRODUCTS array in cart: ', products)
     
     const cart = Object.entries(this.props.cart.cart_items)
     const cartArr = []
     cart.forEach(([product_uuid, quantity])=>{
       cartArr.push({product_uuid, quantity})
     })
-    
-    // console.log('cartArr in cart_items: ', cartArr)
 
     if(cartArr[0] === undefined){
       return(
@@ -61,7 +56,6 @@ class Cart extends React.Component {
           <div  className=" col-12 d-flex justify-content-around">
             <h3 className="text-center">Your Cart is Empty :&#40;</h3>
           </div>
-          
         </React.Fragment>
       )
     }else{
@@ -80,12 +74,7 @@ class Cart extends React.Component {
             </thead>
             <tbody>
             {cartArr.map((product)=>{
-              // console.log('cart map product: ', product)
-              // console.log('cart map PRODUCTS: ', products)
-              // console.log('cart map, product.price: ', typeof product.price)
-              // console.log('cart map, product.uuid for key: ', product.product_uuid)
               const element = products.filter(currentIteratedProduct => currentIteratedProduct.product_uuid === product.product_uuid)[0]
-              // console.log('cart map element: ', element)
               return(
                 <tr key={product.product_uuid}>
                   <th scope="row">
@@ -99,9 +88,7 @@ class Cart extends React.Component {
                       data-uuid={product.product_uuid}
                       data-quantity={product.quantity}
                       onClick={ e => {
-                        // console.log('reduceitemquantity CLICKED, uuid: ', e.currentTarget.dataset.uuid)
                         this.props.alterItemQuantity(this.props.cart.cart_uuid, e.currentTarget.dataset.uuid, 'decrement')
-                        
                       }}
                       >-
                     </button>
@@ -110,10 +97,8 @@ class Cart extends React.Component {
                       type="button" 
                       className="btn"
                       data-uuid={product.product_uuid}
-                      onClick={ e => {
-                        // console.log('additemtocart CLICKED, uuid: ', e.currentTarget.dataset.uuid)   
-                        this.props.alterItemQuantity(this.props.cart.cart_uuid, e.currentTarget.dataset.uuid, 'increment')
-                                          
+                      onClick={ e => { 
+                        this.props.alterItemQuantity(this.props.cart.cart_uuid, e.currentTarget.dataset.uuid, 'increment')           
                       }}
                       >+
                     </button>
@@ -147,14 +132,7 @@ class Cart extends React.Component {
               <td></td>
               <td></td>
               <td>
-                <LinkRouter to={`cart/modal/checkout`}
-                  data-toggle="modal" data-target="#exampleModalCenter">
-                  {/* <button 
-                    type="button" 
-                    className="btn btn-dark"
-                    // onClick={()=>{let x = 'someCallBack'}}
-                    >Checkout
-                  </button>   */}
+                <LinkRouter to={`cart/modal/checkout`}>
                   <Button variant="info" type="button" className="btn-sm" >
                     Checkout
                   </Button>
@@ -169,27 +147,11 @@ class Cart extends React.Component {
     }
   }
 
-  BGScrollModalShown(){
-    this.CartRef.current.style.position = 'fixed'
-    this.CartRef.current.style.top = `-${window.scrollY}px`
-  }
-
-  BGScrollModalhidden(){
-    const scrollY = this.CartRef.current.style.top
-    this.CartRef.current.style.position = ''
-    this.CartRef.current.style.top = ''
-    window.scrollTo(0, parseInt(scrollY || '0') * -1)
-  }
-
   componentDidMount(){
-    
     this.props.computeCartTotal(this.props.cart.cart_items, this.props.products)
-    // console.log('Cart component props: ', this.props)
-    // this.props.computeCartTotal(this.props.cart)
-    // console.log('cart didmount compute Cart total: ', this.props.totalOrderCost)
   }
+
   componentDidUpdate(){
-    // console.log('cart DidUpdate, this.props.cart: ', this.props.cart)
     this.props.computeCartTotal(this.props.cart.cart_items, this.props.products)
   }
 
@@ -204,9 +166,6 @@ class Cart extends React.Component {
     )
   }
 }
-
-
-
 
 function mapDispatchToProps(dispatch){
   return {

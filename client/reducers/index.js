@@ -8,6 +8,7 @@ import checkout_form_reducer from './checkout_form_submitted_reducer.js'
 import save_previous_y_scroll_reducer from './save_previous_y_scroll_reducer.js'
 import set_modal_config_reducer from './set_modal_config_reducer'
 import user_reducer from './user_reducer'
+import order_reducer from './order_reducer'
 
 
 
@@ -19,7 +20,8 @@ const rootReducer = combineReducers({
   checkoutFormData: checkout_form_reducer,
   prevY: save_previous_y_scroll_reducer,
   modalConfig: set_modal_config_reducer,
-  userData: user_reducer
+  userData: user_reducer,
+  orders: order_reducer
 })
 
 export default rootReducer

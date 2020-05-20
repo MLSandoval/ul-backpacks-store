@@ -13,17 +13,11 @@ function ContinueShopping(props){
   
   function generateRows(){
     const products = [...props.products]
-
     const cart = Object.entries(props.cart.cart_items)
-    console.log('genRows cart before foreach: ', cart)
-    const cartArr = []
-    
+    const cartArr = [] 
     cart.forEach(([product_uuid, quantity])=>{
       cartArr.push({product_uuid, quantity: parseInt(quantity)})
     })
-    console.log('contiShop genRows, products:  ', products)
-    console.log('contiShop genRows, cartArr:  ', cartArr)
-    // props.computeCartTotal(props.cart.cart_items, products)
     return( 
       cartArr.map((product)=>{
         const element = products.filter(currentIteratedProduct => currentIteratedProduct.product_uuid === product.product_uuid)[0]
@@ -41,10 +35,6 @@ function ContinueShopping(props){
       })
     )
   }
-
-  useEffect(()=>{
-    // console.log('CONTINUESHOPPING props: ', props)
-  })
 
   return(
     <React.Fragment key='modalcontentfrag'>
