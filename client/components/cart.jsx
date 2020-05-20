@@ -10,7 +10,7 @@ import Button from 'react-bootstrap/Button'
 
 import './styles/cart_style.css'
 
-import {sortCartQuantities, computeCartTotal, addItemToCart, removeItemFromCart, reduceItemQuantity, increaseItemQuantity} from '../actions'
+import {computeCartTotal, addItemToCart, removeItemFromCart, alterItemQuantity} from '../actions'
 
 import ModalShell from './modal_shell.jsx'
 
@@ -21,11 +21,20 @@ class Cart extends React.Component {
   }
 
   generateCartList(){
-    const cart = this.props.cart
-    let cartCheck;
-    [cartCheck] = this.props.cart
+    // const cart = this.props.cart
 
-    if(cartCheck === undefined){
+    const products = [...this.props.products]
+    // console.log('PRODUCTS array in cart: ', products)
+    
+    const cart = Object.entries(this.props.cart.cart_items)
+    const cartArr = []
+    cart.forEach(([product_uuid, quantity])=>{
+      cartArr.push({product_uuid, quantity})
+    })
+    
+    // console.log('cartArr in cart_items: ', cartArr)
+
+    if(cartArr[0] === undefined){
       return(
         <React.Fragment>
           <Table className="empty-cart">
@@ -70,16 +79,19 @@ class Cart extends React.Component {
               </tr>
             </thead>
             <tbody>
-            {cart.map((product)=>{
-              // console.log('cart map for row, product: ', product)
+            {cartArr.map((product)=>{
+              // console.log('cart map product: ', product)
+              // console.log('cart map PRODUCTS: ', products)
               // console.log('cart map, product.price: ', typeof product.price)
               // console.log('cart map, product.uuid for key: ', product.product_uuid)
+              const element = products.filter(currentIteratedProduct => currentIteratedProduct.product_uuid === product.product_uuid)[0]
+              // console.log('cart map element: ', element)
               return(
                 <tr key={product.product_uuid}>
                   <th scope="row">
-                    <img className="row-image" src={product.image_urls[0]}></img>
+                    <img className="row-image" src={element.image_urls[0]}></img>
                   </th>
-                  <td>{product.name}</td>
+                  <td>{element.name}</td>
                   <td>
                   <button 
                       type="button" 
@@ -88,7 +100,7 @@ class Cart extends React.Component {
                       data-quantity={product.quantity}
                       onClick={ e => {
                         // console.log('reduceitemquantity CLICKED, uuid: ', e.currentTarget.dataset.uuid)
-                        this.props.reduceItemQuantity(e.currentTarget.dataset.uuid)
+                        this.props.alterItemQuantity(this.props.cart.cart_uuid, e.currentTarget.dataset.uuid, 'decrement')
                         
                       }}
                       >-
@@ -100,20 +112,20 @@ class Cart extends React.Component {
                       data-uuid={product.product_uuid}
                       onClick={ e => {
                         // console.log('additemtocart CLICKED, uuid: ', e.currentTarget.dataset.uuid)   
-                        this.props.increaseItemQuantity(e.currentTarget.dataset.uuid)
+                        this.props.alterItemQuantity(this.props.cart.cart_uuid, e.currentTarget.dataset.uuid, 'increment')
                                           
                       }}
                       >+
                     </button>
                   </td>
-                  <td>${product.price}</td>
-                  <td>${(product.price*product.quantity).toFixed(2)}</td>
+                  <td>${element.price}</td>
+                  <td>${(element.price*product.quantity).toFixed(2)}</td>
                   <td>
                     <button 
                       type="button" 
                       className="btn btn-danger"
                       data-uuid={product.product_uuid}
-                      onClick={ e => {this.props.removeItemFromCart(e.currentTarget.dataset.uuid)}}
+                      onClick={ e => {this.props.removeItemFromCart(this.props.cart.cart_uuid, e.currentTarget.dataset.uuid)}}
                       >X
                     </button>
                   </td>
@@ -171,14 +183,14 @@ class Cart extends React.Component {
 
   componentDidMount(){
     
-    this.props.computeCartTotal(this.props.cart)
+    this.props.computeCartTotal(this.props.cart.cart_items, this.props.products)
     // console.log('Cart component props: ', this.props)
-    this.props.computeCartTotal(this.props.cart)
+    // this.props.computeCartTotal(this.props.cart)
     // console.log('cart didmount compute Cart total: ', this.props.totalOrderCost)
   }
   componentDidUpdate(){
     // console.log('cart DidUpdate, this.props.cart: ', this.props.cart)
-    this.props.computeCartTotal(this.props.cart)
+    this.props.computeCartTotal(this.props.cart.cart_items, this.props.products)
   }
 
   render () {
@@ -209,7 +221,6 @@ function mapStateToProps(state){
   return {
     products: state.products,
     cart: state.cart,
-    sortedCart: state.sortedCart,
     totalOrderCost: state.totalOrderCost
   }
 }
@@ -217,10 +228,8 @@ function mapStateToProps(state){
 export default connect(
   mapStateToProps, 
   {
-    sortCartQuantities, 
+    alterItemQuantity,
     computeCartTotal, 
     addItemToCart, 
-    removeItemFromCart, 
-    reduceItemQuantity, 
-    increaseItemQuantity
+    removeItemFromCart
   })(Cart)

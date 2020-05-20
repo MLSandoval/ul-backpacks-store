@@ -13,7 +13,7 @@ import Table from 'react-bootstrap/Table'
 
 import './styles/product_details_style.css'
 
-import { getProductList,addItemToCart, sortCartQuantities, setCurrentProduct, setModalConfig, computeCartTotal} from '../actions'
+import {getProductList, addItemToCart, setCurrentProduct, setModalConfig, computeCartTotal, alterItemQuantity} from '../actions'
 
 import BackToTopButton from './back_to_top_button.jsx'
 import ModalShell from './modal_shell.jsx'
@@ -73,9 +73,16 @@ class ProductDetails extends React.Component {
       }));
   }
   handleClick(){
-    this.props.addItemToCart(this.props.currentProduct)
+    const keysArr = Object.keys(this.props.cart.cart_items)
+
+    if(keysArr.includes(this.props.currentProduct.product_uuid)){
+      this.props.alterItemQuantity(this.props.cart.cart_uuid, this.props.currentProduct.product_uuid, 'increment')
+    }else{
+      this.props.addItemToCart(this.props.cart, this.props.currentProduct)
+    }
     
-    this.props.computeCartTotal(this.props.cart)
+    
+    this.props.computeCartTotal(this.props.cart.cart_items, this.props.products)
     // console.log('product details handclick computecart total totalOrderCost: ', this.props.totalOrderCost)
     // this.props.setModalConfig({})
   }
@@ -191,7 +198,7 @@ function mapDispatchToProps(dispatch) {
 }
 
 function mapStateToProps(state) {
-  // console.log('PRODUCTDETAILS state: ', state);
+  console.log('PRODUCTDETAILS state: ', state);
   return {
     products: state.products,
     currentProduct: state.currentProduct,
@@ -202,4 +209,4 @@ function mapStateToProps(state) {
   }
 }
 
-export default connect(mapStateToProps, {addItemToCart, sortCartQuantities, setCurrentProduct, setModalConfig, computeCartTotal, getProductList})(ProductDetails)
+export default connect(mapStateToProps, {addItemToCart, alterItemQuantity, setCurrentProduct, setModalConfig, computeCartTotal, getProductList})(ProductDetails)

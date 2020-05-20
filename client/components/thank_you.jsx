@@ -10,7 +10,7 @@ import {clearCart} from '../actions'
 
 function ThankYou (props) {
   let history = useHistory()
-  console.log('thank you component history: ', history)
+  // console.log('thank you component history: ', history)
 
   function autoRedirect(){
     setTimeout(10000, ()=>{ props.history.push( '/'); props.clearCart()})
@@ -21,7 +21,7 @@ function ThankYou (props) {
   //   return props.clearCart
   // }, [])
 
-  console.log('thankyou comp rendered props: ', props)
+  // console.log('thankyou comp rendered props: ', props)
   // autoRedirect()
   return(
       <Modal.Body>

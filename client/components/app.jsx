@@ -9,7 +9,7 @@ import { Switch, Route} from "react-router-dom"
 import * as Scroll from 'react-scroll';
 import { Link, Element , Events, animateScroll as scroll, scrollSpy, scroller } from 'react-scroll'
 
-import {getProductList, setCurrentProduct} from '../actions'
+import {getProductList, setCurrentProduct, createNewUser, getUserData} from '../actions'
 
 import 'bootstrap/dist/css/bootstrap.min.css'
 import './styles/global_style.css'
@@ -20,7 +20,6 @@ import Cart from './cart.jsx'
 import ModalShell from './modal_shell.jsx'
 import Header from './header.jsx'
 import Footer from './footer.jsx'
-import Test from './test'
 import ProductDetails from './productDetails'
 import ThankYou from './thank_you'
 import Checkout from './checkout'
@@ -29,11 +28,18 @@ import Checkout from './checkout'
 
 class App extends React.Component {
 
-  componentDidMount () {
-    this.props.getProductList()
-    // if(!localStorage.getItem('cart')){
-
-    // }
+  async componentDidMount () {
+    await this.props.getProductList()
+    // console.log('app comp didMount, localStorage: ', localStorage)
+    if(!localStorage.user_uuid){
+      // console.log('user_uuid not in local storage, calling createNewUser')
+      this.props.createNewUser()
+    }else{
+      const user_uuid = localStorage.user_uuid
+      // console.log('products before getUserData called: ', this.props.products)
+      // console.log(' pre-getuser localStorage: ', localStorage)
+      this.props.getUserData(user_uuid, this.props.products)
+    }
     
   }
 
@@ -104,8 +110,10 @@ function mapStateToProps(state){
   // console.log('state in app component: ', state);
   return {
     products: state.products.products,
-    currentProduct: state.currentProduct
+    currentProduct: state.currentProduct,
+    userData: state.userData,
+    cart: state.cart
   }
 }
 
-export default connect(mapStateToProps, {getProductList, setCurrentProduct})(App)
+export default connect(mapStateToProps, {getProductList, setCurrentProduct, createNewUser, getUserData})(App)

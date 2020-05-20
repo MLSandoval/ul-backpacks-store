@@ -24,6 +24,12 @@
   animation: fadeIn 700ms ease-in-out 1s both;
   cursor: pointer;
 }
+.opacity-hover{
+  opacity: .3;
+}
+.opacity-hover:hover{
+  opacity: 1 !important;
+}
 
 @keyframes fadeIn {
   from {

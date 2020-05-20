@@ -21,23 +21,27 @@ class Header extends React.Component {
   }
   getCartItemCount(){
     let total = 0
-    if(this.props.cart[0])
-      this.props.cart.forEach(element=>{total += element.quantity})
+
+    const {cart_items} = this.props.cart
+
+    if(Object.keys(cart_items).length !== 0 && cart_items.constructor === Object){
+      for(let key in cart_items){
+        total += parseInt(cart_items[key])
+      }
+    }
     return total || 0
   }
   componentDidUpdate(prevProps){}
   componentDidMount(){}
+
   removeActiveOnClick(){
     document.querySelectorAll('.active').forEach((element)=>{
       element.classList.remove('active')
     })
   }
 
-  componentDidMount(){
-    // setTimeout(this.setState({className: 'header-update'}, ()=>{console.log('setState callback triggered, this.state.className after: ', this.state.className)}), 300)
-  }
+  componentDidMount(){}
   componentDidUpdate(){
-    // console.log('header componenet componenet did update props: ', this.props)
     if(this.props.location.pathname.includes('cart')){
       document.querySelectorAll('.active').forEach((element)=>{
         element.classList.remove('active')
@@ -51,7 +55,7 @@ class Header extends React.Component {
   render(){
     return (
       <div className="container">
-<Navbar 
+        <Navbar 
           onClick={()=>{this.removeActiveOnClick()}}
           // toggleNavKey={4} 
           bg="light" 
@@ -94,23 +98,9 @@ class Header extends React.Component {
               </div>
             </Nav.Link>
           </Nav>
-          
-          
-          
-          
-          
-          {/* <LinkRouter className="btn font-weight-bold" to="/cart" eventKey={4}>
-            <div className="cart-logo-count-bg row">
-              <div className="cart-button"></div>
-              <div className="cart-count">:{ this.getCartItemCount() }</div>
-            </div>
-          </LinkRouter> */}
-          
-          
         </Navbar.Collapse>
       </Navbar>
       </div>
-        
     )
   }
 }
@@ -124,9 +114,7 @@ function mapDispatchToProps (dispatch) {
 }
 
 function mapStateToProps(state) {
-  // console.log('HEADER state: ', state)
   return {
-    //this becomes a property inside of the props of this component
     view: state.view,
     cart: state.cart, 
   }
