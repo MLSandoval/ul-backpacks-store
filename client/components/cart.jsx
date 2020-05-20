@@ -125,7 +125,7 @@ class Cart extends React.Component {
                       type="button" 
                       className="btn btn-danger"
                       data-uuid={product.product_uuid}
-                      onClick={ e => {this.props.removeItemFromCart(e.currentTarget.dataset.uuid)}}
+                      onClick={ e => {this.props.removeItemFromCart(this.props.cart.cart_uuid, e.currentTarget.dataset.uuid)}}
                       >X
                     </button>
                   </td>

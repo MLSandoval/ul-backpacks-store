@@ -73,8 +73,8 @@ app.get('/api/get-user', (req, res, next)=>{
   db.query(queryObj)
     .then(data=>{
       console.log('get user query successful, data: ', data)
-      const [arrToObjRes] = data.rows
-      res.send(arrToObjRes)
+      const [user] = data.rows
+      res.send(user)
     })
     .catch(err=>console.error('Get User Query Error: ', err))
 })
@@ -97,8 +97,8 @@ app.put('/api/create-user', (req, res, next)=>{
   db.query(queryObj)
     .then(data=>{
       console.log('create user query successful, data.rows: ', data.rows)
-      const [arrToObjRes] = data.rows
-      res.send(arrToObjRes)
+      const [newUser] = data.rows
+      res.send(newuser)
     })
     .catch(err=>console.error('Create User Query Error: ', err))
 })
@@ -106,39 +106,25 @@ app.put('/api/create-user', (req, res, next)=>{
 app.patch('/api/add-item-to-cart', (req, res, next)=>{
   const {cart, product} = req.body
 
-  const uuidArray = []
-
-  if(uuidArray.includes(product.product_uuid)){
-    const query = {
-      text: `fake query
-
-      `,
-      values: []
-    }
-    res.send('this is the quantity up')
-  }else{
-
-    console.log('product right before add new item query: ', product)
-    const query = {
-      text: `
-      UPDATE cart SET 
-        cart_items = cart_items || hstore($1, $2)::hstore
-        WHERE cart_uuid = $3
-        RETURNING hstore_to_json(cart_items)
-      `,
-      values: [product.product_uuid, product.quantity, cart.cart_uuid]
+  const query = {
+    text: `
+    UPDATE cart SET 
+      cart_items = cart_items || hstore($1, $2)::hstore
+      WHERE cart_uuid = $3
+      RETURNING hstore_to_json(cart_items)
+    `,
+    values: [product.product_uuid, product.quantity, cart.cart_uuid]
     }
     
-    db.query(query)
-    .then(data=>{
-      console.log('add new item to cart, data.rows', data.rows[0].hstore_to_json)
-      res.send(data.rows[0].hstore_to_json)
-    })
-    .catch(err=>console.error('Add New Item To Cart Error: ', err))
-  }
+  db.query(query)
+  .then(data=>{
+    const newCart = data.rows[0].hstore_to_json
+    res.send(newCart)
+  })
+  .catch(err=>console.error('Add New Item To Cart Error: ', err))
 })
 
-app.patch('/api/inc-dec-quantity', (req, res, next)=>{
+app.patch('/api/alter-quantity', (req, res, next)=>{
   console.log('increase-quantity endpoint hit, req.body: ', req.body)
   const {cart_uuid, product_uuid, incDec} = req.body
   let query
@@ -175,12 +161,36 @@ app.patch('/api/inc-dec-quantity', (req, res, next)=>{
 
   db.query(query)
   .then(data=>{
-    console.log('inside db query success, data.rows: ', data.rows[0])
-    res.send(data.rows[0])
+    const newCart = data.rows[0].hstore_to_json
+    res.send(newCart)
   })
   .catch(err=>console.error('Increase Quantity Error: ', err))
 })
 
+app.patch('/api/remove-item', (req, res, next)=>{
+  console.log('remove item req.body: ', req.body)
+  
+  const {cart_uuid, product_uuid} = req.body
+  
+  const query = {
+    text: `
+      UPDATE cart 
+      SET cart_items = delete( cart_items, $1)
+      WHERE cart_uuid = $2
+      RETURNING hstore_to_json(cart_items)
+    `,
+    values: [product_uuid, cart_uuid]
+  }
+
+  db.query(query)
+  .then(data=>{
+    console.log('inside successful remove item query, data.rows[0].hstore_to_json: ', data.rows[0].hstore_to_json)
+    const newCart = data.rows[0].hstore_to_json
+    res.send(newCart)
+  })
+  .catch(err=>console.error('Product Removal Query Error: ', ))
+
+})
 // fixes client side routing 'cannot get xxxxxxx' on refresh issue except when there is a 
 app.get('/*', (req, res, next) => {
   res.sendFile(path.join(__dirname, pubDirectory), (err) => {

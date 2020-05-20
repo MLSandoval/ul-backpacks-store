@@ -48,13 +48,6 @@ export function setModalConfig(modalConfig){
 }
 export function addItemToCart (cart, product) {//also need to add query to add item to database cart when this is clicked
   console.log('addItemToCart action called, cart, product: ', cart, product)
-  // cart = {
-  //   cart_uuid: 123,
-  //   cart_items: {}
-  // }
-  // product = {
-  //   product_uuid: 12345
-  // }
   return function (dispatch) {
     fetch('/api/add-item-to-cart', {
       method:'PATCH',
@@ -74,45 +67,45 @@ export function addItemToCart (cart, product) {//also need to add query to add i
     })
     .then(res => res.json())
     .then(data => {
-      console.log('addItemToCart action, data: ', data)
+      console.log('addItemToCart action success, data: ', data)
       dispatch({
         type: types.PRODUCT_ADDED_TO_CART,
         payload: data
       })
     })
     .catch(err=>console.error('addItemToCart Error: ', err))
-
-  //   fetch('/api/add-item-to-cart', {
-  //     method: 'PUT',
-  //     // body: {test:'thisis the body test'}
-  //     headers:{
-  //       customHeader: 'customboi',
-  //       "Content-Type": 'application/json'
-  //     },
-  //     body:JSON.stringify({bodyStuff: 'this is body stuff'})
-  //   })  
-  //   .then(res => res.json())
-  //   .then(data => {
-  //     console.log('add item action request success data: ', data)
-  //   })
-  //   .catch(err=>console.error(err))
   }
-
 }
 
-export function removeItemFromCart(product_uuid){
+export function removeItemFromCart(cart_uuid, product_uuid){
   return function (dispatch) {
-    dispatch({
-      type: types.PRODUCT_REMOVED_FROM_CART,
-      payload: product_uuid
+    fetch('/api/remove-item', {
+      method: "PATCH",
+      headers:{
+        "Content-Type": 'application/json'
+      },
+      body: JSON.stringify({
+        cart_uuid,
+        product_uuid
+      })
     })
+    .then(res=>res.json())
+    .then(data=>{
+      console.log('removeItemFromCart action success, data: ', data)
+      
+        dispatch({
+          type: types.PRODUCT_REMOVED_FROM_CART,
+          payload: data
+        })
+    })
+    .catch(err=>console.error('Remove Item action Error: ', err))
   }
 }
 
 export function alterItemQuantity(cart_uuid, product_uuid, incDec){
   console.log('alterItemQ action, cart_uuid, product_uuid, incDec: ', cart_uuid, product_uuid, incDec)
   return function (dispatch) {
-    fetch('/api/inc-dec-quantity', {
+    fetch('/api/alter-quantity', {
       method: 'PATCH',
       body: JSON.stringify({
         cart_uuid,
@@ -123,27 +116,21 @@ export function alterItemQuantity(cart_uuid, product_uuid, incDec){
         "Content-Type": 'application/json'
       }
     })
-    .then(res=>res.json())
+    .then(res=>{
+      console.log('alterItemQuantity res: ', res)
+      return res.json()
+    })
     .then(data=>{
       console.log('alteredItemQuantity action success, data: ', data)
       dispatch({
         type: types.ALTERED_ITEM_QUANTITY,
-        payload: data.hstore_to_json
+        payload: data
       })
     })
     .catch(err=>console.error('alterItemQuantity Error: ', err))
-    
   }
 }
 
-export function reduceItemQuantity(product_uuid){
-  return function (dispatch) {
-    dispatch({
-      type: types.REDUCED_PRODUCT_QUANTITY,
-      payload: product_uuid
-    })
-  }
-}
 
 export function sortCartQuantities(cart){
   const sortedCartQuantities = cart.reduce((accumulator, currentValue)=>{
@@ -174,8 +161,8 @@ export function sortCartQuantities(cart){
 export function computeCartTotal(cart_items, products){
   if(!products[0]) return 0
   let total = 0
-  console.log('computeCartTotal action cart_items: ', cart_items)
-  console.log('computeCartTotal action products: ', products)
+  // console.log('computeCartTotal action cart_items: ', cart_items)
+  // console.log('computeCartTotal action products: ', products)
   for (let key in cart_items){
     let currentProduct = products.filter(prod => key === prod.product_uuid)
     total += parseInt(cart_items[key]) * parseInt(currentProduct[0].price)

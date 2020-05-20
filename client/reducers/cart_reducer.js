@@ -40,14 +40,16 @@ export default function cartReducer(state = DEFAULT_STATE, action) {
       return {...state, cart_items: action.payload}
     case types.PRODUCT_REMOVED_FROM_CART:
       console.log('cart REDUCER remove from cart called, action.payload: ', action.payload)
-      return (state.filter((element) => {
-        if(element.product_uuid !== action.payload){
-          return true
-        }else{
-          return false
-        }
-        }) 
-      ) 
+      // return (state.filter((element) => {
+      //   if(element.product_uuid !== action.payload){
+      //     return true
+      //   }else{
+      //     return false
+      //   }
+      //   }) 
+      // ) 
+      return {...state, cart_items: action.payload}
+      // return {...state, cart_items: action.payload}
     // case types.INCREASED_PRODUCT_QUANTITY:
     //   console.log('increased product quantity reducer, action.payload should be UUID: ', action.payload)
     //   return state.map(element => {
