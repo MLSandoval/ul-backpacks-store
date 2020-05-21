@@ -17,7 +17,7 @@ export default function cartReducer(state = DEFAULT_STATE, action) {
     case types.CART_CLEARED: 
       return {...state, cart_items:{}}
     case types.CART_DATA_RETRIEVED: 
-      return action.payload
+      return {cart_uuid: action.payload.cart_uuid, cart_items: action.payload.cart_items}
     default:
       return state
   }

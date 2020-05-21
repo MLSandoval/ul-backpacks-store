@@ -40,38 +40,6 @@ class ProductDetails extends React.Component {
     )
   }
 
-  scrollToTop() {
-    scroll.scrollToTop();
-  }
-
-  scrollToCustom(targetName) {
-    scroller.scrollTo(`${targetName}`, {
-      duration: 0,
-      delay: 0
-    })
-  }
-
-  scrollToWithContainer(targetInApp) {
-    let goToContainer = new Promise((resolve, reject) => {
-      Events.scrollEvent.register('end', () => {
-        resolve();
-        Events.scrollEvent.remove('end');
-      });
-      scroller.scrollTo('app', {
-        duration: 300,
-        delay: 0,
-        smooth: 'easeInOutQuart'
-      })
-    })
-
-    goToContainer.then(() =>
-      scroller.scrollTo(targetInApp, {
-        duration: 800,
-        delay: 0,
-        smooth: 'easeInOutQuart',
-        containerId: 'app'
-      }));
-  }
   handleClick(){
     const keysArr = Object.keys(this.props.cart.cart_items)
 
@@ -86,7 +54,7 @@ class ProductDetails extends React.Component {
   
   componentDidMount(){
     if(!this.props.currentProduct){
-      this.props.getProductList()
+      this.props.history.goTo('/products')
     }
     if(!this.props.currentProduct){
       setTimeout(this.props.setCurrentProduct(this.props.productList.filter(

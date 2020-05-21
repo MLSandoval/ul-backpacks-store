@@ -65,6 +65,7 @@ app.get('/api/get-user', (req, res, next)=>{
 
   db.query(queryObj)
     .then(data=>{
+      console.log('successful get user data query, data.rows: ', data.rows)
       const [user] = data.rows
       res.send(user)
     })
@@ -72,30 +73,17 @@ app.get('/api/get-user', (req, res, next)=>{
 })
 
 app.put('/api/create-user', (req, res, next)=>{
-  const {email, first_name, last_name} = req.body
-
   const queryObj = {
-    text: 
-      // `WITH new_user AS (
-      //   INSERT INTO users VALUES (uuid_generate_v4(), $1, $2, $3) RETURNING user_uuid
-      // )
-      // INSERT INTO cart 
-      //   VALUES (uuid_generate_v4(), (SELECT user_uuid FROM new_user), hstore(''))
-      //     RETURNING (SELECT user_uuid FROM new_user), cart.cart_uuid, hstore_to_json(cart.cart_items)
-      `WITH new_user AS (
+    text: `
+      WITH new_user AS (
         INSERT INTO users VALUES (uuid_generate_v4(), $1, $2, $3) RETURNING user_uuid
       )
-
-      INSERT INTO orders VALUES (
-        uuid_generate_v4(), 
-        hstore(''), 
-        (SELECT user_uuid FROM new_user))
-
       INSERT INTO cart 
         VALUES (uuid_generate_v4(), (SELECT user_uuid FROM new_user), hstore(''))
-          RETURNING (SELECT user_uuid FROM new_user), cart.cart_uuid, hstore_to_json(cart.cart_items)
-      `,
-    values: [email || null, first_name || null, last_name || null,]
+          RETURNING (SELECT user_uuid FROM new_user), cart.cart_uuid, cart.cart_items::json
+      `
+      ,
+    values: [null, null, null]
   }
 
   db.query(queryObj)
@@ -109,6 +97,7 @@ app.put('/api/create-user', (req, res, next)=>{
 
 app.patch('/api/add-item-to-cart', (req, res, next)=>{
   const {cart, product} = req.body
+  console.log('additemtocart endpoint, cart, product: ', cart, product)
 
   const query = {
     text: `
@@ -201,15 +190,15 @@ app.put('/api/place-order', (req, res, next)=>{
       uuid_generate_v4(), 
       (SELECT cart_items FROM cart WHERE cart_uuid = $1), 
       $2)
-      RETURNING orders.order_uuid, hstore_to_json(orders.items), orders.user_uuid
+      RETURNING orders.order_uuid, orders.items::json, orders.user_uuid, $1 AS cart_uuid
     `,
     values: [cart_uuid, user_uuid]
   }
 
   db.query(query)
   .then(data=>{
-    console.log('successful order placed query, data.rows: ', data.rows)
-    res.send(data.rows)
+    console.log('successful order placed query, data.rows[0]: ', data.rows[0])
+    res.send(data.rows[0])
   })
   .catch(err=>console.error('Place Order Query Error: ', err))
 })
@@ -222,20 +211,29 @@ app.patch('/api/clear-cart', (req,res,next)=>{
       UPDATE cart 
         SET cart_items = hstore('')
       WHERE cart_uuid = $1
-      )`,
+      `,
     values: [cart_uuid]
   }
 
   db.query(query)
   .then(data=>{
     console.log('successful clear cart query, data.rows: ', data.rows)
+    res.send({message: 'Cart Cleared successfully'})
   })
   .catch(err=>console.error('Clear Cart Query Error: ', err))
 })
 
+// app.get('/details/:product_uuid', (req,res,next)=>{
+//   res.sendFile(`${pubDirectory}/index.html`, (err) => {
+//     if (err) {
+//       res.status(500).send(err)
+//     }
+//   })
+// })
+
 // fixes client side routing 'cannot get xxxxxxx' on refresh issue except when there is a 
 app.get('/*', (req, res, next) => {
-  res.sendFile(`${pubDirectory}/public/index.html`, (err) => {
+  res.sendFile(`${pubDirectory}/index.html`, (err) => {
     if (err) {
       res.status(500).send(err)
     }

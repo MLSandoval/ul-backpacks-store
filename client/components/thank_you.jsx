@@ -13,7 +13,7 @@ function ThankYou (props) {
   // console.log('thank you component history: ', history)
 
   function autoRedirect(){
-    setTimeout(10000, ()=>{ props.history.push( '/'); props.clearCart()})
+    setTimeout(10000, ()=>{ props.history.push( '/'); props.clearCart(props.cart.cart_uuid)})
   }
 
   // useEffect(()=>{
@@ -28,7 +28,7 @@ function ThankYou (props) {
         <div>Your order has been submitted.</div>
         <div>Receipt and order information will be sent via email.</div>
       <Modal.Footer>
-        <Button as={Link} to="/" variant="info" className="btn-sm" onClick={props.clearCart}>
+        <Button as={Link} to="/" variant="info" className="btn-sm" onClick={()=>{props.clearCart(props.cart.cart_uuid)}}>
           <div>Return to the homepage.</div>
         </Button>
       </Modal.Footer>
@@ -41,7 +41,8 @@ function mapStateToProps (state){
   return {
     // submittedOrder: state.submittedOrder
     totalOrderCost: state.totalOrderCost,
-    checkoutFormData: state.checkoutFormData
+    checkoutFormData: state.checkoutFormData,
+    cart: state.cart
   }
 
 }
