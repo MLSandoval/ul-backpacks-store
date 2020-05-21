@@ -44,7 +44,7 @@ function Checkout(props){
       orderCost: ``
     })
     
-    placeOrder(props.user_uuid, props.cart)
+    props.placeOrder(props.userData.user_uuid, props.cart)
   }
 
   function clearForm(){
@@ -551,7 +551,8 @@ function mapStateToProps(state){
     cart: state.cart,
     totalOrderCost: state.totalOrderCost,
     checkoutFormData: state.checkoutFormData,
-    modalConfig: state.modalConfig
+    modalConfig: state.modalConfig,
+    userData: state.userData
   }
 }
 

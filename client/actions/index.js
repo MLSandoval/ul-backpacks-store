@@ -242,15 +242,31 @@ export function placeOrder (user_uuid, cart){
         type: types.ORDER_PLACED,
         action: data
       })
+      clearCart()
     })
     .catch(err=>console.error('Place Order Action Error: ', err))
   }
 }
 
-export function clearCart(){
+export function clearCart(cart_uuid){
   return function(dispatch){
-    dispatch({
-      type: types.CART_CLEARED
+    fetch('/api/clear-cart', {
+      method: 'PUT',
+      headers:{
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        cart_uuid
+      })
     })
+    .then(res=>res.json())
+    .then(data=>{
+      console.log('clearCart successful fetch, data: ', data)
+      dispatch({
+        type: types.CART_CLEARED,
+        action: data
+      })
+    })
+    .catch(err=>console.error('Clear Cart Fetch Error: ', err))
   }
 }

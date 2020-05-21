@@ -5,7 +5,7 @@ const DEFAULT_STATE = []
 export default function orderReducer(state = DEFAULT_STATE, action) {
   switch (action.type) {
     case types.ORDER_PLACED:
-      return {...state, orders: action.payload}
+      return [...state , action.payload]
     default:
       return state
   }

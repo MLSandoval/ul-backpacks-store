@@ -76,12 +76,25 @@ app.put('/api/create-user', (req, res, next)=>{
 
   const queryObj = {
     text: 
+      // `WITH new_user AS (
+      //   INSERT INTO users VALUES (uuid_generate_v4(), $1, $2, $3) RETURNING user_uuid
+      // )
+      // INSERT INTO cart 
+      //   VALUES (uuid_generate_v4(), (SELECT user_uuid FROM new_user), hstore(''))
+      //     RETURNING (SELECT user_uuid FROM new_user), cart.cart_uuid, hstore_to_json(cart.cart_items)
       `WITH new_user AS (
         INSERT INTO users VALUES (uuid_generate_v4(), $1, $2, $3) RETURNING user_uuid
       )
+
+      INSERT INTO orders VALUES (
+        uuid_generate_v4(), 
+        hstore(''), 
+        (SELECT user_uuid FROM new_user))
+
       INSERT INTO cart 
         VALUES (uuid_generate_v4(), (SELECT user_uuid FROM new_user), hstore(''))
-          RETURNING (SELECT user_uuid FROM new_user), cart.cart_uuid, hstore_to_json(cart.cart_items)`,
+          RETURNING (SELECT user_uuid FROM new_user), cart.cart_uuid, hstore_to_json(cart.cart_items)
+      `,
     values: [email || null, first_name || null, last_name || null,]
   }
 
@@ -89,7 +102,7 @@ app.put('/api/create-user', (req, res, next)=>{
     .then(data=>{
       console.log('create user query successful, data.rows: ', data.rows)
       const [newUser] = data.rows
-      res.send(newuser)
+      res.send(newUser)
     })
     .catch(err=>console.error('Create User Query Error: ', err))
 })
@@ -180,19 +193,49 @@ app.patch('/api/remove-item', (req, res, next)=>{
 })
 
 app.put('/api/place-order', (req, res, next)=>{
-  const {user_uuid, cart_uuid, cart_items} = req.body
+  const {user_uuid, cart_uuid} = req.body
 
   const query = {
     text: `
-
+    INSERT INTO orders VALUES (
+      uuid_generate_v4(), 
+      (SELECT cart_items FROM cart WHERE cart_uuid = $1), 
+      $2)
+      RETURNING orders.order_uuid, hstore_to_json(orders.items), orders.user_uuid
     `,
-    values: []
+    values: [cart_uuid, user_uuid]
   }
+
+  db.query(query)
+  .then(data=>{
+    console.log('successful order placed query, data.rows: ', data.rows)
+    res.send(data.rows)
+  })
+  .catch(err=>console.error('Place Order Query Error: ', err))
+})
+
+app.patch('/api/clear-cart', (req,res,next)=>{
+  const {cart_uuid} = req.body
+
+  const query = {
+    text: `
+      UPDATE cart 
+        SET cart_items = hstore('')
+      WHERE cart_uuid = $1
+      )`,
+    values: [cart_uuid]
+  }
+
+  db.query(query)
+  .then(data=>{
+    console.log('successful clear cart query, data.rows: ', data.rows)
+  })
+  .catch(err=>console.error('Clear Cart Query Error: ', err))
 })
 
 // fixes client side routing 'cannot get xxxxxxx' on refresh issue except when there is a 
 app.get('/*', (req, res, next) => {
-  res.sendFile(path.join(__dirname), (err) => {
+  res.sendFile(`${pubDirectory}/public/index.html`, (err) => {
     if (err) {
       res.status(500).send(err)
     }
@@ -201,4 +244,5 @@ app.get('/*', (req, res, next) => {
 
 app.listen(3003, () => {
   console.log('Node server listening on port 3003.')
+  console.log('path.join(__dirname::: ', pubDirectory)
 })
