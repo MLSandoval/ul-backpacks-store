@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState} from 'react'
 import { connect } from "react-redux"
 import {Route, Link as LinkRouter, withRouter} from 'react-router-dom'
 
@@ -20,44 +20,21 @@ import "./styles/products_list_style.css"
 class ProductList extends React.Component {
   constructor(props){
     super(props)
-    this.levityRef = React.createRef();
+
+    this.state = {
+      visibility: false
+    }
   }
 
-  scrollToTop() {
-    scroll.scrollTop.duration = 0;
-    scroll.scrollToTop();
+  handleVisibilityChange(){
+    console.log('visibility cahnge called, this.state.vis: ', this.state.visibility)
+    if(window.pageYOffset > 50){
+      this.setState({visibility: true})
+    }else{
+      this.setState({visibility: false})
+    }
   }
-  scrollToCustom(targetName) {
-    scroller.scrollTo(`${targetName}`, {
-      duration: 300,
-      delay: 0,
-      smooth:true,
-      // offset:-53
-    })
-  }
-
-  scrollToWithContainer(targetInApp) {
-    let goToContainer = new Promise((resolve, reject) => {
-      Events.scrollEvent.register('end', () => {
-        resolve();
-        Events.scrollEvent.remove('end');
-      })
-      scroller.scrollTo('card-deck', {
-        duration: 300,
-        delay: 0,
-        smooth: 'easeInOutQuart'
-      })
-    })
-
-    goToContainer.then(() =>
-      scroller.scrollTo(targetInApp, {
-        duration: 300,
-        delay: 0,
-        smooth: 'easeInOutQuart',
-        containerId: 'card-deck'
-      }))
-  }
-
+  
   componentDidMount() {
     scroll.scrollToTop({
       duration: 0
@@ -65,11 +42,19 @@ class ProductList extends React.Component {
     if(this.props.currentProduct.hasOwnProperty('product_uuid')){
         scroll.scrollTo(this.props.prevY)
     }
+
+    document.addEventListener('scroll', ()=>{
+			this.handleVisibilityChange()
+		})
     // console.log('current product uuid flag found, scrolled to header then 3.5rem, this.props.currentProduct.product_uuid: ', this.props.currentProduct.name , this.props.currentProduct.product_uuid)
   }
 
   componentWillUnmount(){
     this.props.savePrevY(window.scrollY)
+
+    document.removeEventListener('scroll', function(e){
+      this.handleVisibilityChange
+    })
   }
  
   generateProductList () {
@@ -132,7 +117,11 @@ class ProductList extends React.Component {
             { this.generateProductList() } 
           </CardDeck>
           <div className="to-top-pos">
-            <BackToTopButton/>
+            {
+              this.state.visibility ? <BackToTopButton/> : null
+                
+            }
+            
           </div>
         </div>
        

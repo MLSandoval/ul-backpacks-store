@@ -276,6 +276,7 @@ export function clearCart(cart_uuid){
 
 export function getOrders(user_uuid){
   console.log('getOrders action called, user_uuid: ', user_uuid)
+  if(!user_uuid) return {type:types.ORDERS_RETRIEVED, payload: []}
   return function(dispatch){
     fetch('/api/get-orders', {
       method: 'GET',

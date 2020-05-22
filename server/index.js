@@ -189,9 +189,9 @@ app.put('/api/place-order', (req, res, next)=>{
     INSERT INTO orders VALUES (
       uuid_generate_v4(), 
       $2::uuid,
-      (SELECT CURRENT_TIMESTAMP(0)),
+      (SELECT CURRENT_DATE),
       (SELECT cart_items FROM cart WHERE cart_uuid = $1)::hstore)
-      RETURNING orders.order_uuid, orders.items::json, orders.user_uuid, $1 AS cart_uuid
+      RETURNING orders.order_uuid, orders.items::json, orders.user_uuid, (SELECT to_char(orders.order_date, 'DD Mon YYYY') AS order_date)
     `,
     values: [cart_uuid, user_uuid]
   }

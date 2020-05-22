@@ -22,7 +22,8 @@ class ProductDetails extends React.Component {
   constructor(props){
     super(props)
     this.state = {
-      tabKey: 'features' //or description
+      tabKey: 'features', //or description
+      visibility: false
     }
     this.handleClick = this.handleClick.bind(this)
   }

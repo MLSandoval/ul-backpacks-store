@@ -35,7 +35,6 @@ class App extends React.Component {
     }else{
       const user_uuid = localStorage.user_uuid
       this.props.getUserData(user_uuid, this.props.products)
-      this.props.getOrders(user_uuid)
     }
   }
 
