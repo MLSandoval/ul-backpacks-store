@@ -240,7 +240,6 @@ export function placeOrder (user_uuid, cart){
       console.log('placeOrder fetch success, data: ', data)
       const {order_uuid, user_uuid, items, cart_uuid} = data
       
-      // clearCart(cart_uuid)
       dispatch({
         type: types.ORDER_PLACED,
         action: data
@@ -272,5 +271,26 @@ export function clearCart(cart_uuid){
       })
     })
     .catch(err=>console.error('Clear Cart Fetch Error: ', err))
+  }
+}
+
+export function getOrders(user_uuid){
+  console.log('getOrders action called, user_uuid: ', user_uuid)
+  return function(dispatch){
+    fetch('/api/get-orders', {
+      method: 'GET',
+      headers: {
+        "Content-Type": "application/json",
+        user_uuid
+      }
+    })
+    .then(res=>res.json())
+    .then(data=>{
+      console.log('successful getOrders fetch, data: ', data)
+      dispatch({
+        type: types.ORDERS_RETRIEVED,
+        payload: data
+      })
+    })
   }
 }

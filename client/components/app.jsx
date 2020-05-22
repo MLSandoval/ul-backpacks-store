@@ -9,7 +9,7 @@ import { Switch, Route} from "react-router-dom"
 import * as Scroll from 'react-scroll';
 import { Link, Element , Events, animateScroll as scroll, scrollSpy, scroller } from 'react-scroll'
 
-import {getProductList, setCurrentProduct, createNewUser, getUserData} from '../actions'
+import {getProductList, setCurrentProduct, createNewUser, getUserData, getOrders} from '../actions'
 
 import 'bootstrap/dist/css/bootstrap.min.css'
 import './styles/global_style.css'
@@ -23,18 +23,19 @@ import Footer from './footer.jsx'
 import ProductDetails from './productDetails'
 import ThankYou from './thank_you'
 import Checkout from './checkout'
-
-
+import Orders from './orders'
 
 class App extends React.Component {
 
   componentDidMount () {
      this.props.getProductList()
+     
     if(!localStorage.user_uuid){
       this.props.createNewUser()
     }else{
       const user_uuid = localStorage.user_uuid
       this.props.getUserData(user_uuid, this.props.products)
+      this.props.getOrders(user_uuid)
     }
   }
 
@@ -47,8 +48,8 @@ class App extends React.Component {
           <div className="main-content flex-grow-1">
             <Route exact path="/" component={Landing2}/>
             {/* <Route exact path="/our-story" component={OurStory}/>
-            <Route exact path="/video-review/:product_uuid" component={VideoReviews}/> 
-            <Route exact path="/your-orders/" component={Orders}/> */}
+            <Route exact path="/video-review/:product_uuid" component={VideoReviews}/>  */}
+            <Route exact path="/your-orders/" component={Orders}/>
             <Route exact path="/products" component={ProductList}/>
             <Route path="/details/:product_uuid" component={ProductDetails}/> 
             <Route path="/cart" component={Cart}/>
@@ -66,8 +67,9 @@ function mapStateToProps(state){
     products: state.products.products,
     currentProduct: state.currentProduct,
     userData: state.userData,
-    cart: state.cart
+    cart: state.cart,
+    orders: state.orders
   }
 }
 
-export default connect(mapStateToProps, {getProductList, setCurrentProduct, createNewUser, getUserData})(App)
+export default connect(mapStateToProps, {getProductList, setCurrentProduct, createNewUser, getUserData, getOrders})(App)

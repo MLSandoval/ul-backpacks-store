@@ -188,8 +188,9 @@ app.put('/api/place-order', (req, res, next)=>{
     text: `
     INSERT INTO orders VALUES (
       uuid_generate_v4(), 
-      (SELECT cart_items FROM cart WHERE cart_uuid = $1), 
-      $2)
+      $2::uuid,
+      (SELECT CURRENT_TIMESTAMP(0)),
+      (SELECT cart_items FROM cart WHERE cart_uuid = $1)::hstore)
       RETURNING orders.order_uuid, orders.items::json, orders.user_uuid, $1 AS cart_uuid
     `,
     values: [cart_uuid, user_uuid]
@@ -223,7 +224,27 @@ app.patch('/api/clear-cart', (req,res,next)=>{
   .catch(err=>console.error('Clear Cart Query Error: ', err))
 })
 
-// app.get('/details/:product_uuid', (req,res,next)=>{
+app.get('/api/get-orders', (req, res, next)=>{
+  const {user_uuid} = req.headers
+
+  const query = {
+    text: `
+      SELECT order_uuid, order_date, items::json  FROM orders 
+        WHERE user_uuid = $1
+    `,
+    values: [user_uuid]
+  }
+
+  db.query(query)
+  .then((data)=>{
+    console.log('successful get orders query, JSON.parse()data.rows: ', data.rows)
+
+    res.send(data.rows)
+  })
+  .catch(err=>{console.error('Get Orders Error: ', err)})
+})
+
+// app.get('/details/*', (req,res,next)=>{
 //   res.sendFile(`${pubDirectory}/index.html`, (err) => {
 //     if (err) {
 //       res.status(500).send(err)
