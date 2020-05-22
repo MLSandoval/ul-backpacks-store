@@ -27,9 +27,18 @@ class ProductDetails extends React.Component {
     }
     this.handleClick = this.handleClick.bind(this)
   }
+
+  handleVisibilityChange(){
+    console.log('visibility cahnge called, this.state.vis: ', this.state.visibility)
+    if(window.pageYOffset > 35){
+      this.setState({visibility: true})
+    }else{
+      this.setState({visibility: false})
+    }
+  }
+
   renderProductFeatures () {
     const product = this.props.currentProduct
-
     return (
       product.features.map( (element, index) => {
         return (
@@ -43,29 +52,37 @@ class ProductDetails extends React.Component {
 
   handleClick(){
     const keysArr = Object.keys(this.props.cart.cart_items)
-
     if(keysArr.includes(this.props.currentProduct.product_uuid)){
       this.props.alterItemQuantity(this.props.cart.cart_uuid, this.props.currentProduct.product_uuid, 'increment')
     }else{
       this.props.addItemToCart(this.props.cart, this.props.currentProduct)
     }
-    
     this.props.computeCartTotal(this.props.cart.cart_items, this.props.products)
   }
   
   componentDidMount(){
-    if(!this.props.currentProduct){
-      this.props.history.goTo('/products')
-    }
-    if(!this.props.currentProduct){
-      setTimeout(this.props.setCurrentProduct(this.props.productList.filter(
-        element=>{
-          element.product_uuid === this.props.match.params.product_uuid ? true : false
-        }
-      ))[0], 100)
-    }
-    console.log('Product Details Comp this.props: ', this.props)
+    // if(!this.props.currentProduct){
+    //   this.props.history.goTo('/products')
+    // }
+    // if(!this.props.currentProduct){
+    //   setTimeout(this.props.setCurrentProduct(this.props.productList.filter(
+    //     element=>{
+    //       element.product_uuid === this.props.match.params.product_uuid ? true : false
+    //     }
+    //   ))[0], 100)
+    // }
+
     window.scrollTo(0,0)
+
+    document.addEventListener('scroll', ()=>{
+			this.handleVisibilityChange()
+		})
+  }
+
+  componentWillUnmount(){
+    document.removeEventListener('scroll', ()=>{
+      this.handleVisibilityChange()
+    })
   }
 
   render () {
@@ -142,7 +159,7 @@ class ProductDetails extends React.Component {
             <ul>{ this.renderProductFeatures() }</ul>
           </Tab>
         </Tabs>
-        <BackToTopButton/>
+        {this.state.visibility ? <BackToTopButton/> : null}
         <Route path={`${this.props.match.url}/modal`} component={ModalShell}/>
       </div>
     )

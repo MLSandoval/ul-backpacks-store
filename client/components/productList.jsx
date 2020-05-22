@@ -28,7 +28,7 @@ class ProductList extends React.Component {
 
   handleVisibilityChange(){
     console.log('visibility cahnge called, this.state.vis: ', this.state.visibility)
-    if(window.pageYOffset > 50){
+    if(window.pageYOffset > 35){
       this.setState({visibility: true})
     }else{
       this.setState({visibility: false})
@@ -52,8 +52,8 @@ class ProductList extends React.Component {
   componentWillUnmount(){
     this.props.savePrevY(window.scrollY)
 
-    document.removeEventListener('scroll', function(e){
-      this.handleVisibilityChange
+    document.removeEventListener('scroll', ()=>{
+      this.handleVisibilityChange()
     })
   }
  
@@ -131,28 +131,6 @@ class ProductList extends React.Component {
   }
 }
 
-// function mapDispatchToProps(dispatch) {
-//   return {
-//     onViewChangeClick: view => {
-//       dispatch(SET_VIEW(view));
-//     }
-//   };
-// }
-
-// // binds on component re-rendering
-// ; <button onClick={() => this.props.toggleTodo(this.props.todoId)} />
-
-// // binds on `props` change
-// const mapDispatchToProps = (dispatch, ownProps) => {
-//   toggleTodo: () => dispatch(toggleTodo(ownProps.todoId))
-// }
-
-//if dispatching an async function, must dispatch the function itself as the type property 
-//(return the function not an object) itself so thunk intercepts and runs before passing 
-//to the reducer
-//
-//must dispatch type.CORRESPONDING_TYPE when returning a synchronous action, because this will return
-//an object to the reducers, which is what they need to run
 function mapDispatchToProps (dispatch) {
   return {
     getProductList: () => {
@@ -170,5 +148,4 @@ function mapStateToProps(state){
   }
 }
 
-// export default connect(mapStateToProps, mapDispatchToProps)(ProductList);
 export default connect(mapStateToProps, {setCurrentProduct, savePrevY})(ProductList)

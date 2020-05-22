@@ -21,7 +21,7 @@
   position: fixed;
   bottom: 3.8rem;
   right: 1rem;
-  animation: fadeIn 700ms ease-in-out 1s both;
+  animation: fadeIn 200ms ease-in-out 500ms both;
   cursor: pointer;
 }
 .opacity-hover{
