@@ -128,8 +128,11 @@ export function computeCartTotal(cart_items, products){
   let total = 0
   for (let key in cart_items){
     let currentProduct = products.filter(prod => key === prod.product_uuid)
-    console.log('inside for in loop of computeCartTotal, currentProduct: ', currentProduct)
-    total += parseInt(cart_items[key]) * parseInt(currentProduct[0].price)
+    if(currentProduct){
+      console.log('inside for in loop of computeCartTotal, currentProduct: ', currentProduct)
+      total += parseInt(cart_items[key]) * parseInt(currentProduct[0].price)
+    }
+    
   }
 
   return function (dispatch) {

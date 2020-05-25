@@ -10,6 +10,10 @@ import './styles/continue_shopping_style.css'
 import {computeCartTotal} from '../actions'
 
 function ContinueShopping(props){
+
+  useEffect(()=>{
+    props.computeCartTotal(props.cart.cart_items, props.products)
+  })
   
   function generateRows(){
     const products = [...props.products]
