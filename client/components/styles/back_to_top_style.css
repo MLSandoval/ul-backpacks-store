@@ -21,11 +21,11 @@
   position: fixed;
   bottom: 3.8rem;
   right: .55rem;
-  animation: fadeIn 200ms ease-in-out 500ms both;
+  animation: fadeIn 200ms ease-in-out 300ms both;
   cursor: pointer;
 }
 .opacity-hover{
-  opacity: .3;
+  opacity: .4;
 }
 .opacity-hover:hover{
   opacity: 1 !important;

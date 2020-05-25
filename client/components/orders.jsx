@@ -23,53 +23,85 @@ function ThankYou (props) {
         )
     }else{
       return (
-        props.orders.map((order)=>{
-          let prodDataAddedArr = []
-
-          for(let key in order.items){
-            let product = props.products.find(product=>product.product_uuid === key ? true : false)
-            prodDataAddedArr.push({
-              ...product,
-              quantity: order.items[key]
+        <React.Fragment>
+          {
+            props.orders.map((order)=>{
+              let prodDataAddedArr = []
+              for(let key in order.items){
+                let product = props.products.find(product=>product.product_uuid === key ? true : false)
+                prodDataAddedArr.push({
+                  ...product,
+                  quantity: order.items[key]
+                })
+              }
+              console.log('orders map, order: ', order)
+              console.log('orders map, prodDataAddedArr: ', prodDataAddedArr)
+              let orderTotal = 0
+              return(
+                <div className="row col-12">
+                  <div className="order-date col-2 font-weight-bold">{order.order_date}</div>
+                  <div className="order-uuid col-6">Order ID: {order.order_uuid}</div>
+                  <Table  size="sm" key={order.order_uuid} className="col-12 text-center mb-1">
+                    <thead>
+                      <tr>
+                        <th></th>  
+                        <th></th>
+                        <th>Product</th>
+                        <th>Quantity</th>
+                        <th>Price</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {
+                        prodDataAddedArr.map(orderProdWithData=>{
+                          console.log('orderpords compute total, price, quanitty: ', orderProdWithData.price, orderProdWithData.quantity)
+                          orderTotal += (parseInt(orderProdWithData.price) * parseInt(orderProdWithData.quantity))
+                          return(
+                            <React.Fragment key={order.order_uuid + orderProdWithData.product_uuid}>
+                              <tr>
+                                <td><img className="row-image" src={orderProdWithData.image_urls[0]}/></td>
+                                <td></td>
+                                <td>{orderProdWithData.name}</td>
+                                <td>{orderProdWithData.quantity}</td>
+                                <td>{orderProdWithData.price}</td>
+                              </tr>
+                              
+                            </React.Fragment>
+                            
+                          )
+                        })
+                      }
+                      <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>Order Total: </td>
+                        <td>${orderTotal.toFixed(2) || '$0.00'}</td>
+                      </tr>
+                    </tbody>
+                  </Table> 
+                  <div className="horizontal-line mb-3"></div>
+                </div>
+              )
             })
-            console.log('inside man, inside forin, prodDataAddedArr', prodDataAddedArr)
           }
-
-          return(
-            <React.Fragment key={order.order_uuid}>
-                <tr>
-                <td>{order.order_uuid}</td>
-                <td>PPPPrice</td>
-                <td>td</td>
-              </tr>
-              <tr>
-                <td></td>
-                <td>Total: </td>
-                <td>$999</td>
-              </tr>
-            </React.Fragment>
-          )
-        })
+        </React.Fragment>
       )
     }
   }
     
   return(
-    <Table>
-      <thead>
-        <tr>
-          <td>Product</td>
-          <td>Price</td>
-          <td></td>
-          <td></td>
-        </tr>
-      </thead>
-      <tbody>
+    <div className="container">
+      <div className="row">
+        <h1 className="title mb-4">Your Orders</h1>
+        {generateRows()}
+      </div>
+      
+    </div>
 
-      {generateRows()}
+     
 
-      </tbody>
-    </Table>  
+      
   )
 
 }

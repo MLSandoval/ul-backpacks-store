@@ -229,7 +229,7 @@ app.get('/api/get-orders', (req, res, next)=>{
 
   const query = {
     text: `
-      SELECT order_uuid, order_date, items::json  FROM orders 
+      SELECT order_uuid, to_char(order_date, 'DD Mon YYYY') AS order_date, items::json  FROM orders 
         WHERE user_uuid = $1
     `,
     values: [user_uuid]

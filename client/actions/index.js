@@ -238,11 +238,16 @@ export function placeOrder (user_uuid, cart){
     .then(res=>res.json())
     .then(data=>{
       console.log('placeOrder fetch success, data: ', data)
-      const {order_uuid, user_uuid, items, cart_uuid} = data
+      const {order_uuid, user_uuid, items, order_date} = data
       
       dispatch({
         type: types.ORDER_PLACED,
-        action: data
+        action: {
+          order_uuid,
+          user_uuid,
+          items,
+          order_date
+        }
       })
       
     })
