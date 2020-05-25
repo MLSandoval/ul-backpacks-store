@@ -26,6 +26,7 @@ class ProductDetails extends React.Component {
       visibility: false
     }
     this.handleClick = this.handleClick.bind(this)
+    this.scrollFn = this.handleVisibilityChange.bind(this)
   }
 
   handleVisibilityChange(){
@@ -74,15 +75,11 @@ class ProductDetails extends React.Component {
 
     window.scrollTo(0,0)
 
-    document.addEventListener('scroll', ()=>{
-			this.handleVisibilityChange()
-		})
+    document.addEventListener('scroll', this.scrollFn)
   }
 
   componentWillUnmount(){
-    document.removeEventListener('scroll', ()=>{
-      this.handleVisibilityChange()
-    })
+    document.removeEventListener('scroll', this.scrollFn)
   }
 
   render () {

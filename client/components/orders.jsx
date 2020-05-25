@@ -54,14 +54,6 @@ function ThankYou (props) {
     }
   }
     
-
-      
-            
-          
-                
-
-    
-
   return(
     <Table>
       <thead>
