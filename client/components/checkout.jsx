@@ -93,11 +93,11 @@ function Checkout(props){
             type="emailAddress"
             placeholder="Enter Email"
             value={props.checkoutFormData.email}
-            // isInvalid={props.loginForm.errors.password.length > 0}
-            // isValid={
-            //   props.loginForm.values.password &&
-            //   props.loginForm.errors.password.length === 0
-            // }
+            isInvalid={props.checkoutForm.errors.password.length > 0}
+            isValid={
+              props.loginForm.values.password &&
+              props.loginForm.errors.password.length === 0
+            }
             onChange={(e) => {props.storeCheckoutFormData('email', e.target.value)}}
           />
           <Form.Text className="text-muted">

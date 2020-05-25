@@ -92,7 +92,6 @@ class ProductList extends React.Component {
               </Card>
               </FadeInSection>
             </LinkRouter>
-            
           )
         })
       )

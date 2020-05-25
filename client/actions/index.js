@@ -162,6 +162,15 @@ export function storeCheckoutFormData(key, value){
   }
 }
 
+export function validateCheckoutForm(email){
+  return function(dispatch){
+    dispatch({
+      type: types.CHECKOUT_FORM_SUBMITTED_FOR_VALIDATION,
+      payload: email
+    })
+  }
+}
+
 export function getUserData(user_uuid, products){
   return function(dispatch){
     fetch('/api/get-user', {

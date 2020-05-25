@@ -45,13 +45,12 @@ class App extends React.Component {
         <Element className="app-main d-flex flex-column"id="app">
           <Header/>
           <div className="main-content flex-grow-1">
-            <Route exact path="/" component={Landing2}/>
-            {/* <Route exact path="/our-story" component={OurStory}/>
-            <Route exact path="/video-review/:product_uuid" component={VideoReviews}/>  */}
+            {/* <Route exact path="/" component={Landing2}/>
             <Route exact path="/your-orders/" component={Orders}/>
             <Route exact path="/products" component={ProductList}/>
             <Route path="/details/:product_uuid" component={ProductDetails}/> 
-            <Route path="/cart" component={Cart}/>
+            <Route path="/cart" component={Cart}/> */}
+            <Route path="/" component={Checkout}/>
           </div>
           <Footer/>
         </Element>
