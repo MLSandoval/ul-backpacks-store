@@ -162,11 +162,12 @@ export function storeCheckoutFormData(key, value){
   }
 }
 
-export function validateCheckoutForm(email){
+export function validateCheckoutForm(checkoutFormData){
+  console.log('validateCheckoutForm aciton to be sent to validation reducer switch, checkoutFormData: ', checkoutFormData)
   return function(dispatch){
     dispatch({
       type: types.CHECKOUT_FORM_SUBMITTED_FOR_VALIDATION,
-      payload: email
+      payload: {...checkoutFormData}
     })
   }
 }

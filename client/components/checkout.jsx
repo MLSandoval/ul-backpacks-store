@@ -10,7 +10,7 @@ import Button from 'react-bootstrap/Button'
 import Form from 'react-bootstrap/Form'
 import Table from 'react-bootstrap/Table'
 
-import {storeCheckoutFormData, setModalConfig, clearCart, placeOrder} from '../actions'
+import {storeCheckoutFormData, setModalConfig, clearCart, placeOrder, validateCheckoutForm} from '../actions'
 
 import './styles/checkout_style.css'
 import ThankYou from './thank_you.jsx'
@@ -18,7 +18,7 @@ import ThankYou from './thank_you.jsx'
 function Checkout(props){
 
   function shipSameAsBill(){
-    if(props.checkoutFormData.shipSameAsBill === true){
+    if(props.checkoutFormData.values.shipSameAsBill === true){
       props.storeCheckoutFormData({
         shipSameAsBill: false,
         shipStreetAddress: '',
@@ -29,22 +29,33 @@ function Checkout(props){
     }else{
       props.storeCheckoutFormData({
         shipSameAsBill: true,
-        shipStreetAddress: props.checkoutFormData.billStreetAddress,
-        shipCity: props.checkoutFormData.billCity,
-        shipState: props.checkoutFormData.billState,
-        shipZip: props.checkoutFormData.billZip
+        shipStreetAddress: props.checkoutFormData.values.billStreetAddress,
+        shipCity: props.checkoutFormData.values.billCity,
+        shipState: props.checkoutFormData.values.billState,
+        shipZip: props.checkoutFormData.values.billZip
       })
     }
   }
 
   const handleSubmitClick = ()=>{
-    props.setModalConfig({
-      header:'Thank You!',
-      content: <ThankYou/>,
-      orderCost: ``
+    // props.validateCheckoutForm(props.checkoutFormData)
+
+    let errors = Object.values(props.checkoutFormData.errors)
+    console.log('handle submit click, errors arrary: ', errors)
+    let errorSwitch = errors.map(input=>{
+      return input !== '' ?  true : false
     })
+    console.log('handle submit click errorSwitch: ', errorSwitch)
+   
+    if(!errorSwitch.includes(true)){
+      props.setModalConfig({
+        header:'Thank You!',
+        content: <ThankYou/>,
+        orderCost: ``
+      })
+    }
     
-    props.placeOrder(props.userData.user_uuid, props.cart)
+    // props.placeOrder(props.userData.user_uuid, props.cart) can replace into actions as a second dispatch after the validation passes or fails
   }
 
   function clearForm(){
@@ -70,6 +81,24 @@ function Checkout(props){
     props.storeCheckoutFormData('shippingOption', shippingOption)
   }
 
+  // useLayoutEffect(()=>{
+  //   props.validateCheckoutForm(props.checkoutFormData)
+
+   
+  //   // props.validateCheckoutForm(props.checkoutFormData)
+  // },[props.checkoutFormData])
+
+  useEffect(()=>{
+    let errors = Object.values(props.checkoutFormData.errors)
+    let errorSwitch = errors.map(input=>{
+      return input !== '' ? true : false
+    })
+    if(!errorSwitch.includes(true))
+    return ()=>{
+      props.placeOrder(props.userData.user_uuid, props.cart)
+    }
+  },[])
+
   return(
     <Modal.Body>
       <Form className="row">
@@ -87,38 +116,42 @@ function Checkout(props){
         </div>
         <hr/>
 
-        <Form.Group className="col-9" controlId="formBasicEmail">
+        <Form.Group className="col-9" controlId="formEmail">
           {/* <Form.Label>Email Address</Form.Label> */}
           <Form.Control
             type="emailAddress"
             placeholder="Enter Email"
-            value={props.checkoutFormData.email}
-            isInvalid={props.checkoutForm.errors.password.length > 0}
+            value={props.checkoutFormData.values.email}
+            isInvalid={props.checkoutFormData.errors.email.length > 0}
             isValid={
-              props.loginForm.values.password &&
-              props.loginForm.errors.password.length === 0
+              props.checkoutFormData.values.email &&
+              props.checkoutFormData.errors.email.length === 0
             }
-            onChange={(e) => {props.storeCheckoutFormData('email', e.target.value)}}
+            onChange={(e) => {
+              props.storeCheckoutFormData('email', e.target.value)
+              props.validateCheckoutForm(props.checkoutFormData)
+            }}
+            onBlur={()=>{props.validateCheckoutForm(props.checkoutFormData)}}
           />
-          <Form.Text className="text-muted">
+          {/* <Form.Text className="text-muted">
             Email required for order receipt
-          </Form.Text>
+          </Form.Text> */}
           <Form.Control.Feedback type="invalid">
-            {/* {props.loginForm.errors.password} */}
+            {props.checkoutFormData.errors.email}
           </Form.Control.Feedback>
         </Form.Group>
       
         <h5 className='col-12'>Payment and Shipping</h5>
         <hr />
         
-        <Form.Group className="col-12 " controlId="formBasicShippingOptions">
+        <Form.Group className="col-12 " controlId="formShippingOptions">
           <Form.Label className="">Shipping Options</Form.Label>
           <Form.Check 
             name="shipRadios"
             className="" 
             type="radio" 
             label="Standard(5-6 Days) +$0.00" 
-            checked={props.checkoutFormData.shippingOption === 'Standard' ? true : false}
+            checked={props.checkoutFormData.values.shippingOption === 'Standard' ? true : false}
             onChange={() =>{
               handleRadioClick('Standard')
             }}
@@ -128,7 +161,7 @@ function Checkout(props){
             className="" 
             type="radio" 
             label="2-day +$10.00" 
-            checked={props.checkoutFormData.shippingOption === '2-day' ? true : false}
+            checked={props.checkoutFormData.values.shippingOption === '2-day' ? true : false}
             onChange={() =>{
               handleRadioClick('2-day')
             }}
@@ -138,158 +171,160 @@ function Checkout(props){
             className="" 
             type="radio" 
             label="Overnight Expedited +$20.00" 
-            checked={props.checkoutFormData.shippingOption === 'overnight' ? true : false}
+            checked={props.checkoutFormData.values.shippingOption === 'overnight' ? true : false}
             onChange={() =>{
               handleRadioClick('overnight')
             }}
           />
         </Form.Group>
 
-        <Form.Group className="col-6" controlId="formBasicCardNumber">
+        <Form.Group className="col-6" controlId="formCardNumber">
           <Form.Label>Card Number</Form.Label>
           <Form.Control
             type="cardNumber"
             placeholder="Enter Card Number"
-            value={props.checkoutFormData.cardNumber}
-            // isInvalid={props.loginForm.errors.email.length > 0}
-            // isValid={
-            //   props.loginForm.values.email &&
-            //   props.loginForm.errors.email.length === 0
-            // }
+            value={props.checkoutFormData.values.cardNumber}
+            isInvalid={props.checkoutFormData.errors.cardNumber.length > 0}
+            isValid={
+              props.checkoutFormData.values.cardNumber &&
+              props.checkoutFormData.errors.cardNumber.length === 0
+            }
             onChange={(e) => { props.storeCheckoutFormData('cardNumber', e.target.value)}}
+            onBlur={()=>{props.validateCheckoutForm(props.checkoutFormData)}}
           />
           <Form.Control.Feedback type="invalid">
-            {/* {props.loginForm.errors.email} */}
+            {props.checkoutFormData.errors.cardNumber}
           </Form.Control.Feedback>
           <Form.Text className="text-muted">
             
           </Form.Text>
         </Form.Group>
 
-        <Form.Group className="col-3" controlId="formBasicCardExp">
+        <Form.Group className="col-3" controlId="formCardExp">
           <Form.Label>Exp.</Form.Label>
           <Form.Control
             type="cardExp"
             placeholder="MM/YY"
-            value={props.checkoutFormData.cardExp}
-            // isInvalid={props.loginForm.errors.email.length > 0}
-            // isValid={
-            //   props.loginForm.values.email &&
-            //   props.loginForm.errors.email.length === 0
-            // }
+            value={props.checkoutFormData.values.cardExp}
+            isInvalid={props.checkoutFormData.errors.cardExp.length > 0}
+            isValid={
+              props.checkoutFormData.values.cardExp &&
+              props.checkoutFormData.errors.cardExp.length === 0
+            }
             onChange={(e) => {props.storeCheckoutFormData('cardExp', e.target.value)}}
           />
           <Form.Control.Feedback type="invalid">
-            {/* {props.loginForm.errors.email} */}
+            {props.checkoutFormData.errors.cardExp}
           </Form.Control.Feedback>
         </Form.Group>
 
-        <Form.Group className="col-3" controlId="formBasicCvv">
+        <Form.Group className="col-3" controlId="formCvv">
           <Form.Label>CVV</Form.Label>
           <Form.Control
             type="cvv"
             placeholder="123"
-            value={props.checkoutFormData.cvv}
-            // isInvalid={props.loginForm.errors.password.length > 0}
-            // isValid={
-            //   props.loginForm.values.password &&
-            //   props.loginForm.errors.password.length === 0
-            // }
+            value={props.checkoutFormData.values.cvv}
+            isInvalid={props.checkoutFormData.errors.cvv.length > 0}
+            isValid={
+              props.checkoutFormData.values.cvv &&
+              props.checkoutFormData.errors.cvv.length === 0
+            }
             onChange={(e) => {props.storeCheckoutFormData('cvv', e.target.value)}}
           />
           <Form.Control.Feedback type="invalid">
-            {/* {props.loginForm.errors.password} */}
+            {props.checkoutFormData.errors.cvv}
           </Form.Control.Feedback>
         </Form.Group>
 
-        <Form.Group className="col-12" controlId="formBasicNameOnCard">
+        <Form.Group className="col-12" controlId="formNameOnCard">
           <Form.Label>Name on Card</Form.Label>
           <Form.Control
             type="nameOnCard"
             placeholder="Enter Name"
-            value={props.checkoutFormData.nameOnCard}
-            // isInvalid={props.loginForm.errors.password.length > 0}
-            // isValid={
-            //   props.loginForm.values.password &&
-            //   props.loginForm.errors.password.length === 0
-            // }
+            value={props.checkoutFormData.values.nameOnCard}
+            isInvalid={props.checkoutFormData.errors.nameOnCard.length > 0}
+            isValid={
+              props.checkoutFormData.values.nameOnCard &&
+              props.checkoutFormData.errors.nameOnCard.length === 0
+            }
             onChange={(e) => {props.storeCheckoutFormData('nameOnCard', e.target.value)}}
           />
           <Form.Control.Feedback type="invalid">
-            {/* {props.loginForm.errors.password} */}
+            {props.checkoutFormData.errors.nameOnCard}
           </Form.Control.Feedback>
         </Form.Group>
         
         <h5 className='col-12'>Billing Address</h5>
         <hr />
 
-        <Form.Group className="col-12" controlId="formBasicBillStreetAddress">
+        <Form.Group className="col-12" controlId="formBillStreetAddress">
           <Form.Label>Street Address</Form.Label>
           <Form.Control
             type="billStreetAddress"
             placeholder="123 Poke Lane, Apt. 3"
-            value={props.checkoutFormData.billStreetAddress}
-            // isInvalid={props.loginForm.errors.password.length > 0}
-            // isValid={
-            //   props.loginForm.values.password &&
-            //   props.loginForm.errors.password.length === 0
-            // }
+            value={props.checkoutFormData.values.billStreetAddress}
+            isInvalid={props.checkoutFormData.errors.billStreetAddress.length > 0}
+            isValid={
+              props.checkoutFormData.values.billStreetAddress &&
+              props.checkoutFormData.errors.billStreetAddress.length === 0
+            }
             onChange={(e) => {props.storeCheckoutFormData('billStreetAddress', e.target.value)}}
           />
           <Form.Control.Feedback type="invalid">
-            {/* {props.loginForm.errors.password} */}
+            {props.checkoutFormData.errors.billStreetAddress}
           </Form.Control.Feedback>
         </Form.Group>
 
-        <Form.Group className="col-3" controlId="formBasicBillCity">
+        <Form.Group className="col-3" controlId="formBillCity">
           <Form.Label>City</Form.Label>
           <Form.Control
             type="billCity"
             placeholder="Pallet Town"
-            value={props.checkoutFormData.billCity}
-            // isInvalid={props.loginForm.errors.password.length > 0}
-            // isValid={
-            //   props.loginForm.values.password &&
-            //   props.loginForm.errors.password.length === 0
-            // }
+            value={props.checkoutFormData.values.billCity}
+            isInvalid={props.checkoutFormData.errors.billCity.length > 0}
+            isValid={
+              props.checkoutFormData.values.billCity &&
+              props.checkoutFormData.errors.billCity.length === 0
+            }
             onChange={(e) => {props.storeCheckoutFormData('billCity', e.target.value)}}
           />
           <Form.Control.Feedback type="invalid">
-            {/* {props.loginForm.errors.password} */}
+            {props.checkoutFormData.errors.billCity}
           </Form.Control.Feedback>
         </Form.Group>
 
-        <Form.Group className="col-3" controlId="formBasicBillZip">
-          <Form.Label>Zip Code</Form.Label>
+        <Form.Group className="col-3" controlId="formBillZip">
+          <Form.Label>Zip</Form.Label>
           <Form.Control
             type="billZip"
             placeholder="12345"
-            value={props.checkoutFormData.billZip}
-            // isInvalid={props.loginForm.errors.password.length > 0}
-            // isValid={
-            //   props.loginForm.values.password &&
-            //   props.loginForm.errors.password.length === 0
-            // }
+            value={props.checkoutFormData.values.billZip}
+            isInvalid={props.checkoutFormData.errors.billZip.length > 0}
+            isValid={
+              props.checkoutFormData.values.billZip &&
+              props.checkoutFormData.errors.billZip.length === 0
+            }
             onChange={(e) => {props.storeCheckoutFormData('billZip', e.target.value)}}
           />
           <Form.Control.Feedback type="invalid">
-            {/* {props.loginForm.errors.password} */}
+            {props.checkoutFormData.errors.billZip}
           </Form.Control.Feedback>
         </Form.Group>
 
-        <Form.Group className="col-6" controlId="formBasicBillState">
+        <Form.Group className="col-6" controlId="formBillState">
           <Form.Label>State/Territory</Form.Label>
           <Form.Control as="select"
             type="billState"
             placeholder="Kanto Region"
-            value={props.checkoutFormData.billState}
-            // isInvalid={props.loginForm.errors.password.length > 0}
-            // isValid={
-            //   props.loginForm.values.password &&
-            //   props.loginForm.errors.password.length === 0
-            // }
+            value={props.checkoutFormData.values.billState}
+            isInvalid={props.checkoutFormData.errors.billState.length > 0}
+            isValid={
+              props.checkoutFormData.values.billState &&
+              props.checkoutFormData.errors.billState.length === 0
+            }
             onChange={(e) => {props.storeCheckoutFormData('billState', e.target.value)}}
           >
+            <option defaultValue>Select...</option>
             <option>Alabama</option>
             <option>Alaska</option>
             <option>Arizona</option>
@@ -349,7 +384,7 @@ function Checkout(props){
             <option>Northern Mariana Islands</option>
           </Form.Control>
           <Form.Control.Feedback type="invalid">
-            {/* {props.loginForm.errors.password} */}
+            {props.checkoutFormData.errors.billState}
           </Form.Control.Feedback>
        
         </Form.Group>
@@ -357,70 +392,70 @@ function Checkout(props){
         <h5 className='col-12'>Shipping Address</h5>
         <hr />
         
-        <Form.Group className="col-12" controlId="formBasicShipSameAddress">
+        <Form.Group className="col-12" controlId="formShipSameAddress">
           <Form.Check type="checkbox" label="Shipping address same as billing address." 
             onChange={(e) =>{shipSameAsBill()}}
-            checked={props.checkoutFormData.shipSameAsBill}
+            checked={props.checkoutFormData.values.shipSameAsBill}
           />
         </Form.Group>
 
-        <Form.Group className="col-12" controlId="formBasicShipStreetAddress">
+        <Form.Group className="col-12" controlId="formShipStreetAddress">
           <Form.Label>Street Address</Form.Label>
           <Form.Control
             type="shipStreetAddress"
             placeholder="123 Poke Lane, Apt. 3"
-            value={props.checkoutFormData.shipStreetAddress}
-            // isInvalid={props.loginForm.errors.password.length > 0}
-            // isValid={
-            //   props.loginForm.values.password &&
-            //   props.loginForm.errors.password.length === 0
-            // }
+            value={props.checkoutFormData.values.shipStreetAddress}
+            isInvalid={props.checkoutFormData.errors.shipStreetAddress.length > 0}
+            isValid={
+              props.checkoutFormData.values.shipStreetAddress &&
+              props.checkoutFormData.errors.shipStreetAddress.length === 0
+            }
             onChange={(e) => {props.storeCheckoutFormData('shipStreetAddress', e.target.value)}}
           />
           <Form.Control.Feedback type="invalid">
-            {/* {props.loginForm.errors.password} */}
+            {props.checkoutFormData.errors.shipStreetAddress}
           </Form.Control.Feedback>
         </Form.Group>
 
-        <Form.Group className="col-3" controlId="formBasicShipCity">
+        <Form.Group className="col-3" controlId="formShipCity">
           <Form.Label>City</Form.Label>
           <Form.Control
             type="shipCity"
             placeholder="Pallet Town"
-            value={props.checkoutFormData.shipCity}
-            // isInvalid={props.loginForm.errors.password.length > 0}
-            // isValid={
-            //   props.loginForm.values.password &&
-            //   props.loginForm.errors.password.length === 0
-            // }
+            value={props.checkoutFormData.values.shipCity}
+            isInvalid={props.checkoutFormData.errors.shipCity.length > 0}
+            isValid={
+              props.checkoutFormData.values.shipCity &&
+              props.checkoutFormData.errors.shipCity.length === 0
+            }
             onChange={(e) => {props.storeCheckoutFormData('shipCity', e.target.value)}}
             
           />
           <Form.Control.Feedback type="invalid">
-            {/* {props.loginForm.errors.password} */}
+            {props.checkoutFormData.errors.shipCity}
           </Form.Control.Feedback>
         </Form.Group>
 
-        <Form.Group className="col-3" controlId="formBasicShipZip">
-          <Form.Label>Zip Code</Form.Label>
+        <Form.Group className="col-3" controlId="formShipZip">
+          <Form.Label>Zip</Form.Label>
           <Form.Control
             type="shipZip"
             placeholder="12345"
-            value={props.checkoutFormData.shipZip}
-            // isInvalid={props.loginForm.errors.password.length > 0}
-            // isValid={
-            //   props.loginForm.values.password &&
-            //   props.loginForm.errors.password.length === 0
-            // }
+            value={props.checkoutFormData.values.shipZip}
+            isInvalid={props.checkoutFormData.errors.shipZip.length > 0}
+            isValid={
+              props.checkoutFormData.values.shipZip &&
+              props.checkoutFormData.errors.shipZip.length === 0
+            }
             onChange={(e) => {props.storeCheckoutFormData('shipZip', e.target.value)}}
             
           />
           <Form.Control.Feedback type="invalid">
-            {/* {props.loginForm.errors.password} */}
+            {props.checkoutFormData.errors.shipZip}
           </Form.Control.Feedback>
         </Form.Group>
 
-        <Form.Group className="col-6" controlId="formBasicShipState">
+        <Form.Group className="col-6" controlId="formShipState">
           <Form.Label>State/Territory</Form.Label>
           {/* <Form.Control
             type="shipState"
@@ -436,14 +471,15 @@ function Checkout(props){
           <Form.Control as="select"
             type="shipState"
             placeholder="Kanto Region"
-            value={props.checkoutFormData.shipState}
-            // isInvalid={props.loginForm.errors.password.length > 0}
-            // isValid={
-            //   props.loginForm.values.password &&
-            //   props.loginForm.errors.password.length === 0
-            // }
+            value={props.checkoutFormData.values.shipState}
+            isInvalid={props.checkoutFormData.errors.shipState.length > 0}
+            isValid={
+              props.checkoutFormData.values.shipState &&
+              props.checkoutFormData.errors.shipState.length === 0
+            }
             onChange={(e) => {props.storeCheckoutFormData('shipState', e.target.value)}}
           >
+            <option defaultValue>Select...</option>
             <option>Alabama</option>
             <option>Alaska</option>
             <option>Arizona</option>
@@ -503,7 +539,7 @@ function Checkout(props){
             <option>Northern Mariana Islands</option>
           </Form.Control>
           <Form.Control.Feedback type="invalid">
-            {/* {props.loginForm.errors.password} */}
+            {props.checkoutFormData.errors.shipState}
           </Form.Control.Feedback>
           <Form.Text className="text-muted">
             We currently only ship to US addresses
@@ -514,10 +550,12 @@ function Checkout(props){
         
         <div className="button-container col-3 row justify-content-around">
           <Button 
-            as={LinkRouter}
-            to="/cart/modal/thank-you"
+            // as={LinkRouter}
+            // to="/cart/modal/thank-you"
             className=""
-            onClick={()=>{handleSubmitClick()}}
+            onClick={()=>{
+              handleSubmitClick()
+            }}
             className=" btn-sm"
             variant="info"
             type="button"
@@ -556,4 +594,4 @@ function mapStateToProps(state){
   }
 }
 
-export default connect(mapStateToProps, {storeCheckoutFormData, setModalConfig, clearCart, placeOrder})(Checkout)
+export default connect(mapStateToProps, {storeCheckoutFormData, setModalConfig, clearCart, placeOrder, validateCheckoutForm})(Checkout)
