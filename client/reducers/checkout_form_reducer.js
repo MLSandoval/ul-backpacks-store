@@ -42,7 +42,8 @@ function validateEmail(email) {
 }
 function validateCardNumber(cardNumber) {
   var re = /^(?:4[0-9]{12}(?:[0-9]{3})?|(?:5[1-5][0-9]{2}|222[1-9]|22[3-9][0-9]|2[3-6][0-9]{2}|27[01][0-9]|2720)[0-9]{12}|3[47][0-9]{13}|3(?:0[0-5]|[68][0-9])[0-9]{11}|6(?:011|5[0-9]{2})[0-9]{12}(?:2131|1800|35\d{3})\d{11})$/
-  return !re.test(cardNumber)
+  console.log('validatecardnumber, does string pass: re.test(cardNumber): ', re.test(cardNumber))
+  return re.test(cardNumber)
 }
 function validateCardExp(cardExp) {
   var re = /^(1[0-2]|0[1-9]|\d)\/([2-9]\d)$/m
@@ -53,7 +54,7 @@ function validateCvv(cvv) {
   return !re.test(cvv)
 }
 function validateBillStreetAddress(billStreetAddress) {
-  var re = /[^A-Za-z0-9.\-# ]+/
+  var re = /[^A-Za-z0-9.,\-# ]+/
   return re.test(billStreetAddress)
 }
 function validateBillCity(billCity) {
@@ -64,8 +65,27 @@ function validateBillZip(billZip) {
   var re = /^[0-9]{5}(?:-[0-9]{4})?$/
   return !re.test(billZip)
 }
+function validateShipStreetAddress(shipStreetAddress) {
+  var re = /[^A-Za-z0-9.,\-# ]+/
+  return re.test(shipStreetAddress)
+}
+function validateShipCity(shipCity) {
+  var re = /^[a-zA-Z]+(?:[\s-][a-zA-Z]+)*$/
+  return !re.test(shipCity)
+}
+function validateShipZip(shipZip) {
+  var re = /^[0-9]{5}(?:-[0-9]{4})?$/
+  return !re.test(shipZip)
+}
 
-function setErrors(formData) {
+function setErrors(formData, currentInputs) {
+  for(let error in formData.errors){
+    if(formData.errors[error]){
+      currentInputs[error] = true
+    }
+  }
+
+  console.log('set errors, currentInputs object: ', currentInputs)
   formData = {...formData}
   formData.errors = {
     email: '',
@@ -83,85 +103,110 @@ function setErrors(formData) {
     shipZip: ''
   }
 
-  // for(let key in formData.errors){
-  //   console.log('inside forin loop, formData.errors[key]: ', formData.errors[key])
-  //   formData.errors[key] = ''
-  // }
-  // console.log('formData.errors after reset: ', formData.errors)
-
-  if (!formData.values.email && formData.values.email.length === 0) {
-    formData.errors.email = "Enter a valid email"
-  } else if (!validateEmail(formData.values.email)) {
-    formData.errors.email = "Email is invalid"
+  if(currentInputs.email){
+    console.log('currentInputs.email true, set email error, ')
+    if (!formData.values.email && formData.values.email.length === 0) {
+      formData.errors.email = "Enter a valid email"
+    } else if (!validateEmail(formData.values.email)) {
+      formData.errors.email = "Email is invalid"
+    }
+    console.log('formData.errors after email set: ', formData.errors)
+  }
+  
+  if(currentInputs.nameOnCard){
+    if (!formData.values.nameOnCard && formData.values.nameOnCard.length === 0) {
+      formData.errors.nameOnCard = "Name on card is required"
+    } else if (formData.values.nameOnCard.length < 2) {
+      formData.errors.nameOnCard = "Invalid name"
+    }
+  }
+  
+  if(currentInputs.cardNumber){
+    console.log('currentInputs.email true, set cardNumber error, ')
+    if (!formData.values.cardNumber && formData.values.cardNumber.length === 0) {
+      formData.errors.cardNumber = "Card number is required"
+    } else if (formData.values.cardNumber.length < 13 || formData.values.cardNumber.length > 20 || validateCardNumber(formData.values.cardNumber)) {
+      formData.errors.cardNumber = "Invalid card number"
+    }
+    console.log('formData.errors after cardNumber set: ', formData.errors)
+  }
+  
+  if(currentInputs.cardExp){
+    if (!formData.values.cardExp && formData.values.cardExp.length === 0) {
+      formData.errors.cardExp = "Card expiration is required"
+    } else if (!formData.values.cardExp.length === 5 || validateCardExp(formData.values.cardExp)) {
+      formData.errors.cardExp = "Invalid 'MM/YY' card expiration"
+    }
   }
 
-  if (!formData.values.nameOnCard && formData.values.nameOnCard.length === 0) {
-    formData.errors.nameOnCard = "Name on card is required"
-  } else if (formData.values.nameOnCard.length < 2) {
-    formData.errors.nameOnCard = "Invalid name"
+  if(currentInputs.cvv){
+    if (!formData.values.cvv && formData.values.cvv.length === 0) {
+      formData.errors.cvv = "Card CVV is required"
+    } else if (!formData.values.cvv.length === 3 || validateCvv(formData.values.cvv)) {
+      formData.errors.cvv = "Invalid 3-digit CVV"
+    }
   }
 
-  if (!formData.values.cardNumber && formData.values.cardNumber.length === 0) {
-    formData.errors.cardNumber = "Card number is required"
-  } else if (!formData.values.cardNumber.length < 16 || formData.values.cardNumber.length > 20 || validateCardNumber(formData.values.cardNumber)) {
-    formData.errors.cardNumber = "Invalid card number"
+  if(currentInputs.billStreetAddress){
+    if (!formData.values.billStreetAddress && formData.values.billStreetAddress.length === 0) {
+      formData.errors.billStreetAddress = "Billing street address is required"
+    } else if (formData.values.billStreetAddress.length < 4 || validateBillStreetAddress(formData.values.billStreetAddress)) {
+      formData.errors.billStreetAddress = "Invalid street address"
+    }
   }
 
-  if (!formData.values.cardExp && formData.values.cardExp.length === 0) {
-    formData.errors.cardExp = "Card expiration is required"
-  } else if (!formData.values.cardExp.length === 5 || validateCardExp(formData.values.cardExp)) {
-    formData.errors.cardExp = "Invalid 'MM/YY' card expiration"
+  if(currentInputs.billCity){
+    if (!formData.values.billCity && formData.values.billCity.length === 0) {
+      formData.errors.billCity = "Billing city is required"
+    } else if (formData.values.billCity.length > 60 || validateBillCity(formData.values.billCity)) {
+      formData.errors.billCity = "Invalid city name"
+    }
   }
 
-  if (!formData.values.cvv && formData.values.cvv.length === 0) {
-    formData.errors.cvv = "Card CVV is required"
-  } else if (!formData.values.cvv.length === 3 || validateCvv(formData.values.cvv)) {
-    formData.errors.cvv = "Invalid 3-digit CVV"
+  if(currentInputs.billState){
+    if (formData.values.billState === 'Select...' || formData.values.billState === '') {
+      formData.errors.billState = "Invalid selection"
+    } 
   }
 
-  if (!formData.values.billStreetAddress && formData.values.billStreetAddress.length === 0) {
-    formData.errors.billStreetAddress = "Billing street address is required"
-  } else if (formData.values.billStreetAddress.length < 4 || validateBillStreetAddress(formData.values.billStreetAddress)) {
-    formData.errors.billStreetAddress = "Invalid street address"
+  if(currentInputs.billZip){
+    if (!formData.values.billZip && formData.values.billZip.length === 0) {
+      formData.errors.billZip = "Billing zip code is required"
+    } else if ( validateBillZip(formData.values.billZip)) {
+      formData.errors.billZip = "Invalid zip code"
+    }
   }
 
-  if (!formData.values.billCity && formData.values.billCity.length === 0) {
-    formData.errors.billCity = "Billing city is required"
-  } else if (formData.values.billCity.length > 60 || validateBillCity(formData.values.billCity)) {
-    formData.errors.billCity = "Invalid city name"
+  if(currentInputs.shipStreetAddress){
+    if (!formData.values.shipStreetAddress && formData.values.shipStreetAddress.length === 0) {
+      formData.errors.shipStreetAddress = "Shipping street address is required"
+    } else if (formData.values.billStreetAddress.length < 4 || validateShipStreetAddress(formData.values.shipStreetAddress)) {
+      formData.errors.shipStreetAddress = "Invalid street address"
+    }
   }
 
-  if (formData.values.billState === 'Select...' || formData.values.billState === '') {
-    formData.errors.billformData = "Billing state is required"
-  } 
-
-  if (!formData.values.billZip && formData.values.billZip.length === 0) {
-    formData.errors.billZip = "Billing zip code is required"
-  } else if ( validateBillZip(formData.values.billZip)) {
-    formData.errors.billZip = "Invalid zip code"
+  if(currentInputs.shipCity){
+    if (!formData.values.shipCity && formData.values.shipCity.length === 0) {
+      formData.errors.shipCity = "Shipping city is required"
+    } else if (formData.values.shipCity.length > 60 || validateShipCity(formData.values.shipCity)) {
+      formData.errors.shipCity = "Invalid city name"
+    }
   }
 
-  if (!formData.values.shipStreetAddress && formData.values.shipStreetAddress.length === 0) {
-    formData.errors.shipStreetAddress = "Shipping street address is required"
-  } else if (formData.values.billStreetAddress.length < 4 || validateBillStreetAddress(formData.values.shipStreetAddress)) {
-    formData.errors.shipStreetAddress = "Invalid street address"
+  if(currentInputs.shipState){
+    if (formData.values.shipState === 'Select...' || formData.values.shipState === ''){
+      formData.errors.shipState = "Shipping state is required"
+    } 
   }
 
-  if (!formData.values.shipCity && formData.values.shipCity.length === 0) {
-    formData.errors.shipCity = "Shipping city is required"
-  } else if (formData.values.shipCity.length > 60 || validateBillCity(formData.values.shipCity)) {
-    formData.errors.shipCity = "Invalid city name"
+  if(currentInputs.shipZip){
+    if (!formData.values.shipZip && formData.values.shipZip.length === 0) {
+      formData.errors.shipZip = "Shipping zip code is required"
+    } else if ( validateShipZip(formData.values.shipZip)) {
+      formData.errors.shipZip = "Invalid zip code"
+    }
   }
-
-  if (formData.values.shipState === 'Select...' || formData.values.shipState === ''){
-    formData.errors.shipformData = "Shipping state is required"
-  } 
-
-  if (!formData.values.shipZip && formData.values.shipZip.length === 0) {
-    formData.errors.shipZip = "Shipping zip code is required"
-  } else if ( validateBillZip(formData.values.shipZip)) {
-    formData.errors.shipZip = "Invalid zip code"
-  }
+  
   console.log('setErrors, formData: ', formData)
   return formData
 }
@@ -182,7 +227,7 @@ export default function (state = DEFAULT_STATE, action){
       return {...newState}
     case 'CHECKOUT_FORM_SUBMITTED_FOR_VALIDATION':
       console.log('checkout form reducer validation, action.payload: ', action.payload)
-      return setErrors(action.payload)
+      return setErrors(action.payload.form, action.payload.key)
     default:
       return state
   }

@@ -129,9 +129,9 @@ function Checkout(props){
             }
             onChange={(e) => {
               props.storeCheckoutFormData('email', e.target.value)
-              props.validateCheckoutForm(props.checkoutFormData)
+              props.validateCheckoutForm(props.checkoutFormData, {email: true})
             }}
-            onBlur={()=>{props.validateCheckoutForm(props.checkoutFormData)}}
+            // onBlur={()=>{props.validateCheckoutForm(props.checkoutFormData)}}
           />
           {/* <Form.Text className="text-muted">
             Email required for order receipt
@@ -189,8 +189,11 @@ function Checkout(props){
               props.checkoutFormData.values.cardNumber &&
               props.checkoutFormData.errors.cardNumber.length === 0
             }
-            onChange={(e) => { props.storeCheckoutFormData('cardNumber', e.target.value)}}
-            onBlur={()=>{props.validateCheckoutForm(props.checkoutFormData)}}
+            onChange={(e) => { 
+              props.storeCheckoutFormData('cardNumber', e.target.value)
+              props.validateCheckoutForm(props.checkoutFormData, {cardNumber: true})
+            }}
+            // onBlur={()=>{props.validateCheckoutForm(props.checkoutFormData)}}
           />
           <Form.Control.Feedback type="invalid">
             {props.checkoutFormData.errors.cardNumber}
@@ -211,7 +214,10 @@ function Checkout(props){
               props.checkoutFormData.values.cardExp &&
               props.checkoutFormData.errors.cardExp.length === 0
             }
-            onChange={(e) => {props.storeCheckoutFormData('cardExp', e.target.value)}}
+            onChange={(e) => {
+              props.storeCheckoutFormData('cardExp', e.target.value)
+              props.validateCheckoutForm(props.checkoutFormData, {cardExp: true})
+            }}
           />
           <Form.Control.Feedback type="invalid">
             {props.checkoutFormData.errors.cardExp}
@@ -229,7 +235,10 @@ function Checkout(props){
               props.checkoutFormData.values.cvv &&
               props.checkoutFormData.errors.cvv.length === 0
             }
-            onChange={(e) => {props.storeCheckoutFormData('cvv', e.target.value)}}
+            onChange={(e) => {
+              props.storeCheckoutFormData('cvv', e.target.value)
+              props.validateCheckoutForm(props.checkoutFormData, {cvv: true})
+            }}
           />
           <Form.Control.Feedback type="invalid">
             {props.checkoutFormData.errors.cvv}
@@ -247,7 +256,10 @@ function Checkout(props){
               props.checkoutFormData.values.nameOnCard &&
               props.checkoutFormData.errors.nameOnCard.length === 0
             }
-            onChange={(e) => {props.storeCheckoutFormData('nameOnCard', e.target.value)}}
+            onChange={(e) => {
+              props.storeCheckoutFormData('nameOnCard', e.target.value)
+              props.validateCheckoutForm(props.checkoutFormData, {nameOnCard: true})
+            }}
           />
           <Form.Control.Feedback type="invalid">
             {props.checkoutFormData.errors.nameOnCard}
@@ -268,7 +280,10 @@ function Checkout(props){
               props.checkoutFormData.values.billStreetAddress &&
               props.checkoutFormData.errors.billStreetAddress.length === 0
             }
-            onChange={(e) => {props.storeCheckoutFormData('billStreetAddress', e.target.value)}}
+            onChange={(e) => {
+              props.storeCheckoutFormData('billStreetAddress', e.target.value)
+              props.validateCheckoutForm(props.checkoutFormData, {billStreetAddress: true})
+            }}
           />
           <Form.Control.Feedback type="invalid">
             {props.checkoutFormData.errors.billStreetAddress}
@@ -286,7 +301,10 @@ function Checkout(props){
               props.checkoutFormData.values.billCity &&
               props.checkoutFormData.errors.billCity.length === 0
             }
-            onChange={(e) => {props.storeCheckoutFormData('billCity', e.target.value)}}
+            onChange={(e) => {
+              props.storeCheckoutFormData('billCity', e.target.value)
+              props.validateCheckoutForm(props.checkoutFormData, {billCity: true})
+            }}
           />
           <Form.Control.Feedback type="invalid">
             {props.checkoutFormData.errors.billCity}
@@ -304,7 +322,10 @@ function Checkout(props){
               props.checkoutFormData.values.billZip &&
               props.checkoutFormData.errors.billZip.length === 0
             }
-            onChange={(e) => {props.storeCheckoutFormData('billZip', e.target.value)}}
+            onChange={(e) => {
+              props.storeCheckoutFormData('billZip', e.target.value)
+              props.validateCheckoutForm(props.checkoutFormData, {billZip: true})
+            }}
           />
           <Form.Control.Feedback type="invalid">
             {props.checkoutFormData.errors.billZip}
@@ -322,7 +343,10 @@ function Checkout(props){
               props.checkoutFormData.values.billState &&
               props.checkoutFormData.errors.billState.length === 0
             }
-            onChange={(e) => {props.storeCheckoutFormData('billState', e.target.value)}}
+            onChange={(e) => {
+              props.storeCheckoutFormData('billState', e.target.value)
+              props.validateCheckoutForm(props.checkoutFormData, {billState: true})
+            }}
           >
             <option defaultValue>Select...</option>
             <option>Alabama</option>
@@ -410,7 +434,10 @@ function Checkout(props){
               props.checkoutFormData.values.shipStreetAddress &&
               props.checkoutFormData.errors.shipStreetAddress.length === 0
             }
-            onChange={(e) => {props.storeCheckoutFormData('shipStreetAddress', e.target.value)}}
+            onChange={(e) => {
+              props.storeCheckoutFormData('shipStreetAddress', e.target.value)
+              props.validateCheckoutForm(props.checkoutFormData, {shipStreetAddress: true})
+            }}
           />
           <Form.Control.Feedback type="invalid">
             {props.checkoutFormData.errors.shipStreetAddress}
@@ -428,7 +455,10 @@ function Checkout(props){
               props.checkoutFormData.values.shipCity &&
               props.checkoutFormData.errors.shipCity.length === 0
             }
-            onChange={(e) => {props.storeCheckoutFormData('shipCity', e.target.value)}}
+            onChange={(e) => {
+              props.storeCheckoutFormData('shipCity', e.target.value)
+              props.validateCheckoutForm(props.checkoutFormData, {shipCity: true})
+            }}
             
           />
           <Form.Control.Feedback type="invalid">
@@ -447,7 +477,10 @@ function Checkout(props){
               props.checkoutFormData.values.shipZip &&
               props.checkoutFormData.errors.shipZip.length === 0
             }
-            onChange={(e) => {props.storeCheckoutFormData('shipZip', e.target.value)}}
+            onChange={(e) => {
+              props.storeCheckoutFormData('shipZip', e.target.value)
+              props.validateCheckoutForm(props.checkoutFormData, {shipZip: true})
+            }}
             
           />
           <Form.Control.Feedback type="invalid">
@@ -477,7 +510,10 @@ function Checkout(props){
               props.checkoutFormData.values.shipState &&
               props.checkoutFormData.errors.shipState.length === 0
             }
-            onChange={(e) => {props.storeCheckoutFormData('shipState', e.target.value)}}
+            onChange={(e) => {
+              props.storeCheckoutFormData('shipState', e.target.value)
+              props.validateCheckoutForm(props.checkoutFormData, {shipState: true})
+            }}
           >
             <option defaultValue>Select...</option>
             <option>Alabama</option>
