@@ -40,7 +40,7 @@ function ThankYou (props) {
               return(
                 <div className="row col-12">
                   <div className="order-date col-2 font-weight-bold">{order.order_date}</div>
-                  <div className="order-uuid col-6">Order ID: {order.order_uuid}</div>
+                  <div className="order-uuid col-6"><span className="font-weight-bold">Order ID:</span> {order.order_uuid}</div>
                   <Table  size="sm" key={order.order_uuid} className="col-12 text-center mb-1">
                     <thead>
                       <tr>
@@ -63,7 +63,7 @@ function ThankYou (props) {
                                 <td></td>
                                 <td>{orderProdWithData.name}</td>
                                 <td>{orderProdWithData.quantity}</td>
-                                <td>{orderProdWithData.price}</td>
+                                <td>${orderProdWithData.price}</td>
                               </tr>
                               
                             </React.Fragment>

@@ -16,10 +16,10 @@ function ThankYou (props) {
     setTimeout(10000, ()=>{ props.history.push( '/'); props.clearCart(props.cart.cart_uuid)})
   }
 
-  // useEffect(()=>{
+  useEffect(()=>{
 
-  //   return props.clearCart
-  // }, [])
+    return ()=>{props.clearCart(props.cart.cart_uuid)}
+  }, [])
 
   // console.log('thankyou comp rendered props: ', props)
   // autoRedirect()

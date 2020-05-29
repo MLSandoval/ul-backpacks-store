@@ -37,22 +37,27 @@ function Checkout(props){
     }
   }
 
-  const handleSubmitClick = ()=>{
+  const handleSubmitClick = (checkoutFormData)=>{
     // props.validateCheckoutForm(props.checkoutFormData)
 
-    let errors = Object.values(props.checkoutFormData.errors)
-    console.log('handle submit click, errors arrary: ', errors)
-    let errorSwitch = errors.map(input=>{
+    let errorsArr = Object.values(checkoutFormData.errors)
+    console.log('handle submit click, errors arrary: ', errorsArr)
+    let errorSwitch = errorsArr.map(input=>{
       return input !== '' ?  true : false
     })
     console.log('handle submit click errorSwitch: ', errorSwitch)
    
     if(!errorSwitch.includes(true)){
+      console.log('handleSubmitClick, no errorss, set modal config and place order allowed.')
       props.setModalConfig({
         header:'Thank You!',
         content: <ThankYou/>,
         orderCost: ``
       })
+      props.placeOrder(props.userData.user_uuid, props.cart)
+      
+    }else{
+      console.log('handleSubmitClick, with errors, providing fix error feedback')
     }
     
     // props.placeOrder(props.userData.user_uuid, props.cart) can replace into actions as a second dispatch after the validation passes or fails
@@ -88,16 +93,16 @@ function Checkout(props){
   //   // props.validateCheckoutForm(props.checkoutFormData)
   // },[props.checkoutFormData])
 
-  useEffect(()=>{
-    let errors = Object.values(props.checkoutFormData.errors)
-    let errorSwitch = errors.map(input=>{
-      return input !== '' ? true : false
-    })
-    if(!errorSwitch.includes(true))
-    return ()=>{
-      props.placeOrder(props.userData.user_uuid, props.cart)
-    }
-  },[])
+  // useEffect(()=>{
+  //   let errors = Object.values(props.checkoutFormData.errors)
+  //   let errorSwitch = errors.map(input=>{
+  //     return input !== '' ? true : false
+  //   })
+  //   if(!errorSwitch.includes(true))
+  //   return ()=>{
+  //     props.placeOrder(props.userData.user_uuid, props.cart)
+  //   }
+  // },[])
 
   return(
     <Modal.Body>
@@ -585,12 +590,13 @@ function Checkout(props){
         <div className="col-9"/>
         
         <div className="button-container col-3 row justify-content-around">
+          {/* <Form></Form> */}
           <Button 
             // as={LinkRouter}
             // to="/cart/modal/thank-you"
             className=""
             onClick={()=>{
-              handleSubmitClick()
+              handleSubmitClick(props.checkoutFormData)
             }}
             className=" btn-sm"
             variant="info"
@@ -598,6 +604,9 @@ function Checkout(props){
           >
             Submit
           </Button>
+          <Form.Control.Feedback>
+            {/* {handleSubmitClick()} */}
+          </Form.Control.Feedback>
           <LinkRouter to="/cart">
             <Button
               className="btn-sm"
