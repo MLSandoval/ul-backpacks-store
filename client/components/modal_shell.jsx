@@ -49,14 +49,14 @@ class ModalShell extends React.Component {
           orderCost: ``
         })
         break
-      default: console.log('Modal Content Error.')
+      default: console.error('Modal Content Error.')
     }
     // console.log('this.props.MODALCONFIG: ', this.props.modalConfig)
   }
 
   handleOnHide(){
     if(this.props.modalConfig.header === "Thank You!"){
-      this.props.history.go(-2)
+      this.props.history.go('-2')
     }else{
       this.props.history.goBack()
     }
@@ -82,7 +82,7 @@ class ModalShell extends React.Component {
           centered
           show={true}
           backdrop={true}
-          onHide={()=>{console.log('this is onHide fnc'); this.handleOnHide() }}
+          onHide={()=>{this.handleOnHide() }}
         >
           <Modal.Header className="modal-header">
             <Modal.Title className="w-100 row justify-content-between modal-title" id="contained-modal-title-vcenter">
@@ -113,7 +113,7 @@ class ModalShell extends React.Component {
 }
 
 function mapStateToProps (state) {
-  console.log('state in ModalShell component: ', state);
+  // console.log('state in ModalShell component: ', state)
   return {
     // this becomes a property inside of the props of this component
     view: state.view,

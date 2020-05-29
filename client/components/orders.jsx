@@ -75,8 +75,15 @@ function ThankYou (props) {
                         <td></td>
                         <td></td>
                         <td></td>
-                        <td>Order Total: </td>
-                        <td>${orderTotal.toFixed(2) || '$0.00'}</td>
+                        <td> </td>
+                        <td>Standard shipping + $0.00</td>
+                      </tr>
+                      <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td className="font-weight-bold">Order Total: </td>
+                        <td className="font-weight-bold">${orderTotal.toFixed(2) || '$0.00'}</td>
                       </tr>
                     </tbody>
                   </Table> 

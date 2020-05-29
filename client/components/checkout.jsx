@@ -10,7 +10,7 @@ import Button from 'react-bootstrap/Button'
 import Form from 'react-bootstrap/Form'
 import Table from 'react-bootstrap/Table'
 
-import {storeCheckoutFormData, setModalConfig, clearCart, placeOrder, validateCheckoutForm} from '../actions'
+import {storeCheckoutFormData, setModalConfig, placeOrder, validateCheckoutForm} from '../actions'
 
 import './styles/checkout_style.css'
 import ThankYou from './thank_you.jsx'
@@ -37,28 +37,25 @@ function Checkout(props){
     }
   }
 
-  const handleSubmitClick = (checkoutFormData)=>{
-    // props.validateCheckoutForm(props.checkoutFormData)
-
-    let errorsArr = Object.values(checkoutFormData.errors)
-    console.log('handle submit click, errors arrary: ', errorsArr)
-    let errorSwitch = errorsArr.map(input=>{
-      return input !== '' ?  true : false
+  const handleSubmitClick = ()=>{
+    console.log('props at start of submitCLICK: ', props)
+    props.validateCheckoutForm(props.checkoutFormData, {
+      email: true,
+      nameOnCard: true,
+      cardNumber: true,
+      cardExp: true,
+      cvv: true,
+      billStreetAddress: true,
+      billCity: true,
+      billState: true,
+      billZip: true,
+      shipStreetAddress: true,
+      shipCity: true,
+      shipState: true,
+      shipZip: true
     })
-    console.log('handle submit click errorSwitch: ', errorSwitch)
-   
-    if(!errorSwitch.includes(true)){
-      console.log('handleSubmitClick, no errorss, set modal config and place order allowed.')
-      props.setModalConfig({
-        header:'Thank You!',
-        content: <ThankYou/>,
-        orderCost: ``
-      })
-      props.placeOrder(props.userData.user_uuid, props.cart)
-      
-    }else{
-      console.log('handleSubmitClick, with errors, providing fix error feedback')
-    }
+
+    
     
     // props.placeOrder(props.userData.user_uuid, props.cart) can replace into actions as a second dispatch after the validation passes or fails
   }
@@ -86,12 +83,29 @@ function Checkout(props){
     props.storeCheckoutFormData('shippingOption', shippingOption)
   }
 
-  // useLayoutEffect(()=>{
-  //   props.validateCheckoutForm(props.checkoutFormData)
+  useEffect(()=>{
+    props.validateCheckoutForm(props.checkoutFormData, {})
+    return ()=>{
+      props.validateCheckoutForm(props.checkoutFormData, {
+        email: true,
+        nameOnCard: true,
+        cardNumber: true,
+        cardExp: true,
+        cvv: true,
+        billStreetAddress: true,
+        billCity: true,
+        billState: true,
+        billZip: true,
+        shipStreetAddress: true,
+        shipCity: true,
+        shipState: true,
+        shipZip: true
+      })
+    }
 
    
-  //   // props.validateCheckoutForm(props.checkoutFormData)
-  // },[props.checkoutFormData])
+    // props.validateCheckoutForm(props.checkoutFormData)
+  },[])
 
   // useEffect(()=>{
   //   let errors = Object.values(props.checkoutFormData.errors)
@@ -597,6 +611,25 @@ function Checkout(props){
             className=""
             onClick={()=>{
               handleSubmitClick(props.checkoutFormData)
+              let errorsArr = Object.values(props.checkoutFormData.errors)
+              console.log('onclick submit, errors arrary: ', errorsArr)
+              let errorSwitch = errorsArr.map(input=>{
+                return input !== '' ?  true : false
+              })
+              console.log('onsubmit click errorSwitch: ', errorSwitch)
+            
+              if(!errorSwitch.includes(true)){
+                console.log('onsubmit click, no errorss, set modal config and place order allowed.')
+                props.setModalConfig({
+                  header:'Thank You!',
+                  content: <ThankYou/>,
+                  orderCost: ``
+                })
+                props.placeOrder(props.userData.user_uuid, props.cart)
+                
+              }else{
+                console.log('onsubmit click, with errors, providing fix error feedback')
+              }
             }}
             className=" btn-sm"
             variant="info"
@@ -639,4 +672,4 @@ function mapStateToProps(state){
   }
 }
 
-export default connect(mapStateToProps, {storeCheckoutFormData, setModalConfig, clearCart, placeOrder, validateCheckoutForm})(Checkout)
+export default connect(mapStateToProps, {storeCheckoutFormData, setModalConfig, placeOrder, validateCheckoutForm})(Checkout)

@@ -122,7 +122,7 @@ function setErrors(formData, currentInputs) {
   }
   
   if(currentInputs.cardNumber){
-    console.log('currentInputs.email true, set cardNumber error, ')
+    console.log('currentInputs.cardNumber true, set cardNumber error, ')
     if (!formData.values.cardNumber && formData.values.cardNumber.length === 0) {
       formData.errors.cardNumber = "Card number is required"
     } else if (formData.values.cardNumber.length < 13 || formData.values.cardNumber.length > 20 || validateCardNumber(formData.values.cardNumber)) {
@@ -132,57 +132,71 @@ function setErrors(formData, currentInputs) {
   }
   
   if(currentInputs.cardExp){
+    console.log('currentInputs.cardExp true, set cardExp error, ')
     if (!formData.values.cardExp && formData.values.cardExp.length === 0) {
       formData.errors.cardExp = "Card expiration is required"
     } else if (!formData.values.cardExp.length === 5 || validateCardExp(formData.values.cardExp)) {
       formData.errors.cardExp = "Invalid 'MM/YY' card expiration"
     }
+    console.log('formData.errors after cardExp set: ', formData.errors)
   }
 
   if(currentInputs.cvv){
+    console.log('currentInputs.cvv true, set cvv error, ')
     if (!formData.values.cvv && formData.values.cvv.length === 0) {
       formData.errors.cvv = "Card CVV is required"
     } else if (!formData.values.cvv.length === 3 || validateCvv(formData.values.cvv)) {
       formData.errors.cvv = "Invalid 3-digit CVV"
     }
+    console.log('formData.errors after cvv set: ', formData.errors)
   }
 
   if(currentInputs.billStreetAddress){
+    console.log('currentInputs.billStreetAddress true, set billStreet error, ')
     if (!formData.values.billStreetAddress && formData.values.billStreetAddress.length === 0) {
       formData.errors.billStreetAddress = "Billing street address is required"
     } else if (formData.values.billStreetAddress.length < 4 || validateBillStreetAddress(formData.values.billStreetAddress)) {
       formData.errors.billStreetAddress = "Invalid street address"
     }
+    console.log('formData.errors after billStreetAddress set: ', formData.errors)
   }
 
   if(currentInputs.billCity){
+    console.log('currentInputs.billCity true, set billCity error, ')
     if (!formData.values.billCity && formData.values.billCity.length === 0) {
       formData.errors.billCity = "Billing city is required"
     } else if (formData.values.billCity.length > 60 || validateBillCity(formData.values.billCity)) {
       formData.errors.billCity = "Invalid city name"
     }
+    console.log('formData.errors after billCity set: ', formData.errors)
   }
 
   if(currentInputs.billState){
+    console.log('currentInputs.billState true, set billState error, ')
     if (formData.values.billState === 'Select...' || formData.values.billState === '') {
       formData.errors.billState = "Invalid selection"
     } 
+    console.log('formData.errors after billState set: ', formData.errors)
   }
 
   if(currentInputs.billZip){
+    console.log('currentInputs.billZip true, set billZip error, ')
     if (!formData.values.billZip && formData.values.billZip.length === 0) {
       formData.errors.billZip = "Billing zip code is required"
     } else if ( validateBillZip(formData.values.billZip)) {
       formData.errors.billZip = "Invalid zip code"
     }
+    console.log('formData.errors after billZip set: ', formData.errors)
   }
 
   if(currentInputs.shipStreetAddress){
+    console.log('currentInputs.billZip true, set shipStreet error, ')
     if (!formData.values.shipStreetAddress && formData.values.shipStreetAddress.length === 0) {
       formData.errors.shipStreetAddress = "Shipping street address is required"
     } else if (formData.values.billStreetAddress.length < 4 || validateShipStreetAddress(formData.values.shipStreetAddress)) {
       formData.errors.shipStreetAddress = "Invalid street address"
     }
+    console.log('formData.errors after shipStreet set: ', formData.errors)
   }
 
   if(currentInputs.shipCity){

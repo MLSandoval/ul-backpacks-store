@@ -29,7 +29,6 @@ class ProductList extends React.Component {
   }
 
   handleVisibilityChange(){
-    console.log('visibility cahnge called, this.state.vis: ', this.state.visibility)
     if(window.pageYOffset > 35){
       this.setState({visibility: true})
     }else{
@@ -46,7 +45,6 @@ class ProductList extends React.Component {
     }
 
     document.addEventListener('scroll', this.scrollFn)
-    // console.log('current product uuid flag found, scrolled to header then 3.5rem, this.props.currentProduct.product_uuid: ', this.props.currentProduct.name , this.props.currentProduct.product_uuid)
   }
 
   componentWillUnmount(){
@@ -137,7 +135,7 @@ function mapDispatchToProps (dispatch) {
 }
 
 function mapStateToProps(state){
-  console.log('PRODUCTLIST state: ', state);
+  // console.log('PRODUCTLIST state: ', state)
   return {
     products: state.products,
     currentProduct: state.currentProduct,

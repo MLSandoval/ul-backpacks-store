@@ -30,7 +30,6 @@ class ProductDetails extends React.Component {
   }
 
   handleVisibilityChange(){
-    console.log('visibility cahnge called, this.state.vis: ', this.state.visibility)
     if(window.pageYOffset > 35){
       this.setState({visibility: true})
     }else{
@@ -172,7 +171,7 @@ function mapDispatchToProps(dispatch) {
 }
 
 function mapStateToProps(state) {
-  console.log('PRODUCTDETAILS state: ', state);
+  // console.log('PRODUCTDETAILS state: ', state)
   return {
     products: state.products,
     currentProduct: state.currentProduct,

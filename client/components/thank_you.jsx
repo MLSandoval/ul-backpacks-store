@@ -6,7 +6,7 @@ import Modal from 'react-bootstrap/Modal'
 import Button from 'react-bootstrap/Button'
 
 import './styles/thank_you_style.css'
-import {clearCart} from '../actions'
+import {clearCart, setModalConfig} from '../actions'
 
 function ThankYou (props) {
   let history = useHistory()
@@ -18,7 +18,14 @@ function ThankYou (props) {
 
   useEffect(()=>{
 
-    return ()=>{props.clearCart(props.cart.cart_uuid)}
+    return ()=>{
+      props.clearCart(props.cart.cart_uuid)
+      props.setModalConfig({
+        header: '',
+        content: '',
+        orderCost: ''
+      })
+    }
   }, [])
 
   // console.log('thankyou comp rendered props: ', props)
@@ -47,4 +54,4 @@ function mapStateToProps (state){
 
 }
 
-export default withRouter(connect(mapStateToProps, {clearCart})(ThankYou))
+export default withRouter(connect(mapStateToProps, {clearCart, setModalConfig})(ThankYou))

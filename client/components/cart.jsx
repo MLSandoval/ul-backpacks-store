@@ -122,8 +122,8 @@ class Cart extends React.Component {
               </th>
               <td></td>
               <td></td>
-              <td>Order Total: </td>
-              <td>${this.props.totalOrderCost.toFixed(2) || 0.00}</td> 
+              <td className="font-weight-bold">Order Total: </td>
+              <td className="font-weight-bold">${this.props.totalOrderCost.toFixed(2) || 0.00}</td> 
             </tr>
             <tr>
               <th scope="row">

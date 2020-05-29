@@ -93,7 +93,7 @@ function ContinueShopping(props){
 }
 
 function mapStateToProps(state){
-  console.log('CONTINUESHOPPING state: ', state)
+  // console.log('CONTINUESHOPPING state: ', state)
   return {
     products: state.products,
     totalOrderCost: state.totalOrderCost,
