@@ -2,6 +2,7 @@ import types from '../actions/types'
 
 const DEFAULT_STATE = {
   values: {
+    firstLoad: true,
     shipSameAsBill: false,
     email: '',
     shippingOption: 'Standard',
@@ -19,6 +20,7 @@ const DEFAULT_STATE = {
     shipZip: ''
   },
   errors: {
+    firstLoad: true,
     email: '',
     nameOnCard: '',
     cardNumber: '',
@@ -86,8 +88,10 @@ function setErrors(formData, currentInputs) {
   }
 
   console.log('set errors, currentInputs object: ', currentInputs)
+
   formData = {...formData}
   formData.errors = {
+    firstLoad: '',
     email: '',
     nameOnCard: '',
     cardNumber: '',
@@ -101,6 +105,16 @@ function setErrors(formData, currentInputs) {
     shipCity: '',
     shipState: '',
     shipZip: ''
+  }
+
+
+  if(currentInputs.firstLoad && formData.values.firstLoad){
+    console.log('currentInputs.firstLoad true ')
+    formData.errors.firstLoad = "error"
+    formData.values.firstLoad = false
+    console.log('formData.errors after firstLoad set: ', formData.errors)
+  }else{
+    formData.errors.firstLoad = ''
   }
 
   if(currentInputs.email){

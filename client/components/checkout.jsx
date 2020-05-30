@@ -34,12 +34,20 @@ function Checkout(props){
         shipState: props.checkoutFormData.values.billState,
         shipZip: props.checkoutFormData.values.billZip
       })
+      props.validateCheckoutForm(props.checkoutFormData, {
+        shipCity: true,
+        shipState: true,
+        shipZip: true,
+        shipStreetAddress: true
+      })
     }
   }
 
   const handleSubmitClick = ()=>{
     console.log('props at start of submitCLICK: ', props)
-    props.validateCheckoutForm(props.checkoutFormData, {
+    let finalFormData = {...props.checkoutFormData}
+    props.validateCheckoutForm(finalFormData, {
+      firstLoad: true,
       email: true,
       nameOnCard: true,
       cardNumber: true,
@@ -55,9 +63,22 @@ function Checkout(props){
       shipZip: true
     })
 
-    
-    
-    // props.placeOrder(props.userData.user_uuid, props.cart) can replace into actions as a second dispatch after the validation passes or fails
+    let errorsArr = Object.values(props.checkoutFormData.errors)
+    console.log('handles submit, errors arrary: ', errorsArr)
+    let errorSwitch = errorsArr.map(input=>{
+      return input !== '' ?  true : false
+    })
+    console.log('onsubmit click errorSwitch: ', errorSwitch)
+  
+    if(!errorSwitch.includes(true)){
+      props.placeOrder(props.userData.user_uuid, props.cart, props.checkoutFormData)
+      console.log('onsubmit click, no errorss, set modal config and place order allowed.')
+      props.setModalConfig({
+        header:'Thank You!',
+        content: <ThankYou/>,
+        orderCost: ``
+      })
+    } 
   }
 
   function clearForm(){
@@ -84,27 +105,11 @@ function Checkout(props){
   }
 
   useEffect(()=>{
-    props.validateCheckoutForm(props.checkoutFormData, {})
+    props.validateCheckoutForm(props.checkoutFormData, {firstLoad: true})
     return ()=>{
-      props.validateCheckoutForm(props.checkoutFormData, {
-        email: true,
-        nameOnCard: true,
-        cardNumber: true,
-        cardExp: true,
-        cvv: true,
-        billStreetAddress: true,
-        billCity: true,
-        billState: true,
-        billZip: true,
-        shipStreetAddress: true,
-        shipCity: true,
-        shipState: true,
-        shipZip: true
-      })
+      clearForm()
     }
 
-   
-    // props.validateCheckoutForm(props.checkoutFormData)
   },[])
 
   // useEffect(()=>{
@@ -611,25 +616,25 @@ function Checkout(props){
             className=""
             onClick={()=>{
               handleSubmitClick(props.checkoutFormData)
-              let errorsArr = Object.values(props.checkoutFormData.errors)
-              console.log('onclick submit, errors arrary: ', errorsArr)
-              let errorSwitch = errorsArr.map(input=>{
-                return input !== '' ?  true : false
-              })
-              console.log('onsubmit click errorSwitch: ', errorSwitch)
+              // let errorsArr = Object.values(props.checkoutFormData.errors)
+              // console.log('onclick submit, errors arrary: ', errorsArr)
+              // let errorSwitch = errorsArr.map(input=>{
+              //   return input !== '' ?  true : false
+              // })
+              // console.log('onsubmit click errorSwitch: ', errorSwitch)
             
-              if(!errorSwitch.includes(true)){
-                console.log('onsubmit click, no errorss, set modal config and place order allowed.')
-                props.setModalConfig({
-                  header:'Thank You!',
-                  content: <ThankYou/>,
-                  orderCost: ``
-                })
-                props.placeOrder(props.userData.user_uuid, props.cart)
+              // if(!errorSwitch.includes(true)){
+              //   console.log('onsubmit click, no errorss, set modal config and place order allowed.')
+              //   props.setModalConfig({
+              //     header:'Thank You!',
+              //     content: <ThankYou/>,
+              //     orderCost: ``
+              //   })
+              //   props.placeOrder(props.userData.user_uuid, props.cart)
                 
-              }else{
-                console.log('onsubmit click, with errors, providing fix error feedback')
-              }
+              // }else{
+              //   console.log('onsubmit click, with errors, providing fix error feedback')
+              // }
             }}
             className=" btn-sm"
             variant="info"
@@ -637,9 +642,6 @@ function Checkout(props){
           >
             Submit
           </Button>
-          <Form.Control.Feedback>
-            {/* {handleSubmitClick()} */}
-          </Form.Control.Feedback>
           <LinkRouter to="/cart">
             <Button
               className="btn-sm"

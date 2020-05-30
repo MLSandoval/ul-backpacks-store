@@ -160,7 +160,6 @@ export function storeCheckoutFormData(key, value){
 }
 
 export function validateCheckoutForm(checkoutFormData, key){
-  console.log('validateCheckoutForm aciton to be sent to validation reducer switch, checkoutFormData: ', checkoutFormData)
   return function(dispatch){
     dispatch({
       type: types.CHECKOUT_FORM_SUBMITTED_FOR_VALIDATION,
@@ -232,8 +231,13 @@ export function createNewUser(email, first_name, last_name){
   }
 }
 
-export function placeOrder (user_uuid, cart){
-  const {cart_uuid, cart_items} = cart
+export function updateUserData(email, first_name, last_name){
+
+}
+
+export function placeOrder (user_uuid, cart, formData){
+  const {cart_uuid} = cart
+  console.log('placeOrder action, formData: ', formData)
   return function(dispatch){
     fetch('/api/place-order', {
       method: 'PUT',
@@ -243,7 +247,7 @@ export function placeOrder (user_uuid, cart){
       body:JSON.stringify({
         user_uuid,
         cart_uuid,
-        cart_items
+        formData: formData.values
       })
     })
     .then(res=>res.json())

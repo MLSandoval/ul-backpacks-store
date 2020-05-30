@@ -9,7 +9,7 @@ import Collapse from 'react-bootstrap/Collapse'
 import './styles/orders_style.css'
 import {getOrders} from '../actions'
 
-function ThankYou (props) {
+function Orders (props) {
 
   useEffect(()=>{
     props.getOrders(localStorage.getItem('user_uuid'))
@@ -19,7 +19,11 @@ function ThankYou (props) {
 
     if(!props.orders[0]){
       return (
-        <tr><td>You have no past orders.</td></tr>
+        <React.Fragment>
+          <h3 className="col-12 text-center">You have no past orders.</h3>
+          <h3 className="col-12 text-center">Visit our <Link to="/products">products</Link> to get started shopping.</h3>
+        </React.Fragment>
+       
         )
     }else{
       return (
@@ -38,7 +42,7 @@ function ThankYou (props) {
               console.log('orders map, prodDataAddedArr: ', prodDataAddedArr)
               let orderTotal = 0
               return(
-                <div className="row col-12">
+                <div key={order.order_uuid} className="row col-12">
                   <div className="order-date col-2 font-weight-bold">{order.order_date}</div>
                   <div className="order-uuid col-6"><span className="font-weight-bold">Order ID:</span> {order.order_uuid}</div>
                   <Table  size="sm" key={order.order_uuid} className="col-12 text-center mb-1">
@@ -122,4 +126,4 @@ function mapStateToProps (state){
   }
 }
 
-export default withRouter(connect(mapStateToProps, {getOrders})(ThankYou))
+export default withRouter(connect(mapStateToProps, {getOrders})(Orders))

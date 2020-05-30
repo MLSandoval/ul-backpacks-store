@@ -22,7 +22,7 @@ function ThankYou (props) {
       props.clearCart(props.cart.cart_uuid)
       props.setModalConfig({
         header: '',
-        content: '',
+        content: null,
         orderCost: ''
       })
     }

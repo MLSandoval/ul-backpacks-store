@@ -56,7 +56,7 @@ class ModalShell extends React.Component {
 
   handleOnHide(){
     if(this.props.modalConfig.header === "Thank You!"){
-      this.props.history.go('-2')
+      this.props.history.push('/')
     }else{
       this.props.history.goBack()
     }

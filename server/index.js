@@ -182,8 +182,24 @@ app.patch('/api/remove-item', (req, res, next)=>{
 })
 
 app.put('/api/place-order', (req, res, next)=>{
-  const {user_uuid, cart_uuid} = req.body
-
+  const {user_uuid, cart_uuid, formData} = req.body
+  console.log('place-order endpoint, req.body: ', req.body)
+  const {
+    email,
+    shippingOption,
+    nameOnCard,
+    cardNumber,
+    cardExp,
+    cvv,
+    billStreetAddress,
+    billCity,
+    billState,
+    billZip,
+    shipStreetAddress,
+    shipCity,
+    shipState,
+    shipZip
+  } = formData
   const query = {
     text: `
     INSERT INTO orders VALUES (
@@ -193,7 +209,24 @@ app.put('/api/place-order', (req, res, next)=>{
       (SELECT cart_items FROM cart WHERE cart_uuid = $1)::hstore)
       RETURNING orders.order_uuid, orders.items::json, orders.user_uuid, (SELECT to_char(orders.order_date, 'DD Mon YYYY') AS order_date)
     `,
-    values: [cart_uuid, user_uuid]
+    values: [
+      cart_uuid, 
+      user_uuid,
+      // email,
+      // shippingOption,
+      // nameOnCard,
+      // cardNumber,
+      // cardExp,
+      // cvv,
+      // billStreetAddress,
+      // billCity,
+      // billState,
+      // billZip,
+      // shipStreetAddress,
+      // shipCity,
+      // shipState,
+      // shipZip
+    ]
   }
 
   db.query(query)
