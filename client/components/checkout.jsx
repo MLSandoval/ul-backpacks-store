@@ -63,6 +63,7 @@ function Checkout(props){
       shipZip: true
     })
 
+    
     let errorsArr = Object.values(props.checkoutFormData.errors)
     console.log('handles submit, errors arrary: ', errorsArr)
     let errorSwitch = errorsArr.map(input=>{
