@@ -1,4 +1,4 @@
-import React,{useEffect} from 'react'
+import React,{useEffect, useState} from 'react'
 import {connect} from 'react-redux'
 import {Link, useHistory, withRouter} from 'react-router-dom'
 
@@ -15,7 +15,11 @@ function Orders (props) {
     props.getOrders(localStorage.getItem('user_uuid'))
   }, [])
 
+  const [open, setOpen] = useState(false)
+
   function generateRows(){
+
+    
 
     if(!props.orders[0]){
       return (
@@ -44,7 +48,25 @@ function Orders (props) {
               return(
                 <div key={order.order_uuid} className="row col-12">
                   <div className="order-date col-2 font-weight-bold">{order.order_date}</div>
-                  <div className="order-uuid col-6"><span className="font-weight-bold">Order ID:</span> {order.order_uuid}</div>
+                  
+                  <div className="order-uuid col-6" onClick={()=>setOpen(!open)}>
+                    -Order Details-
+                  </div>
+                  <div className="collapser p-0 m-0">
+                    <Collapse in={open} >
+                      <div className="p-0 m-0 col-12 d-flex">
+                        <div><span className="col-12 font-weight-bold m-0 p-0">Order ID:</span> {order.order_uuid}</div>
+                        <div className="col-4">
+                          Payment Information
+                          <div>
+                            <div><span className="font-weight-bold m-0 p-0">Card Number:</span> XXXX-XXXX-XXXX-4123</div>
+                          </div>
+                        </div>
+                      </div>
+                    </Collapse>
+                  </div>
+                  
+                  
                   <Table  size="sm" key={order.order_uuid} className="col-12 text-center mb-1">
                     <thead>
                       <tr>
