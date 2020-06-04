@@ -181,14 +181,13 @@ export function getUserData(user_uuid, products){
     })
     .then(res=>res.json())
     .then((data)=>{
-      const {user_uuid, email, first_name, last_name, cart_items, cart_uuid} = data
+      const {user_uuid, email, name, cart_items, cart_uuid} = data
         dispatch({
           type: types.USER_DATA_RETRIEVED,
           payload: {
             user_uuid,
             email, 
-            first_name, 
-            last_name, 
+            name
           }
         })
         dispatch({
@@ -204,7 +203,7 @@ export function getUserData(user_uuid, products){
   }
 }
 
-export function createNewUser(email, first_name, last_name){
+export function createNewUser(email, name){
   return function(dispatch){
     fetch('/api/create-user', {
       method: 'PUT',

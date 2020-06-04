@@ -55,11 +55,12 @@ app.get('/api/get-products', (req, res, next)=>{
 app.get('/api/get-user', (req, res, next)=>{
   const {user_uuid} = req.headers
   const queryObj = {
-    text: `SELECT users.user_uuid, users.email, users.first_name, users.last_name, cart.cart_uuid, cart.cart_items::json
-      FROM users, cart 
-      WHERE users.user_uuid = $1
-        AND cart.user_uuid = $1
-      `,
+    text: `
+      SELECT users.user_uuid, users.email, users.name, cart.cart_uuid, cart.cart_items::json
+        FROM users, cart 
+        WHERE users.user_uuid = $1
+          AND cart.user_uuid = $1
+    `,
     values: [user_uuid]
   }
 
@@ -76,14 +77,14 @@ app.put('/api/create-user', (req, res, next)=>{
   const queryObj = {
     text: `
       WITH new_user AS (
-        INSERT INTO users VALUES (uuid_generate_v4(), $1, $2, $3) RETURNING user_uuid
+        INSERT INTO users VALUES (uuid_generate_v4(), $1, $2) RETURNING user_uuid
       )
       INSERT INTO cart 
         VALUES (uuid_generate_v4(), (SELECT user_uuid FROM new_user), hstore(''))
           RETURNING (SELECT user_uuid FROM new_user), cart.cart_uuid, cart.cart_items::json
       `
       ,
-    values: [null, null, null]
+    values: [null, null]
   }
 
   db.query(queryObj)
@@ -184,7 +185,7 @@ app.patch('/api/remove-item', (req, res, next)=>{
 app.put('/api/place-order', (req, res, next)=>{
   const {user_uuid, cart_uuid, formData} = req.body
   console.log('place-order endpoint, req.body: ', req.body)
-  const {
+  let {
     email,
     shippingOption,
     nameOnCard,
@@ -200,32 +201,75 @@ app.put('/api/place-order', (req, res, next)=>{
     shipState,
     shipZip
   } = formData
+
+  cardNumber = parseInt(cardNumber)
+  billZip = parseInt(billZip)
+  shipZip = parseInt(shipZip)
+
   const query = {
     text: `
-    INSERT INTO orders VALUES (
-      uuid_generate_v4(), 
-      $2::uuid,
-      (SELECT CURRENT_DATE),
-      (SELECT cart_items FROM cart WHERE cart_uuid = $1)::hstore)
-      RETURNING orders.order_uuid, orders.items::json, orders.user_uuid, (SELECT to_char(orders.order_date, 'DD Mon YYYY') AS order_date)
+      WITH user_update AS (
+        UPDATE users
+          SET
+            email = $3,
+            name = $4
+        WHERE user_uuid = $2
+      ), order_info_insert AS(
+      INSERT INTO orders VALUES (
+        uuid_generate_v4(), 
+        $2::uuid,
+        (SELECT CURRENT_DATE),
+        (SELECT cart_items FROM cart WHERE cart_uuid = $1)::hstore,
+        $8
+      )
+      RETURNING orders.order_uuid AS order_uuid, orders.items::json AS items, 
+        orders.user_uuid AS user_uuid, 
+        (SELECT to_char(orders.order_date, 'DD Mon YYYY') AS order_date)
+    ), payment_info_insert AS(
+      INSERT INTO payment_info VALUES (
+        uuid_generate_v4(),
+        (SELECT order_uuid FROM order_info_insert),
+        $5,
+        $6,
+        $7,
+        $4,
+        $9,
+        $10,
+        $11,
+        $12
+      )
+    )
+    
+    INSERT INTO shipping_info VALUES (
+      uuid_generate_v4(),
+      (SELECT order_uuid FROM order_info_insert),
+      $13,
+      $14,
+      $15,
+      $16
+    )
+      RETURNING  (SELECT order_uuid from order_info_insert) AS order_uuid, 
+      (SELECT items FROM order_info_insert),
+      (SELECT user_uuid FROM order_info_insert),
+      (SELECT order_date FROM order_info_insert)
     `,
     values: [
       cart_uuid, 
       user_uuid,
-      // email,
-      // shippingOption,
-      // nameOnCard,
-      // cardNumber,
-      // cardExp,
-      // cvv,
-      // billStreetAddress,
-      // billCity,
-      // billState,
-      // billZip,
-      // shipStreetAddress,
-      // shipCity,
-      // shipState,
-      // shipZip
+      email,
+      nameOnCard,
+      cardNumber,
+      cardExp,
+      cvv,
+      shippingOption,
+      billStreetAddress,
+      billCity,
+      billState,
+      billZip,
+      shipCity,
+      shipState,
+      shipZip,
+      shipStreetAddress
     ]
   }
 

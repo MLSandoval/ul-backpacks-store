@@ -97,7 +97,8 @@ function Checkout(props){
       shipStreetAddress: '',
       shipCity: '',
       shipState: '',
-      shipZip: ''
+      shipZip: '',
+      shipSameAsBill: false
     })
   }
     
