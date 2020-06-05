@@ -251,6 +251,7 @@ export function placeOrder (user_uuid, cart, formData){
     })
     .then(res=>res.json())
     .then(data=>{
+      console.log('ordered placeOrder data: ', data)
       const {order_uuid, user_uuid, items, order_date} = data
       
       dispatch({
@@ -302,6 +303,7 @@ export function getOrders(user_uuid){
     })
     .then(res=>res.json())
     .then(data=>{
+      console.log('getOrders action data: ', data)
       dispatch({
         type: types.ORDERS_RETRIEVED,
         payload: data

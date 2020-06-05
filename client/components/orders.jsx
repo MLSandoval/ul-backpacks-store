@@ -5,9 +5,12 @@ import {Link, useHistory, withRouter} from 'react-router-dom'
 import Button from 'react-bootstrap/Button'
 import Table from 'react-bootstrap/Table'
 import Collapse from 'react-bootstrap/Collapse'
+import ListGroup from 'react-bootstrap/ListGroup'
 
 import './styles/orders_style.css'
 import {getOrders} from '../actions'
+
+import MultiCollapse from './multiCollapse'
 
 function Orders (props) {
 
@@ -15,26 +18,24 @@ function Orders (props) {
     props.getOrders(localStorage.getItem('user_uuid'))
   }, [])
 
-  const [open, setOpen] = useState(false)
+  // const [open, setOpen] = useState(false)
+  const [collapseState, setCollapseState] = useState(false)
 
   function generateRows(){
-
-    
-
     if(!props.orders[0]){
       return (
         <React.Fragment>
           <h3 className="col-12 text-center">You have no past orders.</h3>
           <h3 className="col-12 text-center">Visit our <Link to="/products">products</Link> to get started shopping.</h3>
         </React.Fragment>
-       
-        )
+      )
     }else{
       return (
         <React.Fragment>
           {
             props.orders.map((order)=>{
               let prodDataAddedArr = []
+              let open = null
               for(let key in order.items){
                 let product = props.products.find(product=>product.product_uuid === key ? true : false)
                 prodDataAddedArr.push({
@@ -46,74 +47,66 @@ function Orders (props) {
               console.log('orders map, prodDataAddedArr: ', prodDataAddedArr)
               let orderTotal = 0
               return(
-                <div key={order.order_uuid} className="row col-12">
-                  <div className="order-date col-2 font-weight-bold">{order.order_date}</div>
+                <div key={order.order_uuid} className="row col-12 justify-content-between align-items-center pb-1">
+                  <div className="order-date font-weight-bold">{order.order_date}</div>
+                  {/* <div className="font-weight-bold text-center">${orderTotal.toFixed(2) || '$0.00'}</div> */}
                   
-                  <div className="order-uuid col-6" onClick={()=>setOpen(!open)}>
-                    -Order Details-
-                  </div>
-                  <div className="collapser p-0 m-0">
-                    <Collapse in={open} >
-                      <div className="p-0 m-0 col-12 d-flex">
-                        <div><span className="col-12 font-weight-bold m-0 p-0">Order ID:</span> {order.order_uuid}</div>
-                        <div className="col-4">
-                          Payment Information
-                          <div>
-                            <div><span className="font-weight-bold m-0 p-0">Card Number:</span> XXXX-XXXX-XXXX-4123</div>
-                          </div>
-                        </div>
+                    {/* <Button size="sm" className="order-details-btn" onClick={()=>setCollapseState(!collapseState)} variant="outline-info">{open ? 'Close' : 'Order Details'}</Button> */}
+                   
+                    <MultiCollapse order_date={order.order_date} order={order} prodDataAddedArr={prodDataAddedArr}>
+                      <div className="p-0 m-0 col-12 border border-info">
+                        <ListGroup variant="flush">
+                          <ListGroup.Item><span className="font-weight-bold p-0">Order ID:</span> {order.order_uuid}</ListGroup.Item>
+                          <ListGroup.Item><span className="font-weight-bold m-0 p-0">Card Number:</span> XXXX-XXXX-XXXX-4123</ListGroup.Item>
+                          <ListGroup.Item><span className="font-weight-bold m-0 p-0">Shipped to:</span> 12345 west elm, westminster, California 92647</ListGroup.Item>
+                          <ListGroup.Item>Items</ListGroup.Item>
+                        </ListGroup>
+                        <Table  size="sm" key={order.order_uuid} className="col-12 text-center mb-1">
+                          <thead>
+                            <tr>
+                              <th></th>  
+                              <th></th>
+                              <th>Product</th>
+                              <th>Quantity</th>
+                              <th>Price</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            {
+                              prodDataAddedArr.map(orderProdWithData=>{
+                                console.log('orderpords compute total, price, quanitty: ', orderProdWithData.price, orderProdWithData.quantity)
+                                orderTotal += (parseInt(orderProdWithData.price) * parseInt(orderProdWithData.quantity))
+                                return(
+                                  <React.Fragment key={order.order_uuid + orderProdWithData.product_uuid}>
+                                    <tr>
+                                      <td><img className="row-image" src={orderProdWithData.image_urls[0]}/></td>
+                                      <td></td>
+                                      <td>{orderProdWithData.name}</td>
+                                      <td>{orderProdWithData.quantity}</td>
+                                      <td>${orderProdWithData.price}</td>
+                                    </tr>
+                                  </React.Fragment>
+                                )
+                              })
+                            }
+                            <tr>
+                              <td></td>
+                              <td></td>
+                              <td></td>
+                              <td> </td>
+                              <td>Standard shipping + $0.00</td>
+                            </tr>
+                            <tr>
+                              <td></td>
+                              <td></td>
+                              <td></td>
+                              <td className="font-weight-bold">Order Total: </td>
+                              <td className="font-weight-bold">${orderTotal.toFixed(2) || '$0.00'}</td>
+                            </tr>
+                          </tbody>
+                        </Table> 
                       </div>
-                    </Collapse>
-                  </div>
-                  
-                  
-                  <Table  size="sm" key={order.order_uuid} className="col-12 text-center mb-1">
-                    <thead>
-                      <tr>
-                        <th></th>  
-                        <th></th>
-                        <th>Product</th>
-                        <th>Quantity</th>
-                        <th>Price</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {
-                        prodDataAddedArr.map(orderProdWithData=>{
-                          console.log('orderpords compute total, price, quanitty: ', orderProdWithData.price, orderProdWithData.quantity)
-                          orderTotal += (parseInt(orderProdWithData.price) * parseInt(orderProdWithData.quantity))
-                          return(
-                            <React.Fragment key={order.order_uuid + orderProdWithData.product_uuid}>
-                              <tr>
-                                <td><img className="row-image" src={orderProdWithData.image_urls[0]}/></td>
-                                <td></td>
-                                <td>{orderProdWithData.name}</td>
-                                <td>{orderProdWithData.quantity}</td>
-                                <td>${orderProdWithData.price}</td>
-                              </tr>
-                              
-                            </React.Fragment>
-                            
-                          )
-                        })
-                      }
-                      <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td> </td>
-                        <td>Standard shipping + $0.00</td>
-                      </tr>
-                      <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td className="font-weight-bold">Order Total: </td>
-                        <td className="font-weight-bold">${orderTotal.toFixed(2) || '$0.00'}</td>
-                      </tr>
-                    </tbody>
-                  </Table> 
-                  <div className="horizontal-line mb-3"></div>
+                    </MultiCollapse>
                 </div>
               )
             })

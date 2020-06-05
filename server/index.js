@@ -306,8 +306,14 @@ app.get('/api/get-orders', (req, res, next)=>{
 
   const query = {
     text: `
-      SELECT order_uuid, to_char(order_date, 'DD Mon YYYY') AS order_date, items::json  FROM orders 
-        WHERE user_uuid = $1
+      SELECT 
+        orders.order_uuid, 
+        to_char(orders.order_date, 'DD Mon YYYY') AS order_date, 
+        orders.items::json, 
+        payment_info.card_number
+      FROM orders
+        JOIN payment_info ON orders.order_uuid = payment_info.order_uuid
+      WHERE orders.order_uuid = $1
     `,
     values: [user_uuid]
   }
