@@ -202,7 +202,9 @@ app.put('/api/place-order', (req, res, next)=>{
     shipZip
   } = formData
 
+  cardNumber.replace(/ /, '')
   cardNumber = parseInt(cardNumber)
+  console.log('cardNumber with spaces after parsing: ', cardNumber)
   billZip = parseInt(billZip)
   shipZip = parseInt(shipZip)
 

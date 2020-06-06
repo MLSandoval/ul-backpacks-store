@@ -64,11 +64,11 @@ class Cart extends React.Component {
           <Table className="table table-hover">
             <thead>
               <tr>
-                <th scope="col-2"></th>
+                <th scope="col-2" ></th>
                 <th scope="col-2">Product</th>
-                <th scope="col-2">Quantity</th>
-                <th scope="col-2">Price</th>
-                <th scope="col-2">Total</th>
+                <th scope="col-2" className="text-center">Quantity</th>
+                <th scope="col-2" className="text-center">Price</th>
+                <th scope="col-2" className="text-center">Total</th>
                 <th scope="col-1"></th>
               </tr>
             </thead>
@@ -77,12 +77,12 @@ class Cart extends React.Component {
               const element = products.filter(currentIteratedProduct => currentIteratedProduct.product_uuid === product.product_uuid)[0]
               return(
                 <tr key={product.product_uuid}>
-                  <th scope="row">
-                    <img className="row-image" src={element.image_urls[0]}></img>
-                  </th>
-                  <td>{element.name}</td>
                   <td>
-                  <button 
+                    <img className="row-image" src={element.image_urls[0]}></img>
+                  </td>
+                  <td>{element.name}</td>
+                  <td className="text-center">
+                    <button 
                       type="button" 
                       className="btn"
                       data-uuid={product.product_uuid}
@@ -103,9 +103,9 @@ class Cart extends React.Component {
                       >+
                     </button>
                   </td>
-                  <td>${element.price}</td>
-                  <td>${(element.price*product.quantity).toFixed(2)}</td>
-                  <td>
+                  <td className="text-center">${element.price}</td>
+                  <td className="text-center">${(element.price*product.quantity).toFixed(2)}</td>
+                  <td className="text-center">
                     <button 
                       type="button" 
                       className="btn btn-danger"
@@ -118,29 +118,20 @@ class Cart extends React.Component {
               )
             })}
             <tr>
-              <th scope="row">
-              </th>
               <td></td>
               <td></td>
-              <td className="font-weight-bold">Order Total: </td>
+              <td></td>
+              <td className="font-weight-bold text-right">Order Total: </td>
               <td className="font-weight-bold">${this.props.totalOrderCost.toFixed(2) || 0.00}</td> 
-            </tr>
-            <tr>
-              <th scope="row">
-              </th>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td>
-                <LinkRouter to={`cart/modal/checkout`}>
-                  <Button variant="info" type="button" className="btn-sm" >
-                    Checkout
-                  </Button>
-                </LinkRouter>
-              </td> 
             </tr>
             </tbody>
           </Table>
+          <div className="d-flex w-100">
+            <div className="col-9"></div>
+            <Button as={LinkRouter} variant="info" type="button" className="btn-sm col-3" to={`cart/modal/checkout`}>
+              Checkout
+            </Button>
+          </div>
           <Route path={`${this.props.match.url}/modal`} component={ModalShell}/>
         </React.Fragment>
       )
