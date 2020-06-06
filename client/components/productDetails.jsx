@@ -57,23 +57,11 @@ class ProductDetails extends React.Component {
     }else{
       this.props.addItemToCart(this.props.cart, this.props.currentProduct)
     }
-    this.props.computeCartTotal(this.props.cart.cart_items, this.props.products)
+    this.props.computeCartTotal(this.props.cart.cart_items, this.props.products, this.props.currentProduct)
   }
   
   componentDidMount(){
-    // if(!this.props.currentProduct){
-    //   this.props.history.goTo('/products')
-    // }
-    // if(!this.props.currentProduct){
-    //   setTimeout(this.props.setCurrentProduct(this.props.productList.filter(
-    //     element=>{
-    //       element.product_uuid === this.props.match.params.product_uuid ? true : false
-    //     }
-    //   ))[0], 100)
-    // }
-
     window.scrollTo(0,0)
-
     document.addEventListener('scroll', this.scrollFn)
   }
 
@@ -155,7 +143,7 @@ class ProductDetails extends React.Component {
             <ul>{ this.renderProductFeatures() }</ul>
           </Tab>
         </Tabs>
-        {this.state.visibility ? <BackToTopButton/> : null}
+        {this.state.visibility ? <BackToTopButton className="bring-to-front"/> : null}
         <Route path={`${this.props.match.url}/modal`} component={ModalShell}/>
       </div>
     )

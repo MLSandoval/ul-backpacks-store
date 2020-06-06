@@ -12,7 +12,7 @@ import {computeCartTotal} from '../actions'
 function ContinueShopping(props){
 
   useEffect(()=>{
-    props.computeCartTotal(props.cart.cart_items, props.products)
+    // props.computeCartTotal(props.cart.cart_items, props.products, props.currentProduct)
   })
   
   function generateRows(){
@@ -62,13 +62,18 @@ function ContinueShopping(props){
             {generateRows()}
             <tr >
               <td ></td>
-              {/* <td  className="d-flex justify-content-end no-wrap-white">Cart Total:</td>
-              <td >${props.totalOrderCost.toFixed(2)}</td> */}
+              <td  className="d-flex justify-content-end no-wrap-white"></td>
+              <td className="text-center">${props.totalOrderCost.toFixed(2)}</td>
               <td></td>
               <td></td>
             </tr>
           </tbody>
         </Table>
+        <div className="w-100 d-flex">
+          <div className="col-7 col-md-8 "></div>
+          <div className="font-weight-bold no-wrap-white">Cart Total: ${props.totalOrderCost.toFixed(2)}</div>
+
+        </div>
       </Modal.Body>
       <Modal.Footer className="d-flex">
         <div className="col-9"></div>

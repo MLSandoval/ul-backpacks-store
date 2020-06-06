@@ -113,7 +113,7 @@ class ProductList extends React.Component {
           </CardDeck>
           <div className="to-top-pos">
             {
-              this.state.visibility ? <BackToTopButton/> : null
+              this.state.visibility ? <BackToTopButton className="bring-to-front"/> : null
                 
             }
             

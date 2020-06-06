@@ -202,9 +202,8 @@ app.put('/api/place-order', (req, res, next)=>{
     shipZip
   } = formData
 
-  cardNumber.replace(/ /, '')
-  cardNumber = parseInt(cardNumber)
-  console.log('cardNumber with spaces after parsing: ', cardNumber)
+  cardNumber = cardNumber.replace(/ /g, '')
+  console.log('cardNumber with spaces rmeoved: ', cardNumber)
   billZip = parseInt(billZip)
   shipZip = parseInt(shipZip)
 
@@ -240,6 +239,7 @@ app.put('/api/place-order', (req, res, next)=>{
         $11,
         $12
       )
+      RETURNING card_number
     )
     
     INSERT INTO shipping_info VALUES (
@@ -250,10 +250,13 @@ app.put('/api/place-order', (req, res, next)=>{
       $15,
       $16
     )
-      RETURNING  (SELECT order_uuid from order_info_insert) AS order_uuid, 
+      RETURNING shipping_info.ship_city, shipping_info.ship_state, shipping_info.ship_zip, shipping_info.ship_street_address, 
+      (SELECT order_uuid from order_info_insert) AS order_uuid, 
       (SELECT items FROM order_info_insert),
       (SELECT user_uuid FROM order_info_insert),
-      (SELECT order_date FROM order_info_insert)
+      (SELECT order_date FROM order_info_insert),
+      (SELECT shipping_option FROM order_info_insert),
+      (SELECT card_number FROM payment_info_insert)
     `,
     values: [
       cart_uuid, 
@@ -278,6 +281,7 @@ app.put('/api/place-order', (req, res, next)=>{
   db.query(query)
   .then(data=>{
     console.log('successful order placed query, data.rows[0]: ', data.rows[0])
+    data.rows[0].card_number = 'XXXX XXXX XXXX ' + data.rows[0].card_number.slice(-4)
     res.send(data.rows[0])
   })
   .catch(err=>console.error('Place Order Query Error: ', err))
@@ -312,9 +316,15 @@ app.get('/api/get-orders', (req, res, next)=>{
         orders.order_uuid, 
         to_char(orders.order_date, 'DD Mon YYYY') AS order_date, 
         orders.items::json, 
-        payment_info.card_number
+        orders.shipping_option,
+        payment_info.card_number,
+        shipping_info.ship_city,
+        shipping_info.ship_state,
+        shipping_info.ship_street_address,
+        shipping_info.ship_zip
       FROM orders
         JOIN payment_info ON orders.order_uuid = payment_info.order_uuid
+        JOIN shipping_info ON orders.order_uuid = shipping_info.order_uuid
       WHERE orders.user_uuid = $1
     `,
     values: [user_uuid]
@@ -322,8 +332,10 @@ app.get('/api/get-orders', (req, res, next)=>{
 
   db.query(query)
   .then((data)=>{
-    console.log('successful get orders query, JSON.parse()data.rows: ', data.rows)
-
+    console.log('successful get orders query, data.rows: ', data.rows)
+    data.rows.forEach((element)=>{
+      element.card_number = 'XXXX XXXX XXXX ' + element.card_number.slice(-4)
+    })
     res.send(data.rows)
   })
   .catch(err=>{console.error('Get Orders Error: ', err)})

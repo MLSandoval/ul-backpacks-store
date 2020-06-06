@@ -129,9 +129,10 @@ export function computeCartTotal(cart_items, products){
     if(currentProduct){
       total += parseInt(cart_items[key]) * parseInt(currentProduct[0].price)
     }
-    
   }
-
+  if(addedProd){
+    total += parseInt(addedProd.price)
+  }
   return function (dispatch) {
     dispatch({
       type: types.CART_TOTAL_COMPUTED,
@@ -251,16 +252,21 @@ export function placeOrder (user_uuid, cart, formData){
     })
     .then(res=>res.json())
     .then(data=>{
-      console.log('ordered placeOrder data: ', data)
-      const {order_uuid, user_uuid, items, order_date} = data
+      console.log(' placeOrder action data: ', data)
+      const {order_uuid, user_uuid, items, order_date, card_number, ship_city, ship_street_address, ship_zip, ship_state} = data
       
       dispatch({
         type: types.ORDER_PLACED,
-        action: {
+        payload: {
           order_uuid,
           user_uuid,
           items,
-          order_date
+          order_date,
+          card_number,
+          ship_city,
+          ship_street_address,
+          ship_zip,
+          ship_state
         }
       })
       

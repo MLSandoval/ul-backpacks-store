@@ -46,7 +46,7 @@ class ModalShell extends React.Component {
         this.props.setModalConfig({
           header:'Continue Shopping?',
           content: <ContinueShopping/>,
-          orderCost: `$ ${this.props.totalOrderCost.toFixed(2)}`
+          orderCost: ``
         })
         break
       default: console.error('Modal Content Error.')
@@ -64,9 +64,15 @@ class ModalShell extends React.Component {
   }
 
   componentDidMount(){
-    // console.log('props in MOdalShell componenet: ', this.props)
-    // this.props.computeCartTotal(this.props.cart.cart_items, this.props.products)
+    console.log('props in MOdalShell componenet: ', this.props)
+    this.props.computeCartTotal(this.props.cart.cart_items, this.props.products)
     this.generateModalContent()
+  }
+  componentDidUpdate(){
+    this.props.computeCartTotal(this.props.cart.cart_items, this.props.products)
+  }
+  componentWillReceiveProps(){
+    this.props.computeCartTotal(this.props.cart.cart_items, this.props.products)
   }
 
   render () {

@@ -34,12 +34,12 @@ class Cart extends React.Component {
         <React.Fragment>
           <Table className="empty-cart">
             <thead>
-            <tr>
-                <th scope="col-2"></th>
+              <tr>
+                <th scope="col-2" ></th>
                 <th scope="col-2">Product</th>
-                <th scope="col-2">Quantity</th>
-                <th scope="col-2">Price</th>
-                <th scope="col-2">Total</th>
+                <th scope="col-2" className="text-center">Quantity</th>
+                <th scope="col-2" className="text-center">Price</th>
+                <th scope="col-2" className="text-center">Total</th>
                 <th scope="col-1"></th>
               </tr>
             </thead>
@@ -121,17 +121,30 @@ class Cart extends React.Component {
               <td></td>
               <td></td>
               <td></td>
-              <td className="font-weight-bold text-right">Order Total: </td>
-              <td className="font-weight-bold">${this.props.totalOrderCost.toFixed(2) || 0.00}</td> 
+              <td className="font-weight-bold text-right"> </td>
+              <td className="text-center"><span className="font-weight-bold">Order Total: </span>${this.props.totalOrderCost.toFixed(2) || 0.00}</td>
+              <td></td> 
+            </tr>
+            <tr>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td className="text-center">
+                <Button as={LinkRouter} variant="info" type="button" className="btn-sm" to={`cart/modal/checkout`}>
+                  Checkout
+                </Button>
+              </td>
+              <td></td>
             </tr>
             </tbody>
           </Table>
-          <div className="d-flex w-100">
+          {/* <div className="d-flex w-100">
             <div className="col-9"></div>
-            <Button as={LinkRouter} variant="info" type="button" className="btn-sm col-3" to={`cart/modal/checkout`}>
+            <Button as={LinkRouter} variant="info" type="button" className="btn-sm col-2" to={`cart/modal/checkout`}>
               Checkout
             </Button>
-          </div>
+          </div> */}
           <Route path={`${this.props.match.url}/modal`} component={ModalShell}/>
         </React.Fragment>
       )

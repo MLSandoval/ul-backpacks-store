@@ -13,7 +13,7 @@ function MultiCollapse (props) {
   console.log('multicollapse props: ', props)
   return(
     <React.Fragment>
-      <Button size="sm" className="col-2 order-details-btn" onClick={()=>setOpen(!open)} variant="outline-info">{open ? 'Close' : 'Order Details'}</Button>
+      <Button size="sm" className="col-2 order-details-btn" onClick={()=>setOpen(!open)} variant="outline-info">{open ? 'Close' : 'Details'}</Button>
       <div className="horizontal-line pt-1 mt-1 rounded-top"></div>
       <Collapse in={open}>
         {props.children}
