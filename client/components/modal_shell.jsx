@@ -46,7 +46,7 @@ class ModalShell extends React.Component {
         this.props.setModalConfig({
           header:'Continue Shopping?',
           content: <ContinueShopping/>,
-          orderCost: ``
+          orderCost: `$ ${this.props.totalOrderCost.toFixed(2)}`
         })
         break
       default: console.error('Modal Content Error.')
@@ -89,7 +89,7 @@ class ModalShell extends React.Component {
               <div className="col-6">
                 {this.props.modalConfig.header}  
               </div>
-              <div className="col-6">
+              <div className="col-6 text-right">
                 {`${this.props.modalConfig.orderCost}` || ''}
               </div>
             </Modal.Title>

@@ -313,7 +313,7 @@ app.get('/api/get-orders', (req, res, next)=>{
         payment_info.card_number
       FROM orders
         JOIN payment_info ON orders.order_uuid = payment_info.order_uuid
-      WHERE orders.order_uuid = $1
+      WHERE orders.user_uuid = $1
     `,
     values: [user_uuid]
   }

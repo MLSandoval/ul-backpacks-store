@@ -100,7 +100,7 @@ function Orders (props) {
                               <td></td>
                               <td></td>
                               <td></td>
-                              <td className="font-weight-bold">Order Total: </td>
+                              <td className="d-flex justify-content-end no-wrap-white font-weight-bold">Order Total: </td>
                               <td className="font-weight-bold">${orderTotal.toFixed(2) || '$0.00'}</td>
                             </tr>
                           </tbody>
