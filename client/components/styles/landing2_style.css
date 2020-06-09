@@ -7,9 +7,21 @@
   /* overflow-y: scroll; */
 }
 .text{
-  background-color: black;
+  background-color: rgba(0, 0, 0, 0);
+  z-index: 10;
 }
-.left-text{}
+.left-text{
+  position: absolute; 
+  left:0;
+  height:100vh;
+  width: 20vw;
+}
+.right-text{
+  position: absolute; 
+  right:0;
+  height:100vh;
+  width: 20vw;
+}
 .parallax-container{
   height: 100vh;
   width: calc(100vw - 8px);
@@ -24,12 +36,25 @@
   background-size: cover;
 }
 .bg-1{
-  background-image: url('../../images/backgrounds/BP_landscape_3.jpg');
+  background-image: url('../../images/backgrounds/BP_landscape_9.jpg');
+  
 }
 .horizontal-divider{
   height:3rem;
   background-color: black;
+  color:  black;
 }
 .bg-2{
-  background-image: url('../../images/backgrounds/BP_landscape_4.jpg');
+  background-image: url('../../images/gear_sets/gear_set_up_1.jpg');
 }
+.landing-inner-box{
+  background-color:  white;
+  height: 100px;
+  width: 100px;
+}
+
+/* @media (max-width: 375px){
+  .horizontal-divider{
+    width:97.9%
+  }
+} */

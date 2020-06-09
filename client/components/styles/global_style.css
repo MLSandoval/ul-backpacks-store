@@ -40,3 +40,9 @@
 ::-webkit-scrollbar-thumb:window-inactive {
   background: rgba(139, 139, 139, 0.103); 
 }
+.tester{
+  height: 100px;
+  width: 100%;
+  background-color: teal;
+  z-index: 1290;
+}

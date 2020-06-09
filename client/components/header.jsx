@@ -12,6 +12,7 @@ import Nav from 'react-bootstrap/Nav'
 import NavDropdown from 'react-bootstrap/NavDropdown'
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
+import Collapse from 'react-bootstrap/Collapse'
 
 // import { Switch, Route, Link } from "react-router-dom";
 
@@ -31,8 +32,7 @@ class Header extends React.Component {
     }
     return total || 0
   }
-  componentDidUpdate(prevProps){}
-  componentDidMount(){}
+ 
 
   removeActiveOnClick(){
     document.querySelectorAll('.active').forEach((element)=>{
@@ -53,8 +53,10 @@ class Header extends React.Component {
   }
 
   render(){
+    console.log('header props on rerender: ', this.props)
     return (
-      <div className="container">
+      // <Collapse in={this.props.in}>
+      <div className="">
         <Navbar 
           onClick={()=>{this.removeActiveOnClick()}}
           // toggleNavKey={4} 
@@ -101,6 +103,7 @@ class Header extends React.Component {
         </Navbar.Collapse>
       </Navbar>
       </div>
+      // </Collapse>
     )
   }
 }
@@ -113,8 +116,9 @@ function mapDispatchToProps (dispatch) {
   }
 }
 
-function mapStateToProps(state) {
+function mapStateToProps(state, ownProps) {
   return {
+    ...ownProps,
     view: state.view,
     cart: state.cart, 
   }

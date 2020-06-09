@@ -30,15 +30,19 @@ class Landing extends React.Component {
   render(){
     return (
       
-        <div className="landing-top">
+        <div className="landing-top d-flex flex-column">
           <div className="d-flex parallax-container">
-            <div className="col-3 text left-text">left text</div>
-            <div className="bg-1 bg col-9"></div>
+            <div className="text left-text pl-1">left text</div>
+            <div className="bg-1 bg col-12"></div>
           </div>
-          <div className="horizontal-divider"></div>
+          <div className="horizontal-divider col-12 d-flex justify-content-between">HORIZONTAL CONTAINER
+            <div className="landing-inner-box"></div>
+            <div className="landing-inner-box"></div>
+            <div className="landing-inner-box"></div>
+          </div>
           <div className="d-flex parallax-container">
-            <div className="col-9 bg bg-2"></div>
-            <div className="col-3 text right-text">right text</div>
+            <div className="col-12 bg bg-2"></div>
+            <div className="text right-text">right text</div>
           </div>
           
           
