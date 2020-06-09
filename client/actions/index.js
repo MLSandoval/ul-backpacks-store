@@ -130,9 +130,7 @@ export function computeCartTotal(cart_items, products){
       total += parseInt(cart_items[key]) * parseInt(currentProduct[0].price)
     }
   }
-  if(addedProd){
-    total += parseInt(addedProd.price)
-  }
+ 
   return function (dispatch) {
     dispatch({
       type: types.CART_TOTAL_COMPUTED,

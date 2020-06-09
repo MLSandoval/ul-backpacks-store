@@ -54,7 +54,7 @@ function Orders (props) {
                 case '2-day':
                   shipCost = 10
                   break;
-                case 'Overnight Expedited':
+                case 'Overnight':
                   shipCost = 20
                   break;
                 default: 
@@ -107,8 +107,8 @@ function Orders (props) {
                               <td></td>
                               <td></td>
                               <td></td>
-                              <td className="no-wrap-white font-weight-bold text-right">Shipping: </td>
-                              <td>{order.shipping_option} + ${shipCost}</td>
+                              <td className="no-wrap-white font-weight-bold text-right">{order.shipping_option} Shipping: </td>
+                              <td>+ ${shipCost}</td>
                             </tr>
                             <tr>
                               <td></td>

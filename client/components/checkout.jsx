@@ -188,9 +188,9 @@ function Checkout(props){
               className="" 
               type="radio" 
               label="Overnight Expedited +$20.00" 
-              checked={props.checkoutFormData.values.shippingOption === 'overnight' ? true : false}
+              checked={props.checkoutFormData.values.shippingOption === 'Overnight' ? true : false}
               onChange={() =>{
-                handleRadioClick('overnight')
+                handleRadioClick('Overnight')
               }}
             />
           </Form.Group>

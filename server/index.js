@@ -223,9 +223,11 @@ app.put('/api/place-order', (req, res, next)=>{
         (SELECT cart_items FROM cart WHERE cart_uuid = $1)::hstore,
         $8
       )
-      RETURNING orders.order_uuid AS order_uuid, orders.items::json AS items, 
+      RETURNING orders.order_uuid AS order_uuid, 
+        orders.items::json AS items, 
         orders.user_uuid AS user_uuid, 
-        (SELECT to_char(orders.order_date, 'DD Mon YYYY') AS order_date)
+        (SELECT to_char(orders.order_date, 'DD Mon YYYY') AS order_date),
+        orders.shipping_option AS shipping_option
     ), payment_info_insert AS(
       INSERT INTO payment_info VALUES (
         uuid_generate_v4(),
