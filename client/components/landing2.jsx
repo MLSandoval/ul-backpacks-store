@@ -30,20 +30,21 @@ class Landing extends React.Component {
   render(){
     return (
       
-        <div className="landing-top d-flex flex-column">
-          <div className="d-flex parallax-container">
-            <div className="text left-text pl-1">left text</div>
-            <div className="bg-1 bg col-12"></div>
+        <div className="landing-top">
+          <div className="d-flex flex-wrap">
+            <img className="h-100 img img-1" src="../../images/backgrounds/BP_landscape_9.jpg" alt=""/>
+            <div className="text col-12 d-flex align-items-center justify-content-around flex-column">
+              <h1>Dreaming of an adventure?</h1>
+              <div></div>
+              <div></div>
+            </div>
+            <div className=" text text-2 col-12 d-flex align-items-center justify-content-end flex-column">
+              <h1>Our gear can make it happen</h1>
+            </div>
+          <div className="col-12 hori-break"></div>
+          <img className=" img-2" src="../../images/gear_sets/gear_set_up_3.jpg" alt=""/> 
           </div>
-          <div className="horizontal-divider col-12 d-flex justify-content-between">HORIZONTAL CONTAINER
-            <div className="landing-inner-box"></div>
-            <div className="landing-inner-box"></div>
-            <div className="landing-inner-box"></div>
-          </div>
-          <div className="d-flex parallax-container">
-            <div className="col-12 bg bg-2"></div>
-            <div className="text right-text">right text</div>
-          </div>
+        
           
           
         </div>

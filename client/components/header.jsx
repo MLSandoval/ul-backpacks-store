@@ -55,8 +55,6 @@ class Header extends React.Component {
   render(){
     console.log('header props on rerender: ', this.props)
     return (
-      // <Collapse in={this.props.in}>
-      <div className="">
         <Navbar 
           onClick={()=>{this.removeActiveOnClick()}}
           // toggleNavKey={4} 
@@ -102,8 +100,7 @@ class Header extends React.Component {
           </Nav>
         </Navbar.Collapse>
       </Navbar>
-      </div>
-      // </Collapse>
+      
     )
   }
 }

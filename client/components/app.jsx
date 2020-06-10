@@ -74,14 +74,6 @@ class App extends React.Component {
       <React.Fragment>
         <Header/>
         <Element className="app-main d-flex flex-column"id="app">
-        {/* <Collapse in={this.state.showHeader}>
-            <div> */}
-              
-              {/* <div className="tester"></div> */}
-            {/* </div>
-           
-          </Collapse> */}
-          
           <div className="main-content flex-grow-1">
             <Route exact path="/" component={Landing2}/>
             <Route exact path="/your-orders/" component={Orders}/>
