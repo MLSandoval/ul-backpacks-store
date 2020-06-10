@@ -64,10 +64,15 @@
 
 .img{
   position:fixed;
-  transform: translateY(-5%);
-  height: 100%;
+  /* position:absolute; */
+  top:0;
   
-  object-fit: fill;
+  /* transform: translateY(-5%); */
+  height: calc(100%);
+  width:100%;
+  object-fit: none;
+  object-position: 57% 79%;
+  
 }
 
 .text{
@@ -81,12 +86,14 @@
 }
 
 .text-2{
+  color:white;
   height: 100vh;
   background: linear-gradient(
     to top,
     rgba(0, 0, 0, 1),
     rgba(0, 0, 0, 0)
   );
+  margin-bottom: -2px;
 }
 .hori-break{
   background-color: black;
@@ -94,8 +101,86 @@
 }
 
 .img-2{
-  z-index: 10;
-  height: calc(100vh - 5rem);
-  width: 100vw;
-  object-fit: fill;
+  position: sticky;
+  top:0;
+  z-index: 1;
+  height: 100vh;
+  width: 100%;
+  object-fit: none;
 }
+.product-cards{
+  position:relative;
+  z-index: 2;
+  /* transform: translateY(-40%) */
+}
+
+.card-img{
+  height:100px;
+  width:100px;
+}
+
+/* 
+Extra small devices (portrait phones, less than 576px) 
+No media query since this is the default in Bootstrap because it is "mobile first"
+*/
+ 
+ 
+/* Small devices (landscape phones, 576px and up) */
+@media (min-width: 576px) {  
+ 
+}
+ 
+/* Medium devices (tablets, 768px and up) The navbar toggle appears at this breakpoint */
+@media (min-width: 768px) {  
+ 
+}
+ 
+/* Large devices (desktops, 992px and up) */
+@media (min-width: 992px) { 
+ 
+}
+ 
+/* Extra large devices (large desktops, 1200px and up) */
+@media (min-width: 1200px) {  
+  .img{
+    position:fixed;
+    transform: translateY(-5%);
+    height: 100vh;
+    width:100%;
+    object-fit: contain;
+  }
+  
+  .text{
+    color: white;
+    height:200vh;
+    background: linear-gradient(
+      to bottom,
+      rgba(0, 0, 0, 1),
+      rgba(0, 0, 0, 0)
+    );
+  }
+  
+  .text-2{
+    color:white;
+    height: 100vh;
+    background: linear-gradient(
+      to top,
+      rgba(0, 0, 0, 1),
+      rgba(0, 0, 0, 0)
+    );
+  }
+  .hori-break{
+    background-color: black;
+    height:20vh;
+  }
+  
+  .img-2{
+    position: sticky;
+    top:0;
+    z-index: 10;
+    height: 100%;
+    width: 100%;
+    object-fit: contain;
+  }
+}
+ 

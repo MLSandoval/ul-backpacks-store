@@ -35,22 +35,22 @@ class App extends React.Component {
       showHeader: true,
       
     }
-    this.hideAndRevealHeader = this.hideAndRevealHeader.bind(this)
+    // this.hideAndRevealHeader = this.hideAndRevealHeader.bind(this)
   }
 
-  hideAndRevealHeader(){
-    console.log('hideAndRevaelheader lastScrollTop at start of function: ', this.lastScrollTop)
-    console.log('hideAndRevaelheader pageYoffset at start of function: ', window.pageYOffset)
-    if(window.pageYOffset >= this.lastScrollTop){
-      //show header
-      this.setState({showHeader: false})
-      this.lastScrollTop = window.pageYOffset
-    }else{
-      //hideheader
-      this.setState({showHeader: true})
-      this.lastScrollTop = window.pageYOffset
-    }
-  }
+  // hideAndRevealHeader(){
+  //   console.log('hideAndRevaelheader lastScrollTop at start of function: ', this.lastScrollTop)
+  //   console.log('hideAndRevaelheader pageYoffset at start of function: ', window.pageYOffset)
+  //   if(window.pageYOffset >= this.lastScrollTop){
+  //     //show header
+  //     this.setState({showHeader: false})
+  //     this.lastScrollTop = window.pageYOffset
+  //   }else{
+  //     //hideheader
+  //     this.setState({showHeader: true})
+  //     this.lastScrollTop = window.pageYOffset
+  //   }
+  // }
 
   componentDidMount () {
     this.props.getProductList()
@@ -62,11 +62,11 @@ class App extends React.Component {
       this.props.getUserData(user_uuid, this.props.products)
     }
 
-    document.addEventListener('scroll', ()=>{this.hideAndRevealHeader()})
+    // document.addEventListener('scroll', ()=>{this.hideAndRevealHeader()})
   }
 
   componentWillUnmount(){
-    document.removeEventListener('scroll', ()=>{this.hideAndRevealHeader()})
+    // document.removeEventListener('scroll', ()=>{this.hideAndRevealHeader()})
   }
 
   render() {

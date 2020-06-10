@@ -16,12 +16,18 @@ function FadeInSection(props) {
   }, [])
   return (
     <div
-      className={` d-flex fade-in-section ${isVisible ? 'is-visible' : ''}`}
+      className={`${props.classesPassed || ''} d-flex fade-in-section ${isVisible ? 'is-visible' : ''}`}
       ref={domRef}
     >
       {props.children}
     </div>
   )
+}
+
+function mapStateToProps(state, ownProps){
+  return {
+    ...ownProps
+  }
 }
 
 export default connect(null)(FadeInSection)
