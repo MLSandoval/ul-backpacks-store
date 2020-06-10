@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState} from 'react'
 import { connect } from "react-redux"
 import {Route, Link as LinkRouter, withRouter} from 'react-router-dom'
 
@@ -20,44 +20,22 @@ import "./styles/products_list_style.css"
 class ProductList extends React.Component {
   constructor(props){
     super(props)
-    this.levityRef = React.createRef();
+
+    this.state = {
+      visibility: false
+    }
+
+    this.scrollFn = this.handleVisibilityChange.bind(this)
   }
 
-  scrollToTop() {
-    scroll.scrollTop.duration = 0;
-    scroll.scrollToTop();
+  handleVisibilityChange(){
+    if(window.pageYOffset > 35){
+      this.setState({visibility: true})
+    }else{
+      this.setState({visibility: false})
+    }
   }
-  scrollToCustom(targetName) {
-    scroller.scrollTo(`${targetName}`, {
-      duration: 300,
-      delay: 0,
-      smooth:true,
-      // offset:-53
-    })
-  }
-
-  scrollToWithContainer(targetInApp) {
-    let goToContainer = new Promise((resolve, reject) => {
-      Events.scrollEvent.register('end', () => {
-        resolve();
-        Events.scrollEvent.remove('end');
-      })
-      scroller.scrollTo('card-deck', {
-        duration: 300,
-        delay: 0,
-        smooth: 'easeInOutQuart'
-      })
-    })
-
-    goToContainer.then(() =>
-      scroller.scrollTo(targetInApp, {
-        duration: 300,
-        delay: 0,
-        smooth: 'easeInOutQuart',
-        containerId: 'card-deck'
-      }))
-  }
-
+  
   componentDidMount() {
     scroll.scrollToTop({
       duration: 0
@@ -65,11 +43,14 @@ class ProductList extends React.Component {
     if(this.props.currentProduct.hasOwnProperty('product_uuid')){
         scroll.scrollTo(this.props.prevY)
     }
-    // console.log('current product uuid flag found, scrolled to header then 3.5rem, this.props.currentProduct.product_uuid: ', this.props.currentProduct.name , this.props.currentProduct.product_uuid)
+
+    document.addEventListener('scroll', this.scrollFn)
   }
 
   componentWillUnmount(){
     this.props.savePrevY(window.scrollY)
+
+    document.removeEventListener('scroll', this.scrollFn)
   }
  
   generateProductList () {
@@ -109,7 +90,6 @@ class ProductList extends React.Component {
               </Card>
               </FadeInSection>
             </LinkRouter>
-            
           )
         })
       )
@@ -132,7 +112,11 @@ class ProductList extends React.Component {
             { this.generateProductList() } 
           </CardDeck>
           <div className="to-top-pos">
-            <BackToTopButton/>
+            {
+              this.state.visibility ? <BackToTopButton className="bring-to-front"/> : null
+                
+            }
+            
           </div>
         </div>
        
@@ -142,28 +126,6 @@ class ProductList extends React.Component {
   }
 }
 
-// function mapDispatchToProps(dispatch) {
-//   return {
-//     onViewChangeClick: view => {
-//       dispatch(SET_VIEW(view));
-//     }
-//   };
-// }
-
-// // binds on component re-rendering
-// ; <button onClick={() => this.props.toggleTodo(this.props.todoId)} />
-
-// // binds on `props` change
-// const mapDispatchToProps = (dispatch, ownProps) => {
-//   toggleTodo: () => dispatch(toggleTodo(ownProps.todoId))
-// }
-
-//if dispatching an async function, must dispatch the function itself as the type property 
-//(return the function not an object) itself so thunk intercepts and runs before passing 
-//to the reducer
-//
-//must dispatch type.CORRESPONDING_TYPE when returning a synchronous action, because this will return
-//an object to the reducers, which is what they need to run
 function mapDispatchToProps (dispatch) {
   return {
     getProductList: () => {
@@ -173,7 +135,7 @@ function mapDispatchToProps (dispatch) {
 }
 
 function mapStateToProps(state){
-  // console.log('PRODUCTLIST state: ', state);
+  // console.log('PRODUCTLIST state: ', state)
   return {
     products: state.products,
     currentProduct: state.currentProduct,
@@ -181,5 +143,4 @@ function mapStateToProps(state){
   }
 }
 
-// export default connect(mapStateToProps, mapDispatchToProps)(ProductList);
 export default connect(mapStateToProps, {setCurrentProduct, savePrevY})(ProductList)

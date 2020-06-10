@@ -1,0 +1,9 @@
+.row-image{
+  height: 45px;
+  width: 45px;
+}
+.horizontal-line{
+  height: 4px;
+  width: 100%;
+  background-color: rgba(15, 111, 155, 0.74)
+}

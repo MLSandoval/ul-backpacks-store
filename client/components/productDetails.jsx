@@ -13,7 +13,7 @@ import Table from 'react-bootstrap/Table'
 
 import './styles/product_details_style.css'
 
-import { getProductList,addItemToCart, sortCartQuantities, setCurrentProduct, setModalConfig, computeCartTotal} from '../actions'
+import {getProductList, addItemToCart, setCurrentProduct, setModalConfig, computeCartTotal, alterItemQuantity} from '../actions'
 
 import BackToTopButton from './back_to_top_button.jsx'
 import ModalShell from './modal_shell.jsx'
@@ -22,13 +22,23 @@ class ProductDetails extends React.Component {
   constructor(props){
     super(props)
     this.state = {
-      tabKey: 'features' //or description
+      tabKey: 'features', //or description
+      visibility: false
     }
     this.handleClick = this.handleClick.bind(this)
+    this.scrollFn = this.handleVisibilityChange.bind(this)
   }
+
+  handleVisibilityChange(){
+    if(window.pageYOffset > 35){
+      this.setState({visibility: true})
+    }else{
+      this.setState({visibility: false})
+    }
+  }
+
   renderProductFeatures () {
     const product = this.props.currentProduct
-
     return (
       product.features.map( (element, index) => {
         return (
@@ -40,66 +50,27 @@ class ProductDetails extends React.Component {
     )
   }
 
-  scrollToTop() {
-    scroll.scrollToTop();
-  }
-
-  scrollToCustom(targetName) {
-    scroller.scrollTo(`${targetName}`, {
-      duration: 0,
-      delay: 0
-    })
-  }
-
-  scrollToWithContainer(targetInApp) {
-    let goToContainer = new Promise((resolve, reject) => {
-      Events.scrollEvent.register('end', () => {
-        resolve();
-        Events.scrollEvent.remove('end');
-      });
-      scroller.scrollTo('app', {
-        duration: 300,
-        delay: 0,
-        smooth: 'easeInOutQuart'
-      })
-    })
-
-    goToContainer.then(() =>
-      scroller.scrollTo(targetInApp, {
-        duration: 800,
-        delay: 0,
-        smooth: 'easeInOutQuart',
-        containerId: 'app'
-      }));
-  }
   handleClick(){
-    this.props.addItemToCart(this.props.currentProduct)
-    
-    this.props.computeCartTotal(this.props.cart)
-    // console.log('product details handclick computecart total totalOrderCost: ', this.props.totalOrderCost)
-    // this.props.setModalConfig({})
+    const keysArr = Object.keys(this.props.cart.cart_items)
+    if(keysArr.includes(this.props.currentProduct.product_uuid)){
+      this.props.alterItemQuantity(this.props.cart.cart_uuid, this.props.currentProduct.product_uuid, 'increment')
+    }else{
+      this.props.addItemToCart(this.props.cart, this.props.currentProduct)
+    }
+    this.props.computeCartTotal(this.props.cart.cart_items, this.props.products, this.props.currentProduct)
   }
   
   componentDidMount(){
-    if(!this.props.currentProduc){
-      this.props.getProductList()
-    }
-    // console.log('Product Details Comp this.props: ', this.props)
     window.scrollTo(0,0)
+    document.addEventListener('scroll', this.scrollFn)
   }
-  // componentDidUpdate(){
-  //   console.log('productDetails did update, this.props: ', this.props)
-  // }
-  // componentWillUnmount(){
-  //   this.props.setCurrentProduct({})
-  // }
-  
+
+  componentWillUnmount(){
+    document.removeEventListener('scroll', this.scrollFn)
+  }
 
   render () {
-    
     const product = this.props.currentProduct
-    // console.log('product details render, this.props.currentProduct', this.props.currentProduct)
-    // console.log('product details render, product: ', product)
     return (
       <div className="product-details container pb-5 flex-grow-1">
         <div className="align-items-center container pt-4 d-flex flex-wrap h-100 justify-content-center">
@@ -162,11 +133,8 @@ class ProductDetails extends React.Component {
             <br></br>
           </div>
         </div>
-        
         <div>
-          
         </div>
-
         <Tabs className="row pt-2 pb-4" onClick={()=>{scroll.scrollToBottom()}} defaultActiveKey="description" id="uncontrolled-tab-example">
           <Tab className='pt-1' eventKey="description" title="Description">
             {product.long_description}
@@ -175,7 +143,7 @@ class ProductDetails extends React.Component {
             <ul>{ this.renderProductFeatures() }</ul>
           </Tab>
         </Tabs>
-        <BackToTopButton/>
+        {this.state.visibility ? <BackToTopButton className="bring-to-front"/> : null}
         <Route path={`${this.props.match.url}/modal`} component={ModalShell}/>
       </div>
     )
@@ -191,7 +159,7 @@ function mapDispatchToProps(dispatch) {
 }
 
 function mapStateToProps(state) {
-  // console.log('PRODUCTDETAILS state: ', state);
+  // console.log('PRODUCTDETAILS state: ', state)
   return {
     products: state.products,
     currentProduct: state.currentProduct,
@@ -202,4 +170,4 @@ function mapStateToProps(state) {
   }
 }
 
-export default connect(mapStateToProps, {addItemToCart, sortCartQuantities, setCurrentProduct, setModalConfig, computeCartTotal, getProductList})(ProductDetails)
+export default connect(mapStateToProps, {addItemToCart, alterItemQuantity, setCurrentProduct, setModalConfig, computeCartTotal, getProductList})(ProductDetails)

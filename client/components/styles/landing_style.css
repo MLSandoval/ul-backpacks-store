@@ -1,4 +1,4 @@
-.body-bg{
+/* .body-bg{
     filter:blur();
     background-image: url("../../images/gear_sets/gear_set_up_3.jpg");
     background-attachment: fixed;
@@ -7,19 +7,13 @@
 }
 .text{
     color:white;
-    /* height: calc(.33*100vh); */
-    /* z-index: 1; */
     text-align: center;
-    background-color: rgba(53, 51, 51, 0.733);
-    /* position:fixed;
-    top:50%; */
+    background-color: rgba(53, 51, 51, 0.5);
     backdrop-filter: grayscale(.8) blur(10px);
 }
 .bg{
     height: 100vh;
     width: 100vw;
-    /* position: relative; */
-    /* opacity: 0.9; */
     background-attachment: fixed;
     background-position: center;
     background-repeat: no-repeat;
@@ -30,7 +24,6 @@
     vertical-align: middle;
 }
 .bg-1{
-    /* height: 75vh; */
     background-image: url('../../images/backgrounds/BP_landscape_3.jpg');
 }
 .text-1{
@@ -43,7 +36,6 @@
     position: absolute;
     bottom:0;
     left:0;
-    /* backdrop-filter: blur(10px) grayscale(.5) brightness(.3); */
 
 }
 .black-line-top{
@@ -53,7 +45,6 @@
     position: absolute;
     top:0;
     left:0;
-    /* backdrop-filter: blur(10px) grayscale(.5) brightness(.3); */
 
 }
 .bg-2{
@@ -77,4 +68,4 @@
     right: 0;
     height:45%;
     margin: auto;
-}
+} */

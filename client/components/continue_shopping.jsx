@@ -1,34 +1,38 @@
-import React, {createRef, useEffect} from 'react'
+import React, {useEffect} from 'react'
 import { connect } from 'react-redux'
 import {Link as LinkRouter, Route} from 'react-router-dom'
-
-import { Link, Element , Events, animateScroll as scroll, scrollSpy, scroller } from 'react-scroll'
-
-
 
 import Modal from 'react-bootstrap/Modal'
 import Button from 'react-bootstrap/Button'
 import Table from 'react-bootstrap/Table'
-import Card from 'react-bootstrap/Card'
-import CardDeck from 'react-bootstrap/CardDeck'
-
 
 import './styles/continue_shopping_style.css'
 import {computeCartTotal} from '../actions'
 
 function ContinueShopping(props){
 
+  useEffect(()=>{
+    // props.computeCartTotal(props.cart.cart_items, props.products, props.currentProduct)
+  })
+  
   function generateRows(){
+    const products = [...props.products]
+    const cart = Object.entries(props.cart.cart_items)
+    const cartArr = [] 
+    cart.forEach(([product_uuid, quantity])=>{
+      cartArr.push({product_uuid, quantity: parseInt(quantity)})
+    })
     return( 
-      props.cart.map((element)=>{
+      cartArr.map((product)=>{
+        const element = products.filter(currentIteratedProduct => currentIteratedProduct.product_uuid === product.product_uuid)[0]
         return(
           <React.Fragment key={element.product_uuid}>
             <tr key={element.product_uuid}>
-              <td>{element.name + ' '}
-                <div>by {element.brand}</div>
+              <td className="text-center">{element.name + ' '}
+                <div className="small-text">by {element.brand}</div>
               </td>
-              <td>{element.quantity}</td>
-              <td>${(parseInt(element.price) * element.quantity).toFixed(2)}</td>
+              <td className="text-center">{product.quantity}</td>
+              <td className="text-center">${(parseInt(element.price) * parseInt(product.quantity)).toFixed(2)}</td>
             </tr>
           </React.Fragment>
         )
@@ -36,18 +40,8 @@ function ContinueShopping(props){
     )
   }
 
-  useEffect(()=>{
-    // console.log('continueshopping props: ', props)
-    props.computeCartTotal(props.cart)
-  })
-
-  function computeItemCount(){
-    let total=0
-    props.cart.map((element)=>{
-      total += element.quantity
-    })
-    return total
-  }
+  let cartCount = Object.values(props.cart.cart_items)
+  console.log('cartCount in continueShipping: ', cartCount)
 
   return(
     <React.Fragment key='modalcontentfrag'>
@@ -56,38 +50,32 @@ function ContinueShopping(props){
           <div className="col-9"></div>
           <h6 className="col-3 no-wrap-white" name="top" ></h6>
         </div>
-        
         <Table size="sm" key='cxaosiu'>
           <thead key='asdfh'>
             <tr>
-              <th>{props.cart.length === 1 ? 'Item' : 'Items' }</th>
-              <th>Quantity</th>
-              <th>Price</th>
+              <th className="text-center">{cartCount.length < 2 ? 'Item' : 'Items' }</th>
+              <th className="text-center">Quantity</th>
+              <th className="text-center">Price</th>
             </tr>
           </thead>
           <tbody>
             {generateRows()}
-            <tr >
-              <td ></td>
-              <td  className="d-flex justify-content-end no-wrap-white">Cart Total:</td>
-              <td >${props.totalOrderCost.toFixed(2)}</td>
-            </tr>
-            
           </tbody>
         </Table>
+        <div className="w-100 d-flex">
+          <div className="col-7 col-md-8 "></div>
+          <div className="font-weight-bold no-wrap-white">Total: ${props.totalOrderCost.toFixed(2)}</div>
+
+        </div>
       </Modal.Body>
       <Modal.Footer className="d-flex">
-        <div className="col-8"></div>
-        <div className="button-container col-4 row flex-column justify-content-around">
+        <div className="col-9"></div>
+        <div className="button-container col-3 row flex-column justify-content-around">
           <LinkRouter to="/cart">
             <Button
               className="btn-sm col-12 w-100"
               variant="info"
               type="button"
-              // onClick={() => {
-              //   console.log('go to cart on click')
-              //   }
-              // }
             >
               Go to Cart
             </Button>
@@ -97,9 +85,6 @@ function ContinueShopping(props){
               className="btn-sm col-12 w-100"
               variant="dark"
               type="button"
-              // onClick={() =>
-              //   props.dispatch({ type: "FORM_SUBMIT", payload: { email, password } })
-              // }
             >
               Continue Shopping
             </Button>
@@ -111,7 +96,9 @@ function ContinueShopping(props){
 }
 
 function mapStateToProps(state){
+  // console.log('CONTINUESHOPPING state: ', state)
   return {
+    products: state.products,
     totalOrderCost: state.totalOrderCost,
     currentProduct: state.currentProduct,
     cart: state.cart
@@ -119,4 +106,3 @@ function mapStateToProps(state){
 }
 
 export default connect(mapStateToProps, {computeCartTotal})(ContinueShopping)
-
