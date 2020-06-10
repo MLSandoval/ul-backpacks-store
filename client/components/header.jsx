@@ -12,6 +12,7 @@ import Nav from 'react-bootstrap/Nav'
 import NavDropdown from 'react-bootstrap/NavDropdown'
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
+import Collapse from 'react-bootstrap/Collapse'
 
 // import { Switch, Route, Link } from "react-router-dom";
 
@@ -31,8 +32,7 @@ class Header extends React.Component {
     }
     return total || 0
   }
-  componentDidUpdate(prevProps){}
-  componentDidMount(){}
+ 
 
   removeActiveOnClick(){
     document.querySelectorAll('.active').forEach((element)=>{
@@ -53,8 +53,8 @@ class Header extends React.Component {
   }
 
   render(){
+    console.log('header props on rerender: ', this.props)
     return (
-      <div className="container">
         <Navbar 
           onClick={()=>{this.removeActiveOnClick()}}
           // toggleNavKey={4} 
@@ -79,15 +79,15 @@ class Header extends React.Component {
           <Nav
             className="row"
           >
-            <Nav.Link as={LinkRouter} title="story" onSelect={() => null} eventKey={1} className="btn font-weight-bold" to="/our-story">
-              Our Story
+            <Nav.Link as={LinkRouter} title="your-orders" onSelect={() => null} eventKey={1} className="btn font-weight-bold" to="/your-orders">
+              Your Orders
             </Nav.Link>
             <Nav.Link as={LinkRouter} title="products" onSelect={() => null} eventKey={2} className="btn font-weight-bold" to="/products">
               Products
             </Nav.Link>
-            <Nav.Link as={LinkRouter} title="reviews" onSelect={() => null} eventKey={3} className="btn font-weight-bold" to="/video-review/:product_uuid">
+            {/* <Nav.Link as={LinkRouter} title="reviews" onSelect={() => null} eventKey={3} className="btn font-weight-bold" to="/video-review/:product_uuid">
               Reviews
-            </Nav.Link>
+            </Nav.Link> */}
             <Nav.Link as={LinkRouter} title="cart" onSelect={() => null} eventKey={4} className={`btn font-weight-bold nav-link ${this.classSwitch}`} to="/cart">
               <div className="cart-logo-count-bg">
                 <div ></div>
@@ -100,7 +100,7 @@ class Header extends React.Component {
           </Nav>
         </Navbar.Collapse>
       </Navbar>
-      </div>
+      
     )
   }
 }
@@ -113,8 +113,9 @@ function mapDispatchToProps (dispatch) {
   }
 }
 
-function mapStateToProps(state) {
+function mapStateToProps(state, ownProps) {
   return {
+    ...ownProps,
     view: state.view,
     cart: state.cart, 
   }

@@ -13,7 +13,7 @@ import "./styles/footer_style.css"
 
 export default function Footer (props){
     return (
-      <Navbar className="border p-auto mt-8 footer-pos flex-shrink-1" name="footer"  bg="dark"  expand="md">
+      <Navbar className="border p-auto footer-pos flex-shrink-1" name="footer"  bg="dark"  expand="md">
         <Navbar.Brand href="#home">React-Bootstrap</Navbar.Brand>
           <Nav className="mr-auto">
             <Nav.Link href="#home">Home</Nav.Link>

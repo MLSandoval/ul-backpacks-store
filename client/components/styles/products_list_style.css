@@ -17,6 +17,9 @@
 	right: .5rem;
 }
 
+.bring-to-front{
+  z-index: 25;
+}
 
 
 

@@ -1,4 +1,3 @@
-/* global fetch */
 import types from './types.js'
 
 export function getProductList () {
@@ -8,7 +7,6 @@ export function getProductList () {
     })
     .then(res => res.json())
     .then(data => {
-      console.log('get products request resovles, products sent to state')
       dispatch({
         type: types.PRODUCT_LIST_REQUESTED,
         payload: data
@@ -46,8 +44,8 @@ export function setModalConfig(modalConfig){
     })
   }
 }
-export function addItemToCart (cart, product) {//also need to add query to add item to database cart when this is clicked
-  console.log('addItemToCart action called, cart, product: ', cart, product)
+export function addItemToCart (cart, product) {
+  console.log('addItemTocart action, cart, product: ', cart, product)
   return function (dispatch) {
     fetch('/api/add-item-to-cart', {
       method:'PATCH',
@@ -63,11 +61,11 @@ export function addItemToCart (cart, product) {//also need to add query to add i
           product_uuid: product.product_uuid,
           quantity: product.quantity || 1
         }
-      }),
+      })
     })
     .then(res => res.json())
     .then(data => {
-      console.log('addItemToCart action success, data: ', data)
+      console.log()
       dispatch({
         type: types.PRODUCT_ADDED_TO_CART,
         payload: data
@@ -91,19 +89,16 @@ export function removeItemFromCart(cart_uuid, product_uuid){
     })
     .then(res=>res.json())
     .then(data=>{
-      console.log('removeItemFromCart action success, data: ', data)
-      
-        dispatch({
-          type: types.PRODUCT_REMOVED_FROM_CART,
-          payload: data
-        })
+      dispatch({
+        type: types.PRODUCT_REMOVED_FROM_CART,
+        payload: data
+      })
     })
     .catch(err=>console.error('Remove Item action Error: ', err))
   }
 }
 
 export function alterItemQuantity(cart_uuid, product_uuid, incDec){
-  console.log('alterItemQ action, cart_uuid, product_uuid, incDec: ', cart_uuid, product_uuid, incDec)
   return function (dispatch) {
     fetch('/api/alter-quantity', {
       method: 'PATCH',
@@ -116,12 +111,8 @@ export function alterItemQuantity(cart_uuid, product_uuid, incDec){
         "Content-Type": 'application/json'
       }
     })
-    .then(res=>{
-      console.log('alterItemQuantity res: ', res)
-      return res.json()
-    })
+    .then(res=>res.json())
     .then(data=>{
-      console.log('alteredItemQuantity action success, data: ', data)
       dispatch({
         type: types.ALTERED_ITEM_QUANTITY,
         payload: data
@@ -131,43 +122,15 @@ export function alterItemQuantity(cart_uuid, product_uuid, incDec){
   }
 }
 
-
-export function sortCartQuantities(cart){
-  const sortedCartQuantities = cart.reduce((accumulator, currentValue)=>{
-    if(!!accumulator[currentValue.id] === false){
-      accumulator[currentValue.id] = {}
-      accumulator[currentValue.id].name = currentValue.name
-      accumulator[currentValue.id].price = currentValue.price
-      accumulator[currentValue.id].quantity = 1
-      accumulator[currentValue.id].images = currentValue.images,
-      accumulator[currentValue.id].id = currentValue.id
-    }else{
-      accumulator[currentValue.id].quantity += 1
-    }
-    return accumulator
-  }, {})
-  
-  let quantitiesArr = []
-  quantitiesArr = Object.values(sortedCartQuantities)
-
-  return function(dispatch){
-    dispatch({
-      type: types.CART_SORTED,
-      payload: quantitiesArr
-    })
-  }
-}
-
 export function computeCartTotal(cart_items, products){
-  if(!products[0]) return 0
   let total = 0
-  // console.log('computeCartTotal action cart_items: ', cart_items)
-  // console.log('computeCartTotal action products: ', products)
   for (let key in cart_items){
     let currentProduct = products.filter(prod => key === prod.product_uuid)
-    total += parseInt(cart_items[key]) * parseInt(currentProduct[0].price)
+    if(currentProduct){
+      total += parseInt(cart_items[key]) * parseInt(currentProduct[0].price)
+    }
   }
-
+ 
   return function (dispatch) {
     dispatch({
       type: types.CART_TOTAL_COMPUTED,
@@ -195,10 +158,14 @@ export function storeCheckoutFormData(key, value){
   }
 }
 
-export function clearCart(){
+export function validateCheckoutForm(checkoutFormData, key){
   return function(dispatch){
     dispatch({
-      type: types.CART_CLEARED
+      type: types.CHECKOUT_FORM_SUBMITTED_FOR_VALIDATION,
+      payload: {
+        form: {...checkoutFormData},
+        key
+      }
     })
   }
 }
@@ -213,34 +180,15 @@ export function getUserData(user_uuid, products){
     })
     .then(res=>res.json())
     .then((data)=>{
-      const {user_uuid, email, first_name, last_name, cart_items, cart_uuid} = data
+      const {user_uuid, email, name, cart_items, cart_uuid} = data
         dispatch({
           type: types.USER_DATA_RETRIEVED,
           payload: {
             user_uuid,
             email, 
-            first_name, 
-            last_name, 
+            name
           }
         })
-
-        // const cart = Object.entries(cart_items)
-        // const cartKeys = Object.keys(cart_items)
-        // console.log('cartKeys: ', cartKeys)
-        // console.log('PRODUCTS: ', products)
-        // cartKeys.map((key)=>{
-        //   const currentIndex = products.findIndex(element=>element.product_uuid === key)
-        //   console.log('carKeys map currentIndex: ', currentIndex)
-        // })
-
-        // const cartArr = []
-        // cart.forEach(([product_uuid, quantity])=>{
-        //   cartArr.push({product_uuid, quantity})
-        // })
-        // cartArr.map(item=>{
-        //   item = {...item, ...}
-        // })
-
         dispatch({
           type: types.CART_DATA_RETRIEVED,
           payload: {
@@ -254,22 +202,14 @@ export function getUserData(user_uuid, products){
   }
 }
 
-export function createNewUser(email, first_name, last_name){
-  // console.log('create new user action called: ')
+export function createNewUser(email, name){
   return function(dispatch){
     fetch('/api/create-user', {
       method: 'PUT',
-      body: {
-        email,
-        first_name,
-        last_name
-      }
     })
     .then(res => res.json())
     .then(data =>{
-      const {user_uuid, cart_uuid} = data
-      console.log('user_uuid and cart_uuid from createNewUser Action: ', user_uuid, cart_uuid)
-      console.log('createNewUser Action data: ', data)
+      const {user_uuid, cart_uuid, cart_items} = data
       localStorage.setItem('user_uuid', user_uuid)
         dispatch({
           type: types.NEW_USER_CREATED,
@@ -281,10 +221,97 @@ export function createNewUser(email, first_name, last_name){
           type: types.CART_DATA_RETRIEVED,
           payload: {
             cart_uuid,
-            cart_items: data.hstore_to_json
+            cart_items
           }
         })
       })
     .catch(err=>console.error('Error at createUser action: ', err))
+  }
+}
+
+export function updateUserData(email, first_name, last_name){
+
+}
+
+export function placeOrder (user_uuid, cart, formData){
+  const {cart_uuid} = cart
+  console.log('placeOrder action, formData: ', formData)
+  return function(dispatch){
+    fetch('/api/place-order', {
+      method: 'PUT',
+      headers:{
+        "Content-Type": "application/json"
+      },
+      body:JSON.stringify({
+        user_uuid,
+        cart_uuid,
+        formData: formData.values
+      })
+    })
+    .then(res=>res.json())
+    .then(data=>{
+      console.log(' placeOrder action data: ', data)
+      const {order_uuid, user_uuid, items, order_date, card_number, ship_city, ship_street_address, ship_zip, ship_state} = data
+      
+      dispatch({
+        type: types.ORDER_PLACED,
+        payload: {
+          order_uuid,
+          user_uuid,
+          items,
+          order_date,
+          card_number,
+          ship_city,
+          ship_street_address,
+          ship_zip,
+          ship_state
+        }
+      })
+      
+    })
+    .catch(err=>console.error('Place Order Action Error: ', err))
+  }
+}
+
+export function clearCart(cart_uuid){
+  return function(dispatch){
+    fetch('/api/clear-cart', {
+      method: 'PATCH',
+      headers:{
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        cart_uuid
+      })
+    })
+    .then(res=>res.json())
+    .then(data=>{
+      dispatch({
+        type: types.CART_CLEARED,
+        action: {}
+      })
+    })
+    .catch(err=>console.error('Clear Cart Fetch Error: ', err))
+  }
+}
+
+export function getOrders(user_uuid){
+  if(!user_uuid) return {type:types.ORDERS_RETRIEVED, payload: []}
+  return function(dispatch){
+    fetch('/api/get-orders', {
+      method: 'GET',
+      headers: {
+        "Content-Type": "application/json",
+        user_uuid
+      }
+    })
+    .then(res=>res.json())
+    .then(data=>{
+      console.log('getOrders action data: ', data)
+      dispatch({
+        type: types.ORDERS_RETRIEVED,
+        payload: data
+      })
+    })
   }
 }

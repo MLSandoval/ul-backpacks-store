@@ -50,7 +50,6 @@
     1px 1px 0 #000;
 }
 
-
 .two-columns{
   columns: 2 auto;
 }
@@ -59,4 +58,8 @@
     max-height: 480px;
     max-width: 360px;
   }
+}
+
+.bring-to-front{
+  z-index: 25;
 }

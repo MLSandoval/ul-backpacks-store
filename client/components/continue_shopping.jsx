@@ -10,31 +10,29 @@ import './styles/continue_shopping_style.css'
 import {computeCartTotal} from '../actions'
 
 function ContinueShopping(props){
+
+  useEffect(()=>{
+    // props.computeCartTotal(props.cart.cart_items, props.products, props.currentProduct)
+  })
   
   function generateRows(){
     const products = [...props.products]
-
     const cart = Object.entries(props.cart.cart_items)
-    console.log('genRows cart before foreach: ', cart)
-    const cartArr = []
-    
+    const cartArr = [] 
     cart.forEach(([product_uuid, quantity])=>{
       cartArr.push({product_uuid, quantity: parseInt(quantity)})
     })
-    console.log('contiShop genRows, products:  ', products)
-    console.log('contiShop genRows, cartArr:  ', cartArr)
-    // props.computeCartTotal(props.cart.cart_items, products)
     return( 
       cartArr.map((product)=>{
         const element = products.filter(currentIteratedProduct => currentIteratedProduct.product_uuid === product.product_uuid)[0]
         return(
           <React.Fragment key={element.product_uuid}>
             <tr key={element.product_uuid}>
-              <td>{element.name + ' '}
+              <td className="text-center">{element.name + ' '}
                 <div className="small-text">by {element.brand}</div>
               </td>
-              <td>{product.quantity}</td>
-              <td>${(parseInt(element.price) * parseInt(product.quantity)).toFixed(2)}</td>
+              <td className="text-center">{product.quantity}</td>
+              <td className="text-center">${(parseInt(element.price) * parseInt(product.quantity)).toFixed(2)}</td>
             </tr>
           </React.Fragment>
         )
@@ -42,9 +40,8 @@ function ContinueShopping(props){
     )
   }
 
-  useEffect(()=>{
-    // console.log('CONTINUESHOPPING props: ', props)
-  })
+  let cartCount = Object.values(props.cart.cart_items)
+  console.log('cartCount in continueShipping: ', cartCount)
 
   return(
     <React.Fragment key='modalcontentfrag'>
@@ -56,24 +53,24 @@ function ContinueShopping(props){
         <Table size="sm" key='cxaosiu'>
           <thead key='asdfh'>
             <tr>
-              <th>{props.cart.length === 1 ? 'Item' : 'Items' }</th>
-              <th>Quantity</th>
-              <th>Price</th>
+              <th className="text-center">{cartCount.length < 2 ? 'Item' : 'Items' }</th>
+              <th className="text-center">Quantity</th>
+              <th className="text-center">Price</th>
             </tr>
           </thead>
           <tbody>
             {generateRows()}
-            <tr >
-              <td ></td>
-              <td  className="d-flex justify-content-end no-wrap-white">Cart Total:</td>
-              <td >${props.totalOrderCost.toFixed(2)}</td>
-            </tr>
           </tbody>
         </Table>
+        <div className="w-100 d-flex">
+          <div className="col-7 col-md-8 "></div>
+          <div className="font-weight-bold no-wrap-white">Total: ${props.totalOrderCost.toFixed(2)}</div>
+
+        </div>
       </Modal.Body>
       <Modal.Footer className="d-flex">
-        <div className="col-8"></div>
-        <div className="button-container col-4 row flex-column justify-content-around">
+        <div className="col-9"></div>
+        <div className="button-container col-3 row flex-column justify-content-around">
           <LinkRouter to="/cart">
             <Button
               className="btn-sm col-12 w-100"
@@ -99,7 +96,7 @@ function ContinueShopping(props){
 }
 
 function mapStateToProps(state){
-  console.log('CONTINUESHOPPING state: ', state)
+  // console.log('CONTINUESHOPPING state: ', state)
   return {
     products: state.products,
     totalOrderCost: state.totalOrderCost,

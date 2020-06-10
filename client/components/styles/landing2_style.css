@@ -1,19 +1,31 @@
 .landing-top{
-  /* padding-top: 4rem; */
-  /* position:relative; */
-  /* height:100vh;
-  width:100vw; */
-  /* overflow-x: hidden; */
-  /* overflow-y: scroll; */
+  /* height: 100vh; */
 }
+/* 
 .text{
-  background-color: black;
+  color:white;
+  text-align: center;
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.685),
+    rgba(0, 0, 0, 0)
+
+    
+  );
 }
-.left-text{}
+.left-text{
+  height:200vh;
+}
+.right-text{
+  height:200vh;
+}
 .parallax-container{
   height: 100vh;
   width: calc(100vw - 8px);
   
+}
+.img{
+  position:fixed;
 }
 .bg{
   height:100%;
@@ -24,12 +36,66 @@
   background-size: cover;
 }
 .bg-1{
-  background-image: url('../../images/backgrounds/BP_landscape_3.jpg');
+  background-image: url('../../images/backgrounds/BP_landscape_9.jpg');
+  
 }
 .horizontal-divider{
   height:3rem;
-  background-color: black;
+  text-align: center;
+  background-color: rgba(53, 51, 51, 0.3);
+  backdrop-filter: grayscale(.5) blur(5px);
+  color:  black;
 }
 .bg-2{
-  background-image: url('../../images/backgrounds/BP_landscape_4.jpg');
+  background-image: url('../../images/gear_sets/gear_set_up_3.jpg');
+}
+.landing-inner-box{
+  background-color:  white;
+  height: 100px;
+  width: 100px;
+}
+
+ @media (max-width: 375px){
+  .horizontal-divider{
+    width:97.9%
+  }
+} 
+ */
+
+.img{
+  position:fixed;
+  transform: translateY(-5%);
+  height: 100%;
+  
+  object-fit: fill;
+}
+
+.text{
+  color: white;
+  height:200vh;
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 1),
+    rgba(0, 0, 0, 0)
+  );
+}
+
+.text-2{
+  height: 100vh;
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 1),
+    rgba(0, 0, 0, 0)
+  );
+}
+.hori-break{
+  background-color: black;
+  height:20vh;
+}
+
+.img-2{
+  z-index: 10;
+  height: calc(100vh - 5rem);
+  width: 100vw;
+  object-fit: fill;
 }

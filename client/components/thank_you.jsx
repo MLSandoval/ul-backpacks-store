@@ -6,20 +6,27 @@ import Modal from 'react-bootstrap/Modal'
 import Button from 'react-bootstrap/Button'
 
 import './styles/thank_you_style.css'
-import {clearCart} from '../actions'
+import {clearCart, setModalConfig} from '../actions'
 
 function ThankYou (props) {
   let history = useHistory()
   // console.log('thank you component history: ', history)
 
   function autoRedirect(){
-    setTimeout(10000, ()=>{ props.history.push( '/'); props.clearCart()})
+    setTimeout(10000, ()=>{ props.history.push( '/'); props.clearCart(props.cart.cart_uuid)})
   }
 
-  // useEffect(()=>{
+  useEffect(()=>{
 
-  //   return props.clearCart
-  // }, [])
+    return ()=>{
+      props.clearCart(props.cart.cart_uuid)
+      props.setModalConfig({
+        header: '',
+        content: null,
+        orderCost: ''
+      })
+    }
+  }, [])
 
   // console.log('thankyou comp rendered props: ', props)
   // autoRedirect()
@@ -28,7 +35,7 @@ function ThankYou (props) {
         <div>Your order has been submitted.</div>
         <div>Receipt and order information will be sent via email.</div>
       <Modal.Footer>
-        <Button as={Link} to="/" variant="info" className="btn-sm" onClick={props.clearCart}>
+        <Button as={Link} to="/" variant="info" className="btn-sm" onClick={()=>{props.clearCart(props.cart.cart_uuid)}}>
           <div>Return to the homepage.</div>
         </Button>
       </Modal.Footer>
@@ -41,9 +48,10 @@ function mapStateToProps (state){
   return {
     // submittedOrder: state.submittedOrder
     totalOrderCost: state.totalOrderCost,
-    checkoutFormData: state.checkoutFormData
+    checkoutFormData: state.checkoutFormData,
+    cart: state.cart
   }
 
 }
 
-export default withRouter(connect(mapStateToProps, {clearCart})(ThankYou))
+export default withRouter(connect(mapStateToProps, {clearCart, setModalConfig})(ThankYou))

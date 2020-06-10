@@ -1,5 +1,5 @@
 .app-main{
-  height:calc(100vh - 4.6rem);
+  /* height:calc(100vh - 4.6rem); */
   /* width: calc(100vw - 8px); */
   display:flex;
   margin-top:4.6rem;
@@ -39,4 +39,10 @@
 }
 ::-webkit-scrollbar-thumb:window-inactive {
   background: rgba(139, 139, 139, 0.103); 
+}
+.tester{
+  height: 100px;
+  width: 100%;
+  background-color: teal;
+  z-index: 1290;
 }

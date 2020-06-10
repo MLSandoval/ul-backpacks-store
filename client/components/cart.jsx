@@ -21,30 +21,25 @@ class Cart extends React.Component {
   }
 
   generateCartList(){
-    // const cart = this.props.cart
-
     const products = [...this.props.products]
-    // console.log('PRODUCTS array in cart: ', products)
     
     const cart = Object.entries(this.props.cart.cart_items)
     const cartArr = []
     cart.forEach(([product_uuid, quantity])=>{
       cartArr.push({product_uuid, quantity})
     })
-    
-    // console.log('cartArr in cart_items: ', cartArr)
 
     if(cartArr[0] === undefined){
       return(
         <React.Fragment>
           <Table className="empty-cart">
             <thead>
-            <tr>
-                <th scope="col-2"></th>
+              <tr>
+                <th scope="col-2" ></th>
                 <th scope="col-2">Product</th>
-                <th scope="col-2">Quantity</th>
-                <th scope="col-2">Price</th>
-                <th scope="col-2">Total</th>
+                <th scope="col-2" className="text-center">Quantity</th>
+                <th scope="col-2" className="text-center">Price</th>
+                <th scope="col-2" className="text-center">Total</th>
                 <th scope="col-1"></th>
               </tr>
             </thead>
@@ -61,7 +56,6 @@ class Cart extends React.Component {
           <div  className=" col-12 d-flex justify-content-around">
             <h3 className="text-center">Your Cart is Empty :&#40;</h3>
           </div>
-          
         </React.Fragment>
       )
     }else{
@@ -70,38 +64,31 @@ class Cart extends React.Component {
           <Table className="table table-hover">
             <thead>
               <tr>
-                <th scope="col-2"></th>
+                <th scope="col-2" ></th>
                 <th scope="col-2">Product</th>
-                <th scope="col-2">Quantity</th>
-                <th scope="col-2">Price</th>
-                <th scope="col-2">Total</th>
+                <th scope="col-2" className="text-center">Quantity</th>
+                <th scope="col-2" className="text-center">Price</th>
+                <th scope="col-2" className="text-center">Total</th>
                 <th scope="col-1"></th>
               </tr>
             </thead>
             <tbody>
             {cartArr.map((product)=>{
-              // console.log('cart map product: ', product)
-              // console.log('cart map PRODUCTS: ', products)
-              // console.log('cart map, product.price: ', typeof product.price)
-              // console.log('cart map, product.uuid for key: ', product.product_uuid)
               const element = products.filter(currentIteratedProduct => currentIteratedProduct.product_uuid === product.product_uuid)[0]
-              // console.log('cart map element: ', element)
               return(
                 <tr key={product.product_uuid}>
-                  <th scope="row">
-                    <img className="row-image" src={element.image_urls[0]}></img>
-                  </th>
-                  <td>{element.name}</td>
                   <td>
-                  <button 
+                    <img className="row-image" src={element.image_urls[0]}></img>
+                  </td>
+                  <td>{element.name}</td>
+                  <td className="text-center">
+                    <button 
                       type="button" 
                       className="btn"
                       data-uuid={product.product_uuid}
                       data-quantity={product.quantity}
                       onClick={ e => {
-                        // console.log('reduceitemquantity CLICKED, uuid: ', e.currentTarget.dataset.uuid)
                         this.props.alterItemQuantity(this.props.cart.cart_uuid, e.currentTarget.dataset.uuid, 'decrement')
-                        
                       }}
                       >-
                     </button>
@@ -110,17 +97,15 @@ class Cart extends React.Component {
                       type="button" 
                       className="btn"
                       data-uuid={product.product_uuid}
-                      onClick={ e => {
-                        // console.log('additemtocart CLICKED, uuid: ', e.currentTarget.dataset.uuid)   
-                        this.props.alterItemQuantity(this.props.cart.cart_uuid, e.currentTarget.dataset.uuid, 'increment')
-                                          
+                      onClick={ e => { 
+                        this.props.alterItemQuantity(this.props.cart.cart_uuid, e.currentTarget.dataset.uuid, 'increment')           
                       }}
                       >+
                     </button>
                   </td>
-                  <td>${element.price}</td>
-                  <td>${(element.price*product.quantity).toFixed(2)}</td>
-                  <td>
+                  <td className="text-center">${element.price}</td>
+                  <td className="text-center">${(element.price*product.quantity).toFixed(2)}</td>
+                  <td className="text-center">
                     <button 
                       type="button" 
                       className="btn btn-danger"
@@ -133,63 +118,44 @@ class Cart extends React.Component {
               )
             })}
             <tr>
-              <th scope="row">
-              </th>
               <td></td>
               <td></td>
-              <td>Order Total: </td>
-              <td>${this.props.totalOrderCost.toFixed(2) || 0.00}</td> 
+              <td></td>
+              <td className="font-weight-bold text-right"> </td>
+              <td className="text-center"><span className="font-weight-bold">Order Total: </span>${this.props.totalOrderCost.toFixed(2) || 0.00}</td>
+              <td></td> 
             </tr>
             <tr>
-              <th scope="row">
-              </th>
               <td></td>
               <td></td>
               <td></td>
-              <td>
-                <LinkRouter to={`cart/modal/checkout`}
-                  data-toggle="modal" data-target="#exampleModalCenter">
-                  {/* <button 
-                    type="button" 
-                    className="btn btn-dark"
-                    // onClick={()=>{let x = 'someCallBack'}}
-                    >Checkout
-                  </button>   */}
-                  <Button variant="info" type="button" className="btn-sm" >
-                    Checkout
-                  </Button>
-                </LinkRouter>
-              </td> 
+              <td></td>
+              <td className="text-center">
+                <Button as={LinkRouter} variant="info" type="button" className="btn-sm" to={`cart/modal/checkout`}>
+                  Checkout
+                </Button>
+              </td>
+              <td></td>
             </tr>
             </tbody>
           </Table>
+          {/* <div className="d-flex w-100">
+            <div className="col-9"></div>
+            <Button as={LinkRouter} variant="info" type="button" className="btn-sm col-2" to={`cart/modal/checkout`}>
+              Checkout
+            </Button>
+          </div> */}
           <Route path={`${this.props.match.url}/modal`} component={ModalShell}/>
         </React.Fragment>
       )
     }
   }
 
-  BGScrollModalShown(){
-    this.CartRef.current.style.position = 'fixed'
-    this.CartRef.current.style.top = `-${window.scrollY}px`
-  }
-
-  BGScrollModalhidden(){
-    const scrollY = this.CartRef.current.style.top
-    this.CartRef.current.style.position = ''
-    this.CartRef.current.style.top = ''
-    window.scrollTo(0, parseInt(scrollY || '0') * -1)
-  }
-
   componentDidMount(){
-    
     this.props.computeCartTotal(this.props.cart.cart_items, this.props.products)
-    // console.log('Cart component props: ', this.props)
-    // this.props.computeCartTotal(this.props.cart)
-    // console.log('cart didmount compute Cart total: ', this.props.totalOrderCost)
   }
+
   componentDidUpdate(){
-    // console.log('cart DidUpdate, this.props.cart: ', this.props.cart)
     this.props.computeCartTotal(this.props.cart.cart_items, this.props.products)
   }
 
@@ -204,9 +170,6 @@ class Cart extends React.Component {
     )
   }
 }
-
-
-
 
 function mapDispatchToProps(dispatch){
   return {
