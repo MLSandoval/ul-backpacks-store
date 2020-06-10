@@ -102,16 +102,17 @@
 
 .img-2{
   position: sticky;
-  top:0;
+  
   z-index: 1;
-  height: 100vh;
+  height: 150vh;
   width: 100%;
   object-fit: none;
 }
 .product-cards{
-  position:relative;
+  position:absolute;
+  top:15%;
   z-index: 2;
-  /* transform: translateY(-40%) */
+  transform: translateY(-5%)
 }
 
 .card-img{
