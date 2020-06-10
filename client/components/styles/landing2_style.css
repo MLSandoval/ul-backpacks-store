@@ -1,5 +1,5 @@
 .landing-top{
-  /* height: 100vh; */
+  /* height: 200vh; */
 }
 /* 
 .text{
@@ -64,15 +64,11 @@
 
 .img{
   position:fixed;
-  /* position:absolute; */
   top:0;
-  
-  /* transform: translateY(-5%); */
   height: calc(100%);
   width:100%;
   object-fit: none;
   object-position: 57% 79%;
-  
 }
 
 .text{
@@ -120,35 +116,32 @@
   width:100px;
 }
 
-/* 
-Extra small devices (portrait phones, less than 576px) 
-No media query since this is the default in Bootstrap because it is "mobile first"
-*/
+
  
  
-/* Small devices (landscape phones, 576px and up) */
+
 @media (min-width: 576px) {  
  
 }
  
-/* Medium devices (tablets, 768px and up) The navbar toggle appears at this breakpoint */
+
 @media (min-width: 768px) {  
  
 }
  
-/* Large devices (desktops, 992px and up) */
+
 @media (min-width: 992px) { 
  
 }
  
-/* Extra large devices (large desktops, 1200px and up) */
+
 @media (min-width: 1200px) {  
   .img{
     position:fixed;
-    transform: translateY(-5%);
+
     height: 100vh;
     width:100%;
-    object-fit: contain;
+    object-fit: fill;
   }
   
   .text{
@@ -178,10 +171,16 @@ No media query since this is the default in Bootstrap because it is "mobile firs
   .img-2{
     position: sticky;
     top:0;
-    z-index: 10;
+    z-index: 1;
     height: 100%;
     width: 100%;
-    object-fit: contain;
+    object-fit: fill;
+  }
+  .product-cards{
+    position:absolute;
+    top:10%;
+    left: 50%;
+    transform: translate(-50%, 0)
   }
 }
  
