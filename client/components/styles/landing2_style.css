@@ -44,7 +44,7 @@
   position:absolute;
   top:15%;
   z-index: 2;
-  transform: translateY(-5%)
+  /* transform: translateY(-5%) */
 }
 
 .card-img{
@@ -130,8 +130,7 @@
     object-fit: fill;
   }
   .product-cards{
-    position:absolute;
-    top:10%;
+    top:6%;
     left: 50%;
     transform: translate(-50%, 0)
   }

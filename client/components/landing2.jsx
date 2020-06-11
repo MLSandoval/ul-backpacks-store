@@ -60,7 +60,7 @@ class Landing extends React.Component {
           <div className="d-flex flex-column position-relative align-items-center">
           <img className="img-2" src="../../images/gear_sets/gear_set_up_4.jpg" alt=""/> 
             <CardDeck className="product-cards pb-3 d-flex flex-wrap justify-content-around align-items-center">
-              <FadeInSection classesPassed="col-9 col-sm-7 p-3 tile-card">
+              <FadeInSection classesPassed="col-9 col-sm-9 p-3 tile-card">
                 <Card as={LinkRouter} to="/products" className="col-12 align-items-center">
                   <Card.Img className="card-img pt-2" variant="top" src="../../images/logos_icons/backpack_icon.png" />
                   <Card.Body>
@@ -70,7 +70,7 @@ class Landing extends React.Component {
                   {/* <Card.Footer></Card.Footer> */}
                 </Card>
               </FadeInSection>
-              <FadeInSection classesPassed="col-9 col-sm-7 p-3 tile-card">
+              <FadeInSection classesPassed="col-9 col-sm-9 p-3 tile-card">
                 <Card className="col-12 align-items-center">
                   <Card.Img className="card-img pt-2" variant="top" src="../../images/logos_icons/tent_icon.png" />
                   <Card.Body>
@@ -80,7 +80,7 @@ class Landing extends React.Component {
                   {/* <Card.Footer className="text-muted text-sm">Coming Soon</Card.Footer> */}
                 </Card>
               </FadeInSection>
-              <FadeInSection classesPassed="col-9 col-sm-7 p-3 tile-card">
+              <FadeInSection classesPassed="col-9 col-sm-9 p-3 tile-card">
                 <Card className="col-12 align-items-center">
                   <Card.Img className="card-img pt-2" variant="top" src="../../images/logos_icons/sleeping_bag_icon.png" />
                   <Card.Body>
