@@ -57,37 +57,37 @@ class Landing extends React.Component {
               <h1>Let our gear make it happen</h1>
             </div>
           <div className="col-12 hori-break"></div>
-          <div className="d-flex flex-column position-relative">
+          <div className="d-flex flex-column position-relative align-items-center">
           <img className="img-2" src="../../images/gear_sets/gear_set_up_4.jpg" alt=""/> 
-            <CardDeck className="product-cards pb-3 d-flex flex-wrap justify-content-around">
-              <FadeInSection classesPassed="col-9 p-3">
+            <CardDeck className="product-cards pb-3 d-flex flex-wrap justify-content-around align-items-center">
+              <FadeInSection classesPassed="col-9 col-sm-7 p-3 tile-card">
                 <Card as={LinkRouter} to="/products" className="col-12 align-items-center">
                   <Card.Img className="card-img pt-2" variant="top" src="../../images/logos_icons/backpack_icon.png" />
                   <Card.Body>
                     <Card.Title></Card.Title>
                     <Card.Text>Backpacks</Card.Text>
                   </Card.Body>
-                  <Card.Footer></Card.Footer>
+                  {/* <Card.Footer></Card.Footer> */}
                 </Card>
               </FadeInSection>
-              <FadeInSection classesPassed="col-9 p-3">
+              <FadeInSection classesPassed="col-9 col-sm-7 p-3 tile-card">
                 <Card className="col-12 align-items-center">
                   <Card.Img className="card-img pt-2" variant="top" src="../../images/logos_icons/tent_icon.png" />
                   <Card.Body>
                     <Card.Title></Card.Title>
                     <Card.Text>Tents</Card.Text>
                   </Card.Body>
-                  <Card.Footer className="text-muted text-sm">Coming Soon</Card.Footer>
+                  {/* <Card.Footer className="text-muted text-sm">Coming Soon</Card.Footer> */}
                 </Card>
               </FadeInSection>
-              <FadeInSection classesPassed="col-9 p-3">
+              <FadeInSection classesPassed="col-9 col-sm-7 p-3 tile-card">
                 <Card className="col-12 align-items-center">
                   <Card.Img className="card-img pt-2" variant="top" src="../../images/logos_icons/sleeping_bag_icon.png" />
                   <Card.Body>
                     <Card.Title></Card.Title>
                     <Card.Text>Sleeping Bags</Card.Text>
                   </Card.Body>
-                  <Card.Footer className="text-muted text-sm">Coming Soon</Card.Footer>
+                  {/* <Card.Footer className="text-muted text-sm">Coming Soon</Card.Footer> */}
                 </Card>
               </FadeInSection>
             </CardDeck>
