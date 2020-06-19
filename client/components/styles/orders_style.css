@@ -1,3 +1,24 @@
+.orders-main{
+  background-image: url("../../images/gear_sets/gear_set_up_4.jpg");
+	background-position: center;
+	background-attachment: fixed;
+	background-size: cover;
+	background-repeat: no-repeat;
+}
+.orders-title{
+  color: wheat;
+}
+.order-date{
+  color: wheat;
+}
+.order-details-btn{
+  color:wheat;
+  background-color: rgba(0, 0, 0, 0.85);
+}
+.orders-table{
+  margin-bottom: 0;
+  background-color: white;
+}
 .row-image{
   height: 45px;
   width: 45px;

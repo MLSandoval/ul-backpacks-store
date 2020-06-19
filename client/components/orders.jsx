@@ -61,7 +61,7 @@ function Orders (props) {
                   shipCost = 0
               }
               return(
-                <div key={order.order_uuid} className="row col-12 justify-content-between align-items-center pb-1">
+                <div key={order.order_uuid} className="row col-12 justify-content-between align-items-center pb-1 flex-grow-1">
                   <div className="order-date font-weight-bold">{order.order_date}</div>
                   {/* <div className="font-weight-bold text-center">${orderTotal.toFixed(2) || '$0.00'}</div> */}
                   
@@ -72,10 +72,10 @@ function Orders (props) {
                         <ListGroup variant="flush">
                           <ListGroup.Item><span className="font-weight-bold p-0">Order ID:</span> {order.order_uuid}</ListGroup.Item>
                           <ListGroup.Item><span className="font-weight-bold m-0 p-0">Card Number:</span> {order.card_number}</ListGroup.Item>
-              <ListGroup.Item><span className="font-weight-bold m-0 p-0">Shipped to:</span> {`${order.ship_street_address}, ${order.ship_city}, ${order.ship_state} ${order.ship_zip}`}</ListGroup.Item>
+                          <ListGroup.Item><span className="font-weight-bold m-0 p-0">Shipped to:</span> {`${order.ship_street_address}, ${order.ship_city}, ${order.ship_state} ${order.ship_zip}`}</ListGroup.Item>
                           <ListGroup.Item>Items</ListGroup.Item>
                         </ListGroup>
-                        <Table  size="sm" key={order.order_uuid} className="col-12 text-center mb-1">
+                        <Table  size="sm" key={order.order_uuid} className="col-12 text-center orders-table">
                           <thead>
                             <tr>
                               <th></th>  
@@ -131,9 +131,9 @@ function Orders (props) {
   }
     
   return(
-    <div className="container">
-      <div className="row">
-        <h1 className="title mb-4">Your Orders</h1>
+    <div className="container-fluid orders-main flex-grow-1">
+      <div className="row ml-2 mr-2">
+        <h1 className="orders-title mb-4">Your Orders</h1>
         {generateRows()}
       </div>
       

@@ -95,12 +95,12 @@ class ProductList extends React.Component {
 
   render(){
     return (
-      <Element  className="product-list-main container  mb-3 flex-grow-1" name="top-listo" 
+      <Element  className="product-list-main container-fluid flex-grow-1" name="top-listo" 
       // containerId="top-list"
       >
-        <div className="row">
+        <div className="row ml-2 mr-2">
         {/* <div style={{height: '3.5rem'}}></div> */}
-        <h1 className="" name="top">Products list</h1>
+        <h1 className="products-title" name="top">Products list</h1>
           <CardDeck 
             // as={CardDeck} 
             className="product-deck pt-3" 

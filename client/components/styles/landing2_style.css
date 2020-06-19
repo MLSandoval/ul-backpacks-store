@@ -64,8 +64,7 @@
   width:100px;
 }
 
-@media screen and (orientation:landscape) and (min-height: 321
-px){
+@media screen and (orientation:landscape) and (min-height: 321px){
   .hori-break{
     height: 50vh;
   }
@@ -76,11 +75,12 @@ px){
       font-size: 3.9rem;
   }
   .card-image{
-      height: 50px;
-      width: 50px;
+      height: 30px;
+      width: 30px;
   }
   .tile-card{
     font-size:1rem;
+    /* padding-top: .25rem; */
   }
 }
  
@@ -97,7 +97,11 @@ px){
  
 
 @media (min-width: 992px) { 
- 
+  .product-cards{
+    padding-top: 18%;
+    -webkit-text-fill-color: rgba(255, 255, 255, 0.315);
+  }
+
 }
  
 
