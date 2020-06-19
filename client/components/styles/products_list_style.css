@@ -21,14 +21,32 @@
   z-index: 25;
 }
 
+.product-deck{
+	background-image: url("../../images/gear_sets/gear_set_up_4.jpg");
+	background-position: center;
+	background-attachment: fixed;
+	background-size: cover;
+	background-repeat: no-repeat;
+}
+
+/* when mobile is portrait */
+@media screen and (orientation:landscape) and (min-height: 321
+px){
+	.product-deck{
+		background-image: url("../../images/gear_sets/gear_set_up_4.jpg");
+	}
+}
 
 
 
-/* at large screen and up*/
-@media (min-width: 992px){
+/* at small screen and up*/
+@media (min-width: 576px){
 	.img-size-restrict{
 		max-height: 500px;
 		max-width: 300px;
+	}
+	.product-deck{
+		background-image: url("../../images/gear_sets/gear_set_up_4.jpg");
 	}
 }
 
@@ -38,14 +56,18 @@
 		max-height: 500px;
 		max-width: 300px;
 	}
+	.product-deck{
+		background-image: url("../../images/gear_sets/gear_set_up_4.jpg");
+	}
 }
 
-/* at small screen and up*/
-@media (min-width: 576px){
+/* at large screen and up*/
+@media (min-width: 992px){
 	.img-size-restrict{
 		max-height: 500px;
 		max-width: 300px;
 	}
+	.product-deck{
+		background-image: url("../../images/gear_sets/gear_set_up_4.jpg");
+	}
 }
-
-

@@ -59,15 +59,12 @@ class ProductList extends React.Component {
       <h1>{this.props.products}</h1>
       )
     }else if(typeof this.props.products === 'object'){
-      const attributeSwitch = {
-        ref: this.levityRef
-      }
       return (
         this.props.products.map(element => {
           let imgURL = element.image_urls[0]
           return (
             <LinkRouter
-              className={`col-12 col-sm-6 col-md-4 col-lg-3 p-1 remove-a-tag-style d-flex }`}
+              className={`col-12 col-sm-6 col-md-4 col-lg-3 p-1 remove-a-tag-style d-flex pt-3}`}
               key={element.product_uuid} 
               to={`/details/${element.product_uuid}`}
               data-uuid={element.product_uuid}
@@ -75,9 +72,9 @@ class ProductList extends React.Component {
               onClick={ e =>{ this.props.setCurrentProduct(element) }}
             >
                <FadeInSection className="d-flex">
-              <Card {...attributeSwitch} >
+              <Card >
                 {/* <Card.Header className="bg-dark">{element.name}</Card.Header> */}
-                <Card.Img className="img-fluid img-size-restrict" variant="top" src={imgURL} />
+                <Card.Img className="img-fluid img-size-restrict pt-3" variant="top" src={imgURL} />
                 <Card.Body>
                   <Card.Title>{element.name}</Card.Title>
                   <Card.Text className="text-sm-left">
@@ -106,7 +103,7 @@ class ProductList extends React.Component {
         <h1 className="" name="top">Products list</h1>
           <CardDeck 
             // as={CardDeck} 
-            className="" 
+            className="product-deck pt-3" 
             id="card-deck"
           >
             { this.generateProductList() } 

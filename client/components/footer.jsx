@@ -13,13 +13,22 @@ import "./styles/footer_style.css"
 
 export default function Footer (props){
     return (
-      <Navbar className="border p-auto footer-pos flex-shrink-1" name="footer"  bg="dark"  expand="md">
-        <Navbar.Brand href="#home">React-Bootstrap</Navbar.Brand>
-          <Nav className="mr-auto">
-            <Nav.Link href="#home">Home</Nav.Link>
-            <Nav.Link href="#link">Link</Nav.Link>
-          </Nav>
+      // <Navbar className="border p-auto footer-pos flex-shrink-1" name="footer"  bg="dark"  expand="md">
+      //   <Navbar.Brand href="#home">React-Bootstrap</Navbar.Brand>
+      //     <Nav className="mr-auto">
+      //     </Nav>
+      // </Navbar>
+      <Navbar bg="dark" variant="dark">
+        <Navbar.Brand href="#home">
+          <img
+            alt=""
+            src="../images/logos_icons/backpack_icon.png"
+            width="30"
+            height="30"
+            className="d-inline-block align-top footer-icon"
+          />{' '}
+          UltraLite<sup>TM</sup>
+        </Navbar.Brand>
       </Navbar>
-      
     )
 }

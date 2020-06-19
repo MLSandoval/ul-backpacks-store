@@ -1,11 +1,19 @@
 /* .landing-footer{
-    height: 10vh;
+  height: 10vh;
 } */
 
 .footer-pos{
-    /* position:sticky;  */
-    /* bottom:0; */
-    /* height: 2.5rem; */
-    
-    /* margin-top:-2.5rem; */
+  /* position:sticky;  */
+  /* bottom:0; */
+  /* height: 2.5rem; */
+  
+  /* margin-top:-2.5rem; */
+}
+sup{
+  font-size: .3rem;
+  top: -.5rem;
+}
+.footer-icon{
+  color: white;
+  filter: invert(100%)
 }
