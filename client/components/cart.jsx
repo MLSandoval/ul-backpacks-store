@@ -61,7 +61,7 @@ class Cart extends React.Component {
     }else{
       return (
         <React.Fragment>
-          <Table className="table table-hover">
+          <Table className="table table-hover cart-table">
             <thead>
               <tr>
                 <th scope="col-2" ></th>
@@ -161,9 +161,9 @@ class Cart extends React.Component {
 
   render () {
     return (
-      <div className="container" ref={this.CartRef}>
-        <div className="row">
-          <h1 className="">Cart</h1>
+      <div className="container-fluid cart-container" ref={this.CartRef}>
+        <div className="row mr-2 ml-2 justify-content-around pt-3">
+          <h3 className="cart-title">Cart</h3>
           {this.generateCartList()} 
         </div>
       </div>

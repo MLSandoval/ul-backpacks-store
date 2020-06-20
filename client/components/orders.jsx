@@ -132,8 +132,8 @@ function Orders (props) {
     
   return(
     <div className="container-fluid orders-main flex-grow-1">
-      <div className="row ml-2 mr-2">
-        <h1 className="orders-title mb-4">Your Orders</h1>
+      <div className="row ml-2 mr-2 justify-content-around">
+        <h3 className="orders-title mb-4 pt-3">Your Orders</h3>
         {generateRows()}
       </div>
       

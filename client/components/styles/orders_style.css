@@ -1,5 +1,9 @@
 .orders-main{
-  background-image: url("../../images/gear_sets/gear_set_up_4.jpg");
+  background-image: linear-gradient(
+    rgba(0, 0, 0, 0.4),
+    rgba(0, 0, 0, 0.4)
+    ),
+    url("../../images/page_bgs/mountain_bg.jpg");
 	background-position: center;
 	background-attachment: fixed;
 	background-size: cover;
@@ -14,6 +18,7 @@
 .order-details-btn{
   color:wheat;
   background-color: rgba(0, 0, 0, 0.85);
+  border-color: rgba(49, 122, 159, 1)
 }
 .orders-table{
   margin-bottom: 0;

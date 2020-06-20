@@ -61,7 +61,7 @@ class Header extends React.Component {
           bg="light" 
           fixed="top" 
           expand="md" 
-          className="flex-shrink-1 header-size" 
+          className="flex-shrink-1 header-settings" 
           name="header" 
           collapseOnSelect={true}
           // onToggle={this.setNavExpanded}

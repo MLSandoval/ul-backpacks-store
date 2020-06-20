@@ -18,7 +18,7 @@ export default function Footer (props){
       //     <Nav className="mr-auto">
       //     </Nav>
       // </Navbar>
-      <Navbar className="justify-content-end" bg="dark" variant="dark">
+      <Navbar className="justify-content-end" bg="light" variant="light">
         <Navbar.Brand href="#home">
           <img
             alt=""

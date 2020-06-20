@@ -1,9 +1,21 @@
 .product-list-main{
-	background-image: url("../../images/gear_sets/gear_set_up_4.jpg");
+	background-image: linear-gradient(
+    rgba(0, 0, 0, 0.4),
+    rgba(0, 0, 0, 0.4)
+		),
+		url("../../images/page_bgs/forest5_bg.jpg");
 	background-position: center;
 	background-attachment: fixed;
 	background-size: cover;
 	background-repeat: no-repeat;
+}
+.opacity-layer{
+	height: auto;
+	width:100vw;
+	background-color: rgba(0, 0, 0, 0.541);
+	position: absolute;
+	top:0;
+	left: 0;
 }
 .products-title{
 	color: wheat;

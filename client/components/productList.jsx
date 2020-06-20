@@ -72,7 +72,7 @@ class ProductList extends React.Component {
               onClick={ e =>{ this.props.setCurrentProduct(element) }}
             >
                <FadeInSection className="d-flex">
-              <Card >
+              <Card className="rounded-0">
                 {/* <Card.Header className="bg-dark">{element.name}</Card.Header> */}
                 <Card.Img className="img-fluid img-size-restrict pt-3" variant="top" src={imgURL} />
                 <Card.Body>
@@ -98,9 +98,10 @@ class ProductList extends React.Component {
       <Element  className="product-list-main container-fluid flex-grow-1" name="top-listo" 
       // containerId="top-list"
       >
-        <div className="row ml-2 mr-2">
+        <div className="opacity-layer flex-grow-1"></div>
+        <div className="row ml-2 mr-2 justify-content-around">
         {/* <div style={{height: '3.5rem'}}></div> */}
-        <h1 className="products-title" name="top">Products list</h1>
+        <h3 className="products-title pt-3" name="top">Products list</h3>
           <CardDeck 
             // as={CardDeck} 
             className="product-deck pt-3" 
