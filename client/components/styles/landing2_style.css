@@ -48,10 +48,7 @@
   /* text-shadow:1px 1px black; */
   /* color:white; */
   font-size: 3rem;
-  color: rgba(255, 255, 255, 0);
-  -webkit-text-fill-color: rgba(255, 255, 255, 0.322); /* Will override color (regardless of order) */
-  -webkit-text-stroke-width: 1px;
-  -webkit-text-stroke-color: rgba(255, 255, 255, 0.534);
+  color: wheat;
   
 }
 .product-cards{
@@ -62,6 +59,11 @@
 .card-img{
   height:100px;
   width:100px;
+}
+
+.tile-image{
+  max-height:200px;
+  max-width: 350px;
 }
 
 @media screen and (orientation:landscape) and (min-height: 321px){
@@ -148,7 +150,7 @@
     object-fit: fill;
   }
   .shop-text{
-    color: white;
+    color: wheat;
   }
   .product-cards{
     padding-top: 18%;
