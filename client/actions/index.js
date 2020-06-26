@@ -1,5 +1,15 @@
 import types from './types.js'
 
+export function setAppHeight(setting){
+  console.log('appheightset action reached, setting: ', setting)
+  return function(dispatch){
+    dispatch({
+      type: types.APP_HEIGHT_SET,
+      payload: setting
+    })
+  }
+}
+
 export function getProductList () {
   return function (dispatch) {
     fetch('/api/get-products', {

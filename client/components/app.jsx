@@ -32,8 +32,7 @@ class App extends React.Component {
     super(props)
     this.lastScrollTop = 0
     this.state = {
-      showHeader: true,
-      
+      showHeader: true
     }
     // this.hideAndRevealHeader = this.hideAndRevealHeader.bind(this)
   }
@@ -65,6 +64,10 @@ class App extends React.Component {
     // document.addEventListener('scroll', ()=>{this.hideAndRevealHeader()})
   }
 
+  componentDidUpdate(){
+    console.log('app comp update, props: ', this.props)
+  }
+
   componentWillUnmount(){
     // document.removeEventListener('scroll', ()=>{this.hideAndRevealHeader()})
   }
@@ -73,8 +76,8 @@ class App extends React.Component {
     return (
       <React.Fragment>
         <Header/>
-        <Element className="app-main d-flex flex-column"id="app">
-          <div className="main-content flex-grow-1 d-flex">
+        <Element className="app-main d-flex flex-column justify-content-between" id="app">
+          <div className="main-content flex-grow-1 d-flex " >
             <Route exact path="/" component={Landing2}/>
             <Route exact path="/your-orders/" component={Orders}/>
             <Route exact path="/products" component={ProductList}/>
@@ -95,7 +98,8 @@ function mapStateToProps(state){
     currentProduct: state.currentProduct,
     userData: state.userData,
     cart: state.cart,
-    orders: state.orders
+    orders: state.orders,
+    appHeight: state.appHeight
   }
 }
 

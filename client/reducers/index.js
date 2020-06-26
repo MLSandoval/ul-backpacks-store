@@ -9,6 +9,7 @@ import save_previous_y_scroll_reducer from './save_previous_y_scroll_reducer'
 import set_modal_config_reducer from './set_modal_config_reducer'
 import user_reducer from './user_reducer'
 import order_reducer from './order_reducer'
+import app_height_reducer from './set_app_height_reducer'
 
 
 
@@ -21,7 +22,8 @@ const rootReducer = combineReducers({
   prevY: save_previous_y_scroll_reducer,
   modalConfig: set_modal_config_reducer,
   userData: user_reducer,
-  orders: order_reducer
+  orders: order_reducer,
+  appHeight: app_height_reducer
 })
 
 export default rootReducer

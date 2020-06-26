@@ -12,6 +12,8 @@ import Jumbotron from 'react-bootstrap/Jumbotron'
 import FadeInSection from './fade_in_section.jsx'
 import './styles/landing2_style.css'
 
+import {setAppHeight} from '../actions'
+
 class Landing extends React.Component {
   constructor(props){
     super(props)
@@ -37,11 +39,12 @@ class Landing extends React.Component {
 
   componentDidMount(){
     window.scrollTo(0, 0)
-
+    console.log('landing mounted app-height-setting: ', this.props.appHeight)
+    // this.props.setAppHeight('calc(100vh - 4.6rem)')
   }
 
   componentWillUnmount(){
-
+    // this.props.setAppHeight('auto')
   }
   
   render(){
@@ -95,7 +98,7 @@ function mapStateToProps(state) {
   // console.log('LANDING state: ', state);
   return {
     //this becomes a property inside of the props of this component
-    view: state.view,
+    appHeight: state.appHeight
   };
 }
 
@@ -107,4 +110,4 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Landing);
+export default connect(mapStateToProps, {setAppHeight})(Landing);

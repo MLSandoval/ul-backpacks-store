@@ -5,7 +5,7 @@ import {Route, Link as LinkRouter, withRouter} from 'react-router-dom'
 import * as Scroll from 'react-scroll'
 import { Link, Element , Events, animateScroll as scroll, scrollSpy, scroller } from 'react-scroll'
 
-import {getProductList, setCurrentProduct, savePrevY} from '../actions'
+import {getProductList, setCurrentProduct, savePrevY, setAppHeight} from '../actions'
 import types from '../actions/types'
 import Card from 'react-bootstrap/Card'
 import CardDeck from 'react-bootstrap/CardDeck'
@@ -37,6 +37,7 @@ class ProductList extends React.Component {
   }
   
   componentDidMount() {
+    // this.props.setAppHeight('calc(100vh - 4.6rem)')
     scroll.scrollToTop({
       duration: 0
     })
@@ -48,6 +49,7 @@ class ProductList extends React.Component {
   }
 
   componentWillUnmount(){
+    // this.props.setAppHeight('auto')
     this.props.savePrevY(window.scrollY)
 
     document.removeEventListener('scroll', this.scrollFn)
@@ -141,4 +143,4 @@ function mapStateToProps(state){
   }
 }
 
-export default connect(mapStateToProps, {setCurrentProduct, savePrevY})(ProductList)
+export default connect(mapStateToProps, {setCurrentProduct, savePrevY, setAppHeight})(ProductList)
