@@ -48,7 +48,7 @@ class Landing extends React.Component {
     return (
       <div className="landing-top">
         <div className="d-flex flex-wrap position-relative">
-          <img className="img" src="../../images/backgrounds/BP_landscape_9.jpg" alt=""/>
+          <img className="img-1" src="../../images/backgrounds/BP_landscape_9.jpg" alt=""/>
           <div className="text col-12 d-flex align-items-center justify-content-around flex-column">
             <h1>Dreaming of an adventure?</h1>
             <div></div>
@@ -64,17 +64,17 @@ class Landing extends React.Component {
               <h3 className="shop-text pt-3 pb-2">Shop Now</h3>
               <Jumbotron fluid>
                 <div className="container">
-                  <div className="row justify-content-around">
-                    <LinkRouter className="col-4" to="/products">
-                      <h1>Backpacks</h1>
+                  <div className="row justify-content-around flex-column">
+                    <LinkRouter className="col-12" to="/products">
+                      <h1 className="category-text">Backpacks</h1>
                       <img className="tile-image image-fluid" src="../../images/logos_icons/backpack_tile.jpg" alt=""/>
                     </LinkRouter>
-                    <div className="col-4">
-                      <h1>Tents</h1>
+                    <div className="col-12 mt-4">
+                      <h1 className="category-text">Tents</h1>
                       <img className="tile-image image-fluid" src="../../images/logos_icons/tent_tile.jpg" alt=""/>
                     </div>
-                    <div className="col-4">
-                      <h1>Sleeping Bags</h1>
+                    <div className="col-12 mt-4">
+                      <h1 className="category-text">Sleeping Bags</h1>
                       <img className="tile-image image-fluid" src="../../images/logos_icons/sleepingbag_tile.jpg" alt=""/>
                     </div>
                   </div>
