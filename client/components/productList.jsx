@@ -74,7 +74,7 @@ class ProductList extends React.Component {
               onClick={ e =>{ this.props.setCurrentProduct(element) }}
             >
                <FadeInSection className="d-flex">
-              <Card className="rounded-0">
+              <Card className="rounded-0 align-items-center">
                 {/* <Card.Header className="bg-dark">{element.name}</Card.Header> */}
                 <Card.Img className="img-fluid img-size-restrict pt-3" variant="top" src={imgURL} />
                 <Card.Body>
@@ -83,7 +83,7 @@ class ProductList extends React.Component {
                     {element.short_description}
                   </Card.Text>
                 </Card.Body>
-                <Card.Footer>
+                <Card.Footer className="w-100">
                   <div className="text-muted text-right">by {element.brand}</div>
                 </Card.Footer>
               </Card>
@@ -111,12 +111,8 @@ class ProductList extends React.Component {
           >
             { this.generateProductList() } 
           </CardDeck>
-          <div className="to-top-pos">
-            {
-              this.state.visibility ? <BackToTopButton className="bring-to-front"/> : null
-                
-            }
-            
+          <div className="">
+            {this.state.visibility ? <BackToTopButton className="bring-to-front"/> : null}
           </div>
         </div>
        

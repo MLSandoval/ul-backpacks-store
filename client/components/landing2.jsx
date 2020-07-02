@@ -65,24 +65,24 @@ class Landing extends React.Component {
             <img className="img-2" src="../../images/gear_sets/gear_set_up_4.jpg" alt=""/>
             <div className="on-top-image d-flex align-items-center justify-content-around flex-column">
               <h3 className="shop-text pt-3 pb-2">Shop Now</h3>
-              <Jumbotron fluid>
+              {/* <Jumbotron fluid> */}
                 <div className="container">
-                  <div className="row justify-content-around flex-column">
-                    <LinkRouter className="col-12" to="/products">
-                      <h1 className="category-text">Backpacks</h1>
-                      <img className="tile-image image-fluid" src="../../images/logos_icons/backpack_tile.jpg" alt=""/>
+                  <div className="tile-container row justify-content-around flex-column">
+                    <LinkRouter className="col-12 mt-4 link-tile" to="/products">
+                      <h2 className="category-text">Backpacks</h2>
+                      <img className="tile-image" src="../../images/logos_icons/backpack_tile.jpg" alt=""/>
                     </LinkRouter>
                     <div className="col-12 mt-4">
-                      <h1 className="category-text">Tents</h1>
-                      <img className="tile-image image-fluid" src="../../images/logos_icons/tent_tile.jpg" alt=""/>
+                      <h2 className="category-text">Tents</h2>
+                      <img className="tile-image" src="../../images/logos_icons/tent_tile.jpg" alt=""/>
                     </div>
                     <div className="col-12 mt-4">
-                      <h1 className="category-text">Sleeping Bags</h1>
-                      <img className="tile-image image-fluid" src="../../images/logos_icons/sleepingbag_tile.jpg" alt=""/>
+                      <h2 className="category-text">Sleeping Bags</h2>
+                      <img className="tile-image" src="../../images/logos_icons/sleepingbag_tile.jpg" alt=""/>
                     </div>
                   </div>
                 </div>
-              </Jumbotron>
+              {/* </Jumbotron> */}
             </div>
           </div>
         </div>
