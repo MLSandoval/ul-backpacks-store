@@ -33,7 +33,7 @@ function Orders (props) {
       return (
         <React.Fragment>
           {
-            props.orders.map((order)=>{
+            props.orders.reverse().map((order)=>{
               let prodDataAddedArr = []
               let open = null
               for(let key in order.items){
