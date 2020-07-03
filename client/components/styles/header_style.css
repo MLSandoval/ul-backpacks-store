@@ -3,10 +3,11 @@
     background-color: rgba(116, 112, 112);
 }
 
-.header-size{
-    /* height: 4.5rem; */
-    /* margin-bottom:-3.5rem; */
-    
+.header-settings{
+	color: rgba(49, 122, 159, 1);
+}
+.navbar-light .navbar-brand{
+	color: rgba(49, 122, 159, 1);
 }
 .logo{
     height: 45px;
@@ -81,4 +82,8 @@
 		max-height: 500px;
 		max-width: 300px;
 	}
+}
+
+#responsive-navbar-nav:not(.collapsing):not(.show) {
+	height: auto !important;
 }

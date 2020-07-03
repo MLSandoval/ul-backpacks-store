@@ -1,4 +1,20 @@
-.cart{}
+.cart-container{
+  background-image: linear-gradient(
+    rgba(0, 0, 0, 0.4),
+    rgba(0, 0, 0, 0.4)
+    ),
+    url("../../images/page_bgs/snow2_bg.jpg");
+  background-position: center;
+	background-attachment: fixed;
+	background-size: cover;
+	background-repeat: no-repeat;
+}
+.cart-title{
+  color: white;
+}
+.cart-table{
+  background-color: white;
+}
 .pointer{
   cursor: pointer;
 }

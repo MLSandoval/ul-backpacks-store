@@ -2,6 +2,8 @@ import React from 'react'
 
 import { connect } from 'react-redux'
 
+import { Link, Element , Events, animateScroll as scroll, scrollSpy, scroller } from 'react-scroll'
+
 import Navbar from 'react-bootstrap/Navbar'
 import Nav from 'react-bootstrap/Nav'
 import NavDropdown from 'react-bootstrap/NavDropdown'
@@ -13,13 +15,20 @@ import "./styles/footer_style.css"
 
 export default function Footer (props){
     return (
-      <Navbar className="border p-auto footer-pos flex-shrink-1" name="footer"  bg="dark"  expand="md">
-        <Navbar.Brand href="#home">React-Bootstrap</Navbar.Brand>
-          <Nav className="mr-auto">
-            <Nav.Link href="#home">Home</Nav.Link>
-            <Nav.Link href="#link">Link</Nav.Link>
-          </Nav>
+<Element name="footer">
+<Navbar className="justify-content-end" bg="light" variant="light">
+        <Navbar.Brand href="#home">
+          <img
+            alt=""
+            src="../images/logos_icons/backpack_icon.png"
+            width="30"
+            height="30"
+            className="d-inline-block align-top footer-icon"
+          />{' '}
+          UltraLite<sup>TM</sup>
+        </Navbar.Brand>
       </Navbar>
+</Element>
       
     )
 }

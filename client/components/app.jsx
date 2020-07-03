@@ -32,25 +32,24 @@ class App extends React.Component {
     super(props)
     this.lastScrollTop = 0
     this.state = {
-      showHeader: true,
-      
+      showHeader: true
     }
-    this.hideAndRevealHeader = this.hideAndRevealHeader.bind(this)
+    // this.hideAndRevealHeader = this.hideAndRevealHeader.bind(this)
   }
 
-  hideAndRevealHeader(){
-    console.log('hideAndRevaelheader lastScrollTop at start of function: ', this.lastScrollTop)
-    console.log('hideAndRevaelheader pageYoffset at start of function: ', window.pageYOffset)
-    if(window.pageYOffset >= this.lastScrollTop){
-      //show header
-      this.setState({showHeader: false})
-      this.lastScrollTop = window.pageYOffset
-    }else{
-      //hideheader
-      this.setState({showHeader: true})
-      this.lastScrollTop = window.pageYOffset
-    }
-  }
+  // hideAndRevealHeader(){
+  //   console.log('hideAndRevaelheader lastScrollTop at start of function: ', this.lastScrollTop)
+  //   console.log('hideAndRevaelheader pageYoffset at start of function: ', window.pageYOffset)
+  //   if(window.pageYOffset >= this.lastScrollTop){
+  //     //show header
+  //     this.setState({showHeader: false})
+  //     this.lastScrollTop = window.pageYOffset
+  //   }else{
+  //     //hideheader
+  //     this.setState({showHeader: true})
+  //     this.lastScrollTop = window.pageYOffset
+  //   }
+  // }
 
   componentDidMount () {
     this.props.getProductList()
@@ -62,25 +61,28 @@ class App extends React.Component {
       this.props.getUserData(user_uuid, this.props.products)
     }
 
-    document.addEventListener('scroll', ()=>{this.hideAndRevealHeader()})
+    // document.addEventListener('scroll', ()=>{this.hideAndRevealHeader()})
+  }
+
+  componentDidUpdate(){
+    console.log('app comp update, props: ', this.props)
   }
 
   componentWillUnmount(){
-    document.removeEventListener('scroll', ()=>{this.hideAndRevealHeader()})
+    // document.removeEventListener('scroll', ()=>{this.hideAndRevealHeader()})
   }
 
   render() {
     return (
       <React.Fragment>
         <Header/>
-        <Element className="app-main d-flex flex-column"id="app">
-          <div className="main-content flex-grow-1">
+        <Element className="app-main d-flex flex-column justify-content-between" id="app">
+          <div className="main-content flex-grow-1 d-flex " >
             <Route exact path="/" component={Landing2}/>
             <Route exact path="/your-orders/" component={Orders}/>
             <Route exact path="/products" component={ProductList}/>
             <Route path="/details/:product_uuid" component={ProductDetails}/> 
             <Route path="/cart" component={Cart}/>
-            {/* <Route path="/" component={Orders}/> */}
           </div>
           <Footer/>
         </Element>
@@ -96,7 +98,8 @@ function mapStateToProps(state){
     currentProduct: state.currentProduct,
     userData: state.userData,
     cart: state.cart,
-    orders: state.orders
+    orders: state.orders,
+    appHeight: state.appHeight
   }
 }
 
