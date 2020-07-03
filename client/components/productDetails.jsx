@@ -39,10 +39,12 @@ class ProductDetails extends React.Component {
 
   renderProductFeatures () {
     const product = this.props.currentProduct
+    let i = 0
     return (
       product.features.map( (element, index) => {
+        i++
         return (
-        <li key={ index }>
+        <li key={ index } className={`tab-text-${i}`}>
           {element}
         </li>
         )
@@ -60,9 +62,15 @@ class ProductDetails extends React.Component {
     this.props.computeCartTotal(this.props.cart.cart_items, this.props.products, this.props.currentProduct)
   }
   
+  handleFeaturesTabClick(){
+    console.log('handleFeaturesTabClick called')
+    setTimeout(document.querySelector('.tab-text-2').scrollIntoView({inline: 'center', block: 'center', behavior: 'smooth'}), 1000)
+  }
+
   componentDidMount(){
     window.scrollTo(0,0)
     document.addEventListener('scroll', this.scrollFn)
+
   }
 
   componentWillUnmount(){
@@ -72,14 +80,14 @@ class ProductDetails extends React.Component {
   render () {
     const product = this.props.currentProduct
     return (
-      <div className="product-details container pb-5 flex-grow-1">
-        <div className="align-items-center container pt-4 d-flex flex-wrap h-100 justify-content-center">
+      <div className="product-details container pb-2 flex-grow-1">
+        <div className="align-items-center container pt-4 d-flex flex-wrap justify-content-center flex-column flex-sm-row">
           <div className="col-sm-12 col-md-6 carousel-container">
             <Carousel interval={null}>
               {
                 product.image_urls.map( (element, index) => {
                   return(
-                    <Carousel.Item key={index}>
+                    <Carousel.Item key={index} className="">
                     <img
                       className="d-block w-100 h-100 carousel-image"
                       src={'../' + element}
@@ -135,11 +143,25 @@ class ProductDetails extends React.Component {
         </div>
         <div>
         </div>
-        <Tabs className="row pt-2 pb-4" onClick={()=>{scroll.scrollToBottom()}} defaultActiveKey="description" id="uncontrolled-tab-example">
-          <Tab className='pt-1' eventKey="description" title="Description">
+        <Element name="tab-scroll"></Element>
+        <Tabs className="row pt-2 pb-2"  defaultActiveKey="description" id="uncontrolled-tab-example" 
+          onClick={
+            ()=>{
+              scroller.scrollTo('tab-scroll', {duration: 1000,
+                delay: 50,
+                smooth: true,
+                offset: -60
+              })
+
+                console.log('tab container clicked')
+              // scroll.scrollToBottom()
+            }
+          }
+        >
+          <Tab className='pt-1 tab-text' eventKey="description" title="Description">
             {product.long_description}
           </Tab>
-          <Tab className='row two-columns'  eventKey="features" title="Features">
+          <Tab className='row two-columns tab-text features-tab-content'  eventKey="features" title="Features" >
             <ul>{ this.renderProductFeatures() }</ul>
           </Tab>
         </Tabs>

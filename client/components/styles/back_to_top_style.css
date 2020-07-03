@@ -15,12 +15,10 @@
   display: inline-block;
 }
 
-
-
 .back-to-top-button {
   position: fixed;
-  bottom: 3.8rem;
-  right: .55rem;
+  bottom: 5rem;
+  right: 2rem;
   animation: fadeIn 200ms ease-in-out 300ms both;
   cursor: pointer;
   z-index: 10;
@@ -40,3 +38,28 @@
     opacity: 1;
   }
 }
+
+@media (orientation: landscape) and (max-height: 400px){
+  .back-to-top-button{
+    bottom: 4rem;
+    right: 2rem;
+  }
+}
+
+
+@media (min-width: 576px) {  
+
+}
+ 
+@media (min-width: 768px) {  
+  
+}
+ 
+@media (min-width: 992px) { 
+
+}
+ 
+@media (min-width: 1200px) {  
+
+}
+  
