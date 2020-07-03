@@ -2,6 +2,8 @@ import React from 'react'
 
 import { connect } from 'react-redux'
 
+import { Link, Element , Events, animateScroll as scroll, scrollSpy, scroller } from 'react-scroll'
+
 import Navbar from 'react-bootstrap/Navbar'
 import Nav from 'react-bootstrap/Nav'
 import NavDropdown from 'react-bootstrap/NavDropdown'
@@ -13,7 +15,8 @@ import "./styles/footer_style.css"
 
 export default function Footer (props){
     return (
-      <Navbar className="justify-content-end" bg="light" variant="light">
+<Element name="footer">
+<Navbar className="justify-content-end" bg="light" variant="light">
         <Navbar.Brand href="#home">
           <img
             alt=""
@@ -25,5 +28,7 @@ export default function Footer (props){
           UltraLite<sup>TM</sup>
         </Navbar.Brand>
       </Navbar>
+</Element>
+      
     )
 }

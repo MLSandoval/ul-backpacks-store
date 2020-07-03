@@ -59,7 +59,7 @@ class Header extends React.Component {
           onClick={()=>{this.removeActiveOnClick()}}
           // toggleNavKey={4} 
           bg="light" 
-          fixed="top" 
+          sticky="top" 
           expand="md" 
           className="flex-shrink-1 header-settings" 
           name="header" 

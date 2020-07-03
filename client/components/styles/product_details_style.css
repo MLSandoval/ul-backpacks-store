@@ -50,16 +50,21 @@
     1px 1px 0 #000;
 }
 
+.tab-text{
+  font-size: .75rem;
+}
+
 .two-columns{
   columns: 2 auto;
 }
+
+.bring-to-front{
+  z-index: 25;
+}
+
 @media (max-width: 768px){
   .carousel-image{
     max-height: 480px;
     max-width: 360px;
   }
-}
-
-.bring-to-front{
-  z-index: 25;
 }

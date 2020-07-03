@@ -32,7 +32,7 @@
 }
 .hori-break{
   background-color: black;
-  height:20vh;
+  height:75vh;
 }
 
 .img-2{
@@ -121,6 +121,7 @@
 @media (min-height: 750px) {  
   .img-2{
     height: 93vh;
+
   }
 }
 
@@ -180,9 +181,9 @@
   
   .img-2{
   }
-  .shop-text{
+  /* .shop-text{
     color: wheat;
-  }
+  } */
   .product-cards{
     padding-top: 18%;
     -webkit-text-fill-color: rgba(255, 255, 255, 0.315);
