@@ -16,9 +16,11 @@
   color: wheat;
 }
 .order-details-btn{
-  color:wheat;
+  color:white;
   background-color: rgba(0, 0, 0, 0.85);
-  border-color: rgba(49, 122, 159, 1)
+  border-color: rgba(49, 122, 159, 1);
+  padding: .1rem !important;
+  border-radius: .15rem !important;
 }
 .orders-table{
   margin-bottom: 0;

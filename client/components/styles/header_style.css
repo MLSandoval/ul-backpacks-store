@@ -83,3 +83,7 @@
 		max-width: 300px;
 	}
 }
+
+#responsive-navbar-nav:not(.collapsing):not(.show) {
+	height: auto !important;
+}

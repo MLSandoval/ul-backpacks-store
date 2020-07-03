@@ -35,11 +35,11 @@ class Cart extends React.Component {
           <Table className="empty-cart">
             <thead>
               <tr>
-                <th scope="col-2" ></th>
-                <th scope="col-2">Product</th>
-                <th scope="col-2" className="text-center">Quantity</th>
-                <th scope="col-2" className="text-center">Price</th>
-                <th scope="col-2" className="text-center">Total</th>
+                <th scope="col-2" className="text-white"></th>
+                <th scope="col-2" className="text-white">Product</th>
+                <th scope="col-2" className="text-center text-white">Quantity</th>
+                <th scope="col-2" className="text-center text-white">Price</th>
+                <th scope="col-2" className="text-center text-white">Total</th>
                 <th scope="col-1"></th>
               </tr>
             </thead>
@@ -54,7 +54,7 @@ class Cart extends React.Component {
             </tbody>
           </Table>
           <div  className=" col-12 d-flex justify-content-around">
-            <h3 className="text-center">Your Cart is Empty :&#40;</h3>
+            <h3 className="text-center text-white">Your Cart is Empty :&#40;</h3>
           </div>
         </React.Fragment>
       )

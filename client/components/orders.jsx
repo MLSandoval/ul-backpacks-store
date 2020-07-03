@@ -25,8 +25,8 @@ function Orders (props) {
     if(!props.orders[0]){
       return (
         <React.Fragment>
-          <h3 className="col-12 text-center">You have no past orders.</h3>
-          <h3 className="col-12 text-center">Visit our <Link to="/products">products</Link> to get started shopping.</h3>
+          <h3 className="col-12 text-center text-white">You have no past orders.</h3>
+          <h3 className="col-12 text-center text-white">Visit our <Link to="/products">products</Link> to get started shopping.</h3>
         </React.Fragment>
       )
     }else{
@@ -78,11 +78,10 @@ function Orders (props) {
                         <Table  size="sm" key={order.order_uuid} className="col-12 text-center orders-table">
                           <thead>
                             <tr>
-                              <th></th>  
-                              <th></th>
-                              <th>Product</th>
-                              <th>Quantity</th>
-                              <th>Price</th>
+                              <th scope="col-1" className="d-none d-sm-table-cell"></th>  
+                              <th scope="col-1">Product</th>
+                              <th scope="col-1">Quantity</th>
+                              <th scope="col-1">Price</th>
                             </tr>
                           </thead>
                           <tbody>
@@ -93,8 +92,7 @@ function Orders (props) {
                                 return(
                                   <React.Fragment key={order.order_uuid + orderProdWithData.product_uuid}>
                                     <tr>
-                                      <td><img className="row-image" src={orderProdWithData.image_urls[0]}/></td>
-                                      <td></td>
+                                      <td className="d-none d-sm-table-cell"><img className="row-image" src={orderProdWithData.image_urls[0]}/></td>
                                       <td>{orderProdWithData.name}</td>
                                       <td>{orderProdWithData.quantity}</td>
                                       <td>${orderProdWithData.price}</td>
@@ -104,15 +102,13 @@ function Orders (props) {
                               })
                             }
                             <tr>
+                              <td className="d-none d-sm-table-cell"></td>
                               <td></td>
-                              <td></td>
-                              <td></td>
-                              <td className="no-wrap-white font-weight-bold text-right">{order.shipping_option} Shipping: </td>
+                              <td className="font-weight-bold text-right">{order.shipping_option} Shipping: </td>
                               <td>+ ${shipCost}</td>
                             </tr>
                             <tr>
-                              <td></td>
-                              <td></td>
+                              <td className="d-none d-sm-table-cell"></td>
                               <td></td>
                               <td className="no-wrap-white font-weight-bold text-right">Order Total: </td>
                               <td className="font-weight-bold">${(orderTotal + shipCost).toFixed(2) || '$0.00'}</td>

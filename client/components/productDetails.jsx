@@ -81,13 +81,13 @@ class ProductDetails extends React.Component {
     const product = this.props.currentProduct
     return (
       <div className="product-details container pb-2 flex-grow-1">
-        <div className="align-items-center container pt-4 d-flex flex-wrap justify-content-center">
+        <div className="align-items-center container pt-4 d-flex flex-wrap justify-content-center flex-column flex-sm-row">
           <div className="col-sm-12 col-md-6 carousel-container">
             <Carousel interval={null}>
               {
                 product.image_urls.map( (element, index) => {
                   return(
-                    <Carousel.Item key={index}>
+                    <Carousel.Item key={index} className="">
                     <img
                       className="d-block w-100 h-100 carousel-image"
                       src={'../' + element}

@@ -54,14 +54,14 @@ px){
 	}
 	.img-size-restrict{
 		max-height: 400px;
-		max-width: 200px;
+		max-width: 180px;
 	}
 }
 
 @media screen and (orientation:landscape) and (max-height: 400px){
 	.img-size-restrict{
 		max-height: 400px;
-		max-width: 200px;
+		max-width: 180px;
 	}
 }
 
