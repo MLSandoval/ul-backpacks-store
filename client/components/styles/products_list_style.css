@@ -52,6 +52,17 @@ px){
 	.product-deck{
 		/* background-image: url("../../images/gear_sets/gear_set_up_4.jpg"); */
 	}
+	.img-size-restrict{
+		max-height: 400px;
+		max-width: 200px;
+	}
+}
+
+@media screen and (orientation:landscape) and (max-height: 400px){
+	.img-size-restrict{
+		max-height: 400px;
+		max-width: 200px;
+	}
 }
 
 
@@ -59,8 +70,8 @@ px){
 /* at small screen and up*/
 @media (min-width: 576px){
 	.img-size-restrict{
-		max-height: 500px;
-		max-width: 300px;
+		/* max-height: 500px;
+		max-width: 300px; */
 	}
 	.product-deck{
 		/* background-image: url("../../images/gear_sets/gear_set_up_4.jpg"); */

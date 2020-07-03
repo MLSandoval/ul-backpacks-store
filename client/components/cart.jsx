@@ -64,10 +64,10 @@ class Cart extends React.Component {
           <Table className="table table-hover cart-table">
             <thead>
               <tr>
-                <th scope="col-2" ></th>
+                <th scope="col-2" className="d-none d-sm-table-cell"></th>
                 <th scope="col-2">Product</th>
                 <th scope="col-2" className="text-center">Quantity</th>
-                <th scope="col-2" className="text-center">Price</th>
+                <th scope="col-2" className="text-center d-none d-sm-table-cell">Price</th>
                 <th scope="col-2" className="text-center">Total</th>
                 <th scope="col-1"></th>
               </tr>
@@ -77,11 +77,11 @@ class Cart extends React.Component {
               const element = products.filter(currentIteratedProduct => currentIteratedProduct.product_uuid === product.product_uuid)[0]
               return(
                 <tr key={product.product_uuid}>
-                  <td>
+                  <td className="d-none d-sm-table-cell">
                     <img className="row-image" src={element.image_urls[0]}></img>
                   </td>
                   <td>{element.name}</td>
-                  <td className="text-center">
+                  <td className="text-center no-wrap-white">
                     <button 
                       type="button" 
                       className="btn"
@@ -103,7 +103,7 @@ class Cart extends React.Component {
                       >+
                     </button>
                   </td>
-                  <td className="text-center">${element.price}</td>
+                  <td className="text-center d-none d-sm-table-cell">${element.price}</td>
                   <td className="text-center">${(element.price*product.quantity).toFixed(2)}</td>
                   <td className="text-center">
                     <button 
@@ -118,24 +118,24 @@ class Cart extends React.Component {
               )
             })}
             <tr>
+              <td className="d-none d-sm-table-cell"></td>
               <td></td>
               <td></td>
-              <td></td>
-              <td className="font-weight-bold text-right"> </td>
+              <td className="font-weight-bold text-right d-none d-sm-table-cell"> </td>
               <td className="text-center"><span className="font-weight-bold">Order Total: </span>${this.props.totalOrderCost.toFixed(2) || 0.00}</td>
               <td></td> 
             </tr>
             <tr>
+              <td className="d-none d-sm-table-cell"></td>
               <td></td>
               <td></td>
-              <td></td>
-              <td></td>
+              <td className="d-none d-sm-table-cell"></td>
               <td className="text-center">
                 <Button as={LinkRouter} variant="info" type="button" className="btn-sm" to={`cart/modal/checkout`}>
                   Checkout
                 </Button>
               </td>
-              <td></td>
+              <td className="d-none d-sm-table-cell"></td>
             </tr>
             </tbody>
           </Table>
