@@ -18,7 +18,7 @@
 	left: 0;
 }
 .products-title{
-	color: wheat;
+	color: white;
 }
 .preview-image{
 	object-fit: cover;
@@ -44,6 +44,18 @@
 	background-attachment: fixed;
 	background-size: cover;
 	background-repeat: no-repeat; */
+}
+.card-padding-left{
+	padding-left: 1.25rem;
+}
+.title-brand{
+	font-size: .7rem;
+}
+.list-group-text{
+	font-size: .8rem;
+}
+.list-group-brand{
+	font-size: .8rem;
 }
 
 /* when mobile is portrait */

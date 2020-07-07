@@ -102,13 +102,17 @@ class ProductDetails extends React.Component {
               }
             </Carousel>
           </div>
-          <div className="col-sm-12 col-md-6 d-flex flex-column flex-grow-1 justify-content-between">
-            <div className=''>
-              <h2 className="">{product.name}</h2>
-              <h6>by {product.brand}</h6>
-              <div className="align-self-center">{product.short_description}</div>
+          <div className="col-sm-12 col-md-6 d-flex flex-column flex-grow-1 justify-content-between align-items-center">
+            <div className="d-flex flex-column">
+              <h1 className="mb-0 col-12">{product.name}</h1>
+              <div className="brand-font-size col-12">by {product.brand}</div>
+              {/* <div className="align-self-center">{product.short_description}</div> */}
+              <div className="rem-1-font-size mt-4 col-12"><span className="mr-3">{parseInt(product.size_liters).toFixed(0)} L</span> •	<span className="ml-3">{parseInt(product.weight_ounces).toFixed(1)} oz</span></div>
+              <div className="short-description mt-4 col-12">{product.long_description}</div>
             </div>
-            <Table className="flat no-border" hover>
+            
+           
+            {/* <Table className="flat no-border" hover>
               <thead>
               </thead>
               <tbody>
@@ -135,8 +139,11 @@ class ProductDetails extends React.Component {
                   </td>
                 </tr>
               </tbody>
-            </Table>
+            </Table> */}
           </div>
+          <LinkRouter to={`${this.props.currentProduct.product_uuid}/modal/continue-shopping`} type="button" className="btn btn-secondary col-12 add-to-cart-button mt-4" onClick={this.handleClick}>
+              Add To Cart
+            </LinkRouter>
           <div className=" col-12 mb-3">
             <br></br>
           </div>
@@ -148,7 +155,7 @@ class ProductDetails extends React.Component {
           onClick={
             ()=>{
               scroller.scrollTo('tab-scroll', {duration: 1000,
-                delay: 50,
+                delay: 0,
                 smooth: true,
                 offset: -60
               })

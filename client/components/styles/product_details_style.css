@@ -50,6 +50,26 @@
     1px 1px 0 #000;
 }
 
+.brand-font-size{
+  font-size: .69rem;
+}
+
+.product-info-font-size{
+  font-size: .9rem;
+}
+.short-description{
+  font-size: .8rem;
+}
+
+.product-info-subtext{
+  font-size: 1rem;
+}
+
+.add-to-cart-button{
+  height:4rem;
+  background-color: rgba(49, 122, 159, 1);
+}
+
 .tab-text{
   font-size: .75rem;
 }
@@ -61,8 +81,6 @@
 .bring-to-front{
   z-index: 25;
 }
-
-
 
 @media (max-width: 768px){
   .carousel-image{
