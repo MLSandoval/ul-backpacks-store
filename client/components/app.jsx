@@ -11,11 +11,9 @@ import { Link, Element , Events, animateScroll as scroll, scrollSpy, scroller } 
 
 import {getProductList, setCurrentProduct, createNewUser, getUserData, getOrders} from '../actions'
 
-import Collapse from 'react-bootstrap/Collapse'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import './styles/global_style.css'
 
-import Landing from './landing.jsx'
 import Landing2 from './landing2.jsx'
 import ProductList from './productList.jsx'
 import Cart from './cart.jsx'
@@ -34,22 +32,8 @@ class App extends React.Component {
     this.state = {
       showHeader: true
     }
-    // this.hideAndRevealHeader = this.hideAndRevealHeader.bind(this)
   }
 
-  // hideAndRevealHeader(){
-  //   console.log('hideAndRevaelheader lastScrollTop at start of function: ', this.lastScrollTop)
-  //   console.log('hideAndRevaelheader pageYoffset at start of function: ', window.pageYOffset)
-  //   if(window.pageYOffset >= this.lastScrollTop){
-  //     //show header
-  //     this.setState({showHeader: false})
-  //     this.lastScrollTop = window.pageYOffset
-  //   }else{
-  //     //hideheader
-  //     this.setState({showHeader: true})
-  //     this.lastScrollTop = window.pageYOffset
-  //   }
-  // }
 
   componentDidMount () {
     this.props.getProductList()
@@ -60,16 +44,10 @@ class App extends React.Component {
       const user_uuid = localStorage.user_uuid
       this.props.getUserData(user_uuid, this.props.products)
     }
-
-    // document.addEventListener('scroll', ()=>{this.hideAndRevealHeader()})
   }
 
   componentDidUpdate(){
     console.log('app comp update, props: ', this.props)
-  }
-
-  componentWillUnmount(){
-    // document.removeEventListener('scroll', ()=>{this.hideAndRevealHeader()})
   }
 
   render() {

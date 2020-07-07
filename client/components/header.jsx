@@ -2,20 +2,10 @@ import React from 'react'
 import { connect } from 'react-redux'
 import {Link as LinkRouter, withRouter} from 'react-router-dom'
 
-import * as Scroll from 'react-scroll'
-import { Link, Element , Events, animateScroll as scroll, scrollSpy, scroller } from 'react-scroll'
-
 import "./styles/header_style.css"
 
 import Navbar from 'react-bootstrap/Navbar'
 import Nav from 'react-bootstrap/Nav'
-import NavDropdown from 'react-bootstrap/NavDropdown'
-import Form from 'react-bootstrap/Form'
-import Button from 'react-bootstrap/Button'
-import Collapse from 'react-bootstrap/Collapse'
-import SelectableContext from "react-bootstrap/SelectableContext"
-
-// import { Switch, Route, Link } from "react-router-dom";
 
 class Header extends React.Component {
   constructor(props){
@@ -34,7 +24,6 @@ class Header extends React.Component {
     return total || 0
   }
  
-
   removeActiveOnClick(){
     document.querySelectorAll('.active').forEach((element)=>{
       element.classList.remove('active')
@@ -44,7 +33,7 @@ class Header extends React.Component {
   componentDidMount(){}
   componentDidUpdate(){
     if(this.props.location.pathname.includes('cart')){
-      document.querySelectorAll('.active').forEach((element)=>{
+      document.querySelectorAll('.nav-link.active').forEach((element)=>{
         element.classList.remove('active')
       })
       this.classSwitch = 'active'
@@ -58,7 +47,6 @@ class Header extends React.Component {
     return (
       
       <Navbar 
-        onClick={()=>{this.removeActiveOnClick()}}
         // toggleNavKey={4} 
         bg="light" 
         sticky="top" 
@@ -79,24 +67,24 @@ class Header extends React.Component {
         {/* <div className="header-update"></div> */}
         <Navbar.Collapse className="justify-content-between" id="basic-navbar-nav" >
           <Nav className="align-self-center">
-            <Nav.Link as={LinkRouter} title="backpacks" onSelect={() => null} eventKey={1} className="btn font-weight-bold" to="/products">
+            <Nav.Link onClick={()=>{this.removeActiveOnClick()}} as={LinkRouter} title="backpacks" onSelect={() => null} eventKey={1} className="btn font-weight-bold" to="/products">
               Backpacks
             </Nav.Link>
-            <Nav.Link as={LinkRouter} title="sleeping-bags" onSelect={() => null} eventKey={2} className="btn font-weight-bold" to="/products">
+            <Nav.Link onClick={()=>{this.removeActiveOnClick()}} as={LinkRouter} title="sleeping-bags" onSelect={() => null} eventKey={2} className="btn font-weight-bold" to="/products">
               Sleeping Bags
             </Nav.Link>
-            <Nav.Link as={LinkRouter} title="tents" onSelect={() => null} eventKey={3} className="btn font-weight-bold" to="/products">
+            <Nav.Link onClick={()=>{this.removeActiveOnClick()}} as={LinkRouter} title="tents" onSelect={() => null} eventKey={3} className="btn font-weight-bold" to="/products">
               Tents
             </Nav.Link>
           </Nav>
           <Nav className="row">
-            <Nav.Link as={LinkRouter} title="your-orders" onSelect={() => null} eventKey={4} className="btn font-weight-bold" to="/your-orders">
+            <Nav.Link onClick={()=>{this.removeActiveOnClick()}} as={LinkRouter} title="your-orders" onSelect={() => null} eventKey={4} className="btn font-weight-bold" to="/your-orders">
               Your Orders
             </Nav.Link>
             {/* <Nav.Link as={LinkRouter} title="reviews" onSelect={() => null} eventKey={3} className="btn font-weight-bold" to="/video-review/:product_uuid">
               Reviews
             </Nav.Link> */}
-            <Nav.Link as={LinkRouter} title="cart" onSelect={() => null} eventKey={4} className={`btn font-weight-bold nav-link ${this.classSwitch}`} to="/cart">
+            <Nav.Link onClick={()=>{this.removeActiveOnClick()}} as={LinkRouter} title="cart" onSelect={() => null} eventKey={4} className={`btn font-weight-bold nav-link ${this.classSwitch}`} to="/cart">
               <div className="cart-logo-count-bg">
                 <div ></div>
                 <div className="d-flex justify-content-center">

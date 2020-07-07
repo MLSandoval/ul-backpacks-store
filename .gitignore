@@ -3,3 +3,4 @@ main.js
 main.js.map
 .env
 ultralite-db-create.sql
+.DS_Store
