@@ -68,22 +68,28 @@ class Header extends React.Component {
           // expanded={this.state.navExpanded}
         >
           <Nav.Link as={LinkRouter} className="btn navbar-brand" to="/">
-            <div className="row ">
-              <div className="logo col-3"></div>
-              <div className="h2 col-9 align-self-center">UltraLite</div>
+            <div className="row align-items-center">
+              <div className="logo col-1"></div>
+              <div className="h2 col-9 brand-text">UltraLite</div>
             </div>
           </Nav.Link>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         {/* <div className="header-update"></div> */}
-        <Navbar.Collapse className="justify-content-end" id="basic-navbar-nav" >
-          <Nav
-            className="row"
-          >
-            <Nav.Link as={LinkRouter} title="your-orders" onSelect={() => null} eventKey={1} className="btn font-weight-bold" to="/your-orders">
-              Your Orders
+        <Navbar.Collapse className="justify-content-between" id="basic-navbar-nav" >
+          <Nav className="align-self-center">
+            <Nav.Link as={LinkRouter} title="backpacks" onSelect={() => null} eventKey={1} className="btn font-weight-bold" to="/products">
+              Backpacks
             </Nav.Link>
-            <Nav.Link as={LinkRouter} title="products" onSelect={() => null} eventKey={2} className="btn font-weight-bold" to="/products">
-              Products
+            <Nav.Link as={LinkRouter} title="sleeping-bags" onSelect={() => null} eventKey={2} className="btn font-weight-bold" to="/products">
+              Sleeping Bags
+            </Nav.Link>
+            <Nav.Link as={LinkRouter} title="tents" onSelect={() => null} eventKey={3} className="btn font-weight-bold" to="/products">
+              Tents
+            </Nav.Link>
+          </Nav>
+          <Nav className="row">
+            <Nav.Link as={LinkRouter} title="your-orders" onSelect={() => null} eventKey={4} className="btn font-weight-bold" to="/your-orders">
+              Your Orders
             </Nav.Link>
             {/* <Nav.Link as={LinkRouter} title="reviews" onSelect={() => null} eventKey={3} className="btn font-weight-bold" to="/video-review/:product_uuid">
               Reviews

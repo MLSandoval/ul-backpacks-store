@@ -92,7 +92,7 @@ class ModalShell extends React.Component {
         >
           <Modal.Header className="modal-header">
             <Modal.Title className="w-100 row justify-content-between modal-title" id="contained-modal-title-vcenter">
-              <div className="col-6">
+              <div className="col-6 no-wrap-white">
                 {this.props.modalConfig.header}  
               </div>
               <div className="col-6 text-right">

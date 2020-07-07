@@ -108,7 +108,7 @@ class ProductDetails extends React.Component {
               <div className="brand-font-size col-12">by {product.brand}</div>
               {/* <div className="align-self-center">{product.short_description}</div> */}
               <div className="rem-1-font-size mt-4 col-12"><span className="mr-3">{parseInt(product.size_liters).toFixed(0)} L</span> •	<span className="ml-3">{parseInt(product.weight_ounces).toFixed(1)} oz</span></div>
-              <div className="short-description mt-4 col-12">{product.long_description}</div>
+              <div className="short-description mt-4 col-12">{product.short_description}</div>
             </div>
             
            
@@ -141,7 +141,7 @@ class ProductDetails extends React.Component {
               </tbody>
             </Table> */}
           </div>
-          <LinkRouter to={`${this.props.currentProduct.product_uuid}/modal/continue-shopping`} type="button" className="btn btn-secondary col-12 add-to-cart-button mt-4" onClick={this.handleClick}>
+          <LinkRouter to={`${this.props.currentProduct.product_uuid}/modal/continue-shopping`} type="button" className="btn btn-secondary col-7 add-to-cart-button mt-4 d-flex align-items-center justify-content-center" onClick={this.handleClick}>
               Add To Cart
             </LinkRouter>
           <div className=" col-12 mb-3">

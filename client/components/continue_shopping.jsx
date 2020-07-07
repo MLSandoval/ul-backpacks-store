@@ -73,7 +73,7 @@ function ContinueShopping(props){
         <div className="button-container col-3 row flex-column justify-content-around">
           <LinkRouter to="/cart">
             <Button
-              className="btn-sm col-12 w-100"
+              className="btn-sm col-12 w-100 mb-1"
               variant="info"
               type="button"
             >

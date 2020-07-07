@@ -119,8 +119,8 @@ function Checkout(props){
     <React.Fragment>
       <Modal.Body>
         <Form className="row">
-          <h5 className='col-9'>Email Address</h5>
-          <div className="col-3">
+          <h5 className='col-8 col-sm-9'>Email Address</h5>
+          <div className="col-4 col-sm-3">
             <Button
               className="btn-sm w-100"
               variant="dark"
@@ -133,7 +133,7 @@ function Checkout(props){
           </div>
           <hr/>
 
-          <Form.Group className="col-9" controlId="formEmail">
+          <Form.Group className="col-12 col-sm-9" controlId="formEmail">
             {/* <Form.Label>Email Address</Form.Label> */}
             <Form.Control
               type="emailAddress"
@@ -158,7 +158,7 @@ function Checkout(props){
             </Form.Control.Feedback>
           </Form.Group>
         
-          <h5 className='col-12'>Payment and Shipping</h5>
+          <h5 className='col-12'>Shipping Options</h5>
           <hr />
           
           <Form.Group className="col-12 " controlId="formShippingOptions">
@@ -194,8 +194,30 @@ function Checkout(props){
               }}
             />
           </Form.Group>
+          <h5 className='col-12'>Payment</h5>
 
-          <Form.Group className="col-6" controlId="formCardNumber">
+          <Form.Group className="col-12" controlId="formNameOnCard">
+            <Form.Label>Name on Card</Form.Label>
+            <Form.Control
+              type="nameOnCard"
+              placeholder="Enter Name"
+              value={props.checkoutFormData.values.nameOnCard}
+              isInvalid={props.checkoutFormData.errors.nameOnCard.length > 0}
+              isValid={
+                props.checkoutFormData.values.nameOnCard &&
+                props.checkoutFormData.errors.nameOnCard.length === 0
+              }
+              onChange={(e) => {
+                props.storeCheckoutFormData('nameOnCard', e.target.value)
+                props.validateCheckoutForm(props.checkoutFormData, {nameOnCard: true})
+              }}
+            />
+            <Form.Control.Feedback type="invalid">
+              {props.checkoutFormData.errors.nameOnCard}
+            </Form.Control.Feedback>
+          </Form.Group>
+
+          <Form.Group className="col-12 col-sm-6" controlId="formCardNumber">
             <Form.Label>Card Number</Form.Label>
             <Form.Control
               type="cardNumber"
@@ -220,7 +242,7 @@ function Checkout(props){
             </Form.Text>
           </Form.Group>
 
-          <Form.Group className="col-3" controlId="formCardExp">
+          <Form.Group className="col-6 col-sm-3" controlId="formCardExp">
             <Form.Label>Exp.</Form.Label>
             <Form.Control
               type="cardExp"
@@ -241,7 +263,7 @@ function Checkout(props){
             </Form.Control.Feedback>
           </Form.Group>
 
-          <Form.Group className="col-3" controlId="formCvv">
+          <Form.Group className=" col-6 col-sm-3" controlId="formCvv">
             <Form.Label>CVV</Form.Label>
             <Form.Control
               type="cvv"
@@ -259,27 +281,6 @@ function Checkout(props){
             />
             <Form.Control.Feedback type="invalid">
               {props.checkoutFormData.errors.cvv}
-            </Form.Control.Feedback>
-          </Form.Group>
-
-          <Form.Group className="col-12" controlId="formNameOnCard">
-            <Form.Label>Name on Card</Form.Label>
-            <Form.Control
-              type="nameOnCard"
-              placeholder="Enter Name"
-              value={props.checkoutFormData.values.nameOnCard}
-              isInvalid={props.checkoutFormData.errors.nameOnCard.length > 0}
-              isValid={
-                props.checkoutFormData.values.nameOnCard &&
-                props.checkoutFormData.errors.nameOnCard.length === 0
-              }
-              onChange={(e) => {
-                props.storeCheckoutFormData('nameOnCard', e.target.value)
-                props.validateCheckoutForm(props.checkoutFormData, {nameOnCard: true})
-              }}
-            />
-            <Form.Control.Feedback type="invalid">
-              {props.checkoutFormData.errors.nameOnCard}
             </Form.Control.Feedback>
           </Form.Group>
           
@@ -307,7 +308,7 @@ function Checkout(props){
             </Form.Control.Feedback>
           </Form.Group>
 
-          <Form.Group className="col-3" controlId="formBillCity">
+          <Form.Group className="col-8" controlId="formBillCity">
             <Form.Label>City</Form.Label>
             <Form.Control
               type="billCity"
@@ -328,7 +329,7 @@ function Checkout(props){
             </Form.Control.Feedback>
           </Form.Group>
 
-          <Form.Group className="col-3" controlId="formBillZip">
+          <Form.Group className="col-4" controlId="formBillZip">
             <Form.Label>Zip</Form.Label>
             <Form.Control
               type="billZip"
@@ -349,7 +350,7 @@ function Checkout(props){
             </Form.Control.Feedback>
           </Form.Group>
 
-          <Form.Group className="col-6" controlId="formBillState">
+          <Form.Group className="col-8" controlId="formBillState">
             <Form.Label>State/Territory</Form.Label>
             <Form.Control as="select"
               type="billState"
@@ -461,7 +462,7 @@ function Checkout(props){
             </Form.Control.Feedback>
           </Form.Group>
 
-          <Form.Group className="col-3" controlId="formShipCity">
+          <Form.Group className="col-8" controlId="formShipCity">
             <Form.Label>City</Form.Label>
             <Form.Control
               type="shipCity"
@@ -483,7 +484,7 @@ function Checkout(props){
             </Form.Control.Feedback>
           </Form.Group>
 
-          <Form.Group className="col-3" controlId="formShipZip">
+          <Form.Group className="col-4" controlId="formShipZip">
             <Form.Label>Zip</Form.Label>
             <Form.Control
               type="shipZip"
@@ -505,7 +506,7 @@ function Checkout(props){
             </Form.Control.Feedback>
           </Form.Group>
 
-          <Form.Group className="col-6" controlId="formShipState">
+          <Form.Group className="col-8" controlId="formShipState">
             <Form.Label>State/Territory</Form.Label>
             {/* <Form.Control
               type="shipState"
@@ -632,7 +633,7 @@ function Checkout(props){
                 //   console.log('onsubmit click, with errors, providing fix error feedback')
                 // }
               }}
-              className=" btn-sm"
+              className=" btn-sm mb-1"
               variant="info"
               type="button"
             >
