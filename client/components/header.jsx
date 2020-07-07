@@ -13,6 +13,7 @@ import NavDropdown from 'react-bootstrap/NavDropdown'
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 import Collapse from 'react-bootstrap/Collapse'
+import SelectableContext from "react-bootstrap/SelectableContext"
 
 // import { Switch, Route, Link } from "react-router-dom";
 
@@ -55,24 +56,25 @@ class Header extends React.Component {
   render(){
     console.log('header props on rerender: ', this.props)
     return (
-        <Navbar 
-          onClick={()=>{this.removeActiveOnClick()}}
-          // toggleNavKey={4} 
-          bg="light" 
-          sticky="top" 
-          expand="md" 
-          className="flex-shrink-1 header-settings" 
-          name="header" 
-          collapseOnSelect={true}
-          // onToggle={this.setNavExpanded}
-          // expanded={this.state.navExpanded}
-        >
-          <Nav.Link as={LinkRouter} className="btn navbar-brand" to="/">
-            <div className="row align-items-center">
-              <div className="logo col-1"></div>
-              <div className="h2 col-9 brand-text">UltraLite</div>
-            </div>
-          </Nav.Link>
+      
+      <Navbar 
+        onClick={()=>{this.removeActiveOnClick()}}
+        // toggleNavKey={4} 
+        bg="light" 
+        sticky="top" 
+        expand="md" 
+        className="flex-shrink-1 header-settings" 
+        name="header" 
+        collapseOnSelect={true}
+        // onToggle={this.setNavExpanded}
+        // expanded={this.state.navExpanded}
+      >
+        <Nav.Link as={LinkRouter} className="btn navbar-brand" to="/">
+          <div className="row align-items-center">
+            <div className="logo col-1"></div>
+            <div className="h2 col-9 brand-text">UltraLite</div>
+          </div>
+        </Nav.Link>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         {/* <div className="header-update"></div> */}
         <Navbar.Collapse className="justify-content-between" id="basic-navbar-nav" >
@@ -106,7 +108,6 @@ class Header extends React.Component {
           </Nav>
         </Navbar.Collapse>
       </Navbar>
-      
     )
   }
 }

@@ -10,6 +10,7 @@ import Carousel from 'react-bootstrap/Carousel'
 import Tabs from 'react-bootstrap/Tabs'
 import Tab from 'react-bootstrap/Tab'
 import Table from 'react-bootstrap/Table'
+import SelectableContext from 'react-bootstrap/SelectableContext'
 
 import './styles/product_details_style.css'
 
@@ -83,6 +84,8 @@ class ProductDetails extends React.Component {
       <div className="product-details container pb-2 flex-grow-1">
         <div className="align-items-center container pt-4 d-flex flex-wrap justify-content-center flex-column flex-sm-row">
           <div className="col-sm-12 col-md-6 carousel-container">
+          
+          <SelectableContext.Provider value={false}>
             <Carousel interval={null}>
               {
                 product.image_urls.map( (element, index) => {
@@ -101,6 +104,9 @@ class ProductDetails extends React.Component {
                 })
               }
             </Carousel>
+
+            </SelectableContext.Provider>
+            
           </div>
           <div className="col-sm-12 col-md-6 d-flex flex-column flex-grow-1 justify-content-between align-items-center">
             <div className="d-flex flex-column">
