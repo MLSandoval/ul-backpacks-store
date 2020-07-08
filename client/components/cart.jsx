@@ -1,9 +1,6 @@
 import React, {createRef} from 'react'
 import {connect} from 'react-redux'
-import {Link as LinkRouter, useRouteMatch, Route} from 'react-router-dom'
-
-import * as Scroll from 'react-scroll';
-import { Link, Element , Events, animateScroll as scroll, scrollSpy, scroller } from 'react-scroll'
+import {Link as LinkRouter, Route} from 'react-router-dom'
 
 import Table from 'react-bootstrap/Table'
 import Button from 'react-bootstrap/Button'
@@ -15,14 +12,8 @@ import {computeCartTotal, addItemToCart, removeItemFromCart, alterItemQuantity} 
 import ModalShell from './modal_shell.jsx'
 
 class Cart extends React.Component {
-  constructor(props){
-    super(props)
-    this.CartRef = createRef()
-  }
-
   generateCartList(){
     const products = [...this.props.products]
-    
     const cart = Object.entries(this.props.cart.cart_items)
     const cartArr = []
     cart.forEach(([product_uuid, quantity])=>{
@@ -139,12 +130,6 @@ class Cart extends React.Component {
             </tr>
             </tbody>
           </Table>
-          {/* <div className="d-flex w-100">
-            <div className="col-9"></div>
-            <Button as={LinkRouter} variant="info" type="button" className="btn-sm col-2" to={`cart/modal/checkout`}>
-              Checkout
-            </Button>
-          </div> */}
           <Route path={`${this.props.match.url}/modal`} component={ModalShell}/>
         </React.Fragment>
       )
@@ -171,16 +156,8 @@ class Cart extends React.Component {
   }
 }
 
-function mapDispatchToProps(dispatch){
-  return {
-    addToCart: () => {
-      dispatch(sortCartTotals)
-    }
-  }
-}
 
 function mapStateToProps(state){
-  // console.log('CART state: ', state)
   return {
     products: state.products,
     cart: state.cart,
@@ -188,11 +165,4 @@ function mapStateToProps(state){
   }
 }
 
-export default connect(
-  mapStateToProps, 
-  {
-    alterItemQuantity,
-    computeCartTotal, 
-    addItemToCart, 
-    removeItemFromCart
-  })(Cart)
+export default connect(mapStateToProps, {alterItemQuantity, computeCartTotal, addItemToCart, removeItemFromCart})(Cart)

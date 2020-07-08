@@ -1,71 +1,150 @@
-/* .body-bg{
-    filter:blur();
-    background-image: url("../../images/gear_sets/gear_set_up_3.jpg");
-    background-attachment: fixed;
-    backdrop-filter: blur(10px) grayscale(.8);
-    
+.img-1{
+  position:fixed;
+  top:0;
+  height: calc(100%);
+  width:100%;
+  object-fit: none;
+  object-position: 57% 79%;
 }
 .text{
-    color:white;
-    text-align: center;
-    background-color: rgba(53, 51, 51, 0.5);
-    backdrop-filter: grayscale(.8) blur(10px);
+  color: white;
+  height:200vh;
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 1),
+    rgba(0, 0, 0, 0)
+  );
 }
-.bg{
+.text-2{
+  color:white;
+  height: 100vh;
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 1),
+    rgba(0, 0, 0, 0)
+  );
+  margin-bottom: -2px;
+}
+.hori-break{
+  background-color: black;
+  height:75vh;
+}
+.img-2{
+  filter: sepia(.55);
+  position: sticky;
+  z-index: 1;
+  height: 110vh;
+  width: 100%;
+  object-fit: none;
+}
+.on-top-image{
+  position:absolute;
+  z-index: 2;
+}
+.shop-text{
+  font-size: 3rem;
+  color: white;
+}
+.card-img{
+  height:100px;
+  width:100px;
+}
+.tile-image{
+  max-width: 270px;
+  border: .5px solid white;
+}
+.category-text{
+  position: absolute;
+  top:0;
+  background-color: rgba(0, 0, 0, 0.527);
+  color: white;
+  text-align: center;
+  width: 90%;
+}
+
+@media screen and (orientation:landscape) and (max-height: 400px){
+  .img-1{
+    object-position: 69% 74%;
+  }
+  .img-2{
+    height: 226vh;
+  }
+  .shop-text{
+    padding-top: .25rem !important;
+  }
+  .link-tile{
+    margin-top: 1rem !important;
+  }
+  .category-text{
+    width: 92.3%;
+  }
+  .tile-image{
+    max-width: 350px;
+  }
+}
+
+@media screen and (orientation:landscape) and (min-height: 321px){
+  .product-cards {
+      font-size: 3.9rem;
+  }
+  .card-image{
+      height: 30px;
+      width: 30px;
+  }
+  .tile-card{
+    font-size:1rem;
+  }
+}
+
+@media (min-height: 750px) {  
+  .img-2{
+    height: 93vh;
+  }
+}
+
+@media (min-height: 880px) {  
+  .img-2{
+    height: 82vh;
+  }
+}
+ 
+@media (min-width: 992px) { 
+  .product-cards{
+    padding-top: 18%;
+    -webkit-text-fill-color: rgba(255, 255, 255, 0.315);
+  }
+}
+ 
+@media (min-width: 1200px) {  
+  .img-1{
+    position:fixed;
     height: 100vh;
-    width: 100vw;
-    background-attachment: fixed;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-    align-items: center;
-    text-align: center;
-    filter: blur();
-    vertical-align: middle;
+    width:100%;
+    object-fit: fill;
+  }
+  .text{
+    color: white;
+    height:200vh;
+    background: linear-gradient(
+      to bottom,
+      rgba(0, 0, 0, 1),
+      rgba(0, 0, 0, 0)
+    );
+  }
+  .text-2{
+    color:white;
+    height: 100vh;
+    background: linear-gradient(
+      to top,
+      rgba(0, 0, 0, 1),
+      rgba(0, 0, 0, 0)
+    );
+  }
+  .hori-break{
+    background-color: black;
+  }
+  .product-cards{
+    padding-top: 18%;
+    -webkit-text-fill-color: rgba(255, 255, 255, 0.315);
+  }
 }
-.bg-1{
-    background-image: url('../../images/backgrounds/BP_landscape_3.jpg');
-}
-.text-1{
-    height: 25vh;
-}
-.black-line-bottom{
-    background: linear-gradient(0deg, rgba(0, 0, 0, 1),rgba(0, 0, 0, 0.550), transparent);
-    width:100vw;
-    height:10rem;
-    position: absolute;
-    bottom:0;
-    left:0;
-
-}
-.black-line-top{
-    background: linear-gradient(180deg, rgb(0, 0, 0),rgba(0, 0, 0, 0.550), transparent);
-    width:100vw;
-    height:10rem;
-    position: absolute;
-    top:0;
-    left:0;
-
-}
-.bg-2{
-    background-image: url('../../images/backgrounds/BP_landscape_4.jpg');
-}
-.bg-3{
-    background-image: url('../../images/backgrounds/BP_landscape_1.jpg');
-}
-.push-over{
-    position:relative;
-}
-.radius{
-    border-radius: .6rem;
-}
-.landing-center{
-    width:100vw;
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    height:45%;
-    margin: auto;
-} */

@@ -1,19 +1,13 @@
-import React, {createRef, useState, useEffect, useLayoutEffect} from 'react'
+import React, {useEffect} from 'react'
 import {connect} from 'react-redux'
-import {Link as LinkRouter, Route, withRouter} from 'react-router-dom'
-
-import * as Scroll from 'react-scroll';
-import { Link, Element , Events, animateScroll as scroll, scrollSpy, scroller } from 'react-scroll'
-
-import Modal from 'react-bootstrap/Modal'
-import Button from 'react-bootstrap/Button'
-import Form from 'react-bootstrap/Form'
-import Table from 'react-bootstrap/Table'
+import {withRouter} from 'react-router'
 
 import {storeCheckoutFormData, setModalConfig, placeOrder, validateCheckoutForm} from '../actions'
 
-import './styles/checkout_style.css'
 import ThankYou from './thank_you.jsx'
+import Modal from 'react-bootstrap/Modal'
+import Button from 'react-bootstrap/Button'
+import Form from 'react-bootstrap/Form'
 
 function Checkout(props){
 
@@ -68,7 +62,6 @@ function Checkout(props){
   }
 
   const handleSubmitClick = ()=>{
-    console.log('props at start of submitCLICK: ', props)
     let finalFormData = {...props.checkoutFormData}
     props.validateCheckoutForm(finalFormData, {
       firstLoad: true,
@@ -89,15 +82,12 @@ function Checkout(props){
 
     
     let errorsArr = Object.values(props.checkoutFormData.errors)
-    console.log('handles submit, errors arrary: ', errorsArr)
     let errorSwitch = errorsArr.map(input=>{
       return input !== '' ?  true : false
     })
-    console.log('onsubmit click errorSwitch: ', errorSwitch)
   
     if(!errorSwitch.includes(true)){
       props.placeOrder(props.userData.user_uuid, props.cart, props.checkoutFormData)
-      console.log('onsubmit click, no errorss, set modal config and place order allowed.')
       props.setModalConfig({
         header:'Thank You!',
         content: <ThankYou/>,
@@ -107,7 +97,6 @@ function Checkout(props){
   }
  
   useEffect(()=>{
-    console.log('checkout comp mounted, props: ', props)
     props.validateCheckoutForm(props.checkoutFormData, {firstLoad: true})
     return ()=>{
       clearForm()
@@ -121,20 +110,13 @@ function Checkout(props){
         <Form className="row">
           <h5 className='col-8 col-sm-9'>Email Address</h5>
           <div className="col-4 col-sm-3">
-            <Button
-              className="btn-sm w-100"
-              variant="dark"
-              type="button"
-              onClick={() => clearForm()
-              }
-            >
+            <Button className="btn-sm w-100" variant="dark" type="button" onClick={() => clearForm()}>
               Clear Info
             </Button>
           </div>
           <hr/>
 
           <Form.Group className="col-12 col-sm-9" controlId="formEmail">
-            {/* <Form.Label>Email Address</Form.Label> */}
             <Form.Control
               type="emailAddress"
               placeholder="Enter Email"
@@ -148,18 +130,13 @@ function Checkout(props){
                 props.storeCheckoutFormData('email', e.target.value)
                 props.validateCheckoutForm(props.checkoutFormData, {email: true})
               }}
-              // onBlur={()=>{props.validateCheckoutForm(props.checkoutFormData)}}
             />
-            {/* <Form.Text className="text-muted">
-              Email required for order receipt
-            </Form.Text> */}
             <Form.Control.Feedback type="invalid">
               {props.checkoutFormData.errors.email}
             </Form.Control.Feedback>
           </Form.Group>
         
           <h5 className='col-12'>Shipping Options</h5>
-          <hr />
           
           <Form.Group className="col-12 " controlId="formShippingOptions">
             <Form.Label className="">Shipping Options</Form.Label>
@@ -194,6 +171,7 @@ function Checkout(props){
               }}
             />
           </Form.Group>
+
           <h5 className='col-12'>Payment</h5>
 
           <Form.Group className="col-12" controlId="formNameOnCard">
@@ -232,7 +210,6 @@ function Checkout(props){
                 props.storeCheckoutFormData('cardNumber', e.target.value)
                 props.validateCheckoutForm(props.checkoutFormData, {cardNumber: true})
               }}
-              // onBlur={()=>{props.validateCheckoutForm(props.checkoutFormData)}}
             />
             <Form.Control.Feedback type="invalid">
               {props.checkoutFormData.errors.cardNumber}
@@ -285,7 +262,6 @@ function Checkout(props){
           </Form.Group>
           
           <h5 className='col-12'>Billing Address</h5>
-          <hr />
 
           <Form.Group className="col-12" controlId="formBillStreetAddress">
             <Form.Label>Street Address</Form.Label>
@@ -428,11 +404,9 @@ function Checkout(props){
             <Form.Control.Feedback type="invalid">
               {props.checkoutFormData.errors.billState}
             </Form.Control.Feedback>
-        
           </Form.Group>
           
           <h5 className='col-12'>Shipping Address</h5>
-          <hr />
           
           <Form.Group className="col-12" controlId="formShipSameAddress">
             <Form.Check type="checkbox" label="Shipping address same as billing address." 
@@ -477,7 +451,6 @@ function Checkout(props){
                 props.storeCheckoutFormData('shipCity', e.target.value)
                 props.validateCheckoutForm(props.checkoutFormData, {shipCity: true})
               }}
-              
             />
             <Form.Control.Feedback type="invalid">
               {props.checkoutFormData.errors.shipCity}
@@ -499,7 +472,6 @@ function Checkout(props){
                 props.storeCheckoutFormData('shipZip', e.target.value)
                 props.validateCheckoutForm(props.checkoutFormData, {shipZip: true})
               }}
-              
             />
             <Form.Control.Feedback type="invalid">
               {props.checkoutFormData.errors.shipZip}
@@ -508,17 +480,6 @@ function Checkout(props){
 
           <Form.Group className="col-8" controlId="formShipState">
             <Form.Label>State/Territory</Form.Label>
-            {/* <Form.Control
-              type="shipState"
-              placeholder="Kanto Region"
-              value={props.checkoutFormData.shipState}
-              // isInvalid={props.loginForm.errors.password.length > 0}
-              // isValid={
-              //   props.loginForm.values.password &&
-              //   props.loginForm.errors.password.length === 0
-              // }
-              
-            /> */}
             <Form.Control as="select"
               type="shipState"
               placeholder="Kanto Region"
@@ -599,68 +560,24 @@ function Checkout(props){
               We currently only ship to US addresses
             </Form.Text>
           </Form.Group>
-          
-          
         </Form>
       </Modal.Body>
       <Modal.Footer className="d-flex">
         <div className="col-9"/>
           <div className="button-container col-3 d-flex flex-column justify-content-around">
-            {/* <Form></Form> */}
-            <Button 
-              // as={LinkRouter}
-              // to="/cart/modal/thank-you"
-              className="col-12"
-              onClick={()=>{
-                handleSubmitClick(props.checkoutFormData)
-                // let errorsArr = Object.values(props.checkoutFormData.errors)
-                // console.log('onclick submit, errors arrary: ', errorsArr)
-                // let errorSwitch = errorsArr.map(input=>{
-                //   return input !== '' ?  true : false
-                // })
-                // console.log('onsubmit click errorSwitch: ', errorSwitch)
-              
-                // if(!errorSwitch.includes(true)){
-                //   console.log('onsubmit click, no errorss, set modal config and place order allowed.')
-                //   props.setModalConfig({
-                //     header:'Thank You!',
-                //     content: <ThankYou/>,
-                //     orderCost: ``
-                //   })
-                //   props.placeOrder(props.userData.user_uuid, props.cart)
-                  
-                // }else{
-                //   console.log('onsubmit click, with errors, providing fix error feedback')
-                // }
-              }}
-              className=" btn-sm mb-1"
-              variant="info"
-              type="button"
-            >
+            <Button className="col-12" onClick={()=>{handleSubmitClick(props.checkoutFormData)}} className=" btn-sm mb-1" variant="info" type="button">
               Submit
             </Button>
-              <Button
-                className="btn-sm"
-                variant="dark"
-                type="button"
-                onClick={()=>{props.history.goBack()}}
-              >
-                Cancel
-              </Button>
+            <Button className="btn-sm" variant="dark" type="button" onClick={()=>{props.history.goBack()}}>
+              Cancel
+            </Button>
           </div>
       </Modal.Footer>
     </React.Fragment>
   )
 }
 
-function mapDispatchToProps (dispatch) {
-  return {
-    onChange: dispatch()
-  }
-}
-
 function mapStateToProps(state){
-  console.log('state in Checkout component: ', state)
   return {
     cart: state.cart,
     totalOrderCost: state.totalOrderCost,
