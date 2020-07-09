@@ -1,14 +1,12 @@
 node_modules
-main.js
-main.js.gz
-main.js.map
-main.js.map.gz
-
 .env
 ultralite-db-create.sql
 .DS_Store
 
-
+main.js
+main.js.gz
+main.js.map
+main.js.map.gz
 
 0.main.js
 0.main.js.gz
