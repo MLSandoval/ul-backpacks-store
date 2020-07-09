@@ -23,6 +23,7 @@
   },
   "homepage": "https://github.com/MLSandoval/ul-backpacks-store#readme",
   "dependencies": {
+    "@loadable/component": "^5.13.1",
     "bootstrap": "^4.4.1",
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
@@ -40,6 +41,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.9.0",
+    "@babel/plugin-syntax-dynamic-import": "^7.8.3",
     "@babel/plugin-transform-react-jsx": "^7.9.4",
     "babel-loader": "^8.1.0",
     "copy-webpack-plugin": "^5.1.1",

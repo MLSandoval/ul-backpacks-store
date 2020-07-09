@@ -5,6 +5,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {Route} from "react-router-dom"
+import loadable from '@loadable/component'
 
 import {Element} from 'react-scroll'
 
@@ -13,13 +14,21 @@ import {getProductList, setCurrentProduct, createNewUser, getUserData, getOrders
 import 'bootstrap/dist/css/bootstrap.min.css'
 import './styles/global_style.css'
 
-import Landing from './landing.jsx'
-import ProductList from './productList.jsx'
-import Cart from './cart.jsx'
-import Header from './header.jsx'
-import Footer from './footer.jsx'
-import ProductDetails from './productDetails'
-import Orders from './orders'
+// import Landing from './landing.jsx'
+// import ProductList from './productList.jsx'
+// import Cart from './cart.jsx'
+// import Header from './header.jsx'
+// import Footer from './footer.jsx'
+// import ProductDetails from './productDetails'
+// import Orders from './orders'
+
+const Landing = loadable(()=>import('./landing.jsx'))
+const ProductList = loadable(()=>import('./productList.jsx'))
+const Cart = loadable(()=>import('./cart.jsx'))
+const Header = loadable(()=>import('./header.jsx'))
+const Footer = loadable(()=>import('./footer.jsx'))
+const ProductDetails = loadable(()=>import('./productDetails.jsx'))
+const Orders = loadable(()=>import('./orders.jsx'))
 
 class App extends React.Component {
   componentDidMount () {

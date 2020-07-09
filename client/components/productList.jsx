@@ -4,7 +4,7 @@ import {Link as LinkRouter} from 'react-router-dom'
 
 import {Element , animateScroll as scroll} from 'react-scroll'
 
-import {setCurrentProduct, savePrevY, setAppHeight} from '../actions'
+import {setCurrentProduct, savePrevY} from '../actions'
 
 import Card from 'react-bootstrap/Card'
 import CardDeck from 'react-bootstrap/CardDeck'
