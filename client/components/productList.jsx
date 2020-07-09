@@ -119,4 +119,4 @@ function mapStateToProps(state){
   }
 }
 
-export default connect(mapStateToProps, {setCurrentProduct, savePrevY, setAppHeight})(ProductList)
+export default connect(mapStateToProps, {setCurrentProduct, savePrevY})(ProductList)
