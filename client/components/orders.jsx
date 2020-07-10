@@ -1,25 +1,18 @@
-import React,{useEffect, useState} from 'react'
+import React,{useEffect} from 'react'
 import {connect} from 'react-redux'
-import {Link, useHistory, withRouter} from 'react-router-dom'
+import {Link, withRouter} from 'react-router-dom'
 
-import Button from 'react-bootstrap/Button'
-import Table from 'react-bootstrap/Table'
-import Collapse from 'react-bootstrap/Collapse'
-import ListGroup from 'react-bootstrap/ListGroup'
-
-import './styles/orders_style.css'
 import {getOrders} from '../actions'
 
+import './styles/orders_style.css'
 import MultiCollapse from './multiCollapse'
+import Table from 'react-bootstrap/Table'
+import ListGroup from 'react-bootstrap/ListGroup'
 
 function Orders (props) {
-
   useEffect(()=>{
     props.getOrders(localStorage.getItem('user_uuid'))
   }, [])
-
-  // const [open, setOpen] = useState(false)
-  const [collapseState, setCollapseState] = useState(false)
 
   function generateRows(){
     if(!props.orders[0]){
@@ -43,8 +36,6 @@ function Orders (props) {
                   quantity: order.items[key]
                 })
               }
-              console.log('orders map, order: ', order)
-              console.log('orders map, prodDataAddedArr: ', prodDataAddedArr)
               let orderTotal = 0
               let shipCost
               switch(order.shipping_option){
@@ -63,10 +54,6 @@ function Orders (props) {
               return(
                 <div key={order.order_uuid} className="row col-12 justify-content-between align-items-center pb-1 flex-grow-1">
                   <div className="order-date font-weight-bold">{order.order_date}</div>
-                  {/* <div className="font-weight-bold text-center">${orderTotal.toFixed(2) || '$0.00'}</div> */}
-                  
-                    {/* <Button size="sm" className="order-details-btn" onClick={()=>setCollapseState(!collapseState)} variant="outline-info">{open ? 'Close' : 'Order Details'}</Button> */}
-                   
                     <MultiCollapse order_date={order.order_date} order={order} prodDataAddedArr={prodDataAddedArr}>
                       <div className="p-0 m-0 col-12 border border-info">
                         <ListGroup variant="flush">
@@ -87,7 +74,6 @@ function Orders (props) {
                           <tbody>
                             {
                               prodDataAddedArr.map(orderProdWithData=>{
-                                console.log('orderpords compute total, price, quanitty: ', orderProdWithData.price, orderProdWithData.quantity)
                                 orderTotal += (parseInt(orderProdWithData.price) * parseInt(orderProdWithData.quantity))
                                 return(
                                   <React.Fragment key={order.order_uuid + orderProdWithData.product_uuid}>
@@ -132,18 +118,11 @@ function Orders (props) {
         <h3 className="orders-title mb-4 pt-3">Your Orders</h3>
         {generateRows()}
       </div>
-      
     </div>
-
-     
-
-      
   )
-
 }
 
 function mapStateToProps (state){
-  console.log('orders comp STATE: ', state)
   return {
     orders: state.orders,
     userData: state.userData,

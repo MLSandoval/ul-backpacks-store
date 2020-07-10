@@ -2,22 +2,13 @@ import React, { useEffect } from 'react'
 import {connect} from 'react-redux'
 import {Link, useHistory, withRouter} from 'react-router-dom'
 
+import {clearCart, setModalConfig} from '../actions'
+
 import Modal from 'react-bootstrap/Modal'
 import Button from 'react-bootstrap/Button'
 
-import './styles/thank_you_style.css'
-import {clearCart, setModalConfig} from '../actions'
-
 function ThankYou (props) {
-  let history = useHistory()
-  // console.log('thank you component history: ', history)
-
-  function autoRedirect(){
-    setTimeout(10000, ()=>{ props.history.push( '/'); props.clearCart(props.cart.cart_uuid)})
-  }
-
   useEffect(()=>{
-
     return ()=>{
       props.clearCart(props.cart.cart_uuid)
       props.setModalConfig({
@@ -28,8 +19,6 @@ function ThankYou (props) {
     }
   }, [])
 
-  // console.log('thankyou comp rendered props: ', props)
-  // autoRedirect()
   return(
       <Modal.Body>
         <div>Your order has been submitted.</div>
@@ -46,12 +35,10 @@ function ThankYou (props) {
 
 function mapStateToProps (state){
   return {
-    // submittedOrder: state.submittedOrder
     totalOrderCost: state.totalOrderCost,
     checkoutFormData: state.checkoutFormData,
     cart: state.cart
   }
-
 }
 
 export default withRouter(connect(mapStateToProps, {clearCart, setModalConfig})(ThankYou))

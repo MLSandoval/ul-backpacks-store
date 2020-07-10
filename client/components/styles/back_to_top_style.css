@@ -1,20 +1,6 @@
-/* .back-to-top-button{
-  background-color: rgba(0, 0, 0, 0.575);
-  color: rgba(212, 211, 211, 0.836);
-  opacity: .5;
-  height:2rem;
-  width:2rem;
-  position: sticky;
-  top: 95%;
-  left: 95%;
-} */
-.hide-until-scroll{
-  /* display:none; */
-}
 .active{
   display: inline-block;
 }
-
 .back-to-top-button {
   position: fixed;
   bottom: 5rem;
@@ -29,7 +15,6 @@
 .opacity-hover:hover{
   opacity: 1 !important;
 }
-
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -38,28 +23,9 @@
     opacity: 1;
   }
 }
-
 @media (orientation: landscape) and (max-height: 400px){
   .back-to-top-button{
     bottom: 4rem;
     right: 2rem;
   }
 }
-
-
-@media (min-width: 576px) {  
-
-}
- 
-@media (min-width: 768px) {  
-  
-}
- 
-@media (min-width: 992px) { 
-
-}
- 
-@media (min-width: 1200px) {  
-
-}
-  

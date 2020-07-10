@@ -1,128 +1,60 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { Switch, Route, Link as LinkRouter } from 'react-router-dom'
+import {Link as LinkRouter } from 'react-router-dom'
 
-import { Link, Element , Events, animateScroll as scroll, scrollSpy, scroller } from 'react-scroll'
-
-import Button from 'react-bootstrap/Button'
-
-import FadeInSection from './fade_in_section.jsx'
 import './styles/landing_style.css'
 
 class Landing extends React.Component {
-
-  scrollToTop() {
-    // scroll.scrollTop.duration = 0;
-    scroll.scrollToTop()
-  }
-
-  scrollToCustom(targetName) {
-    scroller.scrollTo(`${targetName}`, {
-      duration: 0,
-      delay: 0
-    })
-  }
-
   componentDidMount(){
     window.scrollTo(0, 0)
   }
-  
+
   render(){
     return (
-      
-        <div className="landing-top">
-          {/* <div className="row body-bg"> */}
-          
-            <div className="bg bg-1 col-12 push-over">
-              <div className="black-line-top"></div>
-              <div className="landing-center">
-                <FadeInSection className='landing-center'>
-                  <div className="lead text  text1 text-1 col-12 radius">
-                    At UltraLite, we know our customers aren't just outdoor enthusiasts: they're fanatics.
-                    Leaving cell reception range, waking up covered in the morning dew, ascending the peak as the day's sun sets, and gazing up through our galaxy at night drive their need for adventure.
-                    However, at UltraLite we also know that a few ounces can make the difference when reaching the final crest.
-                    
-                  </div>
-                  <Button>Shop Now</Button>
-                    Let us help you get there.
-                </FadeInSection>
-              </div>
-              <div className="black-line-bottom"></div>
-            </div>
-            
-            
-            
-            <div className="bg bg-2 col-12 push-over">
-              <div className="black-line-top"></div>
-              <div className="landing-center">
-                <FadeInSection className='landing-center'>
-                  <div className="lead text  text1 text-1 col-12 radius">
-                    Text-1 Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                    sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                    Morbi quis commodo odio aenean sed adipiscing. Arcu dui vivamus
-                    arcu felis. Ut placerat orci nulla pellentesque dignissim enim sit
-                    amet venenatis. Euismod elementum nisi quis eleifend quam
-                    adipiscing vitae proin sagittis. Maecenas ultricies mi eget mauris
-                    pharetra et. Gravida rutrum quisque non tellus orci. Suscipit
-                    adipiscing bibendum est ultricies integer quis auctor elit sed.
-                    Est sit amet facilisis magna etiam tempor orci eu. Lacus sed
-                    viverra tellus in hac habitasse platea dictumst vestibulum. Rutrum
-                    tellus pellentesque eu tincidunt tortor aliquam. Porta nibh
-                    venenatis cras sed felis eget velit.
-                  </div>
-                </FadeInSection>
-              </div>
-              <div className="black-line-bottom"></div>
-            </div>
-            
-          <div className="bg bg-3 col-12 push-over">
-            <div className="black-line-top"></div>
-            <div className="landing-center">
-              <FadeInSection className='landing-center'>
-                <div className="lead text  text1 text-1 col-12 radius">
-                  Text-1 Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                  sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                  Morbi quis commodo odio aenean sed adipiscing. Arcu dui vivamus
-                  arcu felis. Ut placerat orci nulla pellentesque dignissim enim sit
-                  amet venenatis. Euismod elementum nisi quis eleifend quam
-                  adipiscing vitae proin sagittis. Maecenas ultricies mi eget mauris
-                  pharetra et. Gravida rutrum quisque non tellus orci. Suscipit
-                  adipiscing bibendum est ultricies integer quis auctor elit sed.
-                  Est sit amet facilisis magna etiam tempor orci eu. Lacus sed
-                  viverra tellus in hac habitasse platea dictumst vestibulum. Rutrum
-                  tellus pellentesque eu tincidunt tortor aliquam. Porta nibh
-                  venenatis cras sed felis eget velit.
-                </div>
-              </FadeInSection>
-            </div>
-            <div className="black-line-bottom"></div>
+      <div className="landing-top">
+        <div className="d-flex flex-wrap position-relative">
+          <img className="img-1" src="../../images/backgrounds/BP_landscape_9.jpg" alt=""/>
+          <div className="text col-12 d-flex align-items-center justify-content-around flex-column">
+            <h1>Dreaming of an adventure?</h1>
+            <div></div>
+            <div></div>
           </div>
-        {/* </div> */}
+            <div className=" text text-2 col-12 d-flex align-items-center justify-content-end flex-column">
+              <h1>Let our gear make it happen</h1>
+            </div>
+          <div className="col-12 hori-break"></div>
+          <div className="d-flex flex-column position-relative align-items-center">
+            <img className="img-2" src="../../images/gear_sets/gear_set_up_4.jpg" alt=""/>
+            <div className="on-top-image d-flex align-items-center justify-content-around flex-column">
+              <h3 className="shop-text  pb-2">Shop Now</h3>
+              <div className="container">
+                <div className="tile-container row justify-content-around flex-column">
+                  <LinkRouter className="col-12 mt-4 link-tile" to="/products">
+                    <h2 className="category-text">Backpacks</h2>
+                    <img className="tile-image" src="../../images/logos_icons/backpack_tile.jpg" alt=""/>
+                  </LinkRouter>
+                  <div className="col-12 mt-4">
+                    <h2 className="category-text">Tents</h2>
+                    <img className="tile-image" src="../../images/logos_icons/tent_tile.jpg" alt=""/>
+                  </div>
+                  <div className="col-12 mt-4">
+                    <h2 className="category-text">Sleeping Bags</h2>
+                    <img className="tile-image" src="../../images/logos_icons/sleepingbag_tile.jpg" alt=""/>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
-          
-      
-        
-      
     )
   }
 }
 
-
-
 function mapStateToProps(state) {
-  // console.log('LANDING state: ', state);
   return {
-    //this becomes a property inside of the props of this component
-    view: state.view,
-  };
+    appHeight: state.appHeight
+  }
 }
 
-function mapDispatchToProps(dispatch) {
-  return {
-    // onViewChangeClick: view => {
-    //   // dispatch(SET_VIEW(view));
-    // }
-  };
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(Landing);
+export default connect(mapStateToProps, null)(Landing)

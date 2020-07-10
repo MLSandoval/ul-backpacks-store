@@ -26,10 +26,8 @@
   position:relative;
 }
 .empty-cart{
-  /* position:relative; */
   top: 100;
   left:50;
-  /* transform: translate(-50%,-50%); */
   color: rgba(150, 148, 148, 0.432);
   z-index: 1001;
 }
