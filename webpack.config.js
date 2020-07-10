@@ -1,6 +1,8 @@
-const path = require('path');
-const srcPath = path.resolve(__dirname, 'client');
-const publicPath = path.resolve(__dirname, 'server/public/');
+const path = require('path')
+const srcPath = path.resolve(__dirname, 'client')
+const publicPath = path.resolve(__dirname, 'server/public/')
+
+const CompressionPlugin = require('compression-webpack-plugin')
 
 module.exports = {
   resolve: {
@@ -12,6 +14,7 @@ module.exports = {
     filename: 'main.js',
     publicPath: '/'
   },
+  plugins: [new CompressionPlugin()],
   module: {
     rules: [
       {
@@ -26,16 +29,15 @@ module.exports = {
       },
       {
         test: /\.css$/,
-        use: ["style-loader", "css-loader", "postcss-loader"]
+        use: [
+          "style-loader",
+          "css-loader",
+        ]
       },
       {
         test: /\.(png|svg|jpg|gif|webp|jpeg|ico)$/,
         use: ["url-loader"]
       },
-      // {
-      //   test: /\.(png|svg|jpg|gif|webp|jpeg)$/,
-      //   use: ["file-loader"]
-      // }
     ],
   },
   devtool: "source-map",
@@ -50,4 +52,4 @@ module.exports = {
     },
     historyApiFallback: true
   }
-};
+}

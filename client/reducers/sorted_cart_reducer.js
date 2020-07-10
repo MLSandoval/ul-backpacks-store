@@ -19,6 +19,6 @@ export default function sortedCartReducer(state = DEFAULT_STATE, action) {
         return element
       })
     default:
-        return state
+      return state
   }
 }

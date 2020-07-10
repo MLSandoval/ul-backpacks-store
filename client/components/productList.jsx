@@ -1,14 +1,14 @@
 import React from 'react'
 import { connect } from "react-redux"
-import {Route, Link as LinkRouter, withRouter} from 'react-router-dom'
+import {Link as LinkRouter} from 'react-router-dom'
 
-import * as Scroll from 'react-scroll'
-import { Link, Element , Events, animateScroll as scroll, scrollSpy, scroller } from 'react-scroll'
+import {Element , animateScroll as scroll} from 'react-scroll'
 
-import {getProductList, setCurrentProduct, savePrevY} from '../actions'
-import types from '../actions/types'
+import {setCurrentProduct, savePrevY} from '../actions'
+
 import Card from 'react-bootstrap/Card'
 import CardDeck from 'react-bootstrap/CardDeck'
+import ListGroup from 'react-bootstrap/ListGroup'
 
 import BackToTopButton from './back_to_top_button.jsx'
 import FadeInSection from './fade_in_section.jsx'
@@ -20,115 +20,73 @@ import "./styles/products_list_style.css"
 class ProductList extends React.Component {
   constructor(props){
     super(props)
-    this.levityRef = React.createRef();
-  }
-
-  scrollToTop() {
-    scroll.scrollTop.duration = 0;
-    scroll.scrollToTop();
-  }
-  scrollToCustom(targetName) {
-    scroller.scrollTo(`${targetName}`, {
-      duration: 300,
-      delay: 0,
-      smooth:true,
-      // offset:-53
-    })
-  }
-
-  scrollToWithContainer(targetInApp) {
-    let goToContainer = new Promise((resolve, reject) => {
-      Events.scrollEvent.register('end', () => {
-        resolve();
-        Events.scrollEvent.remove('end');
-      })
-      scroller.scrollTo('card-deck', {
-        duration: 300,
-        delay: 0,
-        smooth: 'easeInOutQuart'
-      })
-    })
-
-    goToContainer.then(() =>
-      scroller.scrollTo(targetInApp, {
-        duration: 300,
-        delay: 0,
-        smooth: 'easeInOutQuart',
-        containerId: 'card-deck'
-      }))
-  }
-
-  componentDidMount() {
-    console.log('product list props: ', this.props)
-    
-
-      // this.scrollToCustom('top-list')
-    scroll.scrollToTop({
-      duration: 0,
-      // offset: '3.5rem'
-    })
-    console.log('pre if statement product_uuid, scrolled to header then 3.5rem: ')
-    if(this.props.currentProduct.hasOwnProperty('product_uuid')){
-      
-      // scroll.scrollTo(this.props.prevY)
-        scroll.scrollTo(this.props.prevY)
-      
-      // this.scrollToCustom(this.props.prevY)
-      
+    this.state = {
+      visibility: false
     }
-    console.log('current product uuid flag found, scrolled to header then 3.5rem, this.props.currentProduct.product_uuid: ', this.props.currentProduct.name , this.props.currentProduct.product_uuid)
-    // if(!this.levityRef.current) console.log('component didmount this.levityRef.current.getBoundingClientRect(): ', this.levityRef.current.getBoundingClientRect())
+    this.scrollFn = this.handleVisibilityChange.bind(this)
+  }
+
+  handleVisibilityChange(){
+    if(window.pageYOffset > 35){
+      this.setState({visibility: true})
+    }else{
+      this.setState({visibility: false})
+    }
+  }
+  
+  componentDidMount() {
+    scroll.scrollToTop({
+      duration: 0
+    })
+    if(this.props.currentProduct.hasOwnProperty('product_uuid')){
+        scroll.scrollTo(this.props.prevY)
+    }
+    document.addEventListener('scroll', this.scrollFn)
   }
 
   componentWillUnmount(){
-    
-    console.log('product list unmount, window.scrollY: ', typeof window.scrollY)
     this.props.savePrevY(window.scrollY)
-    console.log('product list unmount, this.props.prevY: ', this.props.prevY)
+    document.removeEventListener('scroll', this.scrollFn)
   }
-
-  // componentDidUpdate(){
-  //   console.log('component Didupdate this.levityRef.current.getBoundingClientRect()', this.levityRef.current.getBoundingClientRect())
-  // }
  
   generateProductList () {
     if (typeof this.props.products === 'string') {
       return (
-      <h1>{this.props.products}</h1>
+        <h1 className="text-white pt-5">
+          {this.props.products}
+        </h1>
       )
     }else if(typeof this.props.products === 'object'){
-      const attributeSwitch = {
-        ref: this.levityRef
-      }
       return (
         this.props.products.map(element => {
           let imgURL = element.image_urls[0]
           return (
             <LinkRouter
-              className={`col-12 col-sm-6 col-md-4 col-lg-3 p-1 remove-a-tag-style d-flex }`}
+              className={`col-12 col-sm-6  p-1 remove-a-tag-style d-flex pt-3}`}
               key={element.product_uuid} 
               to={`/details/${element.product_uuid}`}
               data-uuid={element.product_uuid}
               name={element.product_uuid}
               onClick={ e =>{ this.props.setCurrentProduct(element) }}
             >
-               <FadeInSection className="d-flex">
-              <Card {...attributeSwitch} >
-                {/* <Card.Header className="bg-dark">{element.name}</Card.Header> */}
-                <Card.Img className="img-fluid img-size-restrict" variant="top" src={imgURL} />
-                <Card.Body>
-                  <Card.Title>{element.name}</Card.Title>
-                  <Card.Text className="text-sm-left">
-                    {element.short_description}
+               <FadeInSection classesPassed="w-100">
+              <Card className="rounded-0 align-items-center flex-lg-row w-100">
+                <Card.Img className="img-fluid img-size-restrict pt-3" variant="top" src={imgURL} />
+                <Card.Body className="ml-3">
+                  <Card.Title className="card-padding-left">{element.name}
+                    <div className="title-brand">by {element.brand}</div>
+                  </Card.Title>
+                  <Card.Text as="div"> 
+                    <ListGroup variant="flush">
+                      <ListGroup.Item className="list-group-text">{element.material}</ListGroup.Item>
+                      <ListGroup.Item className="list-group-text">{parseInt(element.weight_ounces).toFixed(1)} oz</ListGroup.Item>
+                      <ListGroup.Item className="list-group-text">${element.price}</ListGroup.Item>
+                    </ListGroup>
                   </Card.Text>
                 </Card.Body>
-                <Card.Footer>
-                  <small className="text-muted">by {element.brand}</small>
-                </Card.Footer>
               </Card>
               </FadeInSection>
             </LinkRouter>
-            
           )
         })
       )
@@ -137,59 +95,23 @@ class ProductList extends React.Component {
 
   render(){
     return (
-      <Element  className="product-list-main container mt-3 mb-3 flex-grow-1" name="top-listo" 
-      // containerId="top-list"
-      >
-        {/* <div style={{height: '3.5rem'}}></div> */}
-        <h1 className="" name="top">Products list</h1>
-          <CardDeck 
-            // as={CardDeck} 
-            className="" 
-            id="card-deck"
-          >
+      <Element  className="product-list-main container-fluid flex-grow-1" name="top-listo">
+        <div className="opacity-layer flex-grow-1"></div>
+        <div className="row ml-2 mr-2 justify-content-around">
+        <h3 className="products-title pt-3" name="top">Products list</h3>
+          <CardDeck className="product-deck pt-3" id="card-deck">
             { this.generateProductList() } 
           </CardDeck>
-          <div className="to-top-pos">
-            <BackToTopButton/>
+          <div>
+            {this.state.visibility ? <BackToTopButton className="bring-to-front"/> : null}
           </div>
-          
+        </div>
       </Element>
     )
   }
 }
 
-// function mapDispatchToProps(dispatch) {
-//   return {
-//     onViewChangeClick: view => {
-//       dispatch(SET_VIEW(view));
-//     }
-//   };
-// }
-
-// // binds on component re-rendering
-// ; <button onClick={() => this.props.toggleTodo(this.props.todoId)} />
-
-// // binds on `props` change
-// const mapDispatchToProps = (dispatch, ownProps) => {
-//   toggleTodo: () => dispatch(toggleTodo(ownProps.todoId))
-// }
-
-//if dispatching an async function, must dispatch the function itself as the type property 
-//(return the function not an object) itself so thunk intercepts and runs before passing 
-//to the reducer
-//
-//must dispatch type.CORRESPONDING_TYPE when returning a synchronous action, because this will return
-//an object to the reducers, which is what they need to run
-function mapDispatchToProps (dispatch) {
-  return {
-    getProductList: () => {
-      dispatch(getProductList)
-    }
-  }
-}
-
 function mapStateToProps(state){
-  // console.log('PRODUCTLIST state: ', state);
   return {
     products: state.products,
     currentProduct: state.currentProduct,
@@ -197,5 +119,4 @@ function mapStateToProps(state){
   }
 }
 
-// export default connect(mapStateToProps, mapDispatchToProps)(ProductList);
 export default connect(mapStateToProps, {setCurrentProduct, savePrevY})(ProductList)

@@ -1,7 +1,27 @@
+.product-list-main{
+	background-image: linear-gradient(
+    rgba(0, 0, 0, 0.4),
+    rgba(0, 0, 0, 0.4)
+		),
+		url("../../images/page_bgs/forest5_bg.jpg");
+	background-position: center;
+	background-attachment: fixed;
+	background-size: cover;
+	background-repeat: no-repeat;
+}
+.opacity-layer{
+	height: auto;
+	width:100vw;
+	background-color: rgba(0, 0, 0, 0.541);
+	position: absolute;
+	top:0;
+	left: 0;
+}
+.products-title{
+	color: white;
+}
 .preview-image{
 	object-fit: cover;
-	/* max-height: 190.5px;
-	max-width: 190.5px; */
 	background-size: contain;
 	background-repeat: no-repeat; 
 }
@@ -11,21 +31,35 @@
 .remove-a-tag-style:hover{
 	text-decoration: none;
 }
-.to-top-pos{
-	position: sticky;
-	bottom: .5rem;
-	right: .5rem;
+.bring-to-front{
+  z-index: 25;
+}
+.card-padding-left{
+	padding-left: 1.25rem;
+}
+.title-brand{
+	font-size: .7rem;
+}
+.list-group-text{
+	font-size: .8rem;
+}
+.list-group-brand{
+	font-size: .8rem;
 }
 
-
-
-
-
-/* at large screen and up*/
-@media (min-width: 992px){
+/* when mobile is portrait */
+@media screen and (orientation:landscape) and (min-height: 321
+px){
 	.img-size-restrict{
-		max-height: 500px;
-		max-width: 300px;
+		max-height: 400px;
+		max-width: 180px;
+	}
+}
+
+@media screen and (orientation:landscape) and (max-height: 400px){
+	.img-size-restrict{
+		max-height: 400px;
+		max-width: 180px;
 	}
 }
 
@@ -37,12 +71,10 @@
 	}
 }
 
-/* at small screen and up*/
-@media (min-width: 576px){
+/* at large screen and up*/
+@media (min-width: 992px){
 	.img-size-restrict{
 		max-height: 500px;
 		max-width: 300px;
 	}
 }
-
-

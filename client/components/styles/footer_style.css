@@ -1,11 +1,7 @@
-/* .landing-footer{
-    height: 10vh;
-} */
-
-.footer-pos{
-    /* position:relative;
-    bottom:0; */
-    height:4rem;
-    
-    /* margin-top:-2.5rem; */
+sup{
+  font-size: .3rem;
+  top: -.5rem;
+}
+.footer-icon{
+  color: white;
 }

@@ -1,139 +1,75 @@
-import React, {createRef, useEffect} from 'react'
+import React from 'react'
 import { connect } from 'react-redux'
-import {Link as LinkRouter, Route} from 'react-router-dom'
-
-import { Link, Element , Events, animateScroll as scroll, scrollSpy, scroller } from 'react-scroll'
-
-
+import {Link as LinkRouter} from 'react-router-dom'
 
 import Modal from 'react-bootstrap/Modal'
 import Button from 'react-bootstrap/Button'
 import Table from 'react-bootstrap/Table'
-import Card from 'react-bootstrap/Card'
-import CardDeck from 'react-bootstrap/CardDeck'
-
 
 import './styles/continue_shopping_style.css'
 import {computeCartTotal} from '../actions'
 
 function ContinueShopping(props){
-
   function generateRows(){
-    // return ( props.cart.map(element => {
-    //   console.log('inside continueshopping comp, generate content map, props.cart=> element: ', element)
-    //   let imgURL = element.image_urls[0]
-    //   return (
-    //     <LinkRouter
-    //       className={`col-6 p-1 remove-a-tag-style d-flex }`}
-    //       key={element.product_uuid} 
-    //       to={`/details/${element.product_uuid}`}
-    //       data-uuid={element.product_uuid}
-    //       name={element.product_uuid}
-    //       // onClick={ e =>{ props.setCurrentProduct(element) }}
-    //     >
-    //       {/* <FadeInSection className="d-flex"> */}
-    //       <Card >
-    //         {/* <Card.Header className="bg-dark">{element.name}</Card.Header> */}
-    //         <Card.Img className="img-fluid img-size-restrict" variant="top" src={imgURL} />
-    //         <Card.Body>
-    //           <Card.Title>{element.name}</Card.Title>
-    //           <Card.Text className="text-sm-left">
-    //             {element.short_description}
-    //           </Card.Text>
-    //         </Card.Body>
-    //         <Card.Footer>
-    //           <small className="text-muted">by {element.brand}</small>
-    //         </Card.Footer>
-    //       </Card>
-    //       {/* </FadeInSection> */}
-    //      </LinkRouter>
-    //     )
-    //   })
-    // )
+    const products = [...props.products]
+    const cart = Object.entries(props.cart.cart_items)
+    const cartArr = [] 
+    cart.forEach(([product_uuid, quantity])=>{
+      cartArr.push({product_uuid, quantity: parseInt(quantity)})
+    })
     return( 
-      props.cart.map((element)=>{
+      cartArr.map((product)=>{
+        const element = products.filter(currentIteratedProduct => currentIteratedProduct.product_uuid === product.product_uuid)[0]
         return(
           <React.Fragment key={element.product_uuid}>
-            <tr>
-              <td>{element.name + ' '}
-                <sm>by {element.brand}</sm>
+            <tr key={element.product_uuid}>
+              <td className="text-center">{element.name + ' '}
+                <div className="small-text">by {element.brand}</div>
               </td>
-              <td></td>
-              <td>${element.price}</td>
+              <td className="text-center">{product.quantity}</td>
+              <td className="text-center">${(parseInt(element.price) * parseInt(product.quantity)).toFixed(2)}</td>
             </tr>
-            
           </React.Fragment>
-          
         )
       })
     )
   }
 
-  useEffect(()=>{
-    console.log('continueshopping props: ', props)
-    props.computeCartTotal(props.cart)
-  })
-
-  function computeItemCount(){
-    let total=0
-    props.cart.map((element)=>{
-      total += element.quantity
-    })
-    return total
-  }
-
+  let cartCount = Object.values(props.cart.cart_items)
   return(
-    <React.Fragment>
+    <React.Fragment key='modalcontentfrag'>
       <Modal.Body> 
         <div  className="d-flex container mt-3">
           <div className="col-9"></div>
-          <h6 className="col-3" name="top" style={{'white-space': 'nowrap'}}></h6>
+          <h6 className="col-3 no-wrap-white" name="top" ></h6>
         </div>
-        
-        <Table size="sm">
-          <thead>
+        <Table size="sm" key='cxaosiu'>
+          <thead key='asdfh'>
             <tr>
-              <th>{props.cart.length === 1 ? 'Item' : 'Items' }</th>
-              <th></th>
-              <th>Price</th>
+              <th className="text-center">{cartCount.length < 2 ? 'Item' : 'Items' }</th>
+              <th className="text-center">Quantity</th>
+              <th className="text-center">Price</th>
             </tr>
           </thead>
           <tbody>
             {generateRows()}
-            <tr>
-              <td style={{'white-space': 'nowrap'}}>Item Count: {computeItemCount()}</td>
-              <td className="d-flex justify-content-end" style={{'white-space': 'nowrap'}}>Cart Total:</td>
-              <td>${props.totalOrderCost.toFixed(2)}</td>
-            </tr>
-            
           </tbody>
         </Table>
+        <div className="w-100 d-flex">
+          <div className="col-7 col-md-8 "></div>
+          <div className="font-weight-bold no-wrap-white">Total: ${props.totalOrderCost.toFixed(2)}</div>
+        </div>
       </Modal.Body>
       <Modal.Footer className="d-flex">
-        <div className="col-8"></div>
-        <div className="button-container col-4 row justify-content-around">
-          <LinkRouter to="/cart" className="">
-            <Button
-              className="btn-sm"
-              variant="info"
-              type="button"
-              onClick={() => {
-                console.log('go to cart on click')
-                }
-              }
-            >
+        <div className="col-9"></div>
+        <div className="button-container col-3 row flex-column justify-content-around">
+          <LinkRouter to="/cart">
+            <Button className="btn-sm col-12 w-100 mb-1" variant="info" type="button">
               Go to Cart
             </Button>
           </LinkRouter>
           <LinkRouter to={`/products`}>
-            <Button
-              className="btn-sm"
-              variant="dark"
-              type="button"
-              // onClick={() =>
-              //   props.dispatch({ type: "FORM_SUBMIT", payload: { email, password } })
-              // }
-            >
+            <Button className="btn-sm col-12 w-100" variant="dark" type="button">
               Continue Shopping
             </Button>
           </LinkRouter> 
@@ -145,6 +81,7 @@ function ContinueShopping(props){
 
 function mapStateToProps(state){
   return {
+    products: state.products,
     totalOrderCost: state.totalOrderCost,
     currentProduct: state.currentProduct,
     cart: state.cart
@@ -152,4 +89,3 @@ function mapStateToProps(state){
 }
 
 export default connect(mapStateToProps, {computeCartTotal})(ContinueShopping)
-
