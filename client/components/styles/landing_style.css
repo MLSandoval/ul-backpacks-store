@@ -85,11 +85,11 @@
 
 @media screen and (orientation:landscape) and (min-height: 321px){
   .product-cards {
-      font-size: 3.9rem;
+    font-size: 3.9rem;
   }
   .card-image{
       height: 30px;
-      width: 30px;
+    width: 30px;
   }
   .tile-card{
     font-size:1rem;

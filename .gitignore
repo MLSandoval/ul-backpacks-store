@@ -2,6 +2,7 @@ node_modules
 .env
 ultralite-db-create.sql
 .DS_Store
+procfile
 
 main.js
 main.js.gz
