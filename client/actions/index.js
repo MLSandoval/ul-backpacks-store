@@ -1,15 +1,5 @@
 import types from './types.js'
 
-export function setAppHeight(setting){
-  console.log('appheightset action reached, setting: ', setting)
-  return function(dispatch){
-    dispatch({
-      type: types.APP_HEIGHT_SET,
-      payload: setting
-    })
-  }
-}
-
 export function getProductList () {
   return function (dispatch) {
     fetch('/api/get-products', {
@@ -55,7 +45,6 @@ export function setModalConfig(modalConfig){
   }
 }
 export function addItemToCart (cart, product) {
-  console.log('addItemTocart action, cart, product: ', cart, product)
   return function (dispatch) {
     fetch('/api/add-item-to-cart', {
       method:'PATCH',
@@ -75,7 +64,6 @@ export function addItemToCart (cart, product) {
     })
     .then(res => res.json())
     .then(data => {
-      console.log()
       dispatch({
         type: types.PRODUCT_ADDED_TO_CART,
         payload: data
@@ -239,13 +227,8 @@ export function createNewUser(email, name){
   }
 }
 
-export function updateUserData(email, first_name, last_name){
-
-}
-
 export function placeOrder (user_uuid, cart, formData){
   const {cart_uuid} = cart
-  console.log('placeOrder action, formData: ', formData)
   return function(dispatch){
     fetch('/api/place-order', {
       method: 'PUT',
@@ -260,9 +243,7 @@ export function placeOrder (user_uuid, cart, formData){
     })
     .then(res=>res.json())
     .then(data=>{
-      console.log(' placeOrder action data: ', data)
       const {order_uuid, user_uuid, items, order_date, card_number, ship_city, ship_street_address, ship_zip, ship_state} = data
-      
       dispatch({
         type: types.ORDER_PLACED,
         payload: {
@@ -317,7 +298,6 @@ export function getOrders(user_uuid){
     })
     .then(res=>res.json())
     .then(data=>{
-      console.log('getOrders action data: ', data)
       dispatch({
         type: types.ORDERS_RETRIEVED,
         payload: data

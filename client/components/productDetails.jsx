@@ -1,31 +1,25 @@
 import React from 'react'
 import { connect } from 'react-redux'
-
 import {Route, Link as LinkRouter} from 'react-router-dom'
 
-import * as Scroll from 'react-scroll'
-import { Link, Element , Events, animateScroll as scroll, scrollSpy, scroller } from 'react-scroll'
-
-import Carousel from 'react-bootstrap/Carousel'
-import Tabs from 'react-bootstrap/Tabs'
-import Tab from 'react-bootstrap/Tab'
-import Table from 'react-bootstrap/Table'
-
-import './styles/product_details_style.css'
+import {Element, scroller } from 'react-scroll'
 
 import {getProductList, addItemToCart, setCurrentProduct, setModalConfig, computeCartTotal, alterItemQuantity} from '../actions'
 
+import './styles/product_details_style.css'
 import BackToTopButton from './back_to_top_button.jsx'
 import ModalShell from './modal_shell.jsx'
+import Carousel from 'react-bootstrap/Carousel'
+import Tabs from 'react-bootstrap/Tabs'
+import Tab from 'react-bootstrap/Tab'
 
 class ProductDetails extends React.Component {
   constructor(props){
     super(props)
     this.state = {
-      tabKey: 'features', //or description
       visibility: false
     }
-    this.handleClick = this.handleClick.bind(this)
+    this.handleAddToCartClick = this.handleAddToCartClick.bind(this)
     this.scrollFn = this.handleVisibilityChange.bind(this)
   }
 
@@ -52,7 +46,7 @@ class ProductDetails extends React.Component {
     )
   }
 
-  handleClick(){
+  handleAddToCartClick(){
     const keysArr = Object.keys(this.props.cart.cart_items)
     if(keysArr.includes(this.props.currentProduct.product_uuid)){
       this.props.alterItemQuantity(this.props.cart.cart_uuid, this.props.currentProduct.product_uuid, 'increment')
@@ -63,14 +57,12 @@ class ProductDetails extends React.Component {
   }
   
   handleFeaturesTabClick(){
-    console.log('handleFeaturesTabClick called')
     setTimeout(document.querySelector('.tab-text-2').scrollIntoView({inline: 'center', block: 'center', behavior: 'smooth'}), 1000)
   }
 
   componentDidMount(){
     window.scrollTo(0,0)
     document.addEventListener('scroll', this.scrollFn)
-
   }
 
   componentWillUnmount(){
@@ -88,57 +80,25 @@ class ProductDetails extends React.Component {
                 product.image_urls.map( (element, index) => {
                   return(
                     <Carousel.Item key={index} className="">
-                    <img
-                      className="d-block w-100 h-100 carousel-image"
-                      src={'../' + element}
-                      alt="First slide"
-                    />
-                    <Carousel.Caption>
-                      <p></p>
-                    </Carousel.Caption>
+                    <img className="d-block w-100 h-100 carousel-image" src={'../' + element} alt="First slide"/>
                   </Carousel.Item>
                   )
                 })
               }
             </Carousel>
           </div>
-          <div className="col-sm-12 col-md-6 d-flex flex-column flex-grow-1 justify-content-between">
-            <div className=''>
-              <h2 className="">{product.name}</h2>
-              <h6>by {product.brand}</h6>
-              <div className="align-self-center">{product.short_description}</div>
+          <div className="col-sm-12 col-md-6 d-flex flex-column flex-grow-1 justify-content-between align-items-center">
+            <div className="d-flex flex-column">
+              <h1 className="mb-0 col-12">{product.name}</h1>
+              <div className="brand-font-size col-12">by {product.brand}</div>
+              <div className="rem-1-font-size mt-4 col-12"><span className="mr-3">{parseInt(product.size_liters).toFixed(0)} L</span> •	<span className="ml-3">{parseInt(product.weight_ounces).toFixed(1)} oz</span></div>
+              <div className="short-description mt-4 col-12">{product.short_description}</div>
             </div>
-            <Table className="flat no-border" hover>
-              <thead>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>Price</td>
-                  <td>${product.price}</td>
-                </tr>
-                <tr>
-                  <td>Weight</td>
-                  <td>{parseInt(product.weight_ounces).toFixed(1)} Oz</td>
-                </tr>
-                <tr>
-                  <td>Material</td>
-                  <td>{product.material}</td>
-                </tr>
-                <tr>
-                  <td>Size</td>
-                  <td>{parseInt(product.size_liters).toFixed(0)}L</td>
-                </tr>
-                <tr>
-                  <td className="" colSpan="2">
-                    <LinkRouter to={`${this.props.currentProduct.product_uuid}/modal/continue-shopping`} type="button" className="btn btn-secondary col-12" 
-                      onClick={this.handleClick}>Add To Cart</LinkRouter>
-                  </td>
-                </tr>
-              </tbody>
-            </Table>
           </div>
+          <LinkRouter to={`${this.props.currentProduct.product_uuid}/modal/continue-shopping`} type="button" className="btn btn-secondary col-7 add-to-cart-button mt-4 d-flex align-items-center justify-content-center" onClick={this.handleAddToCartClick}>
+              Add To Cart
+            </LinkRouter>
           <div className=" col-12 mb-3">
-            <br></br>
           </div>
         </div>
         <div>
@@ -148,13 +108,10 @@ class ProductDetails extends React.Component {
           onClick={
             ()=>{
               scroller.scrollTo('tab-scroll', {duration: 1000,
-                delay: 50,
+                delay: 0,
                 smooth: true,
                 offset: -60
               })
-
-                console.log('tab container clicked')
-              // scroll.scrollToBottom()
             }
           }
         >
@@ -172,16 +129,7 @@ class ProductDetails extends React.Component {
   }
 }
 
-function mapDispatchToProps(dispatch) {
-  return {
-    addItemToCart: () => {
-      dispatch(addItemToCart)
-    }
-  }
-}
-
 function mapStateToProps(state) {
-  // console.log('PRODUCTDETAILS state: ', state)
   return {
     products: state.products,
     currentProduct: state.currentProduct,

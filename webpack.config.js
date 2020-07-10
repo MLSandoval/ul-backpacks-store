@@ -2,6 +2,8 @@ const path = require('path')
 const srcPath = path.resolve(__dirname, 'client')
 const publicPath = path.resolve(__dirname, 'server/public/')
 
+const CompressionPlugin = require('compression-webpack-plugin')
+
 module.exports = {
   resolve: {
     extensions: [".js", ".jsx"]
@@ -12,6 +14,7 @@ module.exports = {
     filename: 'main.js',
     publicPath: '/'
   },
+  plugins: [new CompressionPlugin()],
   module: {
     rules: [
       {

@@ -1,8 +1,6 @@
 //load environmental variables from env file
 require('dotenv').config({path: 'backpack_shopping_cart/.env'})
 
-// console.log('process.env: ', process.env)
-
 const express = require('express')
 const app = express()
 
@@ -12,7 +10,6 @@ app.use(express.static(pubDirectory))
 app.use(express.json())
 
 const bodyParser = require('body-parser')
-//parse application/json
 app.use(bodyParser.json())
 
 const cors = require('cors')
@@ -22,10 +19,8 @@ app.use(cors())
 const db = require('./connection.js')
 
 db.connect( (err, client, release) => {
-  console.log('pool connect err: ', err)
-  // console.log('pool connect client: ', client)
-  // console.log('pool connect release: ', release)
   if (err) {
+    console.log('pool connect err: ', err)
     return console.error('Error acquiring client', err.stack)
   }
   client.query('SELECT NOW()', (err, result) => {
@@ -33,7 +28,7 @@ db.connect( (err, client, release) => {
     if (err) {
       return console.error('Error executing query', err.stack)
     }
-    console.log(result.rows)
+    console.log('PSQL SELECT NOW(): ', result.rows)
   })
 })
 
@@ -44,7 +39,6 @@ app.get('/*', (req, res, next) => {
 
 app.get('/api/get-products', (req, res, next)=>{
   const query = 'SELECT * FROM products;'
-
   db.query(query)
     .then(data=> {
       res.send(data.rows)
@@ -66,7 +60,6 @@ app.get('/api/get-user', (req, res, next)=>{
 
   db.query(queryObj)
     .then(data=>{
-      console.log('successful get user data query, data.rows: ', data.rows)
       const [user] = data.rows
       res.send(user)
     })
@@ -74,7 +67,7 @@ app.get('/api/get-user', (req, res, next)=>{
 })
 
 app.put('/api/create-user', (req, res, next)=>{
-  const queryObj = {
+  const query = {
     text: `
       WITH new_user AS (
         INSERT INTO users VALUES (uuid_generate_v4(), $1, $2) RETURNING user_uuid
@@ -82,14 +75,12 @@ app.put('/api/create-user', (req, res, next)=>{
       INSERT INTO cart 
         VALUES (uuid_generate_v4(), (SELECT user_uuid FROM new_user), hstore(''))
           RETURNING (SELECT user_uuid FROM new_user), cart.cart_uuid, cart.cart_items::json
-      `
-      ,
+    `,
     values: [null, null]
   }
 
-  db.query(queryObj)
+  db.query(query)
     .then(data=>{
-      console.log('create user query successful, data.rows: ', data.rows)
       const [newUser] = data.rows
       res.send(newUser)
     })
@@ -98,8 +89,6 @@ app.put('/api/create-user', (req, res, next)=>{
 
 app.patch('/api/add-item-to-cart', (req, res, next)=>{
   const {cart, product} = req.body
-  console.log('additemtocart endpoint, cart, product: ', cart, product)
-
   const query = {
     text: `
     UPDATE cart SET 
@@ -162,7 +151,6 @@ app.patch('/api/alter-quantity', (req, res, next)=>{
 
 app.patch('/api/remove-item', (req, res, next)=>{
   const {cart_uuid, product_uuid} = req.body
-  
   const query = {
     text: `
       UPDATE cart 
@@ -184,7 +172,6 @@ app.patch('/api/remove-item', (req, res, next)=>{
 
 app.put('/api/place-order', (req, res, next)=>{
   const {user_uuid, cart_uuid, formData} = req.body
-  console.log('place-order endpoint, req.body: ', req.body)
   let {
     email,
     shippingOption,
@@ -203,7 +190,6 @@ app.put('/api/place-order', (req, res, next)=>{
   } = formData
 
   cardNumber = cardNumber.replace(/ /g, '')
-  console.log('cardNumber with spaces rmeoved: ', cardNumber)
   billZip = parseInt(billZip)
   shipZip = parseInt(shipZip)
 
@@ -282,7 +268,6 @@ app.put('/api/place-order', (req, res, next)=>{
 
   db.query(query)
   .then(data=>{
-    console.log('successful order placed query, data.rows[0]: ', data.rows[0])
     data.rows[0].card_number = 'XXXX XXXX XXXX ' + data.rows[0].card_number.slice(-4)
     res.send(data.rows[0])
   })
@@ -291,7 +276,6 @@ app.put('/api/place-order', (req, res, next)=>{
 
 app.patch('/api/clear-cart', (req,res,next)=>{
   const {cart_uuid} = req.body
-
   const query = {
     text: `
       UPDATE cart 
@@ -303,7 +287,6 @@ app.patch('/api/clear-cart', (req,res,next)=>{
 
   db.query(query)
   .then(data=>{
-    console.log('successful clear cart query, data.rows: ', data.rows)
     res.send({message: 'Cart Cleared successfully'})
   })
   .catch(err=>console.error('Clear Cart Query Error: ', err))
@@ -311,7 +294,6 @@ app.patch('/api/clear-cart', (req,res,next)=>{
 
 app.get('/api/get-orders', (req, res, next)=>{
   const {user_uuid} = req.headers
-
   const query = {
     text: `
       SELECT 
@@ -334,7 +316,6 @@ app.get('/api/get-orders', (req, res, next)=>{
 
   db.query(query)
   .then((data)=>{
-    console.log('successful get orders query, data.rows: ', data.rows)
     data.rows.forEach((element)=>{
       element.card_number = 'XXXX XXXX XXXX ' + element.card_number.slice(-4)
     })
@@ -343,15 +324,7 @@ app.get('/api/get-orders', (req, res, next)=>{
   .catch(err=>{console.error('Get Orders Error: ', err)})
 })
 
-// app.get('/details/*', (req,res,next)=>{
-//   res.sendFile(`${pubDirectory}/index.html`, (err) => {
-//     if (err) {
-//       res.status(500).send(err)
-//     }
-//   })
-// })
-
-// fixes client side routing 'cannot get xxxxxxx' on refresh issue except when there is a 
+// fixes client side routing 'cannot get xxxxxxx' on refresh issue except when there is a url parameter
 app.get('/*', (req, res, next) => {
   res.sendFile(`${pubDirectory}/index.html`, (err) => {
     if (err) {

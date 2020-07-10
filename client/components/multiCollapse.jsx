@@ -1,16 +1,14 @@
-import React,{useEffect, useState} from 'react'
+import React, {useState} from 'react'
 import {connect} from 'react-redux'
 
+import './styles/orders_style.css'
 import Collapse from 'react-bootstrap/Collapse'
 import Button from 'react-bootstrap/Button'
-
-import './styles/orders_style.css'
 
 function MultiCollapse (props) {
   const {order_date} = props
 
   const [open, setOpen] = useState(false)
-  console.log('multicollapse props: ', props)
   return(
     <React.Fragment>
       <Button size="sm" className="col-2 order-details-btn" onClick={()=>setOpen(!open)} variant="outline-info">{open ? 'Close' : 'Details'}</Button>
@@ -20,7 +18,6 @@ function MultiCollapse (props) {
       </Collapse>
       <div className="horizontal-line mb-3 rounded-bottom"></div>
     </React.Fragment>
-    
   )
 }
 
