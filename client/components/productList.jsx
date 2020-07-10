@@ -76,7 +76,7 @@ class ProductList extends React.Component {
                   <Card.Title className="card-padding-left">{element.name}
                     <div className="title-brand">by {element.brand}</div>
                   </Card.Title>
-                  <Card.Text> 
+                  <Card.Text as="div"> 
                     <ListGroup variant="flush">
                       <ListGroup.Item className="list-group-text">{element.material}</ListGroup.Item>
                       <ListGroup.Item className="list-group-text">{parseInt(element.weight_ounces).toFixed(1)} oz</ListGroup.Item>
