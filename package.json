@@ -1,6 +1,9 @@
 {
   "name": "backpack_shopping_cart",
   "version": "1.0.0",
+  "engines": {
+    "node": "10.15.3"
+  },
   "description": "",
   "main": "index.js",
   "scripts": {
