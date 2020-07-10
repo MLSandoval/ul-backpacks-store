@@ -23,7 +23,7 @@ class Landing extends React.Component {
               <h1>Let our gear make it happen</h1>
             </div>
           <div className="col-12 hori-break"></div>
-          <div className="d-flex flex-column position-relative align-items -center">
+          <div className="d-flex flex-column position-relative align-items-center">
             <img className="img-2" src="../../images/gear_sets/gear_set_up_4.jpg" alt=""/>
             <div className="on-top-image d-flex align-items-center justify-content-around flex-column">
               <h3 className="shop-text  pb-2">Shop Now</h3>
