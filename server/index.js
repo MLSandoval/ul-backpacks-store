@@ -1,5 +1,5 @@
 //load environmental variables from env file
-// require('dotenv').config({path: 'backpack_shopping_cart/.env'})
+require('dotenv').config({path: 'backpack_shopping_cart/.env'})
 
 const express = require('express')
 const app = express()
@@ -15,7 +15,7 @@ app.use(bodyParser.json())
 const cors = require('cors')
 app.use(cors())
 
-//this db is an instance of Pool clas from PG
+//this db is an instance of Pool class from PG
 const db = require('./connection.js')
 
 db.connect( (err, client, release) => {
