@@ -1,5 +1,5 @@
 //load environmental variables from env file
-require('dotenv').config({path: 'backpack_shopping_cart/.env'})
+// require('dotenv').config({path: 'backpack_shopping_cart/.env'})
 
 const express = require('express')
 const app = express()
