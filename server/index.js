@@ -1,5 +1,6 @@
 //load environmental variables from env file
 require('dotenv').config({path: 'backpack_shopping_cart/.env'})
+console.log('PROCESS.ENV:::::: ', process.env)
 
 const express = require('express')
 const app = express()
