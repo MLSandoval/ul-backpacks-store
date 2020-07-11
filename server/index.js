@@ -333,7 +333,7 @@ app.get('/*', (req, res, next) => {
   })
 })
 
-app.listen(3003, () => {
-  console.log('Node server listening on port 3003.')
+app.listen(process.env.PORT || 3000, () => {
+  console.log('Node server listening on port 3000 or process.env.port')
   console.log('path.join(__dirname::: ', pubDirectory)
 })

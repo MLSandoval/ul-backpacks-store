@@ -43,7 +43,7 @@ module.exports = {
   devtool: "source-map",
   devServer: {
     host: "0.0.0.0",
-    port: 3002,
+    port: 3001,
     contentBase: publicPath,
     watchContentBase: true,
     stats: "minimal",
