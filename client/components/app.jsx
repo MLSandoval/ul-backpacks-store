@@ -61,6 +61,7 @@ class App extends React.Component {
 }
 
 function mapStateToProps(state){
+  console.log('app component state: ', state)
   return {
     products: state.products.products,
     currentProduct: state.currentProduct,
