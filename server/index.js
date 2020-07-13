@@ -1,6 +1,5 @@
 //load environmental variables from env file
-require('dotenv').config({path: 'backpack_shopping_cart/.env.dev'})
-// console.log('PROCESS.ENV:::::: ', process.env)
+// require('dotenv').config({path: 'backpack_shopping_cart/.env'})
 
 const express = require('express')
 const app = express()
@@ -335,6 +334,5 @@ app.get('/*', (req, res, next) => {
 })
 
 app.listen(process.env.PORT || 3000, () => {
-  console.log('Node server listening on port 3000 or process.env.port')
-  console.log('path.join(__dirname::: ', pubDirectory)
+  console.log(`Node server listening on port ${process.env.port || 3000}`)
 })
