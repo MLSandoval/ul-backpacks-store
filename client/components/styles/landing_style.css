@@ -120,7 +120,7 @@
     position:fixed;
     height: 100vh;
     width:100%;
-    object-fit: fill;
+    object-fit: none;
   }
   .text{
     color: white;
@@ -146,5 +146,24 @@
   .product-cards{
     padding-top: 18%;
     -webkit-text-fill-color: rgba(255, 255, 255, 0.315);
+  }
+}
+
+@media screen and (orientation:landscape) and (max-height: 700px) and (min-width: 1201px){
+  .img-2{
+    height: 137vh;
+  }
+}
+@media screen and (orientation:landscape) and (max-height: 500px) and (min-width: 1201px){
+  .img-2{
+    height: 149vh;
+  }
+}
+@media screen and (orientation:portrait) and (min-height: 1000px) and (max-width: 1200px){
+  .img-1{
+    object-fit: fill;
+  }
+  .img-2{
+    height: 78vh;
   }
 }

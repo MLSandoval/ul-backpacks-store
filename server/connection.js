@@ -1,7 +1,12 @@
-const {PGUSER, PGHOST, PGPORT} = process.env
+const {PGUSER, PGHOST, PGPORT, PGDATABASE, PGPASSWORD} = process.env
 const pg = require('pg')
+const env = process.env.NODE_ENV || 'development'
 
-if (process.env.NODE_ENV === 'development')
-  console.log(`Connecting to ${PGUSER} @ ${PGHOST}:${PGPORT}`)
-  
-module.exports = new pg.Pool()
+let connectionConfig = {}
+
+if(env !== 'development'){
+  connectionConfig.connectionString = process.env.DATABASE_URL
+  connectionConfig.ssl= { rejectUnauthorized: false }
+}
+
+module.exports = new pg.Pool(connectionConfig)

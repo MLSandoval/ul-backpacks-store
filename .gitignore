@@ -3,6 +3,7 @@ node_modules
 ultralite-db-create.sql
 .DS_Store
 procfile
+ul-db-dump.sql
 main.js
 main.js.gz
 main.js.map
