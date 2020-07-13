@@ -37,9 +37,7 @@ class Header extends React.Component {
   }
 
   render(){
-    console.log('header props on rerender: ', this.props)
     return (
-      
       <Navbar bg="light" sticky="top" expand="md" className="flex-shrink-1 header-settings" name="header" collapseOnSelect={true}>
         <Nav.Link as={LinkRouter} className="btn navbar-brand" to="/">
           <div className="row align-items-center">
