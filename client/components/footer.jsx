@@ -9,7 +9,7 @@ export default function Footer (props){
   return (
     <Element name="footer">
       <Navbar className="justify-content-end" bg="light" variant="light">
-        <Navbar.Brand href="#home">
+        <Navbar.Brand>
           <img
             alt=""
             src="../images/logos_icons/backpack_icon.png"

@@ -36,6 +36,7 @@
   height: 110vh;
   width: 100%;
   object-fit: none;
+  overflow:hidden;
 }
 .on-top-image{
   position:absolute;
